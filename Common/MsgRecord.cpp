@@ -56,10 +56,20 @@ int32_t MsgRecord::Init(int32_t tag, uint32_t len)
 
 int32_t MsgRecord::Encode(void *src, uint32_t sz)
 {
-    return Coder::encode(m_pRecord, sizeof(Record), src, sz);
+    return Coder::encode(m_pRecord, m_RecordSize, src, sz);
 }
 
 int32_t MsgRecord::Decode(void *src, uint32_t sz)
 {
-    return Coder::decode(src, sz, m_pRecord, sizeof(Record));
+    return Coder::decode(src, sz, m_pRecord, m_RecordSize);
+}
+
+int32_t MsgRecord::Encode()
+{
+    return Coder::encode(m_pRecord, m_RecordSize, m_pRecord->m_data, m_RecordSize);
+}
+
+int32_t MsgRecord::Decode()
+{
+    return this->Decode(m_pRecord->m_data, m_RecordSize);
 }

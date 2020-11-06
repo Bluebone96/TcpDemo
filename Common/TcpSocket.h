@@ -23,7 +23,7 @@ do { \
 
 class TcpSocket {
 public:
-    TcpSocket() {} ;
+    TcpSocket(uint32_t size = SOCKETBUFLEN);
     ~TcpSocket() { free(m_pdatabuf); };
 
     TcpSocket(const TcpSocket&) =delete;
@@ -47,16 +47,16 @@ private:
     int32_t recvdata(void* usrbuf, uint32_t size);
 
 protected:
-    typedef struct sockbuf {
-        int32_t fd;
-        uint32_t size;
+    struct SockBuf {
         uint32_t head;
         uint32_t tail;
         char buffer[0];
-    } *psockbuf;
+    };
 
+    int32_t m_socketfd;
+    int32_t m_bufsize;
     struct sockaddr_in m_sockaddr;
-    psockbuf m_pdatabuf;
+    SockBuf* m_pdatabuf;
 };
 
 #endif

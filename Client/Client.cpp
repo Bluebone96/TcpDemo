@@ -38,7 +38,7 @@ int32_t Client::Init(const char* hostname, int16_t port)
 
 int32_t Client::GOGOGO()
 {
-    for (;;) {
+    for (int k = 0; k < 10; ++k) {
         int32_t fn = m_epoll.Wait();
         for (int32_t i = 0; i < fn; ++i) {
             struct epoll_event *pevent = m_epoll.GetEvent(i);
@@ -61,6 +61,7 @@ int32_t Client::GOGOGO()
 
 int32_t Client::SendMsg()
 {
+    std::cout << "massage(enter send): ";
     std::string msg;
     std::cin >> msg;
     m_data.set_data(msg);
@@ -70,6 +71,7 @@ int32_t Client::SendMsg()
 
 int32_t Client::RcvMsg()
 {
+    
     m_MsgTrans.recvmsg(m_data);
     std::cout << "=====================================" << std::endl;
     char paddr[INET_ADDRSTRLEN] = {0};

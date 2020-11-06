@@ -53,6 +53,7 @@ int32_t Server::RecvMsg()
             sockaddr_in addr;
             socklen_t len = sizeof(sockaddr_in);
             int32_t acceptfd = m_MsgTrans.Accept(listenfd, &addr, &len);
+
             if (acceptfd < 0) {
                 TRACERERRNO("Server::RecvMsg accept failed");
                 continue;
@@ -64,26 +65,36 @@ int32_t Server::RecvMsg()
             auto sptr = std::make_shared<TcpSocket>();
             sptr->Init(acceptfd);
             m_clients[acceptfd] = sptr;
-
+            
+            TRACER("smart pointer\n");
+            
             if (m_epoll.Add(acceptfd) < 0) {
                 TRACER("m_epoll add %d failed. %s:%d\n", acceptfd, __FILE__, __LINE__);
                 return -1;
             }
+            
+            TRACER("go next epoll_event\n");
+
         } else {
+            
+            TRACER("read message wait 2s\n");
+            sleep(2);
+            TRACER("gogogo\n");
+
             auto psock = m_clients[pEvent->data.fd];
-            char msg[MAXDATALEN];
-            uint16_t headlen = sizeof(MsgRecord);
-            MsgRecord head;
+            MsgRecord msg;
+
+            int32_t headlen = sizeof(Record);
             
-            psock->RecvData(msg, sizeof(Record));
+            psock->RecvData(msg.GetDateAddress(), headlen);
             
-            head.Decode(msg, headlen);
+            msg.Decode();
             
-            psock->RecvData(msg + headlen, head.GetSize());
+            psock->RecvData(msg.GetDateAddress() + headlen, msg.GetSize() - headlen);
 
 
             for(auto& pp : m_clients) {
-                pp.second->SendData(msg, sizeof(Record) + head.GetSize());
+                pp.second->SendData(msg.GetDateAddress(), msg.GetSize());
             }
         }
     }

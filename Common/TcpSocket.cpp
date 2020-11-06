@@ -4,38 +4,37 @@
 #include "TcpSocket.h"
 #include "log.h"
 
-int32_t TcpSocket::Init(int32_t fd, uint32_t size)
+TcpSocket::TcpSocket(uint32_t sz) : m_socketfd(-1), m_pdatabuf(nullptr)
 {
-    if ((m_pdatabuf == nullptr || m_pdatabuf->size != size) && fd >= 0) {
-        free(m_pdatabuf);
-        m_pdatabuf = (psockbuf)malloc(sizeof(sockbuf) + size);
-        if (m_pdatabuf == nullptr) {
-            TRACER("TcpSocket::Init failed. %s:%d", __FILE__, __LINE__);
-            return -1;
-        }
-        bzero(m_pdatabuf, sizeof(sockbuf) + size);
-        m_pdatabuf->size = size;
-        m_pdatabuf->fd = fd;
-        m_pdatabuf->head = 0;
-        m_pdatabuf->tail = 0;
-        return 0;
+    if (sz > SOCKETBUFLEN) {
+        sz = SOCKETBUFLEN;
     }
-    return -2;
+
+    m_bufsize = sizeof(SockBuf) + sz;
+    m_pdatabuf = (SockBuf*)malloc(m_bufsize);
+    bzero(m_pdatabuf, m_bufsize);
+
+}
+
+int32_t TcpSocket::Init(int32_t fd)
+{
+    m_socketfd = fd;
+    bzero(m_pdatabuf, m_bufsize);
 }
 
 int32_t TcpSocket::recvdata(void* usrbuf, uint32_t size)
 {
-    uint32_t head = m_pdatabuf->head;
-    uint32_t tail = m_pdatabuf->tail;
-    uint32_t nleft = size - tail;
+    int32_t head = m_pdatabuf->head;
+    int32_t tail = m_pdatabuf->tail;
+    uint32_t nleft = (size - tail, m_bufsize - sizeof(SockBuf));
     int32_t cnt = 0;
     while (nleft > 0) {
-        cnt = read(m_pdatabuf->fd, m_pdatabuf->buffer + tail, nleft);
+        cnt = read(m_socketfd, m_pdatabuf->buffer + tail, nleft);
         if (cnt < 0) {
             if (errno == EINTR || errno == EAGAIN) {
                 continue;
             } else {
-                TRACERERRNO("TcpSocket::recvdata read failed. fd = %d.", m_pdatabuf->fd);
+                TRACERERRNO("TcpSocket::recvdata read failed. fd = %d.", m_socketfd);
                 return -1;
             }
         } else if (cnt == 0) {
