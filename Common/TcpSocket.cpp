@@ -115,16 +115,18 @@ int32_t TcpSocket::SendData(void* usrbuf, uint32_t size)
 
 int32_t TcpSocket::OpenAsClient(const char* hostname, int16_t port)
 {
-    int clientfd;
+    int clientfd = -1;
     sockaddr_in serveraddr;
     bzero(&serveraddr, sizeof(serveraddr));
     serveraddr.sin_family = AF_INET;
     if (inet_pton(AF_INET, hostname, &serveraddr.sin_addr) < 0) {
         TRACER("inet_pton failed addr = %s", hostname);
+        return -1;
     }
     serveraddr.sin_port = htons(port);
     if ((clientfd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
         TRACERERRNO("TcpSocket::OpenAsClient socket failed");
+        return -1;
     }
     socklen_t len = sizeof(m_sockaddr);
     if (getsockname(clientfd, (sockaddr*)&m_sockaddr, &len) < 0) {
@@ -132,11 +134,10 @@ int32_t TcpSocket::OpenAsClient(const char* hostname, int16_t port)
     }
 
     if (connect(clientfd, (sockaddr*)&serveraddr, sizeof(serveraddr)) < 0) {
-        TRACER("connect failed\n");
+        TRACER("connect failed test\n");
+        return -1;
     }
     
-    TRACER("connect sucess\n");
-
     return clientfd;
 }
 
@@ -175,15 +176,16 @@ int32_t TcpSocket::OpenAsServer(int16_t port, const char* hostname)
         return -1;
     }
 
-    SET_NON_BLOCK(listenfd);
+    // SET_NON_BLOCK(listenfd);
     return listenfd;
 }
 
 int32_t  TcpSocket::Accept(int32_t fd, sockaddr_in* ps, socklen_t* len)
 {
-    int32_t acceptfd = accept(fd, (sockaddr*)ps, len);
+    int32_t acceptfd = accept(fd, (struct sockaddr*)ps, len);
+    
     if (acceptfd <= 0) {
-        TRACERERRNO("accept client failed. %s:%d", inet_ntoa(ps->sin_addr), ps->sin_port);
+        TRACERERRNO("accept client failed.");
         return -1;
     }
 

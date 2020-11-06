@@ -30,7 +30,7 @@ int32_t Epoll::Init(int32_t size)
         return -1;
     }
 
-    m_epoll_fd = ::epoll_create1(EPOLL_CLOEXEC);
+    m_epoll_fd = ::epoll_create(EPOLL_CLOEXEC);
     if (m_epoll_fd < 0) {
         TRACER("EpollInit failed! : %s:%d", __FILE__, __LINE__);
         return -1;

@@ -7,17 +7,6 @@ int32_t MsgTrans::Init(uint32_t tag, int32_t fd, uint32_t size)
     return 0;
 }
 
-int32_t MsgTrans::OpenAsClient(const char* hostname, int16_t port) 
-{
-    return TcpSocket::OpenAsClient(hostname, port);
-}
-
-int32_t MsgTrans::OpenAsServer(const int16_t port, const char* hostname)
-{
-    return TcpSocket::OpenAsServer(port, hostname);
-}
-
-
 int32_t MsgTrans::sendmsg(Data& data)
 {
     size_t sz = sizeof(Record);

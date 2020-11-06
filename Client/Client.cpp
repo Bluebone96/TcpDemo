@@ -8,6 +8,9 @@ int32_t Client::Init(const char* hostname, int16_t port)
         TRACER("Client Init failed");
         return -1;
     }
+    
+    TRACER("connect sucess test fd = %d\n", fd);
+
     sockaddr_in* addr = (sockaddr_in*)m_MsgTrans.GetAddr();
 
     if (m_MsgTrans.Init(addr->sin_addr.s_addr, fd) < 0) {
@@ -52,6 +55,7 @@ int32_t Client::GOGOGO()
             }
         }
     }
+    return 0;
 }
 
 

@@ -30,7 +30,8 @@ int32_t Server::Init()
     if (m_epoll.Add(fd) < 0) {
         TRACER("epoll add %d failed", fd);
         return -1;
-    } 
+    }
+
     listenfd = fd;
     return 0;
 }
@@ -53,11 +54,12 @@ int32_t Server::RecvMsg()
             socklen_t len = sizeof(sockaddr_in);
             int32_t acceptfd = m_MsgTrans.Accept(listenfd, &addr, &len);
             if (acceptfd < 0) {
-                TRACERERRNO("accept failed");
+                TRACERERRNO("Server::RecvMsg accept failed");
                 continue;
             }
             
-            TRACER("new client connect: %d", acceptfd);
+            // TRACER("new client connect. fd:%d, clientaddr: %s:%d", acceptfd, inet_ntoa(addr.sin_addr), addr.sin_port);
+            TRACER("new client connect. fd:%d\n", acceptfd);
 
             auto sptr = std::make_shared<TcpSocket>();
             sptr->Init(acceptfd);
