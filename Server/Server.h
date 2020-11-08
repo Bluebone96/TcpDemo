@@ -1,7 +1,6 @@
 #include <memory>
 #include <unordered_map>
 #include "../Common/base.h"
-
 #include "../Common/Epoll.h"
 #include "../Common/log.h"
 #include "../Common/TcpSocket.h"
@@ -34,7 +33,7 @@ private:
     Epoll m_epoll;
     MsgTrans m_MsgTrans;
     Data m_data;
-    std::unordered_map<uint32_t, std::shared_ptr<TcpSocket>> m_clients;
+    std::unordered_map<uint32_t, TcpSocket*> m_clients;
 };
 
 #define SERVER Server::GetInstance()

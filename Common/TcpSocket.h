@@ -6,57 +6,65 @@
 #include "base.h"
 
 #define SOCKETBUFLEN 4096
-#define SET_NON_BLOCK(fd) \
-do { \
-    int flag = 0; \
-    flag = fcntl(fd, F_GETFL, 0); \
-    if (flag < 0) { \
-        return -1; \
-    } \
-    flag |= O_NONBLOCK; \
-    flag |= O_NDELAY; \
-    if (fcntl(fd, F_SETFL, flag) < 0) { \
-        return -1; \
-    } \
-    return 0; \
-} while(0)
+
 
 class TcpSocket {
 public:
-    TcpSocket(uint32_t size = SOCKETBUFLEN);
-    ~TcpSocket() { free(m_pdatabuf); };
+    explicit TcpSocket(int32_t fd = -1, uint32_t size = SOCKETBUFLEN);
+    ~TcpSocket() 
+    { 
+        free(m_pdatabuf); 
+        close(m_socketfd); // ? TcpSocket::SendData() 中是否调用close()
+    };
 
-    TcpSocket(const TcpSocket&) =delete;
+    TcpSocket(const TcpSocket&) = delete;
     TcpSocket& operator=(const TcpSocket&) = delete;
 
-    int32_t Init(int32_t fd = -1, uint32_t size = SOCKETBUFLEN);
+
+    void Init(int32_t fd = -1);
+
     int32_t OpenAsClient(const char* hostname, int16_t port);
+
     int32_t OpenAsServer(const int16_t port, const char* hostname= nullptr);
     
     int32_t TcpConnect(const char* host, const char* serv);
+
+    // 从缓冲区读size个字节的数据
+    // 成功返回0， 失败返回已接收的数据字节数
     int32_t RecvData(void* usrbuf, uint32_t size);
+
+    // 成功返回0， 失败返回剩余未发送字节
     int32_t SendData(void* usrbuf, uint32_t size);
 
     int32_t Accept(int32_t fd, sockaddr_in* ps, socklen_t* len); 
 
-    int32_t GetFd() { return m_pdatabuf->fd; }
+    int32_t GetSocketfd() { return m_socketfd; }
+
     const sockaddr* GetAddr() { return (sockaddr*)&m_sockaddr; }
+
     void SetAddr(struct sockaddr_in* sp) { memcpy(&m_sockaddr, sp, sizeof(sockaddr_in)); }
 
 private:
-    int32_t recvdata(void* usrbuf, uint32_t size);
+    // 从内核中读取数据到SockBuf缓冲区
+    // 复制min(tail - head, size)个字节到用户缓冲区
+    // 返回：成功 返回拷贝到用户缓冲区的字节数，EOF为0，出错返回-1
+    int32_t recvdatabuf(void* usrbuf, uint32_t size);
+
+    // 设置非阻塞模式
+    static  int32_t setnonblock(int32_t fd);
 
 protected:
-    struct SockBuf {
+    typedef struct SockBuf {
+        // 有效区间表示为左闭右开 [head, tail)
         uint32_t head;
         uint32_t tail;
         char buffer[0];
-    };
+    } *pSockBuf;
 
     int32_t m_socketfd;
-    int32_t m_bufsize;
+    int32_t m_bufsize; // m_pdatabuf->buffer 大小
     struct sockaddr_in m_sockaddr;
-    SockBuf* m_pdatabuf;
+    pSockBuf m_pdatabuf;
 };
 
 #endif

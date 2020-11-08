@@ -2,6 +2,8 @@
 #include "MsgRecord.h"
 #include "log.h"
 
+
+// src to dest
 int32_t 
 Coder::encode(void* dest, uint32_t destsz, void* src, uint32_t count) 
 {
@@ -23,6 +25,7 @@ Coder::encode(void* dest, uint32_t destsz, void* src, uint32_t count)
 
     return maxcoded;
 }
+
 
 int32_t
 Coder::decode(void* dest, uint32_t destsz, void* src, uint32_t count) 
@@ -46,9 +49,9 @@ Coder::decode(void* dest, uint32_t destsz, void* src, uint32_t count)
     return maxcoded;
 }
 
-int32_t MsgRecord::Init(int32_t tag, uint32_t len)
+int32_t MsgRecord::Init(int32_t tag, int32_t len)
 {
-    m_size = len;
+    memset(m_pRecord, 0, m_size + m_RecordSize);
     m_pRecord->m_tag = tag;
     m_pRecord->m_len = len;
     return 0;
@@ -56,17 +59,18 @@ int32_t MsgRecord::Init(int32_t tag, uint32_t len)
 
 int32_t MsgRecord::Encode(void *src, uint32_t sz)
 {
-    return Coder::encode(m_pRecord, m_RecordSize, src, sz);
+    return Coder::encode(src, sz, m_pRecord, m_RecordSize);
 }
 
 int32_t MsgRecord::Decode(void *src, uint32_t sz)
 {
-    return Coder::decode(src, sz, m_pRecord, m_RecordSize);
+    return Coder::decode(m_pRecord, m_RecordSize, src, sz);
 }
 
 int32_t MsgRecord::Encode()
-{
-    return Coder::encode(m_pRecord, m_RecordSize, m_pRecord->m_data, m_RecordSize);
+{   
+
+    return Coder::encode(m_pRecord->m_data, m_RecordSize, m_pRecord, m_RecordSize);
 }
 
 int32_t MsgRecord::Decode()

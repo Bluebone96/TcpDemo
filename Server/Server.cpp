@@ -33,6 +33,7 @@ int32_t Server::Init()
     }
 
     listenfd = fd;
+	TRACER ("server listen socketfd = %d\n", listenfd);
     return 0;
 }
 
@@ -49,6 +50,9 @@ int32_t Server::RecvMsg()
     int32_t fn = m_epoll.Wait();
     for (int32_t i = 0; i < fn; ++i) {
         struct epoll_event* pEvent = m_epoll.GetEvent(i);
+        
+        TRACER("fd = %d is readly\n", pEvent->data.fd);
+
         if (pEvent->data.fd == listenfd) {
             sockaddr_in addr;
             socklen_t len = sizeof(sockaddr_in);
@@ -62,11 +66,9 @@ int32_t Server::RecvMsg()
             // TRACER("new client connect. fd:%d, clientaddr: %s:%d", acceptfd, inet_ntoa(addr.sin_addr), addr.sin_port);
             TRACER("new client connect. fd:%d\n", acceptfd);
 
-            auto sptr = std::make_shared<TcpSocket>();
-            sptr->Init(acceptfd);
+            auto sptr = new TcpSocket(acceptfd);
+            // sptr->Init(acceptfd);
             m_clients[acceptfd] = sptr;
-            
-            TRACER("smart pointer\n");
             
             if (m_epoll.Add(acceptfd) < 0) {
                 TRACER("m_epoll add %d failed. %s:%d\n", acceptfd, __FILE__, __LINE__);
@@ -77,11 +79,31 @@ int32_t Server::RecvMsg()
 
         } else {
             
-            TRACER("read message wait 2s\n");
-            sleep(2);
-            TRACER("gogogo\n");
+            uint32_t event = pEvent->events;
+			int32_t fd = pEvent->data.fd;
+			
+            switch (event)
+            {
+            case EPOLLIN:
+                TRACER("Epoll event EPOLLIN fd = %d\n", fd);
+                break;
+            case EPOLLHUP:
+                TRACER("Epoll event epollhup fd = %d\n", fd);
+                break;
+            case EPOLLERR:
+                TRACER("Epoll event epollerr fd= %d\n", fd);
+				delete m_clients[fd];
+                break;
+            default:
+                TRACER("Epoll unknowen fd = %d\n", fd);
+                break;
+            }
 
-            auto psock = m_clients[pEvent->data.fd];
+            TRACER("sleep for debug 2s start\n");
+            sleep(2);
+            TRACER("sleep for debug 2s end\n");
+
+            auto psock = m_clients[fd];
             MsgRecord msg;
 
             int32_t headlen = sizeof(Record);
@@ -94,8 +116,11 @@ int32_t Server::RecvMsg()
 
 
             for(auto& pp : m_clients) {
+				TRACER("sendata to %d\n", pp.first);
                 pp.second->SendData(msg.GetDateAddress(), msg.GetSize());
             }
+
+			TRACER("all clients sended, go next loop.\n");
         }
     }
     return 0;

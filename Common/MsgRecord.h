@@ -17,18 +17,18 @@ struct Record {
 class MsgRecord {
 public:
     
-    explicit MsgRecord(int32_t sz = 0, Record* mp = nullptr) 
-        : m_size(sz),  m_RecordSize(sizeof(Record)), m_pRecord(mp)
+    explicit MsgRecord(uint32_t sz = MAXDATALEN) 
+        : m_RecordSize(sizeof(Record))
         {
-            if (nullptr == m_pRecord) {
-                m_pRecord = (Record*)malloc(MAXDATALEN + sizeof(Record));
-                bzero(m_pRecord, MAXDATALEN);
-            }
+            sz = sz < MAXDATALEN ? sz : MAXDATALEN;
+            m_pRecord = (Record*)malloc(sz + sizeof(Record));
+            bzero(m_pRecord, sz);
         }
 
     ~MsgRecord() { free(m_pRecord); }
 
-    int32_t Init(int32_t tag, uint32_t len = MAXDATALEN);
+    // 初始化 数据的tag, 和 数据的长度
+    int32_t Init(int32_t tag, int32_t len);
 
     uint32_t GetSize() { return m_pRecord->m_len; }
     uint32_t GetTag() { return m_pRecord->m_tag; }

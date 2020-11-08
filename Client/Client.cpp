@@ -38,12 +38,15 @@ int32_t Client::Init(const char* hostname, int16_t port)
 
 int32_t Client::GOGOGO()
 {
-    for (int k = 0; k < 10; ++k) {
+    for (;;) {
         int32_t fn = m_epoll.Wait();
+		
+	//	TRACER("client gogogo\n");
+
         for (int32_t i = 0; i < fn; ++i) {
             struct epoll_event *pevent = m_epoll.GetEvent(i);
             int32_t fd = pevent->data.fd;
-            
+            TRACER("fd = %d are readly\n", fd);
             switch (fd)
             {
             case 0:
@@ -59,12 +62,26 @@ int32_t Client::GOGOGO()
 }
 
 
+void Client::Test()
+{
+    std::cout << "client test start\n";
+    
+    for (int i = 0; i < 10; ++ i) {
+        SendMsg();
+        RcvMsg();
+    }
+    
+    std::cout << "client test end\n";
+}
+
+
 int32_t Client::SendMsg()
 {
-    std::cout << "massage(enter send): ";
-    std::string msg;
-    std::cin >> msg;
+    // std::cout << "massage(enter send): ";
+    std::string msg = "test massage aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaassssssssssssssssssssssbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb";
+    // std::cin >> msg;
     m_data.set_data(msg);
+    std::cout << "the data is " << m_data.data() << "size = " << m_data.ByteSizeLong() << "bytes\n";
     m_MsgTrans.sendmsg(m_data);
     return 0;
 }
@@ -81,4 +98,3 @@ int32_t Client::RcvMsg()
     std::cout << paddr << ": " << m_data.data() << std::endl;
     return 0;
 }
-

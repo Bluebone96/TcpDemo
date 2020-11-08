@@ -4,86 +4,104 @@
 #include "TcpSocket.h"
 #include "log.h"
 
-TcpSocket::TcpSocket(uint32_t sz) : m_socketfd(-1), m_pdatabuf(nullptr)
+TcpSocket::TcpSocket(int32_t fd, uint32_t sz) : m_socketfd(fd), m_pdatabuf(nullptr)
 {
     if (sz > SOCKETBUFLEN) {
         sz = SOCKETBUFLEN;
     }
 
-    m_bufsize = sizeof(SockBuf) + sz;
-    m_pdatabuf = (SockBuf*)malloc(m_bufsize);
-    bzero(m_pdatabuf, m_bufsize);
-
+    m_bufsize = sz;
+    m_pdatabuf = (pSockBuf)malloc(sizeof(SockBuf) + sz);
+    bzero(m_pdatabuf, sz + sizeof(SockBuf));
 }
 
-int32_t TcpSocket::Init(int32_t fd)
+void TcpSocket::Init(int32_t fd)
 {
     m_socketfd = fd;
     bzero(m_pdatabuf, m_bufsize);
 }
 
-int32_t TcpSocket::recvdata(void* usrbuf, uint32_t size)
+int32_t TcpSocket::recvdatabuf(void* usrbuf, uint32_t size)
 {
-    int32_t head = m_pdatabuf->head;
-    int32_t tail = m_pdatabuf->tail;
-    uint32_t nleft = (size - tail, m_bufsize - sizeof(SockBuf));
+    char* pbuf = m_pdatabuf->buffer + m_pdatabuf->tail;
+    int32_t nleft = m_bufsize - m_pdatabuf->tail;
     int32_t cnt = 0;
+    
+    TRACER("start recv data from %d to socketbuf\nsocket buf is %d left\n", m_socketfd, nleft);
+
+    // 每次直接尝试填充缓冲区
     while (nleft > 0) {
-        cnt = read(m_socketfd, m_pdatabuf->buffer + tail, nleft);
+        // m_socketfd是非阻塞的，当没数据时返回 EWOULDBLOCK（一般等于EAGAIN)
+        cnt = read(m_socketfd, pbuf, nleft);
         if (cnt < 0) {
-            if (errno == EINTR || errno == EAGAIN) {
-                continue;
+            if (errno == EINTR) {
+                continue;                       // 系统中断继续
+            } else if (errno == EAGAIN) {
+                TRACER("socketfd %d no data to read, cnt = %d\n", m_socketfd, cnt);
+                break;                          // 无数据退出循环
             } else {
-                TRACERERRNO("TcpSocket::recvdata read failed. fd = %d.", m_socketfd);
+                TRACERERRNO("TcpSocket::recvdatabuf read failed. fd = %d. %s:%d", m_socketfd, __POSITION__);
                 return -1;
             }
         } else if (cnt == 0) {
-            break;
+            break;                              // EOF shutdown() / close() ?
         }
 
-        tail += cnt;
+        pbuf += cnt;
         nleft -= cnt;
     };
     
-    uint32_t sn = tail - head;
+    uint32_t sn = m_pdatabuf->tail - m_pdatabuf->head;
+
+    TRACER("end recv data from %d, socketbufsize is %d\n", m_socketfd, sn);
+
+    // 当数据填充到buf尾部时，尝试移动数据到buf头部
     if (nleft <= 0) {
-        if (head == 0) {
-            TRACERERRNO("TcpSocket::recvdata sockbuf filled.");
+        if (m_pdatabuf->head == 0) {
+            TRACERERRNO("TcpSocket::recvdatabuf sockbuf filled.");
         } else {
-            memmove(m_pdatabuf->buffer, m_pdatabuf->buffer + head, sn);
+            memmove(m_pdatabuf->buffer, m_pdatabuf->buffer + m_pdatabuf->head, sn);
             m_pdatabuf->head = 0;
             m_pdatabuf->tail = sn;
         }
     }
 
-    sn = sn < size ? sn : size;
-    
+    // 从缓冲区拷贝数据
+    sn = MIN(sn, size);
     mempcpy(usrbuf, m_pdatabuf, sn);
     m_pdatabuf->head += sn;
+
+
     return sn;
 }
 
 int32_t TcpSocket::RecvData(void* usrbuf, uint32_t size)
 {
-    uint32_t nleft = size;
+    TRACER("star recv %d byte data from %d\n", size, m_socketfd);
+    
+    int32_t nleft = size;
     int32_t cnt;
     char* pbuf = (char*)usrbuf;
     while (nleft > 0) {
-        cnt = recvdata(pbuf, nleft);
+        cnt = recvdatabuf(pbuf, nleft);
         if (cnt < 0) {
-            if (errno == EINTR) {
+            if (errno == EINTR || errno == EAGAIN) {
                 continue;
             } else {
-                TRACERERRNO("TcpSocket::RecvData failed.");
+                TRACERERRNO("TcpSocket::RecvData failed. %s:%d", __POSITION__);
                 return -1;
             }
         } else if (cnt == 0) {
+            // recvdatabuf 当EAFAIN时返回零，这个和EOF相同了，之后再重新设计返回值，现在在这里判断下
+            if (errno == EAGAIN) {
+                continue;
+            }
             break;
         }
         nleft -= cnt;
         pbuf += cnt;
     }
-
+    TRACER("hade recved %d byte data from %d\n", size - nleft, m_socketfd);
     return size - nleft;
 }
 
@@ -91,23 +109,24 @@ int32_t TcpSocket::SendData(void* usrbuf, uint32_t size)
 {
     uint32_t nleft = size;
     int32_t nw = 0;
-    char* bufp = (char*)usrbuf;
-
+    char* pbuf = (char*)usrbuf;
+    TRACER("start to send data to %d\n", m_socketfd);
+    // 写入 size 字节的数据
     while (nleft > 0) {
-        if ((nw = write(GetFd(), usrbuf, nleft)) <= 0) {
+        if ((nw = write(m_socketfd, pbuf, nleft)) <= 0) {
             if (EINTR == errno || EAGAIN == errno) {
                 continue;
             } else {
                 TRACERERRNO("TcpSocket::SendData failed! %s:%d", __FILE__, __LINE__);
-                close(GetFd());
+                close(m_socketfd);
                 break;
             }
         }
 
-        bufp += nw;
+        pbuf += nw;
         nleft -= nw;
     }
-
+    TRACER("send %d byte data to %d end\n", size - nleft, m_socketfd);
     return nleft;
 }
 
@@ -117,12 +136,15 @@ int32_t TcpSocket::OpenAsClient(const char* hostname, int16_t port)
     int clientfd = -1;
     sockaddr_in serveraddr;
     bzero(&serveraddr, sizeof(serveraddr));
+
     serveraddr.sin_family = AF_INET;
     if (inet_pton(AF_INET, hostname, &serveraddr.sin_addr) < 0) {
         TRACER("inet_pton failed addr = %s", hostname);
         return -1;
     }
+    
     serveraddr.sin_port = htons(port);
+
     if ((clientfd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
         TRACERERRNO("TcpSocket::OpenAsClient socket failed");
         return -1;
@@ -137,6 +159,7 @@ int32_t TcpSocket::OpenAsClient(const char* hostname, int16_t port)
         return -1;
     }
     
+    m_socketfd = clientfd;
     return clientfd;
 }
 
@@ -175,7 +198,11 @@ int32_t TcpSocket::OpenAsServer(int16_t port, const char* hostname)
         return -1;
     }
 
-    // SET_NON_BLOCK(listenfd);
+    if (setnonblock(listenfd)) {
+        return -1;
+    }
+
+    m_socketfd = listenfd;
     return listenfd;
 }
 
@@ -188,16 +215,26 @@ int32_t  TcpSocket::Accept(int32_t fd, sockaddr_in* ps, socklen_t* len)
         return -1;
     }
 
-    int flags = 1;
-
-    if (ioctl(acceptfd, FIONBIO, &flags) && ((flags = fcntl(acceptfd, F_GETFL, 0)) < 0 || fcntl(acceptfd, F_SETFL, flags | O_NONBLOCK)))
-    {
-        TRACER("Set acceptfd socket O_NONBLOCK failed");
-        close(acceptfd);
+    if (setnonblock(acceptfd)) {
         return -1;
     }
 
     int on = 1;
     setsockopt(acceptfd, IPPROTO_TCP, TCP_NODELAY, (const void*)&on, sizeof(on));
+    
     return acceptfd;
+}
+
+int32_t TcpSocket::setnonblock(int32_t fd) 
+{
+    int mode = 1;  // 1 非阻塞， 0 阻塞
+    if (ioctl(fd, FIONBIO, &mode)) {
+        int flag;
+        if (((flag = fcntl(fd, F_GETFL, 0)) < 0)
+              && (fcntl(fd, F_SETFL, flag | O_NONBLOCK) < 0));
+            TRACER("set sock nonblock faild\n");
+            close(fd);
+            return -1;
+    }
+    return 0;
 }

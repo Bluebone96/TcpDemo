@@ -17,11 +17,15 @@ public:
     ~Client() {};
     int32_t Init(const char* hostname, int16_t port);
     int32_t GOGOGO();
+    
+    void Test();
+
     int32_t SendMsg();
     int32_t RcvMsg();
 
 
 private:
+    
     Client(){};
     MsgTrans m_MsgTrans;
     Data m_data;
