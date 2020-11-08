@@ -17,23 +17,23 @@ int main()
 
     char msg[20];
 
-//    client.RecvData(msg, 100);
-    std::cout << "read data\n";
-    int cnt;
-    while ((cnt = read(acceptfd, msg, 20)) <= 0) {
-        if (cnt < 0) {
-            if (EINTR == errno || EAGAIN == errno) {
-                continue;
-            } else {
-                printf("read  failed! %d:%s",errno, strerror(errno));
-                close(fd);
-                break;
-            }
-        } else if (cnt == 0) {
-            printf("EOF\n");
-            break;
-        }
-    }
+    client.RecvData(msg, 100); // BUG 
+    // std::cout << "read data\n";
+    // int cnt;
+    // while ((cnt = read(acceptfd, msg, 20)) <= 0) {
+    //     if (cnt < 0) {
+    //         if (EINTR == errno || EAGAIN == errno) {
+    //             continue;
+    //         } else {
+    //             printf("read  failed! %d:%s",errno, strerror(errno));
+    //             close(fd);
+    //             break;
+    //         }
+    //     } else if (cnt == 0) {
+    //         printf("EOF\n");
+    //         break;
+    //     }
+    // }
 
     std::cout <<"\nclient: " << msg << std::endl;
 }
