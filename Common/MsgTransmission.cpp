@@ -13,7 +13,7 @@ int32_t MsgTrans::sendmsg(Data& data)
     
     TRACER("sendmsg to fd %d\n", TcpSocket::GetSocketfd());
 
-    if (!data.SerializePartialToArray(m_pRecord->m_data + m_RecordSize, data.ByteSizeLong())) {
+    if (!data.SerializeToArray(m_pRecord->m_data + m_RecordSize, data.ByteSizeLong())) {
         TRACER("protobuf SerializePartialToArray failed.%s:%d", __FILE__, __LINE__);
     }
     // tag 值标记为 addr, len 为整个数据的长度

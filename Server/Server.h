@@ -33,7 +33,7 @@ private:
     Epoll m_epoll;
     MsgTrans m_MsgTrans;
     Data m_data;
-    std::unordered_map<uint32_t, TcpSocket*> m_clients;
+    std::unordered_map<uint32_t, MsgTrans*> m_clients;
 };
 
 #define SERVER Server::GetInstance()

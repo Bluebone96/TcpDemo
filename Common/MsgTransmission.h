@@ -8,6 +8,9 @@
 
 class MsgTrans : public TcpSocket, public MsgRecord {
 public:
+    MsgTrans(int32_t fd = -1, uint32_t sockbufsize = SOCKETBUFLEN, uint32_t recordbufsize = MAXDATALEN)
+         : TcpSocket(fd), MsgRecord(){}
+    ~MsgTrans() {}
     int32_t Init(uint32_t tag, int32_t fd, uint32_t size = 0);
     
     // int32_t Init()

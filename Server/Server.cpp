@@ -66,8 +66,9 @@ int32_t Server::RecvMsg()
             // TRACER("new client connect. fd:%d, clientaddr: %s:%d", acceptfd, inet_ntoa(addr.sin_addr), addr.sin_port);
             TRACER("new client connect. fd:%d\n", acceptfd);
 
-            auto sptr = new TcpSocket(acceptfd);
-            // sptr->Init(acceptfd);
+//            auto sptr = new TcpSocket(acceptfd);
+            auto sptr = new MsgTrans(acceptfd);
+            
             m_clients[acceptfd] = sptr;
             
             if (m_epoll.Add(acceptfd) < 0) {
@@ -103,25 +104,17 @@ int32_t Server::RecvMsg()
             sleep(2);
             TRACER("sleep for debug 2s end\n");
 
-            auto psock = m_clients[fd];
-            MsgRecord msg;
-
-            int32_t headlen = sizeof(Record);
+            MsgTrans* pmsgtrans = m_clients[fd];
+            Data tmpdata;
             
-            psock->RecvData(msg.GetDateAddress(), headlen);
+            pmsgtrans->recvmsg(tmpdata);
             
-            msg.Decode();
-            
-            psock->RecvData(msg.GetDateAddress() + headlen, msg.GetSize() - headlen);
-
-            TRACER("parsefromarray\n");
-            m_data.ParseFromArray(msg.GetDateAddress() + headlen, msg.GetSize() - headlen);
-
-            std::cout << "msg is : " << m_data.data() << std::endl;     
+            std::cout << "Recordbuf len is " << pmsgtrans->GetSize() << std::endl;
+            std::cout << "msg is : " << tmpdata.data() << std::endl;
                    
             for(auto& pp : m_clients) {
 				TRACER("sendata to %d\n", pp.first);
-                pp.second->SendData(msg.GetDateAddress(), msg.GetSize());
+                pp.second->sendmsg(tmpdata);
             }
 
 			TRACER("all clients sended, go next loop.\n");
