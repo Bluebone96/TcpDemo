@@ -77,9 +77,9 @@ void Client::Test()
 
 int32_t Client::SendMsg()
 {
-    // std::cout << "massage(enter send): ";
-    std::string msg = "test massage aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaassssssssssssssssssssssbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb";
-    // std::cin >> msg;
+    std::cout << "massage(enter send): ";
+    std::string msg;
+    std::cin >> msg;
     m_data.set_data(msg);
     std::cout << "the data is " << m_data.data() << "size = " << m_data.ByteSizeLong() << "bytes\n";
     m_MsgTrans.sendmsg(m_data);

@@ -39,11 +39,14 @@ int32_t MsgTrans::sendmsg(Data& data)
 int32_t MsgTrans::recvmsg(Data& data) 
 {
 
-    TRACER("recvmsg from fd %d", TcpSocket::GetSocketfd());
+    TRACER("recvmsg from fd %d\n", TcpSocket::GetSocketfd());
 
     TcpSocket::RecvData(m_pRecord->m_data, sizeof(Record));
     Decode(m_pRecord->m_data, sizeof(Record));
     TcpSocket::RecvData(m_pRecord->m_data + sizeof(Record), m_pRecord->m_len);
+    
+    TRACER("parse data to protobuf\n");
+
     data.ParseFromArray(m_pRecord->m_data + sizeof(Record), m_pRecord->m_len);
     return 0;
 }

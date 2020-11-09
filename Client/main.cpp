@@ -8,6 +8,6 @@ int main(int argc, char **argvs)
         return 0;
     }
     if (CLIENT.Init(argvs[1], atoi(argvs[2])) == 0) {
-        CLIENT.Test();
+        CLIENT.GOGOGO();
     }
 }

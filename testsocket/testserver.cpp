@@ -14,12 +14,16 @@ int main()
     }
 
     TcpSocket client(acceptfd);
+    std::cout << "New client " << acceptfd << std::endl;
 
-    char msg[20];
+    char msg[20] = "server default data";
 
-    client.RecvData(msg, 100); // BUG 
-    // std::cout << "read data\n";
-    // int cnt;
+    std::cout << "msg address: " << (void*) msg << std::endl;
+
+    client.RecvData(msg, 20); // BUG 
+
+//    std::cout << "read data\n";
+//    int cnt;
     // while ((cnt = read(acceptfd, msg, 20)) <= 0) {
     //     if (cnt < 0) {
     //         if (EINTR == errno || EAGAIN == errno) {

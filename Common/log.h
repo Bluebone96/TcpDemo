@@ -42,7 +42,7 @@
 #define TRACERERRNO(format, args...) \
     do { \
         TRACER(format, ##args); \
-        TRACER(" errno = %d : %s\n", errno, strerror(errno)); \
+        TRACER("errno = %d : %s\n", errno, strerror(errno)); \
     } while (0)
 
 #endif

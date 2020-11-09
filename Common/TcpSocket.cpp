@@ -44,12 +44,17 @@ int32_t TcpSocket::recvdatabuf(void* usrbuf, uint32_t size)
                 return -1;
             }
         } else if (cnt == 0) {
+            TRACERERRNO ("cnt == 0. read failed.\n");
             break;                              // EOF shutdown() / close() ?
         }
 
+        TRACER("test: read %d bytes sucess\n", cnt);
+
         pbuf += cnt;
         nleft -= cnt;
-    };
+    }
+    
+    m_pdatabuf->tail = m_bufsize - nleft;
     
     uint32_t sn = m_pdatabuf->tail - m_pdatabuf->head;
 
@@ -68,7 +73,13 @@ int32_t TcpSocket::recvdatabuf(void* usrbuf, uint32_t size)
 
     // 从缓冲区拷贝数据
     sn = MIN(sn, size);
-    mempcpy(usrbuf, m_pdatabuf, sn);
+    
+    TRACER("memcpy %d data to usrbuf:%p start \n", sn, usrbuf);
+
+    memcpy(usrbuf, m_pdatabuf->buffer, sn);
+
+    TRACER("memcpy %d data to usrbuf:%p end \n", sn, usrbuf);
+
     m_pdatabuf->head += sn;
 
 
@@ -82,8 +93,14 @@ int32_t TcpSocket::RecvData(void* usrbuf, uint32_t size)
     int32_t nleft = size;
     int32_t cnt;
     char* pbuf = (char*)usrbuf;
+
     while (nleft > 0) {
+        TRACER("start call recvdatabuf(%p, %d)\n", pbuf, nleft);
+
         cnt = recvdatabuf(pbuf, nleft);
+        
+        TRACER("end call recvdatabuf(%p, %d)\n", pbuf, nleft);
+
         if (cnt < 0) {
             if (errno == EINTR || errno == EAGAIN) {
                 continue;
