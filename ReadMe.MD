@@ -6,5 +6,5 @@ sudo ./build_all.sh
 
 demo 仍然存在bug，修复中 ......
 
-
+server parse protobuf have bug
  
