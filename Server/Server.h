@@ -9,7 +9,7 @@
 
 class Server {
 public:
-    int32_t Init();
+    int32_t Init(int32_t port);
     int32_t RecvMsg();
     int32_t SendMsg();
     int32_t ProcessData(); 

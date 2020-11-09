@@ -32,5 +32,14 @@
         TRACER("errno = %d : %s\n", errno, strerror(errno)); \
     } while (0)
 
+// #define PRINTBIN(bin, len) 
+//     do { 
+//         for (char* i = (bin), end = (bin) + (len); i < end; ++i) { 
+//             std::cout << (int)(*i); 
+//         } 
+//         std::cout << std::endl; 
+//     } while (0)
+
+
 #endif
 

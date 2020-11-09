@@ -17,6 +17,7 @@ public:
 
     int32_t sendmsg(Data& data);
     int32_t recvmsg(Data& data);
+    void    printbin(char*, int len);
 };
 
 

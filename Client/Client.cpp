@@ -12,7 +12,8 @@ int32_t Client::Init(const char* hostname, int16_t port)
     TRACER("connect sucess test fd = %d\n", fd);
 
     sockaddr_in* addr = (sockaddr_in*)m_MsgTrans.GetAddr();
-
+    
+    //    m_MsgTrans.Init(999, fd); // test
     if (m_MsgTrans.Init(addr->sin_addr.s_addr, fd) < 0) {
         TRACER("Client::Init  TcpSocket::Init(%d) fild.", fd);
         return -1;
@@ -79,7 +80,7 @@ int32_t Client::SendMsg()
 {
     std::cout << "massage(enter send): ";
     std::string msg;
-    std::cin >> msg;
+    std::getline(std::cin, msg);
     m_data.set_data(msg);
     m_data.set_id(m_MsgTrans.GetTag());
     std::cout << "the data id = " << m_data.id() << " string = "<< m_data.data() << " size = " << m_data.ByteSizeLong() << " bytes\n";
@@ -94,7 +95,8 @@ int32_t Client::RcvMsg()
     std::cout << "=====================================" << std::endl;
     char paddr[INET_ADDRSTRLEN] = {0};
     in_addr naddr;
-    naddr.s_addr = m_MsgTrans.GetTag();
+    // naddr.s_addr = m_MsgTrans.GetTag();
+    naddr.s_addr = m_data.id();
     inet_ntop(AF_INET, &naddr, paddr, sizeof(paddr));
     std::cout << paddr << ": " << m_data.data() << std::endl;
     return 0;

@@ -23,7 +23,6 @@ void TcpSocket::Init(int32_t fd)
 
 int32_t TcpSocket::recvdatabuf(void* usrbuf, uint32_t size)
 {
-    char* pbuf = m_pdatabuf->buffer + m_pdatabuf->tail;
 
     uint32_t sn = m_pdatabuf->tail - m_pdatabuf->head;
 
@@ -32,7 +31,7 @@ int32_t TcpSocket::recvdatabuf(void* usrbuf, uint32_t size)
     
     TRACER("memcpy %d data to usrbuf:%p start \n", sn, usrbuf);
 
-    memcpy(usrbuf, m_pdatabuf->buffer, sn);
+    memcpy(usrbuf, m_pdatabuf->buffer + m_pdatabuf->head, sn);
 
     TRACER("memcpy %d data to usrbuf:%p end \n", sn, usrbuf);
 
@@ -41,15 +40,16 @@ int32_t TcpSocket::recvdatabuf(void* usrbuf, uint32_t size)
     if (sn == size) {
         return size;
     }
-
-    // 每次直接尝试填充缓冲区
-
-    TRACER("start recv data from %d to socketbuf\nsocket buf is %d left\n", m_socketfd, m_bufsize - m_pdatabuf->tail);
     
+    // 每次直接尝试填充缓冲区
+    char* pbuf = m_pdatabuf->buffer + m_pdatabuf->tail;
+    TRACER("start recv data from %d to socketbuf\nsocket buf is %d left\n", m_socketfd, m_bufsize - m_pdatabuf->tail);
     int cnt = 0;
     while (m_bufsize > m_pdatabuf->tail) {
+        
         // m_socketfd是非阻塞的，当没数据时返回 EWOULDBLOCK（一般等于EAGAIN)
         cnt = read(m_socketfd, pbuf, m_bufsize - m_pdatabuf->tail);
+    
         if (cnt < 0) {
             if (errno == EINTR) {
                 continue;                       // 系统中断继续
@@ -63,7 +63,7 @@ int32_t TcpSocket::recvdatabuf(void* usrbuf, uint32_t size)
         } else if (cnt == 0) {
             TRACERERRNO ("cnt == 0. read failed.\n");
             return -1; // 方便上层调用
-//            break;                              // EOF shutdown() / close() ?
+//          break;                              // EOF shutdown() / close() ?
         }
 
         TRACER("test: read %d bytes sucess\n", cnt);
@@ -103,20 +103,15 @@ int32_t TcpSocket::RecvData(void* usrbuf, uint32_t size)
         cnt = recvdatabuf(pbuf, nleft);
         
         TRACER("end call recvdatabuf(%p, %d)\n", pbuf, nleft);
-
+        
+        // recvdatabuf 错误和结束时都返回 -1
         if (cnt < 0) {
-            if (errno == EINTR || errno == EAGAIN) {
-                continue;
-            } else {
-                TRACERERRNO("TcpSocket::RecvData failed. %s:%d", __POSITION__);
-                return -1;
-            }
-        } else if (cnt == 0) {
+            // recvdatabuf 当 read 返回 0 时，返回 -1， 还需要考虑下
+            TRACERERRNO("TcpSocket::RecvData failed cnt = %d. %s : %d\n", cnt, __POSITION__);
+            return -2; // 表示关闭
+        } else if (cnt == 0 && errno == EAGAIN) { // 只有当无数据，EAGAIN 才会返回0
             // recvdatabuf 当EAFAIN时返回零，这个和EOF相同了，之后再重新设计返回值，现在在这里判断下
-            if (errno == EAGAIN) {
-                continue;
-            }
-            break;
+            continue;
         }
         nleft -= cnt;
         pbuf += cnt;
@@ -138,7 +133,7 @@ int32_t TcpSocket::SendData(void* usrbuf, uint32_t size)
                 continue;
             } else {
                 TRACERERRNO("TcpSocket::SendData failed! %s:%d", __FILE__, __LINE__);
-                close(m_socketfd);
+            //    close(m_socketfd);  // 是否交给析构函数
                 break;
             }
         }
@@ -255,7 +250,7 @@ int32_t TcpSocket::setnonblock(int32_t fd)
         if (((flag = fcntl(fd, F_GETFL, 0)) < 0)
               && (fcntl(fd, F_SETFL, flag | O_NONBLOCK) < 0));
             TRACER("set sock nonblock faild\n");
-            close(fd);
+        //     close(fd); // 析构管理
             return -1;
     }
     return 0;

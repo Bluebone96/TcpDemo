@@ -4,7 +4,13 @@ sudo ./build_all.sh
 
 可执行文件在 ./Bin目录
 
-demo 仍然存在bug，修复中 ......
+目前基本可以运行
+服务端可指定端口，默认8888  ./server port
+客户端需指定服务器IP，及端口  ./client ip port
 
-server parse protobuf have bug
+
+客户端从标准输入流中获取数据，发到服务端，服务端再转发给每一个已连接的客户端
+客户端显示格式为：
+发送消息的IP ：消息
  
+很多debug的打印信息还未处理

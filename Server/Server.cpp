@@ -14,9 +14,9 @@ Server::~Server()
     
 }
 
-int32_t Server::Init()
+int32_t Server::Init(int32_t port)
 {
-    int32_t fd = m_MsgTrans.OpenAsServer(PORT);
+    int32_t fd = m_MsgTrans.OpenAsServer(port);
     if (fd < 0) {
         TRACER("Server::Init OpenAsServer failed.\n");
         return -1;
@@ -81,8 +81,8 @@ int32_t Server::RecvMsg()
         } else {
             
             uint32_t event = pEvent->events;
-			int32_t fd = pEvent->data.fd;
-			
+            int32_t fd = pEvent->data.fd;
+
             switch (event)
             {
             case EPOLLIN:
@@ -93,31 +93,31 @@ int32_t Server::RecvMsg()
                 break;
             case EPOLLERR:
                 TRACER("Epoll event epollerr fd= %d\n", fd);
-				delete m_clients[fd];
+                delete m_clients[fd];
                 break;
             default:
                 TRACER("Epoll unknowen fd = %d\n", fd);
                 break;
             }
 
-            TRACER("sleep for debug 2s start\n");
-            sleep(2);
-            TRACER("sleep for debug 2s end\n");
-
             MsgTrans* pmsgtrans = m_clients[fd];
             Data tmpdata;
             
-            pmsgtrans->recvmsg(tmpdata);
+            if (pmsgtrans->recvmsg(tmpdata) < 0) {
+                TRACER("Bye, %d\n", pmsgtrans->GetSocketfd());
+                delete pmsgtrans;
+                continue;
+            }
             
             std::cout << "Recordbuf len is " << pmsgtrans->GetSize() << std::endl;
             std::cout << "msg is : " << tmpdata.data() << std::endl;
-                   
+
             for(auto& pp : m_clients) {
-				TRACER("sendata to %d\n", pp.first);
+                TRACER("sendata to %d\n", pp.first);
                 pp.second->sendmsg(tmpdata);
             }
 
-			TRACER("all clients sended, go next loop.\n");
+            TRACER("all clients sended, go next loop.\n");
         }
     }
     return 0;
