@@ -1,5 +1,4 @@
-#include "../Common/TcpSocket.h"
-
+#include "../Common/MsgTransmission.h"
 
 int main()
 {
@@ -20,7 +19,7 @@ int main()
 
     std::cout << "msg address: " << (void*) msg << std::endl;
 
-    client.RecvData(msg, 20); // BUG 
+    client.RecvData(msg, 20);  // 已修复
 
 //    std::cout << "read data\n";
 //    int cnt;

@@ -81,7 +81,8 @@ int32_t Client::SendMsg()
     std::string msg;
     std::cin >> msg;
     m_data.set_data(msg);
-    std::cout << "the data is " << m_data.data() << "size = " << m_data.ByteSizeLong() << "bytes\n";
+    m_data.set_id(m_MsgTrans.GetTag());
+    std::cout << "the data id = " << m_data.id() << " string = "<< m_data.data() << " size = " << m_data.ByteSizeLong() << " bytes\n";
     m_MsgTrans.sendmsg(m_data);
     return 0;
 }

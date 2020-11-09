@@ -23,6 +23,8 @@
 
 #include "../Proto/Message.pb.h"
 
+// #define LOGFILE
+
 #ifndef MAX
 #define MAX(a, b) (((a) > (b)) ? (a) : (b))
 #endif

@@ -36,7 +36,11 @@ public:
     // 成功返回0， 失败返回剩余未发送字节
     int32_t SendData(void* usrbuf, uint32_t size);
 
-    int32_t Accept(int32_t fd, sockaddr_in* ps, socklen_t* len); 
+    int32_t Accept(int32_t fd, sockaddr_in* ps, socklen_t* len);
+    int32_t Accept(sockaddr_in* ps = nullptr, socklen_t* len = nullptr) 
+    { 
+        return Accept(m_socketfd, ps, len); 
+    };
 
     int32_t GetSocketfd() { return m_socketfd; }
 
@@ -62,7 +66,7 @@ protected:
     } *pSockBuf;
 
     int32_t m_socketfd;
-    int32_t m_bufsize; // m_pdatabuf->buffer 大小
+    uint32_t m_bufsize; // m_pdatabuf->buffer 大小
     struct sockaddr_in m_sockaddr;
     pSockBuf m_pdatabuf;
 };

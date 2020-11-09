@@ -114,7 +114,11 @@ int32_t Server::RecvMsg()
             
             psock->RecvData(msg.GetDateAddress() + headlen, msg.GetSize() - headlen);
 
+            TRACER("parsefromarray\n");
+            m_data.ParseFromArray(msg.GetDateAddress() + headlen, msg.GetSize() - headlen);
 
+            std::cout << "msg is : " << m_data.data() << std::endl;     
+                   
             for(auto& pp : m_clients) {
 				TRACER("sendata to %d\n", pp.first);
                 pp.second->SendData(msg.GetDateAddress(), msg.GetSize());

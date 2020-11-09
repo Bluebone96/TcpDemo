@@ -24,15 +24,32 @@ void TcpSocket::Init(int32_t fd)
 int32_t TcpSocket::recvdatabuf(void* usrbuf, uint32_t size)
 {
     char* pbuf = m_pdatabuf->buffer + m_pdatabuf->tail;
-    int32_t nleft = m_bufsize - m_pdatabuf->tail;
-    int32_t cnt = 0;
+
+    uint32_t sn = m_pdatabuf->tail - m_pdatabuf->head;
+
+    // 先从缓冲区拷贝数据，如果够就直接返回，不够就从内核读数据到缓冲区
+    sn = MIN(sn, size);
     
-    TRACER("start recv data from %d to socketbuf\nsocket buf is %d left\n", m_socketfd, nleft);
+    TRACER("memcpy %d data to usrbuf:%p start \n", sn, usrbuf);
+
+    memcpy(usrbuf, m_pdatabuf->buffer, sn);
+
+    TRACER("memcpy %d data to usrbuf:%p end \n", sn, usrbuf);
+
+    m_pdatabuf->head += sn;
+
+    if (sn == size) {
+        return size;
+    }
 
     // 每次直接尝试填充缓冲区
-    while (nleft > 0) {
+
+    TRACER("start recv data from %d to socketbuf\nsocket buf is %d left\n", m_socketfd, m_bufsize - m_pdatabuf->tail);
+    
+    int cnt = 0;
+    while (m_bufsize > m_pdatabuf->tail) {
         // m_socketfd是非阻塞的，当没数据时返回 EWOULDBLOCK（一般等于EAGAIN)
-        cnt = read(m_socketfd, pbuf, nleft);
+        cnt = read(m_socketfd, pbuf, m_bufsize - m_pdatabuf->tail);
         if (cnt < 0) {
             if (errno == EINTR) {
                 continue;                       // 系统中断继续
@@ -45,44 +62,30 @@ int32_t TcpSocket::recvdatabuf(void* usrbuf, uint32_t size)
             }
         } else if (cnt == 0) {
             TRACERERRNO ("cnt == 0. read failed.\n");
-            break;                              // EOF shutdown() / close() ?
+            return -1; // 方便上层调用
+//            break;                              // EOF shutdown() / close() ?
         }
 
         TRACER("test: read %d bytes sucess\n", cnt);
 
         pbuf += cnt;
-        nleft -= cnt;
+        m_pdatabuf->tail += cnt;
     }
     
-    m_pdatabuf->tail = m_bufsize - nleft;
-    
-    uint32_t sn = m_pdatabuf->tail - m_pdatabuf->head;
-
     TRACER("end recv data from %d, socketbufsize is %d\n", m_socketfd, sn);
 
+
     // 当数据填充到buf尾部时，尝试移动数据到buf头部
-    if (nleft <= 0) {
+    if (m_pdatabuf->tail == m_bufsize) {
         if (m_pdatabuf->head == 0) {
             TRACERERRNO("TcpSocket::recvdatabuf sockbuf filled.");
         } else {
-            memmove(m_pdatabuf->buffer, m_pdatabuf->buffer + m_pdatabuf->head, sn);
+            int32_t size = m_pdatabuf->tail - m_pdatabuf->head;
+            memmove(m_pdatabuf->buffer, m_pdatabuf->buffer + m_pdatabuf->head, size);
             m_pdatabuf->head = 0;
-            m_pdatabuf->tail = sn;
+            m_pdatabuf->tail = size;
         }
     }
-
-    // 从缓冲区拷贝数据
-    sn = MIN(sn, size);
-    
-    TRACER("memcpy %d data to usrbuf:%p start \n", sn, usrbuf);
-
-    memcpy(usrbuf, m_pdatabuf->buffer, sn);
-
-    TRACER("memcpy %d data to usrbuf:%p end \n", sn, usrbuf);
-
-    m_pdatabuf->head += sn;
-
-
     return sn;
 }
 
@@ -175,6 +178,8 @@ int32_t TcpSocket::OpenAsClient(const char* hostname, int16_t port)
         TRACER("connect failed test\n");
         return -1;
     }
+    
+    setnonblock(clientfd);
     
     m_socketfd = clientfd;
     return clientfd;

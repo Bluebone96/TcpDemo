@@ -4,3 +4,7 @@ message Data {
     int32 id = 1;
     string data = 2;
 }
+
+message Array {
+    repeated float sig=2;
+}
