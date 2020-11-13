@@ -49,7 +49,7 @@ Coder::decode(void* dest, uint32_t destsz, void* src, uint32_t count)
     return maxcoded;
 }
 
-int32_t MsgRecord::Init(int32_t tag, int32_t len)
+int32_t MsgRecord::MsgRecordInit(int32_t tag, int32_t len)
 {
    // memset(m_pRecord, 0, m_size + m_RecordSize);
     m_pRecord->m_tag = tag;

@@ -3,7 +3,7 @@
 #include "../Common/log.h"
 #include "../Common/TcpSocket.h"
 #include "../Common/MsgRecord.h"
-#include "../Common/MsgTransmission.h"
+#include "../Common/MsgTransmission.hpp"
 
 
 class Client {
@@ -30,6 +30,7 @@ private:
     MsgTrans m_MsgTrans;
     Data m_data;
     Epoll m_epoll;
+    int32_t m_addr;
     friend std::ostream& operator<<(std::ostream& os, Client& ct);
     friend std::istream& operator>>(std::istream& is, Client& ct);
 };

@@ -15,10 +15,11 @@ TcpSocket::TcpSocket(int32_t fd, uint32_t sz) : m_socketfd(fd), m_pdatabuf(nullp
     bzero(m_pdatabuf, sz + sizeof(SockBuf));
 }
 
-void TcpSocket::Init(int32_t fd)
+void TcpSocket::TcpSocketInit(int32_t fd, void *addr, int32_t addrlen)
 {
     m_socketfd = fd;
-    bzero(m_pdatabuf, m_bufsize);
+    SetAddr(addr, addrlen);
+//    bzero(m_pdatabuf, m_bufsize);
 }
 
 int32_t TcpSocket::recvdatabuf(void* usrbuf, uint32_t size)
@@ -164,16 +165,19 @@ int32_t TcpSocket::OpenAsClient(const char* hostname, int16_t port)
         TRACERERRNO("TcpSocket::OpenAsClient socket failed");
         return -1;
     }
-    socklen_t len = sizeof(m_sockaddr);
-    if (getsockname(clientfd, (sockaddr*)&m_sockaddr, &len) < 0) {
-        TRACER("getsockname failed\n");
-    }
 
     if (connect(clientfd, (sockaddr*)&serveraddr, sizeof(serveraddr)) < 0) {
         TRACER("connect failed test\n");
         return -1;
     }
     
+    socklen_t len = sizeof(m_sockaddr);
+    if (getsockname(clientfd, (sockaddr*)&m_sockaddr, &len) < 0) {
+        TRACER("getsockname failed\n");
+    }
+
+    TRACER("client addr is %d : %d\n", m_sockaddr.sin_addr.s_addr, (int)(m_sockaddr.sin_port));
+
     setnonblock(clientfd);
     
     m_socketfd = clientfd;
@@ -188,7 +192,7 @@ int32_t TcpSocket::OpenAsServer(int16_t port, const char* hostname)
         TRACERERRNO("TcpSocket::OpenAsServer socket failed. %s:%d", __FILE__, __LINE__);
         return -1;
     }
-    this->Init(listenfd);
+    this->TcpSocketInit(listenfd);
     if (setsockopt(listenfd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(int)) < 0) {
         TRACERERRNO("TcpSocket::OpenAsServer setsockopt resueaddr failed. %s:%d", __FILE__, __LINE__);
     }
@@ -247,11 +251,11 @@ int32_t TcpSocket::setnonblock(int32_t fd)
     int mode = 1;  // 1 非阻塞， 0 阻塞
     if (ioctl(fd, FIONBIO, &mode)) {
         int flag;
-        if (((flag = fcntl(fd, F_GETFL, 0)) < 0)
-              && (fcntl(fd, F_SETFL, flag | O_NONBLOCK) < 0));
+        if (((flag = fcntl(fd, F_GETFL, 0)) < 0) && (fcntl(fd, F_SETFL, flag | O_NONBLOCK) < 0)) {
             TRACER("set sock nonblock faild\n");
         //     close(fd); // 析构管理
             return -1;
+        }
     }
     return 0;
 }

@@ -1,3 +1,5 @@
+#include <cstdlib>
+
 #include "Client.h"
 
 
@@ -12,12 +14,15 @@ int32_t Client::Init(const char* hostname, int16_t port)
     TRACER("connect sucess test fd = %d\n", fd);
 
     sockaddr_in* addr = (sockaddr_in*)m_MsgTrans.GetAddr();
-    
-    //    m_MsgTrans.Init(999, fd); // test
-    if (m_MsgTrans.Init(addr->sin_addr.s_addr, fd) < 0) {
-        TRACER("Client::Init  TcpSocket::Init(%d) fild.", fd);
-        return -1;
-    }
+
+    m_addr = addr->sin_addr.s_addr;
+    std::cout << "the client addr is " << m_addr << std::endl;
+
+    // //    m_MsgTrans.Init(999, fd); // test
+    // if (m_MsgTrans.Init(addr->sin_addr.s_addr, fd) < 0) {
+    //     TRACER("Client::Init  TcpSocket::Init(%d) fild.", fd);
+    //     return -1;
+    // }
 
     if (m_epoll.Init() < 0) {
         TRACER("client epoll failed\n");
@@ -81,9 +86,10 @@ int32_t Client::SendMsg()
     std::cout << "massage(enter send): ";
     std::string msg;
     std::getline(std::cin, msg);
-    m_data.set_data(msg);
-    m_data.set_id(m_MsgTrans.GetTag());
-    std::cout << "the data id = " << m_data.id() << " string = "<< m_data.data() << " size = " << m_data.ByteSizeLong() << " bytes\n";
+    m_data.set_msg(msg);
+    m_data.set_id(m_addr);
+    m_MsgTrans.MsgRecordInit(m_addr, 0);
+    std::cout << "the data id = " << m_data.id() << " string = "<< m_data.msg() << " size = " << m_data.ByteSizeLong() << " bytes\n";
     m_MsgTrans.sendmsg(m_data);
     return 0;
 }
@@ -91,13 +97,16 @@ int32_t Client::SendMsg()
 int32_t Client::RcvMsg()
 {
     
-    m_MsgTrans.recvmsg(m_data);
+    if (m_MsgTrans.recvmsg(m_data)) {
+        std::cout << "server connect error!\n";
+        exit(1);
+    }
     std::cout << "=====================================" << std::endl;
     char paddr[INET_ADDRSTRLEN] = {0};
     in_addr naddr;
     // naddr.s_addr = m_MsgTrans.GetTag();
     naddr.s_addr = m_data.id();
     inet_ntop(AF_INET, &naddr, paddr, sizeof(paddr));
-    std::cout << paddr << ": " << m_data.data() << std::endl;
+    std::cout << paddr << " ( " << m_data.id() << ") : " << m_data.msg() << std::endl;
     return 0;
 }

@@ -5,11 +5,11 @@
 #include "../Common/log.h"
 #include "../Common/TcpSocket.h"
 #include "../Common/MsgRecord.h"
-#include "../Common/MsgTransmission.h"
+#include "../Common/MsgTransmission.hpp"
 
 class Server {
 public:
-    int32_t Init(int32_t port);
+    int32_t Init(int32_t port, const char* hostname = nullptr);
     int32_t RecvMsg();
     int32_t SendMsg();
     int32_t ProcessData(); 

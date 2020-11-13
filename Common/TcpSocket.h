@@ -21,7 +21,7 @@ public:
     TcpSocket& operator=(const TcpSocket&) = delete;
 
 
-    void Init(int32_t fd = -1);
+    void TcpSocketInit(int32_t fd = -1, void* addr = nullptr, int32_t addrlen = 0);
 
     int32_t OpenAsClient(const char* hostname, int16_t port);
 
@@ -46,7 +46,7 @@ public:
 
     const sockaddr* GetAddr() { return (sockaddr*)&m_sockaddr; }
 
-    void SetAddr(struct sockaddr_in* sp) { memcpy(&m_sockaddr, sp, sizeof(sockaddr_in)); }
+    void SetAddr(void *addr, int32_t len) { memcpy(&m_sockaddr, addr, len); }
 
 private:
     // 从内核中读取数据到SockBuf缓冲区
@@ -64,9 +64,9 @@ protected:
         uint32_t tail;
         char buffer[0];
     } *pSockBuf;
+    uint32_t m_bufsize; // m_pdatabuf->buffer 大小 构造时确定
 
     int32_t m_socketfd;
-    uint32_t m_bufsize; // m_pdatabuf->buffer 大小
     struct sockaddr_in m_sockaddr;
     pSockBuf m_pdatabuf;
 };

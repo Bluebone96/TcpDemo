@@ -46,22 +46,26 @@ struct TableStruct_Message_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[2]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[3]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
   static const ::PROTOBUF_NAMESPACE_ID::uint32 offsets[];
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_Message_2eproto;
-class Array;
-class ArrayDefaultTypeInternal;
-extern ArrayDefaultTypeInternal _Array_default_instance_;
 class Data;
 class DataDefaultTypeInternal;
 extern DataDefaultTypeInternal _Data_default_instance_;
+class Position;
+class PositionDefaultTypeInternal;
+extern PositionDefaultTypeInternal _Position_default_instance_;
+class Rotation;
+class RotationDefaultTypeInternal;
+extern RotationDefaultTypeInternal _Rotation_default_instance_;
 PROTOBUF_NAMESPACE_OPEN
-template<> ::Array* Arena::CreateMaybeMessage<::Array>(Arena*);
 template<> ::Data* Arena::CreateMaybeMessage<::Data>(Arena*);
+template<> ::Position* Arena::CreateMaybeMessage<::Position>(Arena*);
+template<> ::Rotation* Arena::CreateMaybeMessage<::Rotation>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 
 // ===================================================================
@@ -178,24 +182,79 @@ class Data PROTOBUF_FINAL :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kDataFieldNumber = 2,
+    kNameFieldNumber = 2,
+    kMsgFieldNumber = 5,
+    kPosFieldNumber = 3,
+    kRotFieldNumber = 4,
     kIdFieldNumber = 1,
   };
-  // string data = 2;
-  void clear_data();
-  const std::string& data() const;
-  void set_data(const std::string& value);
-  void set_data(std::string&& value);
-  void set_data(const char* value);
-  void set_data(const char* value, size_t size);
-  std::string* mutable_data();
-  std::string* release_data();
-  void set_allocated_data(std::string* data);
+  // string name = 2;
+  void clear_name();
+  const std::string& name() const;
+  void set_name(const std::string& value);
+  void set_name(std::string&& value);
+  void set_name(const char* value);
+  void set_name(const char* value, size_t size);
+  std::string* mutable_name();
+  std::string* release_name();
+  void set_allocated_name(std::string* name);
   private:
-  const std::string& _internal_data() const;
-  void _internal_set_data(const std::string& value);
-  std::string* _internal_mutable_data();
+  const std::string& _internal_name() const;
+  void _internal_set_name(const std::string& value);
+  std::string* _internal_mutable_name();
   public:
+
+  // string msg = 5;
+  void clear_msg();
+  const std::string& msg() const;
+  void set_msg(const std::string& value);
+  void set_msg(std::string&& value);
+  void set_msg(const char* value);
+  void set_msg(const char* value, size_t size);
+  std::string* mutable_msg();
+  std::string* release_msg();
+  void set_allocated_msg(std::string* msg);
+  private:
+  const std::string& _internal_msg() const;
+  void _internal_set_msg(const std::string& value);
+  std::string* _internal_mutable_msg();
+  public:
+
+  // .Position pos = 3;
+  bool has_pos() const;
+  private:
+  bool _internal_has_pos() const;
+  public:
+  void clear_pos();
+  const ::Position& pos() const;
+  ::Position* release_pos();
+  ::Position* mutable_pos();
+  void set_allocated_pos(::Position* pos);
+  private:
+  const ::Position& _internal_pos() const;
+  ::Position* _internal_mutable_pos();
+  public:
+  void unsafe_arena_set_allocated_pos(
+      ::Position* pos);
+  ::Position* unsafe_arena_release_pos();
+
+  // .Rotation rot = 4;
+  bool has_rot() const;
+  private:
+  bool _internal_has_rot() const;
+  public:
+  void clear_rot();
+  const ::Rotation& rot() const;
+  ::Rotation* release_rot();
+  ::Rotation* mutable_rot();
+  void set_allocated_rot(::Rotation* rot);
+  private:
+  const ::Rotation& _internal_rot() const;
+  ::Rotation* _internal_mutable_rot();
+  public:
+  void unsafe_arena_set_allocated_rot(
+      ::Rotation* rot);
+  ::Rotation* unsafe_arena_release_rot();
 
   // int32 id = 1;
   void clear_id();
@@ -213,30 +272,33 @@ class Data PROTOBUF_FINAL :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr data_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr msg_;
+  ::Position* pos_;
+  ::Rotation* rot_;
   ::PROTOBUF_NAMESPACE_ID::int32 id_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_Message_2eproto;
 };
 // -------------------------------------------------------------------
 
-class Array PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Array) */ {
+class Position PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Position) */ {
  public:
-  inline Array() : Array(nullptr) {}
-  virtual ~Array();
+  inline Position() : Position(nullptr) {}
+  virtual ~Position();
 
-  Array(const Array& from);
-  Array(Array&& from) noexcept
-    : Array() {
+  Position(const Position& from);
+  Position(Position&& from) noexcept
+    : Position() {
     *this = ::std::move(from);
   }
 
-  inline Array& operator=(const Array& from) {
+  inline Position& operator=(const Position& from) {
     CopyFrom(from);
     return *this;
   }
-  inline Array& operator=(Array&& from) noexcept {
+  inline Position& operator=(Position&& from) noexcept {
     if (GetArena() == from.GetArena()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -254,19 +316,19 @@ class Array PROTOBUF_FINAL :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return GetMetadataStatic().reflection;
   }
-  static const Array& default_instance();
+  static const Position& default_instance();
 
-  static inline const Array* internal_default_instance() {
-    return reinterpret_cast<const Array*>(
-               &_Array_default_instance_);
+  static inline const Position* internal_default_instance() {
+    return reinterpret_cast<const Position*>(
+               &_Position_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     1;
 
-  friend void swap(Array& a, Array& b) {
+  friend void swap(Position& a, Position& b) {
     a.Swap(&b);
   }
-  inline void Swap(Array* other) {
+  inline void Swap(Position* other) {
     if (other == this) return;
     if (GetArena() == other->GetArena()) {
       InternalSwap(other);
@@ -274,7 +336,7 @@ class Array PROTOBUF_FINAL :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(Array* other) {
+  void UnsafeArenaSwap(Position* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetArena() == other->GetArena());
     InternalSwap(other);
@@ -282,17 +344,17 @@ class Array PROTOBUF_FINAL :
 
   // implements Message ----------------------------------------------
 
-  inline Array* New() const final {
-    return CreateMaybeMessage<Array>(nullptr);
+  inline Position* New() const final {
+    return CreateMaybeMessage<Position>(nullptr);
   }
 
-  Array* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<Array>(arena);
+  Position* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Position>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const Array& from);
-  void MergeFrom(const Array& from);
+  void CopyFrom(const Position& from);
+  void MergeFrom(const Position& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -306,13 +368,13 @@ class Array PROTOBUF_FINAL :
   inline void SharedCtor();
   inline void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(Array* other);
+  void InternalSwap(Position* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Array";
+    return "Position";
   }
   protected:
-  explicit Array(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  explicit Position(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   private:
   static void ArenaDtor(void* object);
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -332,39 +394,205 @@ class Array PROTOBUF_FINAL :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kSigFieldNumber = 2,
+    kXFieldNumber = 1,
+    kYFieldNumber = 2,
+    kZFieldNumber = 3,
   };
-  // repeated float sig = 2;
-  int sig_size() const;
+  // float X = 1;
+  void clear_x();
+  float x() const;
+  void set_x(float value);
   private:
-  int _internal_sig_size() const;
+  float _internal_x() const;
+  void _internal_set_x(float value);
   public:
-  void clear_sig();
-  private:
-  float _internal_sig(int index) const;
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >&
-      _internal_sig() const;
-  void _internal_add_sig(float value);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >*
-      _internal_mutable_sig();
-  public:
-  float sig(int index) const;
-  void set_sig(int index, float value);
-  void add_sig(float value);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >&
-      sig() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >*
-      mutable_sig();
 
-  // @@protoc_insertion_point(class_scope:Array)
+  // float Y = 2;
+  void clear_y();
+  float y() const;
+  void set_y(float value);
+  private:
+  float _internal_y() const;
+  void _internal_set_y(float value);
+  public:
+
+  // float Z = 3;
+  void clear_z();
+  float z() const;
+  void set_z(float value);
+  private:
+  float _internal_z() const;
+  void _internal_set_z(float value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Position)
  private:
   class _Internal;
 
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< float > sig_;
-  mutable std::atomic<int> _sig_cached_byte_size_;
+  float x_;
+  float y_;
+  float z_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_Message_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Rotation PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Rotation) */ {
+ public:
+  inline Rotation() : Rotation(nullptr) {}
+  virtual ~Rotation();
+
+  Rotation(const Rotation& from);
+  Rotation(Rotation&& from) noexcept
+    : Rotation() {
+    *this = ::std::move(from);
+  }
+
+  inline Rotation& operator=(const Rotation& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Rotation& operator=(Rotation&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const Rotation& default_instance();
+
+  static inline const Rotation* internal_default_instance() {
+    return reinterpret_cast<const Rotation*>(
+               &_Rotation_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  friend void swap(Rotation& a, Rotation& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Rotation* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Rotation* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline Rotation* New() const final {
+    return CreateMaybeMessage<Rotation>(nullptr);
+  }
+
+  Rotation* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Rotation>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const Rotation& from);
+  void MergeFrom(const Rotation& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Rotation* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Rotation";
+  }
+  protected:
+  explicit Rotation(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_Message_2eproto);
+    return ::descriptor_table_Message_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kXFieldNumber = 1,
+    kYFieldNumber = 2,
+    kZFieldNumber = 3,
+  };
+  // float X = 1;
+  void clear_x();
+  float x() const;
+  void set_x(float value);
+  private:
+  float _internal_x() const;
+  void _internal_set_x(float value);
+  public:
+
+  // float Y = 2;
+  void clear_y();
+  float y() const;
+  void set_y(float value);
+  private:
+  float _internal_y() const;
+  void _internal_set_y(float value);
+  public:
+
+  // float Z = 3;
+  void clear_z();
+  float z() const;
+  void set_z(float value);
+  private:
+  float _internal_z() const;
+  void _internal_set_z(float value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Rotation)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  float x_;
+  float y_;
+  float z_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_Message_2eproto;
 };
@@ -399,121 +627,427 @@ inline void Data::set_id(::PROTOBUF_NAMESPACE_ID::int32 value) {
   // @@protoc_insertion_point(field_set:Data.id)
 }
 
-// string data = 2;
-inline void Data::clear_data() {
-  data_.ClearToEmpty();
+// string name = 2;
+inline void Data::clear_name() {
+  name_.ClearToEmpty();
 }
-inline const std::string& Data::data() const {
-  // @@protoc_insertion_point(field_get:Data.data)
-  return _internal_data();
+inline const std::string& Data::name() const {
+  // @@protoc_insertion_point(field_get:Data.name)
+  return _internal_name();
 }
-inline void Data::set_data(const std::string& value) {
-  _internal_set_data(value);
-  // @@protoc_insertion_point(field_set:Data.data)
+inline void Data::set_name(const std::string& value) {
+  _internal_set_name(value);
+  // @@protoc_insertion_point(field_set:Data.name)
 }
-inline std::string* Data::mutable_data() {
-  // @@protoc_insertion_point(field_mutable:Data.data)
-  return _internal_mutable_data();
+inline std::string* Data::mutable_name() {
+  // @@protoc_insertion_point(field_mutable:Data.name)
+  return _internal_mutable_name();
 }
-inline const std::string& Data::_internal_data() const {
-  return data_.Get();
+inline const std::string& Data::_internal_name() const {
+  return name_.Get();
 }
-inline void Data::_internal_set_data(const std::string& value) {
+inline void Data::_internal_set_name(const std::string& value) {
   
-  data_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
 }
-inline void Data::set_data(std::string&& value) {
+inline void Data::set_name(std::string&& value) {
   
-  data_.Set(
+  name_.Set(
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:Data.data)
+  // @@protoc_insertion_point(field_set_rvalue:Data.name)
 }
-inline void Data::set_data(const char* value) {
+inline void Data::set_name(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
-  data_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
-  // @@protoc_insertion_point(field_set_char:Data.data)
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:Data.name)
 }
-inline void Data::set_data(const char* value,
+inline void Data::set_name(const char* value,
     size_t size) {
   
-  data_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:Data.data)
+  // @@protoc_insertion_point(field_set_pointer:Data.name)
 }
-inline std::string* Data::_internal_mutable_data() {
+inline std::string* Data::_internal_mutable_name() {
   
-  return data_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+  return name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
 }
-inline std::string* Data::release_data() {
-  // @@protoc_insertion_point(field_release:Data.data)
-  return data_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+inline std::string* Data::release_name() {
+  // @@protoc_insertion_point(field_release:Data.name)
+  return name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline void Data::set_allocated_data(std::string* data) {
-  if (data != nullptr) {
+inline void Data::set_allocated_name(std::string* name) {
+  if (name != nullptr) {
     
   } else {
     
   }
-  data_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), data,
+  name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), name,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:Data.data)
+  // @@protoc_insertion_point(field_set_allocated:Data.name)
+}
+
+// .Position pos = 3;
+inline bool Data::_internal_has_pos() const {
+  return this != internal_default_instance() && pos_ != nullptr;
+}
+inline bool Data::has_pos() const {
+  return _internal_has_pos();
+}
+inline void Data::clear_pos() {
+  if (GetArena() == nullptr && pos_ != nullptr) {
+    delete pos_;
+  }
+  pos_ = nullptr;
+}
+inline const ::Position& Data::_internal_pos() const {
+  const ::Position* p = pos_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Position&>(
+      ::_Position_default_instance_);
+}
+inline const ::Position& Data::pos() const {
+  // @@protoc_insertion_point(field_get:Data.pos)
+  return _internal_pos();
+}
+inline void Data::unsafe_arena_set_allocated_pos(
+    ::Position* pos) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(pos_);
+  }
+  pos_ = pos;
+  if (pos) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Data.pos)
+}
+inline ::Position* Data::release_pos() {
+  
+  ::Position* temp = pos_;
+  pos_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::Position* Data::unsafe_arena_release_pos() {
+  // @@protoc_insertion_point(field_release:Data.pos)
+  
+  ::Position* temp = pos_;
+  pos_ = nullptr;
+  return temp;
+}
+inline ::Position* Data::_internal_mutable_pos() {
+  
+  if (pos_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Position>(GetArena());
+    pos_ = p;
+  }
+  return pos_;
+}
+inline ::Position* Data::mutable_pos() {
+  // @@protoc_insertion_point(field_mutable:Data.pos)
+  return _internal_mutable_pos();
+}
+inline void Data::set_allocated_pos(::Position* pos) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete pos_;
+  }
+  if (pos) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(pos);
+    if (message_arena != submessage_arena) {
+      pos = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, pos, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  pos_ = pos;
+  // @@protoc_insertion_point(field_set_allocated:Data.pos)
+}
+
+// .Rotation rot = 4;
+inline bool Data::_internal_has_rot() const {
+  return this != internal_default_instance() && rot_ != nullptr;
+}
+inline bool Data::has_rot() const {
+  return _internal_has_rot();
+}
+inline void Data::clear_rot() {
+  if (GetArena() == nullptr && rot_ != nullptr) {
+    delete rot_;
+  }
+  rot_ = nullptr;
+}
+inline const ::Rotation& Data::_internal_rot() const {
+  const ::Rotation* p = rot_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Rotation&>(
+      ::_Rotation_default_instance_);
+}
+inline const ::Rotation& Data::rot() const {
+  // @@protoc_insertion_point(field_get:Data.rot)
+  return _internal_rot();
+}
+inline void Data::unsafe_arena_set_allocated_rot(
+    ::Rotation* rot) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(rot_);
+  }
+  rot_ = rot;
+  if (rot) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Data.rot)
+}
+inline ::Rotation* Data::release_rot() {
+  
+  ::Rotation* temp = rot_;
+  rot_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::Rotation* Data::unsafe_arena_release_rot() {
+  // @@protoc_insertion_point(field_release:Data.rot)
+  
+  ::Rotation* temp = rot_;
+  rot_ = nullptr;
+  return temp;
+}
+inline ::Rotation* Data::_internal_mutable_rot() {
+  
+  if (rot_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Rotation>(GetArena());
+    rot_ = p;
+  }
+  return rot_;
+}
+inline ::Rotation* Data::mutable_rot() {
+  // @@protoc_insertion_point(field_mutable:Data.rot)
+  return _internal_mutable_rot();
+}
+inline void Data::set_allocated_rot(::Rotation* rot) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete rot_;
+  }
+  if (rot) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(rot);
+    if (message_arena != submessage_arena) {
+      rot = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, rot, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  rot_ = rot;
+  // @@protoc_insertion_point(field_set_allocated:Data.rot)
+}
+
+// string msg = 5;
+inline void Data::clear_msg() {
+  msg_.ClearToEmpty();
+}
+inline const std::string& Data::msg() const {
+  // @@protoc_insertion_point(field_get:Data.msg)
+  return _internal_msg();
+}
+inline void Data::set_msg(const std::string& value) {
+  _internal_set_msg(value);
+  // @@protoc_insertion_point(field_set:Data.msg)
+}
+inline std::string* Data::mutable_msg() {
+  // @@protoc_insertion_point(field_mutable:Data.msg)
+  return _internal_mutable_msg();
+}
+inline const std::string& Data::_internal_msg() const {
+  return msg_.Get();
+}
+inline void Data::_internal_set_msg(const std::string& value) {
+  
+  msg_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void Data::set_msg(std::string&& value) {
+  
+  msg_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:Data.msg)
+}
+inline void Data::set_msg(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  msg_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:Data.msg)
+}
+inline void Data::set_msg(const char* value,
+    size_t size) {
+  
+  msg_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:Data.msg)
+}
+inline std::string* Data::_internal_mutable_msg() {
+  
+  return msg_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* Data::release_msg() {
+  // @@protoc_insertion_point(field_release:Data.msg)
+  return msg_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void Data::set_allocated_msg(std::string* msg) {
+  if (msg != nullptr) {
+    
+  } else {
+    
+  }
+  msg_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), msg,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:Data.msg)
 }
 
 // -------------------------------------------------------------------
 
-// Array
+// Position
 
-// repeated float sig = 2;
-inline int Array::_internal_sig_size() const {
-  return sig_.size();
+// float X = 1;
+inline void Position::clear_x() {
+  x_ = 0;
 }
-inline int Array::sig_size() const {
-  return _internal_sig_size();
+inline float Position::_internal_x() const {
+  return x_;
 }
-inline void Array::clear_sig() {
-  sig_.Clear();
+inline float Position::x() const {
+  // @@protoc_insertion_point(field_get:Position.X)
+  return _internal_x();
 }
-inline float Array::_internal_sig(int index) const {
-  return sig_.Get(index);
+inline void Position::_internal_set_x(float value) {
+  
+  x_ = value;
 }
-inline float Array::sig(int index) const {
-  // @@protoc_insertion_point(field_get:Array.sig)
-  return _internal_sig(index);
+inline void Position::set_x(float value) {
+  _internal_set_x(value);
+  // @@protoc_insertion_point(field_set:Position.X)
 }
-inline void Array::set_sig(int index, float value) {
-  sig_.Set(index, value);
-  // @@protoc_insertion_point(field_set:Array.sig)
+
+// float Y = 2;
+inline void Position::clear_y() {
+  y_ = 0;
 }
-inline void Array::_internal_add_sig(float value) {
-  sig_.Add(value);
+inline float Position::_internal_y() const {
+  return y_;
 }
-inline void Array::add_sig(float value) {
-  _internal_add_sig(value);
-  // @@protoc_insertion_point(field_add:Array.sig)
+inline float Position::y() const {
+  // @@protoc_insertion_point(field_get:Position.Y)
+  return _internal_y();
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >&
-Array::_internal_sig() const {
-  return sig_;
+inline void Position::_internal_set_y(float value) {
+  
+  y_ = value;
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >&
-Array::sig() const {
-  // @@protoc_insertion_point(field_list:Array.sig)
-  return _internal_sig();
+inline void Position::set_y(float value) {
+  _internal_set_y(value);
+  // @@protoc_insertion_point(field_set:Position.Y)
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >*
-Array::_internal_mutable_sig() {
-  return &sig_;
+
+// float Z = 3;
+inline void Position::clear_z() {
+  z_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< float >*
-Array::mutable_sig() {
-  // @@protoc_insertion_point(field_mutable_list:Array.sig)
-  return _internal_mutable_sig();
+inline float Position::_internal_z() const {
+  return z_;
+}
+inline float Position::z() const {
+  // @@protoc_insertion_point(field_get:Position.Z)
+  return _internal_z();
+}
+inline void Position::_internal_set_z(float value) {
+  
+  z_ = value;
+}
+inline void Position::set_z(float value) {
+  _internal_set_z(value);
+  // @@protoc_insertion_point(field_set:Position.Z)
+}
+
+// -------------------------------------------------------------------
+
+// Rotation
+
+// float X = 1;
+inline void Rotation::clear_x() {
+  x_ = 0;
+}
+inline float Rotation::_internal_x() const {
+  return x_;
+}
+inline float Rotation::x() const {
+  // @@protoc_insertion_point(field_get:Rotation.X)
+  return _internal_x();
+}
+inline void Rotation::_internal_set_x(float value) {
+  
+  x_ = value;
+}
+inline void Rotation::set_x(float value) {
+  _internal_set_x(value);
+  // @@protoc_insertion_point(field_set:Rotation.X)
+}
+
+// float Y = 2;
+inline void Rotation::clear_y() {
+  y_ = 0;
+}
+inline float Rotation::_internal_y() const {
+  return y_;
+}
+inline float Rotation::y() const {
+  // @@protoc_insertion_point(field_get:Rotation.Y)
+  return _internal_y();
+}
+inline void Rotation::_internal_set_y(float value) {
+  
+  y_ = value;
+}
+inline void Rotation::set_y(float value) {
+  _internal_set_y(value);
+  // @@protoc_insertion_point(field_set:Rotation.Y)
+}
+
+// float Z = 3;
+inline void Rotation::clear_z() {
+  z_ = 0;
+}
+inline float Rotation::_internal_z() const {
+  return z_;
+}
+inline float Rotation::z() const {
+  // @@protoc_insertion_point(field_get:Rotation.Z)
+  return _internal_z();
+}
+inline void Rotation::_internal_set_z(float value) {
+  
+  z_ = value;
+}
+inline void Rotation::set_z(float value) {
+  _internal_set_z(value);
+  // @@protoc_insertion_point(field_set:Rotation.Z)
 }
 
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 

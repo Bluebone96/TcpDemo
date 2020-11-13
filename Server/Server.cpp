@@ -14,7 +14,7 @@ Server::~Server()
     
 }
 
-int32_t Server::Init(int32_t port)
+int32_t Server::Init(int32_t port, const char* hostname)
 {
     int32_t fd = m_MsgTrans.OpenAsServer(port);
     if (fd < 0) {
@@ -67,8 +67,8 @@ int32_t Server::RecvMsg()
             TRACER("new client connect. fd:%d\n", acceptfd);
 
 //            auto sptr = new TcpSocket(acceptfd);
-            auto sptr = new MsgTrans(acceptfd);
-            
+            auto sptr = new MsgTrans();
+            sptr->Init(acceptfd, &addr, len);
             m_clients[acceptfd] = sptr;
             
             if (m_epoll.Add(acceptfd) < 0) {
@@ -101,20 +101,21 @@ int32_t Server::RecvMsg()
             }
 
             MsgTrans* pmsgtrans = m_clients[fd];
-            Data tmpdata;
             
-            if (pmsgtrans->recvmsg(tmpdata) < 0) {
+            if (pmsgtrans->recvmsg() < 0) {
                 TRACER("Bye, %d\n", pmsgtrans->GetSocketfd());
                 delete pmsgtrans;
                 continue;
             }
             
-            std::cout << "Recordbuf len is " << pmsgtrans->GetSize() << std::endl;
-            std::cout << "msg is : " << tmpdata.data() << std::endl;
+            char* data = pmsgtrans->GetDataAddress();
+            int32_t len = pmsgtrans->GetDataLen();
+            // std::cout << "Recordbuf len is " << pmsgtrans->GetDataLen() << std::endl;
+            // std::cout << "msg is : " << tmpdata.msg() << std::endl;
 
             for(auto& pp : m_clients) {
                 TRACER("sendata to %d\n", pp.first);
-                pp.second->sendmsg(tmpdata);
+                pp.second->sendmsg(data, len);
             }
 
             TRACER("all clients sended, go next loop.\n");
