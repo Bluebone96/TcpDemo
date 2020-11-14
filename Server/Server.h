@@ -32,7 +32,7 @@ private:
     int32_t listenfd;
     Epoll m_epoll;
     MsgTrans m_MsgTrans;
-    Data m_data;
+    Proto::Unity::Data m_data;
     std::unordered_map<uint32_t, MsgTrans*> m_clients;
 };
 

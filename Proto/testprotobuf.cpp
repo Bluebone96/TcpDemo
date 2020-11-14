@@ -14,7 +14,7 @@ void printbin(char* bin, int len)
 
 int main()
 {
-    Data data;
+    Proto::Unity::Data data;
     std::string msg = "hello";
     data.set_data(msg);
 

@@ -53,6 +53,8 @@ struct TableStruct_Message_2eproto {
   static const ::PROTOBUF_NAMESPACE_ID::uint32 offsets[];
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_Message_2eproto;
+namespace Proto {
+namespace Unity {
 class Data;
 class DataDefaultTypeInternal;
 extern DataDefaultTypeInternal _Data_default_instance_;
@@ -62,16 +64,20 @@ extern PositionDefaultTypeInternal _Position_default_instance_;
 class Rotation;
 class RotationDefaultTypeInternal;
 extern RotationDefaultTypeInternal _Rotation_default_instance_;
+}  // namespace Unity
+}  // namespace Proto
 PROTOBUF_NAMESPACE_OPEN
-template<> ::Data* Arena::CreateMaybeMessage<::Data>(Arena*);
-template<> ::Position* Arena::CreateMaybeMessage<::Position>(Arena*);
-template<> ::Rotation* Arena::CreateMaybeMessage<::Rotation>(Arena*);
+template<> ::Proto::Unity::Data* Arena::CreateMaybeMessage<::Proto::Unity::Data>(Arena*);
+template<> ::Proto::Unity::Position* Arena::CreateMaybeMessage<::Proto::Unity::Position>(Arena*);
+template<> ::Proto::Unity::Rotation* Arena::CreateMaybeMessage<::Proto::Unity::Rotation>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
+namespace Proto {
+namespace Unity {
 
 // ===================================================================
 
 class Data PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Data) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Proto.Unity.Data) */ {
  public:
   inline Data() : Data(nullptr) {}
   virtual ~Data();
@@ -159,7 +165,7 @@ class Data PROTOBUF_FINAL :
   void InternalSwap(Data* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Data";
+    return "Proto.Unity.Data";
   }
   protected:
   explicit Data(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -220,41 +226,41 @@ class Data PROTOBUF_FINAL :
   std::string* _internal_mutable_msg();
   public:
 
-  // .Position pos = 3;
+  // .Proto.Unity.Position pos = 3;
   bool has_pos() const;
   private:
   bool _internal_has_pos() const;
   public:
   void clear_pos();
-  const ::Position& pos() const;
-  ::Position* release_pos();
-  ::Position* mutable_pos();
-  void set_allocated_pos(::Position* pos);
+  const ::Proto::Unity::Position& pos() const;
+  ::Proto::Unity::Position* release_pos();
+  ::Proto::Unity::Position* mutable_pos();
+  void set_allocated_pos(::Proto::Unity::Position* pos);
   private:
-  const ::Position& _internal_pos() const;
-  ::Position* _internal_mutable_pos();
+  const ::Proto::Unity::Position& _internal_pos() const;
+  ::Proto::Unity::Position* _internal_mutable_pos();
   public:
   void unsafe_arena_set_allocated_pos(
-      ::Position* pos);
-  ::Position* unsafe_arena_release_pos();
+      ::Proto::Unity::Position* pos);
+  ::Proto::Unity::Position* unsafe_arena_release_pos();
 
-  // .Rotation rot = 4;
+  // .Proto.Unity.Rotation rot = 4;
   bool has_rot() const;
   private:
   bool _internal_has_rot() const;
   public:
   void clear_rot();
-  const ::Rotation& rot() const;
-  ::Rotation* release_rot();
-  ::Rotation* mutable_rot();
-  void set_allocated_rot(::Rotation* rot);
+  const ::Proto::Unity::Rotation& rot() const;
+  ::Proto::Unity::Rotation* release_rot();
+  ::Proto::Unity::Rotation* mutable_rot();
+  void set_allocated_rot(::Proto::Unity::Rotation* rot);
   private:
-  const ::Rotation& _internal_rot() const;
-  ::Rotation* _internal_mutable_rot();
+  const ::Proto::Unity::Rotation& _internal_rot() const;
+  ::Proto::Unity::Rotation* _internal_mutable_rot();
   public:
   void unsafe_arena_set_allocated_rot(
-      ::Rotation* rot);
-  ::Rotation* unsafe_arena_release_rot();
+      ::Proto::Unity::Rotation* rot);
+  ::Proto::Unity::Rotation* unsafe_arena_release_rot();
 
   // int32 id = 1;
   void clear_id();
@@ -265,7 +271,7 @@ class Data PROTOBUF_FINAL :
   void _internal_set_id(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // @@protoc_insertion_point(class_scope:Data)
+  // @@protoc_insertion_point(class_scope:Proto.Unity.Data)
  private:
   class _Internal;
 
@@ -274,8 +280,8 @@ class Data PROTOBUF_FINAL :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr msg_;
-  ::Position* pos_;
-  ::Rotation* rot_;
+  ::Proto::Unity::Position* pos_;
+  ::Proto::Unity::Rotation* rot_;
   ::PROTOBUF_NAMESPACE_ID::int32 id_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_Message_2eproto;
@@ -283,7 +289,7 @@ class Data PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class Position PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Position) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Proto.Unity.Position) */ {
  public:
   inline Position() : Position(nullptr) {}
   virtual ~Position();
@@ -371,7 +377,7 @@ class Position PROTOBUF_FINAL :
   void InternalSwap(Position* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Position";
+    return "Proto.Unity.Position";
   }
   protected:
   explicit Position(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -425,7 +431,7 @@ class Position PROTOBUF_FINAL :
   void _internal_set_z(float value);
   public:
 
-  // @@protoc_insertion_point(class_scope:Position)
+  // @@protoc_insertion_point(class_scope:Proto.Unity.Position)
  private:
   class _Internal;
 
@@ -441,7 +447,7 @@ class Position PROTOBUF_FINAL :
 // -------------------------------------------------------------------
 
 class Rotation PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Rotation) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Proto.Unity.Rotation) */ {
  public:
   inline Rotation() : Rotation(nullptr) {}
   virtual ~Rotation();
@@ -529,7 +535,7 @@ class Rotation PROTOBUF_FINAL :
   void InternalSwap(Rotation* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Rotation";
+    return "Proto.Unity.Rotation";
   }
   protected:
   explicit Rotation(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -583,7 +589,7 @@ class Rotation PROTOBUF_FINAL :
   void _internal_set_z(float value);
   public:
 
-  // @@protoc_insertion_point(class_scope:Rotation)
+  // @@protoc_insertion_point(class_scope:Proto.Unity.Rotation)
  private:
   class _Internal;
 
@@ -615,7 +621,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 Data::_internal_id() const {
   return id_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::int32 Data::id() const {
-  // @@protoc_insertion_point(field_get:Data.id)
+  // @@protoc_insertion_point(field_get:Proto.Unity.Data.id)
   return _internal_id();
 }
 inline void Data::_internal_set_id(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -624,7 +630,7 @@ inline void Data::_internal_set_id(::PROTOBUF_NAMESPACE_ID::int32 value) {
 }
 inline void Data::set_id(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_set_id(value);
-  // @@protoc_insertion_point(field_set:Data.id)
+  // @@protoc_insertion_point(field_set:Proto.Unity.Data.id)
 }
 
 // string name = 2;
@@ -632,15 +638,15 @@ inline void Data::clear_name() {
   name_.ClearToEmpty();
 }
 inline const std::string& Data::name() const {
-  // @@protoc_insertion_point(field_get:Data.name)
+  // @@protoc_insertion_point(field_get:Proto.Unity.Data.name)
   return _internal_name();
 }
 inline void Data::set_name(const std::string& value) {
   _internal_set_name(value);
-  // @@protoc_insertion_point(field_set:Data.name)
+  // @@protoc_insertion_point(field_set:Proto.Unity.Data.name)
 }
 inline std::string* Data::mutable_name() {
-  // @@protoc_insertion_point(field_mutable:Data.name)
+  // @@protoc_insertion_point(field_mutable:Proto.Unity.Data.name)
   return _internal_mutable_name();
 }
 inline const std::string& Data::_internal_name() const {
@@ -654,27 +660,27 @@ inline void Data::set_name(std::string&& value) {
   
   name_.Set(
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:Data.name)
+  // @@protoc_insertion_point(field_set_rvalue:Proto.Unity.Data.name)
 }
 inline void Data::set_name(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
-  // @@protoc_insertion_point(field_set_char:Data.name)
+  // @@protoc_insertion_point(field_set_char:Proto.Unity.Data.name)
 }
 inline void Data::set_name(const char* value,
     size_t size) {
   
   name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:Data.name)
+  // @@protoc_insertion_point(field_set_pointer:Proto.Unity.Data.name)
 }
 inline std::string* Data::_internal_mutable_name() {
   
   return name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
 }
 inline std::string* Data::release_name() {
-  // @@protoc_insertion_point(field_release:Data.name)
+  // @@protoc_insertion_point(field_release:Proto.Unity.Data.name)
   return name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline void Data::set_allocated_name(std::string* name) {
@@ -685,10 +691,10 @@ inline void Data::set_allocated_name(std::string* name) {
   }
   name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), name,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:Data.name)
+  // @@protoc_insertion_point(field_set_allocated:Proto.Unity.Data.name)
 }
 
-// .Position pos = 3;
+// .Proto.Unity.Position pos = 3;
 inline bool Data::_internal_has_pos() const {
   return this != internal_default_instance() && pos_ != nullptr;
 }
@@ -701,17 +707,17 @@ inline void Data::clear_pos() {
   }
   pos_ = nullptr;
 }
-inline const ::Position& Data::_internal_pos() const {
-  const ::Position* p = pos_;
-  return p != nullptr ? *p : reinterpret_cast<const ::Position&>(
-      ::_Position_default_instance_);
+inline const ::Proto::Unity::Position& Data::_internal_pos() const {
+  const ::Proto::Unity::Position* p = pos_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Proto::Unity::Position&>(
+      ::Proto::Unity::_Position_default_instance_);
 }
-inline const ::Position& Data::pos() const {
-  // @@protoc_insertion_point(field_get:Data.pos)
+inline const ::Proto::Unity::Position& Data::pos() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.Data.pos)
   return _internal_pos();
 }
 inline void Data::unsafe_arena_set_allocated_pos(
-    ::Position* pos) {
+    ::Proto::Unity::Position* pos) {
   if (GetArena() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(pos_);
   }
@@ -721,37 +727,37 @@ inline void Data::unsafe_arena_set_allocated_pos(
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Data.pos)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Proto.Unity.Data.pos)
 }
-inline ::Position* Data::release_pos() {
+inline ::Proto::Unity::Position* Data::release_pos() {
   
-  ::Position* temp = pos_;
+  ::Proto::Unity::Position* temp = pos_;
   pos_ = nullptr;
   if (GetArena() != nullptr) {
     temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
   }
   return temp;
 }
-inline ::Position* Data::unsafe_arena_release_pos() {
-  // @@protoc_insertion_point(field_release:Data.pos)
+inline ::Proto::Unity::Position* Data::unsafe_arena_release_pos() {
+  // @@protoc_insertion_point(field_release:Proto.Unity.Data.pos)
   
-  ::Position* temp = pos_;
+  ::Proto::Unity::Position* temp = pos_;
   pos_ = nullptr;
   return temp;
 }
-inline ::Position* Data::_internal_mutable_pos() {
+inline ::Proto::Unity::Position* Data::_internal_mutable_pos() {
   
   if (pos_ == nullptr) {
-    auto* p = CreateMaybeMessage<::Position>(GetArena());
+    auto* p = CreateMaybeMessage<::Proto::Unity::Position>(GetArena());
     pos_ = p;
   }
   return pos_;
 }
-inline ::Position* Data::mutable_pos() {
-  // @@protoc_insertion_point(field_mutable:Data.pos)
+inline ::Proto::Unity::Position* Data::mutable_pos() {
+  // @@protoc_insertion_point(field_mutable:Proto.Unity.Data.pos)
   return _internal_mutable_pos();
 }
-inline void Data::set_allocated_pos(::Position* pos) {
+inline void Data::set_allocated_pos(::Proto::Unity::Position* pos) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   if (message_arena == nullptr) {
     delete pos_;
@@ -768,10 +774,10 @@ inline void Data::set_allocated_pos(::Position* pos) {
     
   }
   pos_ = pos;
-  // @@protoc_insertion_point(field_set_allocated:Data.pos)
+  // @@protoc_insertion_point(field_set_allocated:Proto.Unity.Data.pos)
 }
 
-// .Rotation rot = 4;
+// .Proto.Unity.Rotation rot = 4;
 inline bool Data::_internal_has_rot() const {
   return this != internal_default_instance() && rot_ != nullptr;
 }
@@ -784,17 +790,17 @@ inline void Data::clear_rot() {
   }
   rot_ = nullptr;
 }
-inline const ::Rotation& Data::_internal_rot() const {
-  const ::Rotation* p = rot_;
-  return p != nullptr ? *p : reinterpret_cast<const ::Rotation&>(
-      ::_Rotation_default_instance_);
+inline const ::Proto::Unity::Rotation& Data::_internal_rot() const {
+  const ::Proto::Unity::Rotation* p = rot_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Proto::Unity::Rotation&>(
+      ::Proto::Unity::_Rotation_default_instance_);
 }
-inline const ::Rotation& Data::rot() const {
-  // @@protoc_insertion_point(field_get:Data.rot)
+inline const ::Proto::Unity::Rotation& Data::rot() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.Data.rot)
   return _internal_rot();
 }
 inline void Data::unsafe_arena_set_allocated_rot(
-    ::Rotation* rot) {
+    ::Proto::Unity::Rotation* rot) {
   if (GetArena() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(rot_);
   }
@@ -804,37 +810,37 @@ inline void Data::unsafe_arena_set_allocated_rot(
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Data.rot)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Proto.Unity.Data.rot)
 }
-inline ::Rotation* Data::release_rot() {
+inline ::Proto::Unity::Rotation* Data::release_rot() {
   
-  ::Rotation* temp = rot_;
+  ::Proto::Unity::Rotation* temp = rot_;
   rot_ = nullptr;
   if (GetArena() != nullptr) {
     temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
   }
   return temp;
 }
-inline ::Rotation* Data::unsafe_arena_release_rot() {
-  // @@protoc_insertion_point(field_release:Data.rot)
+inline ::Proto::Unity::Rotation* Data::unsafe_arena_release_rot() {
+  // @@protoc_insertion_point(field_release:Proto.Unity.Data.rot)
   
-  ::Rotation* temp = rot_;
+  ::Proto::Unity::Rotation* temp = rot_;
   rot_ = nullptr;
   return temp;
 }
-inline ::Rotation* Data::_internal_mutable_rot() {
+inline ::Proto::Unity::Rotation* Data::_internal_mutable_rot() {
   
   if (rot_ == nullptr) {
-    auto* p = CreateMaybeMessage<::Rotation>(GetArena());
+    auto* p = CreateMaybeMessage<::Proto::Unity::Rotation>(GetArena());
     rot_ = p;
   }
   return rot_;
 }
-inline ::Rotation* Data::mutable_rot() {
-  // @@protoc_insertion_point(field_mutable:Data.rot)
+inline ::Proto::Unity::Rotation* Data::mutable_rot() {
+  // @@protoc_insertion_point(field_mutable:Proto.Unity.Data.rot)
   return _internal_mutable_rot();
 }
-inline void Data::set_allocated_rot(::Rotation* rot) {
+inline void Data::set_allocated_rot(::Proto::Unity::Rotation* rot) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   if (message_arena == nullptr) {
     delete rot_;
@@ -851,7 +857,7 @@ inline void Data::set_allocated_rot(::Rotation* rot) {
     
   }
   rot_ = rot;
-  // @@protoc_insertion_point(field_set_allocated:Data.rot)
+  // @@protoc_insertion_point(field_set_allocated:Proto.Unity.Data.rot)
 }
 
 // string msg = 5;
@@ -859,15 +865,15 @@ inline void Data::clear_msg() {
   msg_.ClearToEmpty();
 }
 inline const std::string& Data::msg() const {
-  // @@protoc_insertion_point(field_get:Data.msg)
+  // @@protoc_insertion_point(field_get:Proto.Unity.Data.msg)
   return _internal_msg();
 }
 inline void Data::set_msg(const std::string& value) {
   _internal_set_msg(value);
-  // @@protoc_insertion_point(field_set:Data.msg)
+  // @@protoc_insertion_point(field_set:Proto.Unity.Data.msg)
 }
 inline std::string* Data::mutable_msg() {
-  // @@protoc_insertion_point(field_mutable:Data.msg)
+  // @@protoc_insertion_point(field_mutable:Proto.Unity.Data.msg)
   return _internal_mutable_msg();
 }
 inline const std::string& Data::_internal_msg() const {
@@ -881,27 +887,27 @@ inline void Data::set_msg(std::string&& value) {
   
   msg_.Set(
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:Data.msg)
+  // @@protoc_insertion_point(field_set_rvalue:Proto.Unity.Data.msg)
 }
 inline void Data::set_msg(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   msg_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
-  // @@protoc_insertion_point(field_set_char:Data.msg)
+  // @@protoc_insertion_point(field_set_char:Proto.Unity.Data.msg)
 }
 inline void Data::set_msg(const char* value,
     size_t size) {
   
   msg_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:Data.msg)
+  // @@protoc_insertion_point(field_set_pointer:Proto.Unity.Data.msg)
 }
 inline std::string* Data::_internal_mutable_msg() {
   
   return msg_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
 }
 inline std::string* Data::release_msg() {
-  // @@protoc_insertion_point(field_release:Data.msg)
+  // @@protoc_insertion_point(field_release:Proto.Unity.Data.msg)
   return msg_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 inline void Data::set_allocated_msg(std::string* msg) {
@@ -912,7 +918,7 @@ inline void Data::set_allocated_msg(std::string* msg) {
   }
   msg_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), msg,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:Data.msg)
+  // @@protoc_insertion_point(field_set_allocated:Proto.Unity.Data.msg)
 }
 
 // -------------------------------------------------------------------
@@ -927,7 +933,7 @@ inline float Position::_internal_x() const {
   return x_;
 }
 inline float Position::x() const {
-  // @@protoc_insertion_point(field_get:Position.X)
+  // @@protoc_insertion_point(field_get:Proto.Unity.Position.X)
   return _internal_x();
 }
 inline void Position::_internal_set_x(float value) {
@@ -936,7 +942,7 @@ inline void Position::_internal_set_x(float value) {
 }
 inline void Position::set_x(float value) {
   _internal_set_x(value);
-  // @@protoc_insertion_point(field_set:Position.X)
+  // @@protoc_insertion_point(field_set:Proto.Unity.Position.X)
 }
 
 // float Y = 2;
@@ -947,7 +953,7 @@ inline float Position::_internal_y() const {
   return y_;
 }
 inline float Position::y() const {
-  // @@protoc_insertion_point(field_get:Position.Y)
+  // @@protoc_insertion_point(field_get:Proto.Unity.Position.Y)
   return _internal_y();
 }
 inline void Position::_internal_set_y(float value) {
@@ -956,7 +962,7 @@ inline void Position::_internal_set_y(float value) {
 }
 inline void Position::set_y(float value) {
   _internal_set_y(value);
-  // @@protoc_insertion_point(field_set:Position.Y)
+  // @@protoc_insertion_point(field_set:Proto.Unity.Position.Y)
 }
 
 // float Z = 3;
@@ -967,7 +973,7 @@ inline float Position::_internal_z() const {
   return z_;
 }
 inline float Position::z() const {
-  // @@protoc_insertion_point(field_get:Position.Z)
+  // @@protoc_insertion_point(field_get:Proto.Unity.Position.Z)
   return _internal_z();
 }
 inline void Position::_internal_set_z(float value) {
@@ -976,7 +982,7 @@ inline void Position::_internal_set_z(float value) {
 }
 inline void Position::set_z(float value) {
   _internal_set_z(value);
-  // @@protoc_insertion_point(field_set:Position.Z)
+  // @@protoc_insertion_point(field_set:Proto.Unity.Position.Z)
 }
 
 // -------------------------------------------------------------------
@@ -991,7 +997,7 @@ inline float Rotation::_internal_x() const {
   return x_;
 }
 inline float Rotation::x() const {
-  // @@protoc_insertion_point(field_get:Rotation.X)
+  // @@protoc_insertion_point(field_get:Proto.Unity.Rotation.X)
   return _internal_x();
 }
 inline void Rotation::_internal_set_x(float value) {
@@ -1000,7 +1006,7 @@ inline void Rotation::_internal_set_x(float value) {
 }
 inline void Rotation::set_x(float value) {
   _internal_set_x(value);
-  // @@protoc_insertion_point(field_set:Rotation.X)
+  // @@protoc_insertion_point(field_set:Proto.Unity.Rotation.X)
 }
 
 // float Y = 2;
@@ -1011,7 +1017,7 @@ inline float Rotation::_internal_y() const {
   return y_;
 }
 inline float Rotation::y() const {
-  // @@protoc_insertion_point(field_get:Rotation.Y)
+  // @@protoc_insertion_point(field_get:Proto.Unity.Rotation.Y)
   return _internal_y();
 }
 inline void Rotation::_internal_set_y(float value) {
@@ -1020,7 +1026,7 @@ inline void Rotation::_internal_set_y(float value) {
 }
 inline void Rotation::set_y(float value) {
   _internal_set_y(value);
-  // @@protoc_insertion_point(field_set:Rotation.Y)
+  // @@protoc_insertion_point(field_set:Proto.Unity.Rotation.Y)
 }
 
 // float Z = 3;
@@ -1031,7 +1037,7 @@ inline float Rotation::_internal_z() const {
   return z_;
 }
 inline float Rotation::z() const {
-  // @@protoc_insertion_point(field_get:Rotation.Z)
+  // @@protoc_insertion_point(field_get:Proto.Unity.Rotation.Z)
   return _internal_z();
 }
 inline void Rotation::_internal_set_z(float value) {
@@ -1040,7 +1046,7 @@ inline void Rotation::_internal_set_z(float value) {
 }
 inline void Rotation::set_z(float value) {
   _internal_set_z(value);
-  // @@protoc_insertion_point(field_set:Rotation.Z)
+  // @@protoc_insertion_point(field_set:Proto.Unity.Rotation.Z)
 }
 
 #ifdef __GNUC__
@@ -1053,6 +1059,8 @@ inline void Rotation::set_z(float value) {
 
 // @@protoc_insertion_point(namespace_scope)
 
+}  // namespace Unity
+}  // namespace Proto
 
 // @@protoc_insertion_point(global_scope)
 

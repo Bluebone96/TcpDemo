@@ -16,6 +16,8 @@
 #include <google/protobuf/port_def.inc>
 extern PROTOBUF_INTERNAL_EXPORT_Message_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Position_Message_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_Message_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Rotation_Message_2eproto;
+namespace Proto {
+namespace Unity {
 class DataDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Data> _instance;
@@ -28,12 +30,14 @@ class RotationDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Rotation> _instance;
 } _Rotation_default_instance_;
+}  // namespace Unity
+}  // namespace Proto
 static void InitDefaultsscc_info_Data_Message_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::_Data_default_instance_;
-    new (ptr) ::Data();
+    void* ptr = &::Proto::Unity::_Data_default_instance_;
+    new (ptr) ::Proto::Unity::Data();
     ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
   }
 }
@@ -47,8 +51,8 @@ static void InitDefaultsscc_info_Position_Message_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::_Position_default_instance_;
-    new (ptr) ::Position();
+    void* ptr = &::Proto::Unity::_Position_default_instance_;
+    new (ptr) ::Proto::Unity::Position();
     ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
   }
 }
@@ -60,8 +64,8 @@ static void InitDefaultsscc_info_Rotation_Message_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::_Rotation_default_instance_;
-    new (ptr) ::Rotation();
+    void* ptr = &::Proto::Unity::_Rotation_default_instance_;
+    new (ptr) ::Proto::Unity::Rotation();
     ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
   }
 }
@@ -75,51 +79,52 @@ static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_s
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_Message_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::Data, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::Proto::Unity::Data, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::Data, id_),
-  PROTOBUF_FIELD_OFFSET(::Data, name_),
-  PROTOBUF_FIELD_OFFSET(::Data, pos_),
-  PROTOBUF_FIELD_OFFSET(::Data, rot_),
-  PROTOBUF_FIELD_OFFSET(::Data, msg_),
+  PROTOBUF_FIELD_OFFSET(::Proto::Unity::Data, id_),
+  PROTOBUF_FIELD_OFFSET(::Proto::Unity::Data, name_),
+  PROTOBUF_FIELD_OFFSET(::Proto::Unity::Data, pos_),
+  PROTOBUF_FIELD_OFFSET(::Proto::Unity::Data, rot_),
+  PROTOBUF_FIELD_OFFSET(::Proto::Unity::Data, msg_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::Position, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::Proto::Unity::Position, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::Position, x_),
-  PROTOBUF_FIELD_OFFSET(::Position, y_),
-  PROTOBUF_FIELD_OFFSET(::Position, z_),
+  PROTOBUF_FIELD_OFFSET(::Proto::Unity::Position, x_),
+  PROTOBUF_FIELD_OFFSET(::Proto::Unity::Position, y_),
+  PROTOBUF_FIELD_OFFSET(::Proto::Unity::Position, z_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::Rotation, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::Proto::Unity::Rotation, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::Rotation, x_),
-  PROTOBUF_FIELD_OFFSET(::Rotation, y_),
-  PROTOBUF_FIELD_OFFSET(::Rotation, z_),
+  PROTOBUF_FIELD_OFFSET(::Proto::Unity::Rotation, x_),
+  PROTOBUF_FIELD_OFFSET(::Proto::Unity::Rotation, y_),
+  PROTOBUF_FIELD_OFFSET(::Proto::Unity::Rotation, z_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, -1, sizeof(::Data)},
-  { 10, -1, sizeof(::Position)},
-  { 18, -1, sizeof(::Rotation)},
+  { 0, -1, sizeof(::Proto::Unity::Data)},
+  { 10, -1, sizeof(::Proto::Unity::Position)},
+  { 18, -1, sizeof(::Proto::Unity::Rotation)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_Data_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_Position_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_Rotation_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::Proto::Unity::_Data_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::Proto::Unity::_Position_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::Proto::Unity::_Rotation_default_instance_),
 };
 
 const char descriptor_table_protodef_Message_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\rMessage.proto\"]\n\004Data\022\n\n\002id\030\001 \001(\005\022\014\n\004n"
-  "ame\030\002 \001(\t\022\026\n\003pos\030\003 \001(\0132\t.Position\022\026\n\003rot"
-  "\030\004 \001(\0132\t.Rotation\022\013\n\003msg\030\005 \001(\t\"+\n\010Positi"
-  "on\022\t\n\001X\030\001 \001(\002\022\t\n\001Y\030\002 \001(\002\022\t\n\001Z\030\003 \001(\002\"+\n\010R"
-  "otation\022\t\n\001X\030\001 \001(\002\022\t\n\001Y\030\002 \001(\002\022\t\n\001Z\030\003 \001(\002"
-  "b\006proto3"
+  "\n\rMessage.proto\022\013Proto.Unity\"u\n\004Data\022\n\n\002"
+  "id\030\001 \001(\005\022\014\n\004name\030\002 \001(\t\022\"\n\003pos\030\003 \001(\0132\025.Pr"
+  "oto.Unity.Position\022\"\n\003rot\030\004 \001(\0132\025.Proto."
+  "Unity.Rotation\022\013\n\003msg\030\005 \001(\t\"+\n\010Position\022"
+  "\t\n\001X\030\001 \001(\002\022\t\n\001Y\030\002 \001(\002\022\t\n\001Z\030\003 \001(\002\"+\n\010Rota"
+  "tion\022\t\n\001X\030\001 \001(\002\022\t\n\001Y\030\002 \001(\002\022\t\n\001Z\030\003 \001(\002b\006p"
+  "roto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_Message_2eproto_deps[1] = {
 };
@@ -130,7 +135,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_Mes
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_Message_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_Message_2eproto = {
-  false, false, descriptor_table_protodef_Message_2eproto, "Message.proto", 208,
+  false, false, descriptor_table_protodef_Message_2eproto, "Message.proto", 245,
   &descriptor_table_Message_2eproto_once, descriptor_table_Message_2eproto_sccs, descriptor_table_Message_2eproto_deps, 3, 0,
   schemas, file_default_instances, TableStruct_Message_2eproto::offsets,
   file_level_metadata_Message_2eproto, 3, file_level_enum_descriptors_Message_2eproto, file_level_service_descriptors_Message_2eproto,
@@ -138,20 +143,22 @@ const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_Messag
 
 // Force running AddDescriptors() at dynamic initialization time.
 static bool dynamic_init_dummy_Message_2eproto = (static_cast<void>(::PROTOBUF_NAMESPACE_ID::internal::AddDescriptors(&descriptor_table_Message_2eproto)), true);
+namespace Proto {
+namespace Unity {
 
 // ===================================================================
 
 class Data::_Internal {
  public:
-  static const ::Position& pos(const Data* msg);
-  static const ::Rotation& rot(const Data* msg);
+  static const ::Proto::Unity::Position& pos(const Data* msg);
+  static const ::Proto::Unity::Rotation& rot(const Data* msg);
 };
 
-const ::Position&
+const ::Proto::Unity::Position&
 Data::_Internal::pos(const Data* msg) {
   return *msg->pos_;
 }
-const ::Rotation&
+const ::Proto::Unity::Rotation&
 Data::_Internal::rot(const Data* msg) {
   return *msg->rot_;
 }
@@ -159,7 +166,7 @@ Data::Data(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:Data)
+  // @@protoc_insertion_point(arena_constructor:Proto.Unity.Data)
 }
 Data::Data(const Data& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
@@ -175,17 +182,17 @@ Data::Data(const Data& from)
       GetArena());
   }
   if (from._internal_has_pos()) {
-    pos_ = new ::Position(*from.pos_);
+    pos_ = new ::Proto::Unity::Position(*from.pos_);
   } else {
     pos_ = nullptr;
   }
   if (from._internal_has_rot()) {
-    rot_ = new ::Rotation(*from.rot_);
+    rot_ = new ::Proto::Unity::Rotation(*from.rot_);
   } else {
     rot_ = nullptr;
   }
   id_ = from.id_;
-  // @@protoc_insertion_point(copy_constructor:Data)
+  // @@protoc_insertion_point(copy_constructor:Proto.Unity.Data)
 }
 
 void Data::SharedCtor() {
@@ -199,7 +206,7 @@ void Data::SharedCtor() {
 }
 
 Data::~Data() {
-  // @@protoc_insertion_point(destructor:Data)
+  // @@protoc_insertion_point(destructor:Proto.Unity.Data)
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -228,7 +235,7 @@ const Data& Data::default_instance() {
 
 
 void Data::Clear() {
-// @@protoc_insertion_point(message_clear_start:Data)
+// @@protoc_insertion_point(message_clear_start:Proto.Unity.Data)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -266,18 +273,18 @@ const char* Data::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inter
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
           auto str = _internal_mutable_name();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "Data.name"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "Proto.Unity.Data.name"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // .Position pos = 3;
+      // .Proto.Unity.Position pos = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_pos(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // .Rotation rot = 4;
+      // .Proto.Unity.Rotation rot = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_rot(), ptr);
@@ -289,7 +296,7 @@ const char* Data::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inter
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
           auto str = _internal_mutable_msg();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "Data.msg"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "Proto.Unity.Data.msg"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -317,7 +324,7 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* Data::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Data)
+  // @@protoc_insertion_point(serialize_to_array_start:Proto.Unity.Data)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -332,12 +339,12 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "Data.name");
+      "Proto.Unity.Data.name");
     target = stream->WriteStringMaybeAliased(
         2, this->_internal_name(), target);
   }
 
-  // .Position pos = 3;
+  // .Proto.Unity.Position pos = 3;
   if (this->has_pos()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -345,7 +352,7 @@ failure:
         3, _Internal::pos(this), target, stream);
   }
 
-  // .Rotation rot = 4;
+  // .Proto.Unity.Rotation rot = 4;
   if (this->has_rot()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -358,7 +365,7 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_msg().data(), static_cast<int>(this->_internal_msg().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "Data.msg");
+      "Proto.Unity.Data.msg");
     target = stream->WriteStringMaybeAliased(
         5, this->_internal_msg(), target);
   }
@@ -367,12 +374,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:Data)
+  // @@protoc_insertion_point(serialize_to_array_end:Proto.Unity.Data)
   return target;
 }
 
 size_t Data::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Data)
+// @@protoc_insertion_point(message_byte_size_start:Proto.Unity.Data)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -393,14 +400,14 @@ size_t Data::ByteSizeLong() const {
         this->_internal_msg());
   }
 
-  // .Position pos = 3;
+  // .Proto.Unity.Position pos = 3;
   if (this->has_pos()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *pos_);
   }
 
-  // .Rotation rot = 4;
+  // .Proto.Unity.Rotation rot = 4;
   if (this->has_rot()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -424,22 +431,22 @@ size_t Data::ByteSizeLong() const {
 }
 
 void Data::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:Data)
+// @@protoc_insertion_point(generalized_merge_from_start:Proto.Unity.Data)
   GOOGLE_DCHECK_NE(&from, this);
   const Data* source =
       ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Data>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:Data)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:Proto.Unity.Data)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:Data)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:Proto.Unity.Data)
     MergeFrom(*source);
   }
 }
 
 void Data::MergeFrom(const Data& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:Data)
+// @@protoc_insertion_point(class_specific_merge_from_start:Proto.Unity.Data)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -452,10 +459,10 @@ void Data::MergeFrom(const Data& from) {
     _internal_set_msg(from._internal_msg());
   }
   if (from.has_pos()) {
-    _internal_mutable_pos()->::Position::MergeFrom(from._internal_pos());
+    _internal_mutable_pos()->::Proto::Unity::Position::MergeFrom(from._internal_pos());
   }
   if (from.has_rot()) {
-    _internal_mutable_rot()->::Rotation::MergeFrom(from._internal_rot());
+    _internal_mutable_rot()->::Proto::Unity::Rotation::MergeFrom(from._internal_rot());
   }
   if (from.id() != 0) {
     _internal_set_id(from._internal_id());
@@ -463,14 +470,14 @@ void Data::MergeFrom(const Data& from) {
 }
 
 void Data::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:Data)
+// @@protoc_insertion_point(generalized_copy_from_start:Proto.Unity.Data)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void Data::CopyFrom(const Data& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Data)
+// @@protoc_insertion_point(class_specific_copy_from_start:Proto.Unity.Data)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -508,7 +515,7 @@ Position::Position(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:Position)
+  // @@protoc_insertion_point(arena_constructor:Proto.Unity.Position)
 }
 Position::Position(const Position& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
@@ -516,7 +523,7 @@ Position::Position(const Position& from)
   ::memcpy(&x_, &from.x_,
     static_cast<size_t>(reinterpret_cast<char*>(&z_) -
     reinterpret_cast<char*>(&x_)) + sizeof(z_));
-  // @@protoc_insertion_point(copy_constructor:Position)
+  // @@protoc_insertion_point(copy_constructor:Proto.Unity.Position)
 }
 
 void Position::SharedCtor() {
@@ -527,7 +534,7 @@ void Position::SharedCtor() {
 }
 
 Position::~Position() {
-  // @@protoc_insertion_point(destructor:Position)
+  // @@protoc_insertion_point(destructor:Proto.Unity.Position)
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -552,7 +559,7 @@ const Position& Position::default_instance() {
 
 
 void Position::Clear() {
-// @@protoc_insertion_point(message_clear_start:Position)
+// @@protoc_insertion_point(message_clear_start:Proto.Unity.Position)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -615,7 +622,7 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* Position::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Position)
+  // @@protoc_insertion_point(serialize_to_array_start:Proto.Unity.Position)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -641,12 +648,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:Position)
+  // @@protoc_insertion_point(serialize_to_array_end:Proto.Unity.Position)
   return target;
 }
 
 size_t Position::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Position)
+// @@protoc_insertion_point(message_byte_size_start:Proto.Unity.Position)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -678,22 +685,22 @@ size_t Position::ByteSizeLong() const {
 }
 
 void Position::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:Position)
+// @@protoc_insertion_point(generalized_merge_from_start:Proto.Unity.Position)
   GOOGLE_DCHECK_NE(&from, this);
   const Position* source =
       ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Position>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:Position)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:Proto.Unity.Position)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:Position)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:Proto.Unity.Position)
     MergeFrom(*source);
   }
 }
 
 void Position::MergeFrom(const Position& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:Position)
+// @@protoc_insertion_point(class_specific_merge_from_start:Proto.Unity.Position)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -711,14 +718,14 @@ void Position::MergeFrom(const Position& from) {
 }
 
 void Position::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:Position)
+// @@protoc_insertion_point(generalized_copy_from_start:Proto.Unity.Position)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void Position::CopyFrom(const Position& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Position)
+// @@protoc_insertion_point(class_specific_copy_from_start:Proto.Unity.Position)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -754,7 +761,7 @@ Rotation::Rotation(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
-  // @@protoc_insertion_point(arena_constructor:Rotation)
+  // @@protoc_insertion_point(arena_constructor:Proto.Unity.Rotation)
 }
 Rotation::Rotation(const Rotation& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
@@ -762,7 +769,7 @@ Rotation::Rotation(const Rotation& from)
   ::memcpy(&x_, &from.x_,
     static_cast<size_t>(reinterpret_cast<char*>(&z_) -
     reinterpret_cast<char*>(&x_)) + sizeof(z_));
-  // @@protoc_insertion_point(copy_constructor:Rotation)
+  // @@protoc_insertion_point(copy_constructor:Proto.Unity.Rotation)
 }
 
 void Rotation::SharedCtor() {
@@ -773,7 +780,7 @@ void Rotation::SharedCtor() {
 }
 
 Rotation::~Rotation() {
-  // @@protoc_insertion_point(destructor:Rotation)
+  // @@protoc_insertion_point(destructor:Proto.Unity.Rotation)
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -798,7 +805,7 @@ const Rotation& Rotation::default_instance() {
 
 
 void Rotation::Clear() {
-// @@protoc_insertion_point(message_clear_start:Rotation)
+// @@protoc_insertion_point(message_clear_start:Proto.Unity.Rotation)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -861,7 +868,7 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* Rotation::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:Rotation)
+  // @@protoc_insertion_point(serialize_to_array_start:Proto.Unity.Rotation)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -887,12 +894,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:Rotation)
+  // @@protoc_insertion_point(serialize_to_array_end:Proto.Unity.Rotation)
   return target;
 }
 
 size_t Rotation::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:Rotation)
+// @@protoc_insertion_point(message_byte_size_start:Proto.Unity.Rotation)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -924,22 +931,22 @@ size_t Rotation::ByteSizeLong() const {
 }
 
 void Rotation::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:Rotation)
+// @@protoc_insertion_point(generalized_merge_from_start:Proto.Unity.Rotation)
   GOOGLE_DCHECK_NE(&from, this);
   const Rotation* source =
       ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Rotation>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:Rotation)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:Proto.Unity.Rotation)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:Rotation)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:Proto.Unity.Rotation)
     MergeFrom(*source);
   }
 }
 
 void Rotation::MergeFrom(const Rotation& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:Rotation)
+// @@protoc_insertion_point(class_specific_merge_from_start:Proto.Unity.Rotation)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -957,14 +964,14 @@ void Rotation::MergeFrom(const Rotation& from) {
 }
 
 void Rotation::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:Rotation)
+// @@protoc_insertion_point(generalized_copy_from_start:Proto.Unity.Rotation)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void Rotation::CopyFrom(const Rotation& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Rotation)
+// @@protoc_insertion_point(class_specific_copy_from_start:Proto.Unity.Rotation)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -991,15 +998,17 @@ void Rotation::InternalSwap(Rotation* other) {
 
 
 // @@protoc_insertion_point(namespace_scope)
+}  // namespace Unity
+}  // namespace Proto
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::Data* Arena::CreateMaybeMessage< ::Data >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::Data >(arena);
+template<> PROTOBUF_NOINLINE ::Proto::Unity::Data* Arena::CreateMaybeMessage< ::Proto::Unity::Data >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Proto::Unity::Data >(arena);
 }
-template<> PROTOBUF_NOINLINE ::Position* Arena::CreateMaybeMessage< ::Position >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::Position >(arena);
+template<> PROTOBUF_NOINLINE ::Proto::Unity::Position* Arena::CreateMaybeMessage< ::Proto::Unity::Position >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Proto::Unity::Position >(arena);
 }
-template<> PROTOBUF_NOINLINE ::Rotation* Arena::CreateMaybeMessage< ::Rotation >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::Rotation >(arena);
+template<> PROTOBUF_NOINLINE ::Proto::Unity::Rotation* Arena::CreateMaybeMessage< ::Proto::Unity::Rotation >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Proto::Unity::Rotation >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

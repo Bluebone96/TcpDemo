@@ -28,7 +28,7 @@ private:
     
     Client(){};
     MsgTrans m_MsgTrans;
-    Data m_data;
+    Proto::Unity::Data m_data;
     Epoll m_epoll;
     int32_t m_addr;
     friend std::ostream& operator<<(std::ostream& os, Client& ct);

@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+package Proto.Unity;
+
 message Data {
     int32 id = 1;
     string name = 2;
