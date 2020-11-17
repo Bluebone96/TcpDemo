@@ -35,7 +35,7 @@ public:
     }
 
     int32_t sendmsg() {
-        return sendmsg(m_pRecord->m_data, m_pRecord->m_len);
+        return sendmsg(m_pRecord->m_data, m_pRecord->m_len + m_RecordSize);
     }
 
     template <typename T>
@@ -54,7 +54,7 @@ public:
         return sendmsg();
     }
 
-    int32_t recvmsg(char* data, int32_t len)
+    int32_t recvmsg(char* data, uint32_t len)
     {
         int32_t errnocode = 0;
 
@@ -70,7 +70,7 @@ public:
             m_pRecord->m_len = len;
         }
 
-        if ((errnocode = TcpSocket::RecvData(data, m_pRecord->m_len)) < 0) {
+        if ((errnocode = TcpSocket::RecvData(data + m_RecordSize, m_pRecord->m_len)) < 0) {
             TRACERERRNO("recvmsg error %s:%d\n", __POSITION__);
             return errnocode;
         }
@@ -91,8 +91,8 @@ public:
         if ((error = recvmsg()) < 0) {
             return error;
         }
-
-        data.ParseFromArray(m_pRecord->m_data, m_pRecord->m_len);
+        
+        data.ParseFromArray(m_pRecord->m_data + m_RecordSize, m_pRecord->m_len);
 
         return 0;
     }

@@ -16,7 +16,7 @@ Server::~Server()
 
 int32_t Server::Init(int32_t port, const char* hostname)
 {
-    int32_t fd = m_MsgTrans.OpenAsServer(port);
+    int32_t fd = m_MsgTrans.OpenAsServer(port, hostname);
     if (fd < 0) {
         TRACER("Server::Init OpenAsServer failed.\n");
         return -1;
@@ -115,7 +115,7 @@ int32_t Server::RecvMsg()
 
             for(auto& pp : m_clients) {
                 TRACER("sendata to %d\n", pp.first);
-                pp.second->sendmsg(data, len);
+                pp.second->sendmsg(data, len + sizeof(Record));
             }
 
             TRACER("all clients sended, go next loop.\n");

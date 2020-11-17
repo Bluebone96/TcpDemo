@@ -97,6 +97,8 @@ int32_t TcpSocket::RecvData(void* usrbuf, uint32_t size)
     int32_t nleft = size;
     int32_t cnt;
     char* pbuf = (char*)usrbuf;
+    TRACER("sleep 2s for debug");
+    sleep(2);
 
     while (nleft > 0) {
         TRACER("start call recvdatabuf(%p, %d)\n", pbuf, nleft);
