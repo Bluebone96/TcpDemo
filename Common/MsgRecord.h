@@ -10,7 +10,7 @@
 
 struct Record {
     int32_t m_tag;
-    uint32_t m_len; // m_data的大小
+    uint32_t m_len; // 仅仅为 protobuf 的大小
     char m_data[0];
 };
 

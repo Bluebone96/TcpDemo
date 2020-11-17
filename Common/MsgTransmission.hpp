@@ -47,7 +47,7 @@ public:
         }
 
         
-        MsgRecord::SetLen(data.ByteSizeLong() + m_RecordSize);
+        MsgRecord::SetLen(data.ByteSizeLong());
 
         Encode();
         
@@ -65,7 +65,12 @@ public:
 
         Decode(data, m_RecordSize);
 
-        if ((errnocode = TcpSocket::RecvData(data + m_RecordSize, m_pRecord->m_len - m_RecordSize)) < 0) {
+        if (len < m_pRecord->m_len) {
+            TRACERERRNO("Complete data is %d bytes, just recv %d bytes", m_pRecord->m_len, len);
+            m_pRecord->m_len = len;
+        }
+
+        if ((errnocode = TcpSocket::RecvData(data, m_pRecord->m_len)) < 0) {
             TRACERERRNO("recvmsg error %s:%d\n", __POSITION__);
             return errnocode;
         }
@@ -87,7 +92,7 @@ public:
             return error;
         }
 
-        data.ParseFromArray(m_pRecord->m_data + m_RecordSize, m_pRecord->m_len - m_RecordSize);
+        data.ParseFromArray(m_pRecord->m_data, m_pRecord->m_len);
 
         return 0;
     }
