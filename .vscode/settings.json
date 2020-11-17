@@ -5,6 +5,8 @@
         "new": "cpp",
         "array": "cpp",
         "string": "cpp",
-        "string_view": "cpp"
+        "string_view": "cpp",
+        "fstream": "cpp",
+        "ostream": "cpp"
     }
 }

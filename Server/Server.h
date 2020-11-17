@@ -6,6 +6,7 @@
 #include "../Common/TcpSocket.h"
 #include "../Common/MsgRecord.h"
 #include "../Common/MsgTransmission.hpp"
+//#include "../Status/"
 
 class Server {
 public:
@@ -32,7 +33,7 @@ private:
     int32_t listenfd;
     Epoll m_epoll;
     MsgTrans m_MsgTrans;
-    Proto::Unity::Data m_data;
+    Proto::Unity::PlayerInfo m_data;
     std::unordered_map<uint32_t, MsgTrans*> m_clients;
 };
 
