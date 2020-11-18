@@ -5,7 +5,7 @@
 #include <cstdlib>
 #include <cstring>
 
-#define  MAXDATALEN 1024
+#define  MAXDATALEN 4096
 
 
 struct Record {

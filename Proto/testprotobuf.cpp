@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "Message.pb.h"
+#include "PlayerInfo.pb.h"
 
 void printbin(char* bin, int len)
 {
@@ -14,9 +14,9 @@ void printbin(char* bin, int len)
 
 int main()
 {
-    Proto::Unity::Data data;
+    Proto::Unity::PlayerInfo data;
     std::string msg = "hello";
-    data.set_data(msg);
+    data.set_msg(msg);
 
     char buf[7] = {0};
     data.SerializeToArray(buf, 7);

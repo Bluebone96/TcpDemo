@@ -24,15 +24,17 @@ namespace Proto.Unity {
     static PlayerInfoReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChBQbGF5ZXJJbmZvLnByb3RvEgtQcm90by5Vbml0eSJjCgpQbGF5ZXJJbmZv",
-            "EgoKAmlkGAEgASgNEgoKAm9wGAIgASgNEgwKBG5hbWUYAyABKAkSEAoIUG9z",
-            "aXRpb24YBCADKAISEAoIUm90YXRpb24YBSADKAISCwoDbXNnGAYgASgJIhcK",
-            "CU9wZXJhdGlvbhIKCgJvcBgBIAEoDWIGcHJvdG8z"));
+            "ChBQbGF5ZXJJbmZvLnByb3RvEgtQcm90by5Vbml0eSJXCgpQbGF5ZXJJbmZv",
+            "EgoKAmlkGAEgASgNEhAKCFBvc2l0aW9uGAIgAygCEhAKCFJvdGF0aW9uGAMg",
+            "AygCEgsKA21zZxgEIAEoCRIMCgRuYW1lGAUgASgJIhcKCU9wZXJhdGlvbhIK",
+            "CgJvcBgBIAEoDSIwCg5BdXRoZW50aWNhdGlvbhIMCgRuYW1lGAEgASgJEhAK",
+            "CHBhc3N3b3JkGAIgASgJYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.PlayerInfo), global::Proto.Unity.PlayerInfo.Parser, new[]{ "Id", "Op", "Name", "Position", "Rotation", "Msg" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.Operation), global::Proto.Unity.Operation.Parser, new[]{ "Op" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.PlayerInfo), global::Proto.Unity.PlayerInfo.Parser, new[]{ "Id", "Position", "Rotation", "Msg", "Name" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.Operation), global::Proto.Unity.Operation.Parser, new[]{ "Op" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.Authentication), global::Proto.Unity.Authentication.Parser, new[]{ "Name", "Password" }, null, null, null)
           }));
     }
     #endregion
@@ -65,11 +67,10 @@ namespace Proto.Unity {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public PlayerInfo(PlayerInfo other) : this() {
       id_ = other.id_;
-      op_ = other.op_;
-      name_ = other.name_;
       position_ = other.position_.Clone();
       rotation_ = other.rotation_.Clone();
       msg_ = other.msg_;
+      name_ = other.name_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -89,32 +90,10 @@ namespace Proto.Unity {
       }
     }
 
-    /// <summary>Field number for the "op" field.</summary>
-    public const int OpFieldNumber = 2;
-    private uint op_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public uint Op {
-      get { return op_; }
-      set {
-        op_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "name" field.</summary>
-    public const int NameFieldNumber = 3;
-    private string name_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string Name {
-      get { return name_; }
-      set {
-        name_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
     /// <summary>Field number for the "Position" field.</summary>
-    public const int PositionFieldNumber = 4;
+    public const int PositionFieldNumber = 2;
     private static readonly pb::FieldCodec<float> _repeated_position_codec
-        = pb::FieldCodec.ForFloat(34);
+        = pb::FieldCodec.ForFloat(18);
     private readonly pbc::RepeatedField<float> position_ = new pbc::RepeatedField<float>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public pbc::RepeatedField<float> Position {
@@ -122,9 +101,9 @@ namespace Proto.Unity {
     }
 
     /// <summary>Field number for the "Rotation" field.</summary>
-    public const int RotationFieldNumber = 5;
+    public const int RotationFieldNumber = 3;
     private static readonly pb::FieldCodec<float> _repeated_rotation_codec
-        = pb::FieldCodec.ForFloat(42);
+        = pb::FieldCodec.ForFloat(26);
     private readonly pbc::RepeatedField<float> rotation_ = new pbc::RepeatedField<float>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public pbc::RepeatedField<float> Rotation {
@@ -132,13 +111,24 @@ namespace Proto.Unity {
     }
 
     /// <summary>Field number for the "msg" field.</summary>
-    public const int MsgFieldNumber = 6;
+    public const int MsgFieldNumber = 4;
     private string msg_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string Msg {
       get { return msg_; }
       set {
         msg_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "name" field.</summary>
+    public const int NameFieldNumber = 5;
+    private string name_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Name {
+      get { return name_; }
+      set {
+        name_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -156,11 +146,10 @@ namespace Proto.Unity {
         return true;
       }
       if (Id != other.Id) return false;
-      if (Op != other.Op) return false;
-      if (Name != other.Name) return false;
       if(!position_.Equals(other.position_)) return false;
       if(!rotation_.Equals(other.rotation_)) return false;
       if (Msg != other.Msg) return false;
+      if (Name != other.Name) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -168,11 +157,10 @@ namespace Proto.Unity {
     public override int GetHashCode() {
       int hash = 1;
       if (Id != 0) hash ^= Id.GetHashCode();
-      if (Op != 0) hash ^= Op.GetHashCode();
-      if (Name.Length != 0) hash ^= Name.GetHashCode();
       hash ^= position_.GetHashCode();
       hash ^= rotation_.GetHashCode();
       if (Msg.Length != 0) hash ^= Msg.GetHashCode();
+      if (Name.Length != 0) hash ^= Name.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -190,19 +178,15 @@ namespace Proto.Unity {
         output.WriteRawTag(8);
         output.WriteUInt32(Id);
       }
-      if (Op != 0) {
-        output.WriteRawTag(16);
-        output.WriteUInt32(Op);
-      }
-      if (Name.Length != 0) {
-        output.WriteRawTag(26);
-        output.WriteString(Name);
-      }
       position_.WriteTo(output, _repeated_position_codec);
       rotation_.WriteTo(output, _repeated_rotation_codec);
       if (Msg.Length != 0) {
-        output.WriteRawTag(50);
+        output.WriteRawTag(34);
         output.WriteString(Msg);
+      }
+      if (Name.Length != 0) {
+        output.WriteRawTag(42);
+        output.WriteString(Name);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -215,16 +199,13 @@ namespace Proto.Unity {
       if (Id != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Id);
       }
-      if (Op != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Op);
-      }
-      if (Name.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
-      }
       size += position_.CalculateSize(_repeated_position_codec);
       size += rotation_.CalculateSize(_repeated_rotation_codec);
       if (Msg.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Msg);
+      }
+      if (Name.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -240,16 +221,13 @@ namespace Proto.Unity {
       if (other.Id != 0) {
         Id = other.Id;
       }
-      if (other.Op != 0) {
-        Op = other.Op;
-      }
-      if (other.Name.Length != 0) {
-        Name = other.Name;
-      }
       position_.Add(other.position_);
       rotation_.Add(other.rotation_);
       if (other.Msg.Length != 0) {
         Msg = other.Msg;
+      }
+      if (other.Name.Length != 0) {
+        Name = other.Name;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -266,26 +244,22 @@ namespace Proto.Unity {
             Id = input.ReadUInt32();
             break;
           }
-          case 16: {
-            Op = input.ReadUInt32();
-            break;
-          }
-          case 26: {
-            Name = input.ReadString();
-            break;
-          }
-          case 34:
-          case 37: {
+          case 18:
+          case 21: {
             position_.AddEntriesFrom(input, _repeated_position_codec);
             break;
           }
-          case 42:
-          case 45: {
+          case 26:
+          case 29: {
             rotation_.AddEntriesFrom(input, _repeated_rotation_codec);
             break;
           }
-          case 50: {
+          case 34: {
             Msg = input.ReadString();
+            break;
+          }
+          case 42: {
+            Name = input.ReadString();
             break;
           }
         }
@@ -415,6 +389,163 @@ namespace Proto.Unity {
             break;
           case 8: {
             Op = input.ReadUInt32();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class Authentication : pb::IMessage<Authentication> {
+    private static readonly pb::MessageParser<Authentication> _parser = new pb::MessageParser<Authentication>(() => new Authentication());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<Authentication> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Proto.Unity.PlayerInfoReflection.Descriptor.MessageTypes[2]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Authentication() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Authentication(Authentication other) : this() {
+      name_ = other.name_;
+      password_ = other.password_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Authentication Clone() {
+      return new Authentication(this);
+    }
+
+    /// <summary>Field number for the "name" field.</summary>
+    public const int NameFieldNumber = 1;
+    private string name_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Name {
+      get { return name_; }
+      set {
+        name_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "password" field.</summary>
+    public const int PasswordFieldNumber = 2;
+    private string password_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Password {
+      get { return password_; }
+      set {
+        password_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as Authentication);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(Authentication other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Name != other.Name) return false;
+      if (Password != other.Password) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Name.Length != 0) hash ^= Name.GetHashCode();
+      if (Password.Length != 0) hash ^= Password.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (Name.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(Name);
+      }
+      if (Password.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(Password);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (Name.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
+      }
+      if (Password.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Password);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(Authentication other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Name.Length != 0) {
+        Name = other.Name;
+      }
+      if (other.Password.Length != 0) {
+        Password = other.Password;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            Name = input.ReadString();
+            break;
+          }
+          case 18: {
+            Password = input.ReadString();
             break;
           }
         }

@@ -2,6 +2,8 @@
 #include <cstring>
 #include <vector>
 #include <unordered_map>
+#include <string>
+
 #include "command.cpp"
 #include "../Common/basetype.h"
 #include "../Common/MsgTransmission.hpp"
@@ -76,6 +78,10 @@ public:
 
 
 struct PlayerStatus {
+    
+    UINT32 m_id;
+    std::string m_name;
+
     float m_position[3];
     float m_rotation[3];
 
@@ -88,6 +94,8 @@ struct PlayerStatus {
     STATE m_state;
 
     Inventory m_inventory;
+
+
 
     PlayerStatus() : m_position({0}), m_rotation({0}), m_hp(0), m_mp(0), m_state(IDEL) {}
     PlayerStatus(const PlayerStatus& _status)
@@ -144,7 +152,13 @@ private:
     
     MsgTrans* m_msgTrans;
 
-    Proto::Unity::PlayerInfo m_protobuf;
+    Proto::Unity::PlayerInfo m_protoInfo;
+    Proto::Unity::Operation m_protoOp;
+
+    OPERATION m_operation; 
+
+    float m_offline;
+
 public:
     
     Player() : m_pos(0), m_msgTrans(nullptr) {}
@@ -153,49 +167,65 @@ public:
 
     void InitPlay(MsgTrans* _msgT) { m_msgTrans = _msgT; }
     
-    void Update(OPERATION& _OP)
+    void Update()
     {
         PlayerStatus nextStatus = m_pStatus[(m_pos + 1) % MAXSTATUS];
         nextStatus = m_pStatus[m_pos];
 
-        if (_OP.op._w ^ _OP.op._s) {
-            nextStatus.m_position[0] += nextStatus.m_speed * (2 * _OP.op._w - 1);
+        if (m_operation.op._w ^ m_operation.op._s) {
+            nextStatus.m_position[0] += nextStatus.m_speed * (2 * m_operation.op._w - 1);
         }
 
-        if (_OP.op._a ^ _OP.op._d) {
-            nextStatus.m_position[2] += nextStatus.m_speed * (2 * _OP.op._a - 1);
+        if (m_operation.op._a ^ m_operation.op._d) {
+            nextStatus.m_position[2] += nextStatus.m_speed * (2 * m_operation.op._a - 1);
         }
 
-        nextStatus.m_position[1] += nextStatus.m_jump * _OP.op._jp;
+        nextStatus.m_position[1] += nextStatus.m_jump * m_operation.op._jp;
 
         //
 
         m_pos = (m_pos + 1) % MAXSTATUS;
+        m_operation.val = 0;
     }
 
 
     int getPlayerOperation()
     {
-        
+        m_msgTrans->recvmsg(m_protoOp);
+        m_operation.val = m_protoOp.op();
+        if (m_operation.val == 0) {
+            m_offline = 0;  // 无操作可表示心跳包
+        } else {
+            Update();
+        }
+
+        return EOK;
     }
 
     int sendPlayerStatus() 
     {
+        if (m_offline == 5) {
+            // todo , 超5秒下线
+        }
+
         PlayerStatus& currStatus = m_pStatus[m_pos];
 
+
         for (int i = 0; i < 3; ++i) {
-            m_protobuf.add_position(currStatus.m_position[i]);
-            m_protobuf.add_rotation(currStatus.m_rotation[i]);
+            m_protoInfo.add_position(currStatus.m_position[i]);
+            m_protoInfo.add_rotation(currStatus.m_rotation[i]);
         }
         
         // todo
 
-        if (m_msgTrans->sendmsg(m_protobuf) == 0) {
+        if (m_msgTrans->sendmsg(m_protoInfo) == 0) {
             return EOK;
         }
 
         return ERR;
     }
+
+
 
 };
 
