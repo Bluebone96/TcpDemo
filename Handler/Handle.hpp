@@ -1,7 +1,6 @@
 #ifndef _HANDLE_HPP_
 #define _HANDLE_HPP_
 
-
 #include "../Player/Player.h"
 #include "../Server/Server.h"
 
@@ -22,10 +21,31 @@ class HandleUserLogin : public Handle {
 public:
     int operator()() override {};
 
-    int operator()(void* _s, int) override 
+    int operator()(void* _s, int n) override 
     {
         // TODO
         //SERVER.
+        Player* player = static_cast<Player*>(_s);
+
+        player->InitPlayer();
+        
+
+        // TODO 考虑重新设计，MsgTrans MsgRecord TcpSocket 这 3 个类的封装关系
+        MsgRecord msg;
+
+        TAG t;
+
+        t.tag._type = static_cast<unsigned char>(EventType::USERLOGIN);
+
+        t.tag._id = player->getId();
+
+        msg.SetTag(t.val);
+
+        int len = msg.Encode(player->GetPlayerInfo());
+
+        SERVER.SendMsgToAll(msg.GetDataAddress(), len);
+
+        return 0;
     }
 };
 
@@ -38,7 +58,6 @@ public:
     {
         Player* p = static_cast<Player*>(_p);
 
-        p->InitPlayer();
 
     }
 };
@@ -50,20 +69,30 @@ public:
 
     int operator()(void * _p, int) override
     {
-        Player* p = static_cast<Player*>(_p);
+        Player* player = static_cast<Player*>(_p);
+        
+        PROTOBUF& proto = player->GetPlayerInfo();
 
-        p->getPlayerOperation();
+        MsgRecord msg;
 
-        p->Update();
+        TAG t;
 
-        p->sendPlayerStatus();
+        t.tag._type = static_cast<unsigned char>(EventType::USERLOGIN);
+
+        t.tag._id = player->getId();
+
+        msg.SetTag(t.val);
+
+        int len = msg.Encode(player->GetPlayerInfo());
+
+        SERVER.SendMsgToAll(msg.GetDataAddress(), len);
 
         return 0;
     }
 };
 
 
-class HandleSyncClient : public Handle{    
+class HandleSyncClient : public Handle {    
 public:
     int operator()() override {};
 

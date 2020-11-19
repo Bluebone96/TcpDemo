@@ -52,12 +52,8 @@ private:
     Epoll m_epoll;
     
     MsgTrans m_MsgTrans;
-    
-    Proto::Unity::PlayerInfo m_data;
-    
-    std::unordered_map<uint32_t, MsgTrans*> m_clients;
-
-    friend class Dispatcher;
+        
+    friend class Dispatcher; // 
 };
 
 #define SERVER Server::GetInstance()

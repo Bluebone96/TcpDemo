@@ -1,3 +1,5 @@
+#include <sys/time.h>
+
 #include "Server.h"
 #include "../Handler/Dispatcher.h"
 
@@ -36,6 +38,10 @@ int32_t Server::Init(int32_t port, const char* hostname)
 
 int32_t Server::GOGOGO()
 {
+    struct timeval curTime;
+    struct timeval lastTime;
+    gettimeofday(&lastTime, nullptr);
+
     for (;;) {
         int32_t fn = m_epoll.Wait();
         for (int32_t i = 0; i < fn; ++i) {
@@ -60,7 +66,7 @@ int32_t Server::GOGOGO()
                     break;
                 case EPOLLERR:
                     TRACER("Epoll event epollerr fd= %d\n", fd);
-                    delete m_clients[fd];
+                    delete m_players[fd];
                     break;
                 default:
                     TRACER("Epoll unknowen fd = %d\n", fd);
@@ -72,6 +78,13 @@ int32_t Server::GOGOGO()
                 }
             }
         }
+        gettimeofday(&curTime, nullptr);
+        
+        if (curTime.tv_sec - lastTime.tv_sec >= 2) { 
+            // 每 2 秒 主动 同步所有玩家
+            DISPATCHER.Process(EventType::SYNCCLIENT);
+        }
+
     }
     return 0;
 }

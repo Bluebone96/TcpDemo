@@ -3,6 +3,9 @@
 
 // #define  EOK 0
 // #define  ERR -1
+#include "../Proto/PlayerInfo.pb.h"
+
+typedef  ::google::protobuf::Message PROTOBUF;
 
 enum _OK_ERR_ {
     ERR = -1,
@@ -23,7 +26,7 @@ typedef union _OPERATION_ {
         unsigned char _a : 1;
         unsigned char _d : 1;
 
-        unsigned char _jp : 1;
+        unsigned char _jp : 1;  // 跳 不实现
         unsigned char _m1 : 1;
         unsigned char _m2 : 1;
         unsigned char _s1 : 1;
@@ -48,7 +51,9 @@ typedef union _OPERATION_ {
 typedef union _TAG_ {
     struct {
         unsigned char _type : 8;
-        unsigned int _id : 24;
+        unsigned char _id : 8;
+        unsigned char _add1 : 8;
+        unsigned char _add2 : 8;
     } tag;
 
     UINT32 val;

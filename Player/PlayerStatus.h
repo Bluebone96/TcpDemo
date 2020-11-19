@@ -29,7 +29,6 @@ public:
     float m_mp;
 
     float m_speed;
-    float m_jump;
 
     STATE m_state;
 

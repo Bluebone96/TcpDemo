@@ -57,9 +57,9 @@ int32_t MsgRecord::MsgRecordInit(int32_t tag, int32_t len)
     return 0;
 }
 
-int32_t MsgRecord::Encode(void *src, uint32_t sz)
+int32_t MsgRecord::Encode(void *dest, uint32_t sz)
 {
-    return Coder::encode(src, sz, m_pRecord, m_RecordSize);
+    return Coder::encode(dest, sz, m_pRecord, m_RecordSize);
 }
 
 int32_t MsgRecord::Decode(void *src, uint32_t sz)
@@ -76,4 +76,24 @@ int32_t MsgRecord::Encode()
 int32_t MsgRecord::Decode()
 {
     return this->Decode(m_pRecord->m_data, m_RecordSize);
+}
+
+
+int32_t MsgRecord::Encode(const ::google::protobuf::Message& _protobuf)
+{
+    m_pRecord->m_len = _protobuf.ByteSizeLong();
+
+    if (!_protobuf.SerializeToArray(m_pRecord->m_data + m_RecordSize, m_pRecord->m_len)) {
+        TRACER("protobuf SerializePartialToArray failed.%s:%d", __FILE__, __LINE__);
+    }
+    
+    Encode();
+    
+    return m_pRecord->m_len + m_RecordSize;
+}
+
+int32_t MsgRecord::Decode(::google::protobuf::Message& _protobuf)
+{
+    _protobuf.ParseFromArray(m_pRecord->m_data + m_RecordSize, m_pRecord->m_len);
+    return 0;
 }

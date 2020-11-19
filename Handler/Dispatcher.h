@@ -14,6 +14,10 @@ public:
 
     int Process(Player*);
 
+    int Process();
+
+    int Process(EventType, void* = nullptr);
+
 private:
     EventHandler m_eventhandler;
 };

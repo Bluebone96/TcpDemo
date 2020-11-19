@@ -5,6 +5,8 @@
 #include <cstdlib>
 #include <cstring>
 
+#include "../Proto/PlayerInfo.pb.h"
+
 #define  MAXDATALEN 4096
 
 
@@ -37,11 +39,19 @@ public:
 
     uint32_t GetDataLen() { return m_pRecord->m_len; }
     uint32_t GetTag() { return m_pRecord->m_tag; }
+
+    void  SetTag(int32_t _tag) { m_pRecord->m_tag = _tag; }
+
     int32_t Encode(void* src, uint32_t sz);
     int32_t Decode(void* src, uint32_t sz);
     
     int32_t Decode();
     int32_t Encode();
+
+    int32_t Encode(const ::google::protobuf::Message& _protobuf);
+
+    int32_t Decode(::google::protobuf::Message& _protobuf);
+
 
     char*     GetDataAddress() { return m_pRecord->m_data; }
     Record*   GetRecord() { return m_pRecord; }

@@ -6,7 +6,7 @@
 #include <vector>
 #include <unordered_map>
 #include <string>
-
+#include <sys/time.h>
 
 #include "command.cpp"
 #include "PlayerStatus.h"
@@ -25,13 +25,16 @@ public:
     
     int Update();
 
-    int getPlayerOperation();
+    int setPlayerOp();
 
-    int sendPlayerStatus();
+    int setPlayerStatus();
 
     int getPlayerStatus(char*, int);
 
+    int getId() { return m_Id; }
 
+    PROTOBUF& GetPlayerInfo();
+    PROTOBUF& GetPlayerOp();
 
 private:
 
@@ -40,8 +43,8 @@ private:
 
 #define MAXSTATUS 5
     // 定义一个环形结构
-    PlayerStatus* m_mainStatus;     
     PlayerStatus m_pStatus[MAXSTATUS];
+    
     UINT32 m_pos;
     
 
@@ -50,14 +53,13 @@ private:
 
     OPERATION m_operation; 
 
-    float m_offline;
+    struct  timeval  m_offline; // 5秒 无响应下线
 
-    float m_lastUptime;
+    struct  timeval  lastTimeUp;
 
     Inventory m_inventory;
 
-    Proto::Unity::PlayerInfo& GetPlayerInfo();
-    Proto::Unity::Operation& GetPlayerOp();
+
 
 
 public:
