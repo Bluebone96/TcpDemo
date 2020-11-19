@@ -26,6 +26,10 @@ class OperationDefaultTypeInternal {
  public:
   ::google::protobuf::internal::ExplicitlyConstructed<Operation> _instance;
 } _Operation_default_instance_;
+class ChatDefaultTypeInternal {
+ public:
+  ::google::protobuf::internal::ExplicitlyConstructed<Chat> _instance;
+} _Chat_default_instance_;
 class AuthenticationDefaultTypeInternal {
  public:
   ::google::protobuf::internal::ExplicitlyConstructed<Authentication> _instance;
@@ -60,6 +64,20 @@ static void InitDefaultsOperation_PlayerInfo_2eproto() {
 ::google::protobuf::internal::SCCInfo<0> scc_info_Operation_PlayerInfo_2eproto =
     {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsOperation_PlayerInfo_2eproto}, {}};
 
+static void InitDefaultsChat_PlayerInfo_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::Proto::Unity::_Chat_default_instance_;
+    new (ptr) ::Proto::Unity::Chat();
+    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::Proto::Unity::Chat::InitAsDefaultInstance();
+}
+
+::google::protobuf::internal::SCCInfo<0> scc_info_Chat_PlayerInfo_2eproto =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsChat_PlayerInfo_2eproto}, {}};
+
 static void InitDefaultsAuthentication_PlayerInfo_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -77,10 +95,11 @@ static void InitDefaultsAuthentication_PlayerInfo_2eproto() {
 void InitDefaults_PlayerInfo_2eproto() {
   ::google::protobuf::internal::InitSCC(&scc_info_PlayerInfo_PlayerInfo_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_Operation_PlayerInfo_2eproto.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_Chat_PlayerInfo_2eproto.base);
   ::google::protobuf::internal::InitSCC(&scc_info_Authentication_PlayerInfo_2eproto.base);
 }
 
-::google::protobuf::Metadata file_level_metadata_PlayerInfo_2eproto[3];
+::google::protobuf::Metadata file_level_metadata_PlayerInfo_2eproto[4];
 constexpr ::google::protobuf::EnumDescriptor const** file_level_enum_descriptors_PlayerInfo_2eproto = nullptr;
 constexpr ::google::protobuf::ServiceDescriptor const** file_level_service_descriptors_PlayerInfo_2eproto = nullptr;
 
@@ -91,16 +110,27 @@ const ::google::protobuf::uint32 TableStruct_PlayerInfo_2eproto::offsets[] PROTO
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::Proto::Unity::PlayerInfo, id_),
+  PROTOBUF_FIELD_OFFSET(::Proto::Unity::PlayerInfo, name_),
   PROTOBUF_FIELD_OFFSET(::Proto::Unity::PlayerInfo, position_),
   PROTOBUF_FIELD_OFFSET(::Proto::Unity::PlayerInfo, rotation_),
-  PROTOBUF_FIELD_OFFSET(::Proto::Unity::PlayerInfo, msg_),
-  PROTOBUF_FIELD_OFFSET(::Proto::Unity::PlayerInfo, name_),
+  PROTOBUF_FIELD_OFFSET(::Proto::Unity::PlayerInfo, hp_),
+  PROTOBUF_FIELD_OFFSET(::Proto::Unity::PlayerInfo, mp_),
+  PROTOBUF_FIELD_OFFSET(::Proto::Unity::PlayerInfo, speed_),
+  PROTOBUF_FIELD_OFFSET(::Proto::Unity::PlayerInfo, state_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Proto::Unity::Operation, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::Proto::Unity::Operation, op_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::Proto::Unity::Chat, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::Proto::Unity::Chat, ids_),
+  PROTOBUF_FIELD_OFFSET(::Proto::Unity::Chat, idt_),
+  PROTOBUF_FIELD_OFFSET(::Proto::Unity::Chat, msg_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Proto::Unity::Authentication, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -111,34 +141,38 @@ const ::google::protobuf::uint32 TableStruct_PlayerInfo_2eproto::offsets[] PROTO
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::Proto::Unity::PlayerInfo)},
-  { 10, -1, sizeof(::Proto::Unity::Operation)},
-  { 16, -1, sizeof(::Proto::Unity::Authentication)},
+  { 13, -1, sizeof(::Proto::Unity::Operation)},
+  { 19, -1, sizeof(::Proto::Unity::Chat)},
+  { 27, -1, sizeof(::Proto::Unity::Authentication)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::google::protobuf::Message*>(&::Proto::Unity::_PlayerInfo_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::Proto::Unity::_Operation_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::Proto::Unity::_Chat_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::Proto::Unity::_Authentication_default_instance_),
 };
 
 ::google::protobuf::internal::AssignDescriptorsTable assign_descriptors_table_PlayerInfo_2eproto = {
   {}, AddDescriptors_PlayerInfo_2eproto, "PlayerInfo.proto", schemas,
   file_default_instances, TableStruct_PlayerInfo_2eproto::offsets,
-  file_level_metadata_PlayerInfo_2eproto, 3, file_level_enum_descriptors_PlayerInfo_2eproto, file_level_service_descriptors_PlayerInfo_2eproto,
+  file_level_metadata_PlayerInfo_2eproto, 4, file_level_enum_descriptors_PlayerInfo_2eproto, file_level_service_descriptors_PlayerInfo_2eproto,
 };
 
 const char descriptor_table_protodef_PlayerInfo_2eproto[] =
-  "\n\020PlayerInfo.proto\022\013Proto.Unity\"W\n\nPlaye"
-  "rInfo\022\n\n\002id\030\001 \001(\r\022\020\n\010Position\030\002 \003(\002\022\020\n\010R"
-  "otation\030\003 \003(\002\022\013\n\003msg\030\004 \001(\t\022\014\n\004name\030\005 \001(\t"
-  "\"\027\n\tOperation\022\n\n\002op\030\001 \001(\r\"0\n\016Authenticat"
-  "ion\022\014\n\004name\030\001 \001(\t\022\020\n\010password\030\002 \001(\tb\006pro"
-  "to3"
+  "\n\020PlayerInfo.proto\022\013Proto.Unity\"\200\001\n\nPlay"
+  "erInfo\022\n\n\002id\030\001 \001(\r\022\014\n\004name\030\002 \001(\t\022\020\n\010Posi"
+  "tion\030\003 \003(\002\022\020\n\010Rotation\030\004 \003(\002\022\n\n\002hp\030\005 \001(\r"
+  "\022\n\n\002mp\030\006 \001(\r\022\r\n\005speed\030\010 \001(\002\022\r\n\005state\030\007 \001"
+  "(\r\"\027\n\tOperation\022\n\n\002op\030\001 \001(\r\"-\n\004Chat\022\013\n\003i"
+  "ds\030\001 \001(\r\022\013\n\003idt\030\002 \001(\r\022\013\n\003msg\030\003 \001(\t\"0\n\016Au"
+  "thentication\022\014\n\004name\030\001 \001(\t\022\020\n\010password\030\002"
+  " \001(\tb\006proto3"
   ;
 ::google::protobuf::internal::DescriptorTable descriptor_table_PlayerInfo_2eproto = {
   false, InitDefaults_PlayerInfo_2eproto, 
   descriptor_table_protodef_PlayerInfo_2eproto,
-  "PlayerInfo.proto", &assign_descriptors_table_PlayerInfo_2eproto, 203,
+  "PlayerInfo.proto", &assign_descriptors_table_PlayerInfo_2eproto, 292,
 };
 
 void AddDescriptors_PlayerInfo_2eproto() {
@@ -163,10 +197,13 @@ class PlayerInfo::HasBitSetters {
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int PlayerInfo::kIdFieldNumber;
+const int PlayerInfo::kNameFieldNumber;
 const int PlayerInfo::kPositionFieldNumber;
 const int PlayerInfo::kRotationFieldNumber;
-const int PlayerInfo::kMsgFieldNumber;
-const int PlayerInfo::kNameFieldNumber;
+const int PlayerInfo::kHpFieldNumber;
+const int PlayerInfo::kMpFieldNumber;
+const int PlayerInfo::kSpeedFieldNumber;
+const int PlayerInfo::kStateFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 PlayerInfo::PlayerInfo()
@@ -180,24 +217,23 @@ PlayerInfo::PlayerInfo(const PlayerInfo& from)
       position_(from.position_),
       rotation_(from.rotation_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  msg_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.msg().size() > 0) {
-    msg_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.msg_);
-  }
   name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (from.name().size() > 0) {
     name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
   }
-  id_ = from.id_;
+  ::memcpy(&id_, &from.id_,
+    static_cast<size_t>(reinterpret_cast<char*>(&speed_) -
+    reinterpret_cast<char*>(&id_)) + sizeof(speed_));
   // @@protoc_insertion_point(copy_constructor:Proto.Unity.PlayerInfo)
 }
 
 void PlayerInfo::SharedCtor() {
   ::google::protobuf::internal::InitSCC(
       &scc_info_PlayerInfo_PlayerInfo_2eproto.base);
-  msg_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  id_ = 0u;
+  ::memset(&id_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&speed_) -
+      reinterpret_cast<char*>(&id_)) + sizeof(speed_));
 }
 
 PlayerInfo::~PlayerInfo() {
@@ -206,7 +242,6 @@ PlayerInfo::~PlayerInfo() {
 }
 
 void PlayerInfo::SharedDtor() {
-  msg_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   name_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
@@ -227,9 +262,10 @@ void PlayerInfo::Clear() {
 
   position_.Clear();
   rotation_.Clear();
-  msg_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  id_ = 0u;
+  ::memset(&id_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&speed_) -
+      reinterpret_cast<char*>(&id_)) + sizeof(speed_));
   _internal_metadata_.Clear();
 }
 
@@ -253,65 +289,9 @@ const char* PlayerInfo::_InternalParse(const char* begin, const char* end, void*
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         break;
       }
-      // repeated float Position = 2;
+      // string name = 2;
       case 2: {
-        if (static_cast<::google::protobuf::uint8>(tag) == 18) {
-          ptr = ::google::protobuf::io::ReadSize(ptr, &size);
-          GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
-          parser_till_end = ::google::protobuf::internal::PackedFloatParser;
-          object = msg->mutable_position();
-          if (size > end - ptr) goto len_delim_till_end;
-          auto newend = ptr + size;
-          if (size) ptr = parser_till_end(ptr, newend, object, ctx);
-          GOOGLE_PROTOBUF_PARSER_ASSERT(ptr == newend);
-          break;
-        } else if (static_cast<::google::protobuf::uint8>(tag) != 21) goto handle_unusual;
-        do {
-          msg->add_position(::google::protobuf::io::UnalignedLoad<float>(ptr));
-          ptr += sizeof(float);
-          if (ptr >= end) break;
-        } while ((::google::protobuf::io::UnalignedLoad<::google::protobuf::uint64>(ptr) & 255) == 21 && (ptr += 1));
-        break;
-      }
-      // repeated float Rotation = 3;
-      case 3: {
-        if (static_cast<::google::protobuf::uint8>(tag) == 26) {
-          ptr = ::google::protobuf::io::ReadSize(ptr, &size);
-          GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
-          parser_till_end = ::google::protobuf::internal::PackedFloatParser;
-          object = msg->mutable_rotation();
-          if (size > end - ptr) goto len_delim_till_end;
-          auto newend = ptr + size;
-          if (size) ptr = parser_till_end(ptr, newend, object, ctx);
-          GOOGLE_PROTOBUF_PARSER_ASSERT(ptr == newend);
-          break;
-        } else if (static_cast<::google::protobuf::uint8>(tag) != 29) goto handle_unusual;
-        do {
-          msg->add_rotation(::google::protobuf::io::UnalignedLoad<float>(ptr));
-          ptr += sizeof(float);
-          if (ptr >= end) break;
-        } while ((::google::protobuf::io::UnalignedLoad<::google::protobuf::uint64>(ptr) & 255) == 29 && (ptr += 1));
-        break;
-      }
-      // string msg = 4;
-      case 4: {
-        if (static_cast<::google::protobuf::uint8>(tag) != 34) goto handle_unusual;
-        ptr = ::google::protobuf::io::ReadSize(ptr, &size);
-        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
-        ctx->extra_parse_data().SetFieldName("Proto.Unity.PlayerInfo.msg");
-        object = msg->mutable_msg();
-        if (size > end - ptr + ::google::protobuf::internal::ParseContext::kSlopBytes) {
-          parser_till_end = ::google::protobuf::internal::GreedyStringParserUTF8;
-          goto string_till_end;
-        }
-        GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheckUTF8(ptr, size, ctx));
-        ::google::protobuf::internal::InlineGreedyStringParser(object, ptr, size, ctx);
-        ptr += size;
-        break;
-      }
-      // string name = 5;
-      case 5: {
-        if (static_cast<::google::protobuf::uint8>(tag) != 42) goto handle_unusual;
+        if (static_cast<::google::protobuf::uint8>(tag) != 18) goto handle_unusual;
         ptr = ::google::protobuf::io::ReadSize(ptr, &size);
         GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         ctx->extra_parse_data().SetFieldName("Proto.Unity.PlayerInfo.name");
@@ -323,6 +303,74 @@ const char* PlayerInfo::_InternalParse(const char* begin, const char* end, void*
         GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheckUTF8(ptr, size, ctx));
         ::google::protobuf::internal::InlineGreedyStringParser(object, ptr, size, ctx);
         ptr += size;
+        break;
+      }
+      // repeated float Position = 3;
+      case 3: {
+        if (static_cast<::google::protobuf::uint8>(tag) == 26) {
+          ptr = ::google::protobuf::io::ReadSize(ptr, &size);
+          GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+          parser_till_end = ::google::protobuf::internal::PackedFloatParser;
+          object = msg->mutable_position();
+          if (size > end - ptr) goto len_delim_till_end;
+          auto newend = ptr + size;
+          if (size) ptr = parser_till_end(ptr, newend, object, ctx);
+          GOOGLE_PROTOBUF_PARSER_ASSERT(ptr == newend);
+          break;
+        } else if (static_cast<::google::protobuf::uint8>(tag) != 29) goto handle_unusual;
+        do {
+          msg->add_position(::google::protobuf::io::UnalignedLoad<float>(ptr));
+          ptr += sizeof(float);
+          if (ptr >= end) break;
+        } while ((::google::protobuf::io::UnalignedLoad<::google::protobuf::uint64>(ptr) & 255) == 29 && (ptr += 1));
+        break;
+      }
+      // repeated float Rotation = 4;
+      case 4: {
+        if (static_cast<::google::protobuf::uint8>(tag) == 34) {
+          ptr = ::google::protobuf::io::ReadSize(ptr, &size);
+          GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+          parser_till_end = ::google::protobuf::internal::PackedFloatParser;
+          object = msg->mutable_rotation();
+          if (size > end - ptr) goto len_delim_till_end;
+          auto newend = ptr + size;
+          if (size) ptr = parser_till_end(ptr, newend, object, ctx);
+          GOOGLE_PROTOBUF_PARSER_ASSERT(ptr == newend);
+          break;
+        } else if (static_cast<::google::protobuf::uint8>(tag) != 37) goto handle_unusual;
+        do {
+          msg->add_rotation(::google::protobuf::io::UnalignedLoad<float>(ptr));
+          ptr += sizeof(float);
+          if (ptr >= end) break;
+        } while ((::google::protobuf::io::UnalignedLoad<::google::protobuf::uint64>(ptr) & 255) == 37 && (ptr += 1));
+        break;
+      }
+      // uint32 hp = 5;
+      case 5: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 40) goto handle_unusual;
+        msg->set_hp(::google::protobuf::internal::ReadVarint(&ptr));
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        break;
+      }
+      // uint32 mp = 6;
+      case 6: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 48) goto handle_unusual;
+        msg->set_mp(::google::protobuf::internal::ReadVarint(&ptr));
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        break;
+      }
+      // uint32 state = 7;
+      case 7: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 56) goto handle_unusual;
+        msg->set_state(::google::protobuf::internal::ReadVarint(&ptr));
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        break;
+      }
+      // float speed = 8;
+      case 8: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 69) goto handle_unusual;
+        msg->set_speed(::google::protobuf::io::UnalignedLoad<float>(ptr));
+        ptr += sizeof(float);
         break;
       }
       default: {
@@ -372,62 +420,99 @@ bool PlayerInfo::MergePartialFromCodedStream(
         break;
       }
 
-      // repeated float Position = 2;
+      // string name = 2;
       case 2: {
         if (static_cast< ::google::protobuf::uint8>(tag) == (18 & 0xFF)) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitive<
-                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
-                 input, this->mutable_position())));
-        } else if (static_cast< ::google::protobuf::uint8>(tag) == (21 & 0xFF)) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitiveNoInline<
-                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
-                 1, 18u, input, this->mutable_position())));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // repeated float Rotation = 3;
-      case 3: {
-        if (static_cast< ::google::protobuf::uint8>(tag) == (26 & 0xFF)) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitive<
-                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
-                 input, this->mutable_rotation())));
-        } else if (static_cast< ::google::protobuf::uint8>(tag) == (29 & 0xFF)) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitiveNoInline<
-                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
-                 1, 26u, input, this->mutable_rotation())));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // string msg = 4;
-      case 4: {
-        if (static_cast< ::google::protobuf::uint8>(tag) == (34 & 0xFF)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_msg()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->msg().data(), static_cast<int>(this->msg().length()),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "Proto.Unity.PlayerInfo.msg"));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // string name = 5;
-      case 5: {
-        if (static_cast< ::google::protobuf::uint8>(tag) == (42 & 0xFF)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_name()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->name().data(), static_cast<int>(this->name().length()),
             ::google::protobuf::internal::WireFormatLite::PARSE,
             "Proto.Unity.PlayerInfo.name"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // repeated float Position = 3;
+      case 3: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (26 & 0xFF)) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, this->mutable_position())));
+        } else if (static_cast< ::google::protobuf::uint8>(tag) == (29 & 0xFF)) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitiveNoInline<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 1, 26u, input, this->mutable_position())));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // repeated float Rotation = 4;
+      case 4: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (34 & 0xFF)) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, this->mutable_rotation())));
+        } else if (static_cast< ::google::protobuf::uint8>(tag) == (37 & 0xFF)) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitiveNoInline<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 1, 34u, input, this->mutable_rotation())));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // uint32 hp = 5;
+      case 5: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (40 & 0xFF)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &hp_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // uint32 mp = 6;
+      case 6: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (48 & 0xFF)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &mp_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // uint32 state = 7;
+      case 7: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (56 & 0xFF)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &state_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // float speed = 8;
+      case 8: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (69 & 0xFF)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, &speed_)));
         } else {
           goto handle_unusual;
         }
@@ -466,42 +551,52 @@ void PlayerInfo::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->id(), output);
   }
 
-  // repeated float Position = 2;
-  if (this->position_size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteTag(2, ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED, output);
-    output->WriteVarint32(_position_cached_byte_size_.load(
-        std::memory_order_relaxed));
-    ::google::protobuf::internal::WireFormatLite::WriteFloatArray(
-      this->position().data(), this->position_size(), output);
-  }
-
-  // repeated float Rotation = 3;
-  if (this->rotation_size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteTag(3, ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED, output);
-    output->WriteVarint32(_rotation_cached_byte_size_.load(
-        std::memory_order_relaxed));
-    ::google::protobuf::internal::WireFormatLite::WriteFloatArray(
-      this->rotation().data(), this->rotation_size(), output);
-  }
-
-  // string msg = 4;
-  if (this->msg().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->msg().data(), static_cast<int>(this->msg().length()),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "Proto.Unity.PlayerInfo.msg");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      4, this->msg(), output);
-  }
-
-  // string name = 5;
+  // string name = 2;
   if (this->name().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->name().data(), static_cast<int>(this->name().length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
       "Proto.Unity.PlayerInfo.name");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      5, this->name(), output);
+      2, this->name(), output);
+  }
+
+  // repeated float Position = 3;
+  if (this->position_size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteTag(3, ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED, output);
+    output->WriteVarint32(_position_cached_byte_size_.load(
+        std::memory_order_relaxed));
+    ::google::protobuf::internal::WireFormatLite::WriteFloatArray(
+      this->position().data(), this->position_size(), output);
+  }
+
+  // repeated float Rotation = 4;
+  if (this->rotation_size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteTag(4, ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED, output);
+    output->WriteVarint32(_rotation_cached_byte_size_.load(
+        std::memory_order_relaxed));
+    ::google::protobuf::internal::WireFormatLite::WriteFloatArray(
+      this->rotation().data(), this->rotation_size(), output);
+  }
+
+  // uint32 hp = 5;
+  if (this->hp() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(5, this->hp(), output);
+  }
+
+  // uint32 mp = 6;
+  if (this->mp() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(6, this->mp(), output);
+  }
+
+  // uint32 state = 7;
+  if (this->state() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(7, this->state(), output);
+  }
+
+  // float speed = 8;
+  if (this->speed() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(8, this->speed(), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -522,10 +617,21 @@ void PlayerInfo::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->id(), target);
   }
 
-  // repeated float Position = 2;
+  // string name = 2;
+  if (this->name().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->name().data(), static_cast<int>(this->name().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "Proto.Unity.PlayerInfo.name");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        2, this->name(), target);
+  }
+
+  // repeated float Position = 3;
   if (this->position_size() > 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
-      2,
+      3,
       ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
       target);
     target = ::google::protobuf::io::CodedOutputStream::WriteVarint32ToArray(
@@ -535,10 +641,10 @@ void PlayerInfo::SerializeWithCachedSizes(
       WriteFloatNoTagToArray(this->position_, target);
   }
 
-  // repeated float Rotation = 3;
+  // repeated float Rotation = 4;
   if (this->rotation_size() > 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
-      3,
+      4,
       ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
       target);
     target = ::google::protobuf::io::CodedOutputStream::WriteVarint32ToArray(
@@ -548,26 +654,24 @@ void PlayerInfo::SerializeWithCachedSizes(
       WriteFloatNoTagToArray(this->rotation_, target);
   }
 
-  // string msg = 4;
-  if (this->msg().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->msg().data(), static_cast<int>(this->msg().length()),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "Proto.Unity.PlayerInfo.msg");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        4, this->msg(), target);
+  // uint32 hp = 5;
+  if (this->hp() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(5, this->hp(), target);
   }
 
-  // string name = 5;
-  if (this->name().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->name().data(), static_cast<int>(this->name().length()),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "Proto.Unity.PlayerInfo.name");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        5, this->name(), target);
+  // uint32 mp = 6;
+  if (this->mp() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(6, this->mp(), target);
+  }
+
+  // uint32 state = 7;
+  if (this->state() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(7, this->state(), target);
+  }
+
+  // float speed = 8;
+  if (this->speed() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(8, this->speed(), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -591,7 +695,7 @@ size_t PlayerInfo::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated float Position = 2;
+  // repeated float Position = 3;
   {
     unsigned int count = static_cast<unsigned int>(this->position_size());
     size_t data_size = 4UL * count;
@@ -606,7 +710,7 @@ size_t PlayerInfo::ByteSizeLong() const {
     total_size += data_size;
   }
 
-  // repeated float Rotation = 3;
+  // repeated float Rotation = 4;
   {
     unsigned int count = static_cast<unsigned int>(this->rotation_size());
     size_t data_size = 4UL * count;
@@ -621,14 +725,7 @@ size_t PlayerInfo::ByteSizeLong() const {
     total_size += data_size;
   }
 
-  // string msg = 4;
-  if (this->msg().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->msg());
-  }
-
-  // string name = 5;
+  // string name = 2;
   if (this->name().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
@@ -640,6 +737,32 @@ size_t PlayerInfo::ByteSizeLong() const {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::UInt32Size(
         this->id());
+  }
+
+  // uint32 hp = 5;
+  if (this->hp() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        this->hp());
+  }
+
+  // uint32 mp = 6;
+  if (this->mp() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        this->mp());
+  }
+
+  // uint32 state = 7;
+  if (this->state() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        this->state());
+  }
+
+  // float speed = 8;
+  if (this->speed() != 0) {
+    total_size += 1 + 4;
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -671,16 +794,24 @@ void PlayerInfo::MergeFrom(const PlayerInfo& from) {
 
   position_.MergeFrom(from.position_);
   rotation_.MergeFrom(from.rotation_);
-  if (from.msg().size() > 0) {
-
-    msg_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.msg_);
-  }
   if (from.name().size() > 0) {
 
     name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
   }
   if (from.id() != 0) {
     set_id(from.id());
+  }
+  if (from.hp() != 0) {
+    set_hp(from.hp());
+  }
+  if (from.mp() != 0) {
+    set_mp(from.mp());
+  }
+  if (from.state() != 0) {
+    set_state(from.state());
+  }
+  if (from.speed() != 0) {
+    set_speed(from.speed());
   }
 }
 
@@ -711,11 +842,13 @@ void PlayerInfo::InternalSwap(PlayerInfo* other) {
   _internal_metadata_.Swap(&other->_internal_metadata_);
   position_.InternalSwap(&other->position_);
   rotation_.InternalSwap(&other->rotation_);
-  msg_.Swap(&other->msg_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
   name_.Swap(&other->name_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
   swap(id_, other->id_);
+  swap(hp_, other->hp_);
+  swap(mp_, other->mp_);
+  swap(state_, other->state_);
+  swap(speed_, other->speed_);
 }
 
 ::google::protobuf::Metadata PlayerInfo::GetMetadata() const {
@@ -979,6 +1112,396 @@ void Operation::InternalSwap(Operation* other) {
 }
 
 ::google::protobuf::Metadata Operation::GetMetadata() const {
+  ::google::protobuf::internal::AssignDescriptors(&::assign_descriptors_table_PlayerInfo_2eproto);
+  return ::file_level_metadata_PlayerInfo_2eproto[kIndexInFileMessages];
+}
+
+
+// ===================================================================
+
+void Chat::InitAsDefaultInstance() {
+}
+class Chat::HasBitSetters {
+ public:
+};
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int Chat::kIdsFieldNumber;
+const int Chat::kIdtFieldNumber;
+const int Chat::kMsgFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+Chat::Chat()
+  : ::google::protobuf::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:Proto.Unity.Chat)
+}
+Chat::Chat(const Chat& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  msg_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.msg().size() > 0) {
+    msg_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.msg_);
+  }
+  ::memcpy(&ids_, &from.ids_,
+    static_cast<size_t>(reinterpret_cast<char*>(&idt_) -
+    reinterpret_cast<char*>(&ids_)) + sizeof(idt_));
+  // @@protoc_insertion_point(copy_constructor:Proto.Unity.Chat)
+}
+
+void Chat::SharedCtor() {
+  ::google::protobuf::internal::InitSCC(
+      &scc_info_Chat_PlayerInfo_2eproto.base);
+  msg_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  ::memset(&ids_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&idt_) -
+      reinterpret_cast<char*>(&ids_)) + sizeof(idt_));
+}
+
+Chat::~Chat() {
+  // @@protoc_insertion_point(destructor:Proto.Unity.Chat)
+  SharedDtor();
+}
+
+void Chat::SharedDtor() {
+  msg_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+void Chat::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const Chat& Chat::default_instance() {
+  ::google::protobuf::internal::InitSCC(&::scc_info_Chat_PlayerInfo_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void Chat::Clear() {
+// @@protoc_insertion_point(message_clear_start:Proto.Unity.Chat)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  msg_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  ::memset(&ids_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&idt_) -
+      reinterpret_cast<char*>(&ids_)) + sizeof(idt_));
+  _internal_metadata_.Clear();
+}
+
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+const char* Chat::_InternalParse(const char* begin, const char* end, void* object,
+                  ::google::protobuf::internal::ParseContext* ctx) {
+  auto msg = static_cast<Chat*>(object);
+  ::google::protobuf::int32 size; (void)size;
+  int depth; (void)depth;
+  ::google::protobuf::uint32 tag;
+  ::google::protobuf::internal::ParseFunc parser_till_end; (void)parser_till_end;
+  auto ptr = begin;
+  while (ptr < end) {
+    ptr = ::google::protobuf::io::Parse32(ptr, &tag);
+    GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+    switch (tag >> 3) {
+      // uint32 ids = 1;
+      case 1: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 8) goto handle_unusual;
+        msg->set_ids(::google::protobuf::internal::ReadVarint(&ptr));
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        break;
+      }
+      // uint32 idt = 2;
+      case 2: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 16) goto handle_unusual;
+        msg->set_idt(::google::protobuf::internal::ReadVarint(&ptr));
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        break;
+      }
+      // string msg = 3;
+      case 3: {
+        if (static_cast<::google::protobuf::uint8>(tag) != 26) goto handle_unusual;
+        ptr = ::google::protobuf::io::ReadSize(ptr, &size);
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
+        ctx->extra_parse_data().SetFieldName("Proto.Unity.Chat.msg");
+        object = msg->mutable_msg();
+        if (size > end - ptr + ::google::protobuf::internal::ParseContext::kSlopBytes) {
+          parser_till_end = ::google::protobuf::internal::GreedyStringParserUTF8;
+          goto string_till_end;
+        }
+        GOOGLE_PROTOBUF_PARSER_ASSERT(::google::protobuf::internal::StringCheckUTF8(ptr, size, ctx));
+        ::google::protobuf::internal::InlineGreedyStringParser(object, ptr, size, ctx);
+        ptr += size;
+        break;
+      }
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->EndGroup(tag);
+          return ptr;
+        }
+        auto res = UnknownFieldParse(tag, {_InternalParse, msg},
+          ptr, end, msg->_internal_metadata_.mutable_unknown_fields(), ctx);
+        ptr = res.first;
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr != nullptr);
+        if (res.second) return ptr;
+      }
+    }  // switch
+  }  // while
+  return ptr;
+string_till_end:
+  static_cast<::std::string*>(object)->clear();
+  static_cast<::std::string*>(object)->reserve(size);
+  goto len_delim_till_end;
+len_delim_till_end:
+  return ctx->StoreAndTailCall(ptr, end, {_InternalParse, msg},
+                               {parser_till_end, object}, size);
+}
+#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+bool Chat::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Proto.Unity.Chat)
+  for (;;) {
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // uint32 ids = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (8 & 0xFF)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &ids_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // uint32 idt = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (16 & 0xFF)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &idt_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // string msg = 3;
+      case 3: {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (26 & 0xFF)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_msg()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->msg().data(), static_cast<int>(this->msg().length()),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "Proto.Unity.Chat.msg"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Proto.Unity.Chat)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Proto.Unity.Chat)
+  return false;
+#undef DO_
+}
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+
+void Chat::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Proto.Unity.Chat)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // uint32 ids = 1;
+  if (this->ids() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->ids(), output);
+  }
+
+  // uint32 idt = 2;
+  if (this->idt() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->idt(), output);
+  }
+
+  // string msg = 3;
+  if (this->msg().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->msg().data(), static_cast<int>(this->msg().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "Proto.Unity.Chat.msg");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      3, this->msg(), output);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        _internal_metadata_.unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Proto.Unity.Chat)
+}
+
+::google::protobuf::uint8* Chat::InternalSerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Proto.Unity.Chat)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // uint32 ids = 1;
+  if (this->ids() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->ids(), target);
+  }
+
+  // uint32 idt = 2;
+  if (this->idt() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->idt(), target);
+  }
+
+  // string msg = 3;
+  if (this->msg().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->msg().data(), static_cast<int>(this->msg().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "Proto.Unity.Chat.msg");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        3, this->msg(), target);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Proto.Unity.Chat)
+  return target;
+}
+
+size_t Chat::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:Proto.Unity.Chat)
+  size_t total_size = 0;
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string msg = 3;
+  if (this->msg().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->msg());
+  }
+
+  // uint32 ids = 1;
+  if (this->ids() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        this->ids());
+  }
+
+  // uint32 idt = 2;
+  if (this->idt() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        this->idt());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void Chat::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:Proto.Unity.Chat)
+  GOOGLE_DCHECK_NE(&from, this);
+  const Chat* source =
+      ::google::protobuf::DynamicCastToGenerated<Chat>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:Proto.Unity.Chat)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:Proto.Unity.Chat)
+    MergeFrom(*source);
+  }
+}
+
+void Chat::MergeFrom(const Chat& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:Proto.Unity.Chat)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.msg().size() > 0) {
+
+    msg_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.msg_);
+  }
+  if (from.ids() != 0) {
+    set_ids(from.ids());
+  }
+  if (from.idt() != 0) {
+    set_idt(from.idt());
+  }
+}
+
+void Chat::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:Proto.Unity.Chat)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void Chat::CopyFrom(const Chat& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Proto.Unity.Chat)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Chat::IsInitialized() const {
+  return true;
+}
+
+void Chat::Swap(Chat* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void Chat::InternalSwap(Chat* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  msg_.Swap(&other->msg_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  swap(ids_, other->ids_);
+  swap(idt_, other->idt_);
+}
+
+::google::protobuf::Metadata Chat::GetMetadata() const {
   ::google::protobuf::internal::AssignDescriptors(&::assign_descriptors_table_PlayerInfo_2eproto);
   return ::file_level_metadata_PlayerInfo_2eproto[kIndexInFileMessages];
 }
@@ -1364,6 +1887,9 @@ template<> PROTOBUF_NOINLINE ::Proto::Unity::PlayerInfo* Arena::CreateMaybeMessa
 }
 template<> PROTOBUF_NOINLINE ::Proto::Unity::Operation* Arena::CreateMaybeMessage< ::Proto::Unity::Operation >(Arena* arena) {
   return Arena::CreateInternal< ::Proto::Unity::Operation >(arena);
+}
+template<> PROTOBUF_NOINLINE ::Proto::Unity::Chat* Arena::CreateMaybeMessage< ::Proto::Unity::Chat >(Arena* arena) {
+  return Arena::CreateInternal< ::Proto::Unity::Chat >(arena);
 }
 template<> PROTOBUF_NOINLINE ::Proto::Unity::Authentication* Arena::CreateMaybeMessage< ::Proto::Unity::Authentication >(Arena* arena) {
   return Arena::CreateInternal< ::Proto::Unity::Authentication >(arena);

@@ -4,14 +4,26 @@ package Proto.Unity;
 
 message PlayerInfo {
     uint32 id = 1;
-    repeated float Position = 2;
-    repeated float Rotation = 3;
-    string msg = 4;
-    string name = 5;
+    string name = 2;
+
+    repeated float Position = 3;
+    repeated float Rotation = 4;
+
+    uint32 hp = 5;
+    uint32 mp = 6;
+
+    uint32 state = 7;   // 0 IDEL 1 WALK
+    float speed = 8;
 }
 
 message Operation {
     uint32 op = 1;
+}
+
+message Chat {
+    uint32 ids = 1; // 发起源id
+    uint32 idt = 2; // 目标源id // -1 表示广播
+    string msg = 3;
 }
 
 

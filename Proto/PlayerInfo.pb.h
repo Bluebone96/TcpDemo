@@ -41,7 +41,7 @@ struct TableStruct_PlayerInfo_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::google::protobuf::internal::ParseTable schema[3]
+  static const ::google::protobuf::internal::ParseTable schema[4]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
@@ -53,6 +53,9 @@ namespace Unity {
 class Authentication;
 class AuthenticationDefaultTypeInternal;
 extern AuthenticationDefaultTypeInternal _Authentication_default_instance_;
+class Chat;
+class ChatDefaultTypeInternal;
+extern ChatDefaultTypeInternal _Chat_default_instance_;
 class Operation;
 class OperationDefaultTypeInternal;
 extern OperationDefaultTypeInternal _Operation_default_instance_;
@@ -64,6 +67,7 @@ extern PlayerInfoDefaultTypeInternal _PlayerInfo_default_instance_;
 namespace google {
 namespace protobuf {
 template<> ::Proto::Unity::Authentication* Arena::CreateMaybeMessage<::Proto::Unity::Authentication>(Arena*);
+template<> ::Proto::Unity::Chat* Arena::CreateMaybeMessage<::Proto::Unity::Chat>(Arena*);
 template<> ::Proto::Unity::Operation* Arena::CreateMaybeMessage<::Proto::Unity::Operation>(Arena*);
 template<> ::Proto::Unity::PlayerInfo* Arena::CreateMaybeMessage<::Proto::Unity::PlayerInfo>(Arena*);
 }  // namespace protobuf
@@ -168,10 +172,10 @@ class PlayerInfo final :
 
   // accessors -------------------------------------------------------
 
-  // repeated float Position = 2;
+  // repeated float Position = 3;
   int position_size() const;
   void clear_position();
-  static const int kPositionFieldNumber = 2;
+  static const int kPositionFieldNumber = 3;
   float position(int index) const;
   void set_position(int index, float value);
   void add_position(float value);
@@ -180,10 +184,10 @@ class PlayerInfo final :
   ::google::protobuf::RepeatedField< float >*
       mutable_position();
 
-  // repeated float Rotation = 3;
+  // repeated float Rotation = 4;
   int rotation_size() const;
   void clear_rotation();
-  static const int kRotationFieldNumber = 3;
+  static const int kRotationFieldNumber = 4;
   float rotation(int index) const;
   void set_rotation(int index, float value);
   void add_rotation(float value);
@@ -192,23 +196,9 @@ class PlayerInfo final :
   ::google::protobuf::RepeatedField< float >*
       mutable_rotation();
 
-  // string msg = 4;
-  void clear_msg();
-  static const int kMsgFieldNumber = 4;
-  const ::std::string& msg() const;
-  void set_msg(const ::std::string& value);
-  #if LANG_CXX11
-  void set_msg(::std::string&& value);
-  #endif
-  void set_msg(const char* value);
-  void set_msg(const char* value, size_t size);
-  ::std::string* mutable_msg();
-  ::std::string* release_msg();
-  void set_allocated_msg(::std::string* msg);
-
-  // string name = 5;
+  // string name = 2;
   void clear_name();
-  static const int kNameFieldNumber = 5;
+  static const int kNameFieldNumber = 2;
   const ::std::string& name() const;
   void set_name(const ::std::string& value);
   #if LANG_CXX11
@@ -226,6 +216,30 @@ class PlayerInfo final :
   ::google::protobuf::uint32 id() const;
   void set_id(::google::protobuf::uint32 value);
 
+  // uint32 hp = 5;
+  void clear_hp();
+  static const int kHpFieldNumber = 5;
+  ::google::protobuf::uint32 hp() const;
+  void set_hp(::google::protobuf::uint32 value);
+
+  // uint32 mp = 6;
+  void clear_mp();
+  static const int kMpFieldNumber = 6;
+  ::google::protobuf::uint32 mp() const;
+  void set_mp(::google::protobuf::uint32 value);
+
+  // uint32 state = 7;
+  void clear_state();
+  static const int kStateFieldNumber = 7;
+  ::google::protobuf::uint32 state() const;
+  void set_state(::google::protobuf::uint32 value);
+
+  // float speed = 8;
+  void clear_speed();
+  static const int kSpeedFieldNumber = 8;
+  float speed() const;
+  void set_speed(float value);
+
   // @@protoc_insertion_point(class_scope:Proto.Unity.PlayerInfo)
  private:
   class HasBitSetters;
@@ -235,9 +249,12 @@ class PlayerInfo final :
   mutable std::atomic<int> _position_cached_byte_size_;
   ::google::protobuf::RepeatedField< float > rotation_;
   mutable std::atomic<int> _rotation_cached_byte_size_;
-  ::google::protobuf::internal::ArenaStringPtr msg_;
   ::google::protobuf::internal::ArenaStringPtr name_;
   ::google::protobuf::uint32 id_;
+  ::google::protobuf::uint32 hp_;
+  ::google::protobuf::uint32 mp_;
+  ::google::protobuf::uint32 state_;
+  float speed_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_PlayerInfo_2eproto;
 };
@@ -355,6 +372,140 @@ class Operation final :
 };
 // -------------------------------------------------------------------
 
+class Chat final :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Proto.Unity.Chat) */ {
+ public:
+  Chat();
+  virtual ~Chat();
+
+  Chat(const Chat& from);
+
+  inline Chat& operator=(const Chat& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  Chat(Chat&& from) noexcept
+    : Chat() {
+    *this = ::std::move(from);
+  }
+
+  inline Chat& operator=(Chat&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return default_instance().GetDescriptor();
+  }
+  static const Chat& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const Chat* internal_default_instance() {
+    return reinterpret_cast<const Chat*>(
+               &_Chat_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  void Swap(Chat* other);
+  friend void swap(Chat& a, Chat& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline Chat* New() const final {
+    return CreateMaybeMessage<Chat>(nullptr);
+  }
+
+  Chat* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<Chat>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const Chat& from);
+  void MergeFrom(const Chat& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
+  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
+  #else
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Chat* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // string msg = 3;
+  void clear_msg();
+  static const int kMsgFieldNumber = 3;
+  const ::std::string& msg() const;
+  void set_msg(const ::std::string& value);
+  #if LANG_CXX11
+  void set_msg(::std::string&& value);
+  #endif
+  void set_msg(const char* value);
+  void set_msg(const char* value, size_t size);
+  ::std::string* mutable_msg();
+  ::std::string* release_msg();
+  void set_allocated_msg(::std::string* msg);
+
+  // uint32 ids = 1;
+  void clear_ids();
+  static const int kIdsFieldNumber = 1;
+  ::google::protobuf::uint32 ids() const;
+  void set_ids(::google::protobuf::uint32 value);
+
+  // uint32 idt = 2;
+  void clear_idt();
+  static const int kIdtFieldNumber = 2;
+  ::google::protobuf::uint32 idt() const;
+  void set_idt(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:Proto.Unity.Chat)
+ private:
+  class HasBitSetters;
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr msg_;
+  ::google::protobuf::uint32 ids_;
+  ::google::protobuf::uint32 idt_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_PlayerInfo_2eproto;
+};
+// -------------------------------------------------------------------
+
 class Authentication final :
     public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Proto.Unity.Authentication) */ {
  public:
@@ -393,7 +544,7 @@ class Authentication final :
                &_Authentication_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    3;
 
   void Swap(Authentication* other);
   friend void swap(Authentication& a, Authentication& b) {
@@ -513,120 +664,7 @@ inline void PlayerInfo::set_id(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:Proto.Unity.PlayerInfo.id)
 }
 
-// repeated float Position = 2;
-inline int PlayerInfo::position_size() const {
-  return position_.size();
-}
-inline void PlayerInfo::clear_position() {
-  position_.Clear();
-}
-inline float PlayerInfo::position(int index) const {
-  // @@protoc_insertion_point(field_get:Proto.Unity.PlayerInfo.Position)
-  return position_.Get(index);
-}
-inline void PlayerInfo::set_position(int index, float value) {
-  position_.Set(index, value);
-  // @@protoc_insertion_point(field_set:Proto.Unity.PlayerInfo.Position)
-}
-inline void PlayerInfo::add_position(float value) {
-  position_.Add(value);
-  // @@protoc_insertion_point(field_add:Proto.Unity.PlayerInfo.Position)
-}
-inline const ::google::protobuf::RepeatedField< float >&
-PlayerInfo::position() const {
-  // @@protoc_insertion_point(field_list:Proto.Unity.PlayerInfo.Position)
-  return position_;
-}
-inline ::google::protobuf::RepeatedField< float >*
-PlayerInfo::mutable_position() {
-  // @@protoc_insertion_point(field_mutable_list:Proto.Unity.PlayerInfo.Position)
-  return &position_;
-}
-
-// repeated float Rotation = 3;
-inline int PlayerInfo::rotation_size() const {
-  return rotation_.size();
-}
-inline void PlayerInfo::clear_rotation() {
-  rotation_.Clear();
-}
-inline float PlayerInfo::rotation(int index) const {
-  // @@protoc_insertion_point(field_get:Proto.Unity.PlayerInfo.Rotation)
-  return rotation_.Get(index);
-}
-inline void PlayerInfo::set_rotation(int index, float value) {
-  rotation_.Set(index, value);
-  // @@protoc_insertion_point(field_set:Proto.Unity.PlayerInfo.Rotation)
-}
-inline void PlayerInfo::add_rotation(float value) {
-  rotation_.Add(value);
-  // @@protoc_insertion_point(field_add:Proto.Unity.PlayerInfo.Rotation)
-}
-inline const ::google::protobuf::RepeatedField< float >&
-PlayerInfo::rotation() const {
-  // @@protoc_insertion_point(field_list:Proto.Unity.PlayerInfo.Rotation)
-  return rotation_;
-}
-inline ::google::protobuf::RepeatedField< float >*
-PlayerInfo::mutable_rotation() {
-  // @@protoc_insertion_point(field_mutable_list:Proto.Unity.PlayerInfo.Rotation)
-  return &rotation_;
-}
-
-// string msg = 4;
-inline void PlayerInfo::clear_msg() {
-  msg_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& PlayerInfo::msg() const {
-  // @@protoc_insertion_point(field_get:Proto.Unity.PlayerInfo.msg)
-  return msg_.GetNoArena();
-}
-inline void PlayerInfo::set_msg(const ::std::string& value) {
-  
-  msg_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:Proto.Unity.PlayerInfo.msg)
-}
-#if LANG_CXX11
-inline void PlayerInfo::set_msg(::std::string&& value) {
-  
-  msg_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:Proto.Unity.PlayerInfo.msg)
-}
-#endif
-inline void PlayerInfo::set_msg(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  
-  msg_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:Proto.Unity.PlayerInfo.msg)
-}
-inline void PlayerInfo::set_msg(const char* value, size_t size) {
-  
-  msg_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:Proto.Unity.PlayerInfo.msg)
-}
-inline ::std::string* PlayerInfo::mutable_msg() {
-  
-  // @@protoc_insertion_point(field_mutable:Proto.Unity.PlayerInfo.msg)
-  return msg_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* PlayerInfo::release_msg() {
-  // @@protoc_insertion_point(field_release:Proto.Unity.PlayerInfo.msg)
-  
-  return msg_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void PlayerInfo::set_allocated_msg(::std::string* msg) {
-  if (msg != nullptr) {
-    
-  } else {
-    
-  }
-  msg_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), msg);
-  // @@protoc_insertion_point(field_set_allocated:Proto.Unity.PlayerInfo.msg)
-}
-
-// string name = 5;
+// string name = 2;
 inline void PlayerInfo::clear_name() {
   name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -679,6 +717,122 @@ inline void PlayerInfo::set_allocated_name(::std::string* name) {
   // @@protoc_insertion_point(field_set_allocated:Proto.Unity.PlayerInfo.name)
 }
 
+// repeated float Position = 3;
+inline int PlayerInfo::position_size() const {
+  return position_.size();
+}
+inline void PlayerInfo::clear_position() {
+  position_.Clear();
+}
+inline float PlayerInfo::position(int index) const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.PlayerInfo.Position)
+  return position_.Get(index);
+}
+inline void PlayerInfo::set_position(int index, float value) {
+  position_.Set(index, value);
+  // @@protoc_insertion_point(field_set:Proto.Unity.PlayerInfo.Position)
+}
+inline void PlayerInfo::add_position(float value) {
+  position_.Add(value);
+  // @@protoc_insertion_point(field_add:Proto.Unity.PlayerInfo.Position)
+}
+inline const ::google::protobuf::RepeatedField< float >&
+PlayerInfo::position() const {
+  // @@protoc_insertion_point(field_list:Proto.Unity.PlayerInfo.Position)
+  return position_;
+}
+inline ::google::protobuf::RepeatedField< float >*
+PlayerInfo::mutable_position() {
+  // @@protoc_insertion_point(field_mutable_list:Proto.Unity.PlayerInfo.Position)
+  return &position_;
+}
+
+// repeated float Rotation = 4;
+inline int PlayerInfo::rotation_size() const {
+  return rotation_.size();
+}
+inline void PlayerInfo::clear_rotation() {
+  rotation_.Clear();
+}
+inline float PlayerInfo::rotation(int index) const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.PlayerInfo.Rotation)
+  return rotation_.Get(index);
+}
+inline void PlayerInfo::set_rotation(int index, float value) {
+  rotation_.Set(index, value);
+  // @@protoc_insertion_point(field_set:Proto.Unity.PlayerInfo.Rotation)
+}
+inline void PlayerInfo::add_rotation(float value) {
+  rotation_.Add(value);
+  // @@protoc_insertion_point(field_add:Proto.Unity.PlayerInfo.Rotation)
+}
+inline const ::google::protobuf::RepeatedField< float >&
+PlayerInfo::rotation() const {
+  // @@protoc_insertion_point(field_list:Proto.Unity.PlayerInfo.Rotation)
+  return rotation_;
+}
+inline ::google::protobuf::RepeatedField< float >*
+PlayerInfo::mutable_rotation() {
+  // @@protoc_insertion_point(field_mutable_list:Proto.Unity.PlayerInfo.Rotation)
+  return &rotation_;
+}
+
+// uint32 hp = 5;
+inline void PlayerInfo::clear_hp() {
+  hp_ = 0u;
+}
+inline ::google::protobuf::uint32 PlayerInfo::hp() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.PlayerInfo.hp)
+  return hp_;
+}
+inline void PlayerInfo::set_hp(::google::protobuf::uint32 value) {
+  
+  hp_ = value;
+  // @@protoc_insertion_point(field_set:Proto.Unity.PlayerInfo.hp)
+}
+
+// uint32 mp = 6;
+inline void PlayerInfo::clear_mp() {
+  mp_ = 0u;
+}
+inline ::google::protobuf::uint32 PlayerInfo::mp() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.PlayerInfo.mp)
+  return mp_;
+}
+inline void PlayerInfo::set_mp(::google::protobuf::uint32 value) {
+  
+  mp_ = value;
+  // @@protoc_insertion_point(field_set:Proto.Unity.PlayerInfo.mp)
+}
+
+// float speed = 8;
+inline void PlayerInfo::clear_speed() {
+  speed_ = 0;
+}
+inline float PlayerInfo::speed() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.PlayerInfo.speed)
+  return speed_;
+}
+inline void PlayerInfo::set_speed(float value) {
+  
+  speed_ = value;
+  // @@protoc_insertion_point(field_set:Proto.Unity.PlayerInfo.speed)
+}
+
+// uint32 state = 7;
+inline void PlayerInfo::clear_state() {
+  state_ = 0u;
+}
+inline ::google::protobuf::uint32 PlayerInfo::state() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.PlayerInfo.state)
+  return state_;
+}
+inline void PlayerInfo::set_state(::google::protobuf::uint32 value) {
+  
+  state_ = value;
+  // @@protoc_insertion_point(field_set:Proto.Unity.PlayerInfo.state)
+}
+
 // -------------------------------------------------------------------
 
 // Operation
@@ -695,6 +849,91 @@ inline void Operation::set_op(::google::protobuf::uint32 value) {
   
   op_ = value;
   // @@protoc_insertion_point(field_set:Proto.Unity.Operation.op)
+}
+
+// -------------------------------------------------------------------
+
+// Chat
+
+// uint32 ids = 1;
+inline void Chat::clear_ids() {
+  ids_ = 0u;
+}
+inline ::google::protobuf::uint32 Chat::ids() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.Chat.ids)
+  return ids_;
+}
+inline void Chat::set_ids(::google::protobuf::uint32 value) {
+  
+  ids_ = value;
+  // @@protoc_insertion_point(field_set:Proto.Unity.Chat.ids)
+}
+
+// uint32 idt = 2;
+inline void Chat::clear_idt() {
+  idt_ = 0u;
+}
+inline ::google::protobuf::uint32 Chat::idt() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.Chat.idt)
+  return idt_;
+}
+inline void Chat::set_idt(::google::protobuf::uint32 value) {
+  
+  idt_ = value;
+  // @@protoc_insertion_point(field_set:Proto.Unity.Chat.idt)
+}
+
+// string msg = 3;
+inline void Chat::clear_msg() {
+  msg_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& Chat::msg() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.Chat.msg)
+  return msg_.GetNoArena();
+}
+inline void Chat::set_msg(const ::std::string& value) {
+  
+  msg_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:Proto.Unity.Chat.msg)
+}
+#if LANG_CXX11
+inline void Chat::set_msg(::std::string&& value) {
+  
+  msg_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:Proto.Unity.Chat.msg)
+}
+#endif
+inline void Chat::set_msg(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  msg_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:Proto.Unity.Chat.msg)
+}
+inline void Chat::set_msg(const char* value, size_t size) {
+  
+  msg_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:Proto.Unity.Chat.msg)
+}
+inline ::std::string* Chat::mutable_msg() {
+  
+  // @@protoc_insertion_point(field_mutable:Proto.Unity.Chat.msg)
+  return msg_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* Chat::release_msg() {
+  // @@protoc_insertion_point(field_release:Proto.Unity.Chat.msg)
+  
+  return msg_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void Chat::set_allocated_msg(::std::string* msg) {
+  if (msg != nullptr) {
+    
+  } else {
+    
+  }
+  msg_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), msg);
+  // @@protoc_insertion_point(field_set_allocated:Proto.Unity.Chat.msg)
 }
 
 // -------------------------------------------------------------------
@@ -810,6 +1049,8 @@ inline void Authentication::set_allocated_password(::std::string* password) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
