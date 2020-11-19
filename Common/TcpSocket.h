@@ -11,7 +11,7 @@
 class TcpSocket {
 public:
     explicit TcpSocket(int32_t fd = -1, uint32_t size = SOCKETBUFLEN);
-    ~TcpSocket() 
+    virtual ~TcpSocket() 
     { 
         free(m_pdatabuf); 
         close(m_socketfd); // ? TcpSocket::SendData() 中是否调用close()
@@ -47,6 +47,8 @@ public:
     const sockaddr* GetAddr() { return (sockaddr*)&m_sockaddr; }
 
     void SetAddr(void *addr, int32_t len) { memcpy(&m_sockaddr, addr, len); }
+
+    static int32_t SendData(const int fd, const void* userbuf, const uint32_t size);
 
 private:
     // 从内核中读取数据到SockBuf缓冲区

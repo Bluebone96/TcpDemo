@@ -12,9 +12,10 @@ public:
          : TcpSocket(fd), MsgRecord(){}
     ~MsgTrans() {}
     
+    // 待修改
     int32_t Init(int32_t fd, void * addr, int32_t len)
     {
-        TcpSocketInit(fd, addr, len); // 考虑没必要，待修改
+        TcpSocketInit(fd, addr, len); 
 
         // MsgRecordInit(0, 0);
         return 0;
@@ -119,6 +120,21 @@ public:
     }
 
     
+
+    template<typename T>
+    int32_t RecvProtobuf(T& buf)
+    {
+        int32_t erro;
+
+        if ((erro = TcpSocket::RecvData(m_pRecord->m_data + m_RecordSize, m_pRecord->m_len)) < 0) {
+            TRACERERRNO("recvmsg error %s:%d\n", __POSITION__);
+            return erro;
+        }
+
+        buf.ParseFromArray(m_pRecord->m_data + m_RecordSize, m_pRecord->m_len);
+        
+        return 0;
+    }
    
 
 

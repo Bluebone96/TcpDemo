@@ -12,17 +12,18 @@
 #include "PlayerStatus.h"
 #include "Inventory.hpp"
 #include "../Common/basetype.h"
+#include "../Common/MsgTransmission.hpp"
 
 class Player {
 public:
 
-    Player() : m_pos(0), m_msgTrans(nullptr) {}
+    explicit Player(MsgTrans* msg = nullptr) : m_pos(0), m_msgTrans(msg) {}
 
     ~Player() { delete m_msgTrans; }
 
-    void InitPlay(MsgTrans* _msgT) { m_msgTrans = _msgT; }
+    int InitPlayer();
     
-    void Update();
+    int Update();
 
     int getPlayerOperation();
 
@@ -30,10 +31,16 @@ public:
 
     int getPlayerStatus(char*, int);
 
+
+
 private:
+
+    int32_t m_Id; // 暂时定为 acceptfd
+    std::string m_name;
 
 #define MAXSTATUS 5
     // 定义一个环形结构
+    PlayerStatus* m_mainStatus;     
     PlayerStatus m_pStatus[MAXSTATUS];
     UINT32 m_pos;
     
@@ -48,6 +55,10 @@ private:
     float m_lastUptime;
 
     Inventory m_inventory;
+
+    Proto::Unity::PlayerInfo& GetPlayerInfo();
+    Proto::Unity::Operation& GetPlayerOp();
+
 
 public:
     MsgTrans* m_msgTrans;

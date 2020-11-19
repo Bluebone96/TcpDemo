@@ -10,15 +10,16 @@ EventHandler::~EventHandler()
     }
 }
 
-void EventHandler::InitHandler()
+int EventHandler::InitHandler()
 {
-    (void)AddHandle(EventType::USERLOGIN, new HandleUserLogin);
+    int flag = 0;
+    flag |= AddHandle(EventType::USERLOGIN, new HandleUserLogin);
 
-    (void)AddHandle(EventType::USEREXIT, new HandleUserExit);
+    flag |= AddHandle(EventType::USEREXIT, new HandleUserExit);
 
-    (void)AddHandle(EventType::USERUP, new HandleUpdateStatus);
+    flag |= AddHandle(EventType::USERUP, new HandleUpdateStatus);
 
-    (void)AddHandle(EventType::SYNCCLIENT, new HandleSyncClient);
+    flag |= AddHandle(EventType::SYNCCLIENT, new HandleSyncClient);
 
 }
 

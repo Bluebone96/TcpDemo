@@ -1,16 +1,29 @@
 #include "Player.h"
+#include "../Common/MsgTransmission.hpp"
+
+int Player::InitPlayer()
+{
+    TAG T;
+    m_Id = m_msgTrans->GetSocketfd(); 
+    // 直接取 玩家发过来的 用户名 和 密码 进行初始化
+    Proto::Unity::Authentication A;
+    m_msgTrans->RecvProtobuf(A);
+    m_name = A.name();
+
+    return 0;
+}
 
 
-void Player::Update()
+int Player::Update()
 {
     PlayerStatus nextStatus = m_pStatus[(m_pos + 1) % MAXSTATUS];
     nextStatus = m_pStatus[m_pos];
 
-     if (m_operation.op._w ^ m_operation.op._s) {
+    if (m_operation.op._w ^ m_operation.op._s) {
         nextStatus.m_position[0] += nextStatus.m_speed * (2 * m_operation.op._w - 1);
     }
 
-     if (m_operation.op._a ^ m_operation.op._d) {
+    if (m_operation.op._a ^ m_operation.op._d) {
         nextStatus.m_position[2] += nextStatus.m_speed * (2 * m_operation.op._a - 1);
     }
 

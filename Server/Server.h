@@ -17,36 +17,35 @@
 
 class Server {
 public:
-    typedef std::unordered_map<uint32_t, Player*> *PLAYERS;
-
-    int32_t Init(int32_t port, const char* hostname = nullptr);
-    int32_t RecvMsg();
-    int32_t SendMsg();
-    int32_t ProcessData(); 
-    int32_t GOGOGO();
-    
-    int32_t SendMsgToAll(char*, int);
-
-    ~Server();
 
     static Server& GetInstance ()
     {
         static Server Instance;
         return Instance;
     }
-    
-    int32_t AcceptNewClient();
-    const PLAYERS GetAllPlayers ();
 
+    int32_t GOGOGO();
+
+    int32_t Init(int32_t port, const char* hostname = nullptr);
+
+    int32_t RecvMsg();
+
+    int32_t SendMsg();
+
+    int32_t SendMsgToAll(char*, int);
+
+    int32_t AcceptNewClient();
+
+    typedef std::unordered_map<int32_t, Player*> PLAYERMAP;
 private:
-    Server() { m_eventHandler.InitHandler(); };
+    Server() {  };
+    ~Server();
     Server(const Server&);
     Server& operator=(const Server);
 
 private:
-    typedef std::unordered_map<uint32_t, Player*> *Players;
 
-    EventHandler m_eventHandler;
+    PLAYERMAP m_players;
 
     int32_t m_listenfd;
 

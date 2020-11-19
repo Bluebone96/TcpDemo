@@ -2,20 +2,22 @@
 #define _DISPATCHER_H_
 
 #include "EventHandler.h"
-
+#include "../Common/Singleton.h"
 
 class Dispatcher {
 public:
-    Dispatcher();
+    Dispatcher() { };
 
-    ~Dispatcher();
+    ~Dispatcher() { };
+
+    int Init() { return m_eventhandler.InitHandler();}
 
     int Process(Player*);
 
-    int Notify(Player*);
-    int Notify();
 private:
     EventHandler m_eventhandler;
 };
+
+#define DISPATCHER Singleton<Dispatcher>::GetInstance()
 
 #endif

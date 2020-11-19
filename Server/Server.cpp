@@ -1,4 +1,5 @@
 #include "Server.h"
+#include "../Handler/Dispatcher.h"
 
 Server::~Server()
 {
@@ -25,13 +26,52 @@ int32_t Server::Init(int32_t port, const char* hostname)
 
     m_listenfd = fd;
 	TRACER ("server listen socketfd = %d\n", m_listenfd);
+
+    if (DISPATCHER.Init()) {
+        TRACER("dispatcher init failed\n");
+        return -1;
+    }
     return 0;
 }
 
 int32_t Server::GOGOGO()
 {
     for (;;) {
-        RecvMsg();
+        int32_t fn = m_epoll.Wait();
+        for (int32_t i = 0; i < fn; ++i) {
+            struct epoll_event* pEvent = m_epoll.GetEvent(i);
+
+            TRACER("fd = %d is readly\n", pEvent->data.fd);
+            if (pEvent->data.fd == m_listenfd) {
+                if (AcceptNewClient() < 0) {
+                    TRACER("error in Server::AcceptNewClient");
+                }
+            } else {
+                uint32_t event = pEvent->events;
+                int32_t fd = pEvent->data.fd;
+
+                switch (event)
+                {
+                case EPOLLIN:
+                    TRACER("Epoll event EPOLLIN fd = %d\n", fd);
+                    break;
+                case EPOLLHUP:
+                    TRACER("Epoll event epollhup fd = %d\n", fd);
+                    break;
+                case EPOLLERR:
+                    TRACER("Epoll event epollerr fd= %d\n", fd);
+                    delete m_clients[fd];
+                    break;
+                default:
+                    TRACER("Epoll unknowen fd = %d\n", fd);
+                    break;
+                }
+
+                if (DISPATCHER.Process(m_players[fd]) < 0) {
+                    // TODO
+                }
+            }
+        }
     }
     return 0;
 }
@@ -49,73 +89,34 @@ int32_t Server::AcceptNewClient()
     
     TRACER("new client connect. fd:%d\n", acceptfd);
 
-    auto sptr = new MsgTrans();
-    sptr->Init(acceptfd, &addr, len);
-    m_clients[acceptfd] = sptr;
-    
     if (m_epoll.Add(acceptfd) < 0) {
         TRACER("m_epoll add %d failed. %s:%d\n", acceptfd, __FILE__, __LINE__);
         return -1;
     }
 
+    // 这里直接登录，初始化一个角色，没有登录验证
+    auto msg = new MsgTrans();
+    msg->Init(acceptfd, &addr, len);
+    auto player = new Player(msg); 
+    
+    m_players[acceptfd] = player;
+
+    return 0;
+}
+
+int32_t Server::SendMsgToAll(char* _buf, int _len)
+{
+    for (auto& iter : m_players) {
+        if (TcpSocket::SendData(iter.first, _buf, _len) < 0) {
+            TRACER("send data to player id: %d, %s:%d", iter.first, __POSITION__);
+            continue;
+        }
+    }
     return 0;
 }
 
 int32_t Server::RecvMsg()
 {
-    int32_t fn = m_epoll.Wait();
-    for (int32_t i = 0; i < fn; ++i) {
-        struct epoll_event* pEvent = m_epoll.GetEvent(i);
-        
-        TRACER("fd = %d is readly\n", pEvent->data.fd);
-
-        if (pEvent->data.fd == m_listenfd) {
-            if (AcceptNewClient() < 0) {
-                TRACER("error in Server::AcceptNewClient");
-            }
-        } else {
-            
-            uint32_t event = pEvent->events;
-            int32_t fd = pEvent->data.fd;
-
-            switch (event)
-            {
-            case EPOLLIN:
-                TRACER("Epoll event EPOLLIN fd = %d\n", fd);
-                break;
-            case EPOLLHUP:
-                TRACER("Epoll event epollhup fd = %d\n", fd);
-                break;
-            case EPOLLERR:
-                TRACER("Epoll event epollerr fd= %d\n", fd);
-                delete m_clients[fd];
-                break;
-            default:
-                TRACER("Epoll unknowen fd = %d\n", fd);
-                break;
-            }
-
-            MsgTrans* pmsgtrans = m_clients[fd];
-            
-            if (pmsgtrans->recvmsg() < 0) {
-                TRACER("Bye, %d\n", pmsgtrans->GetSocketfd());
-                delete pmsgtrans;
-                continue;
-            }
-            
-            char* data = pmsgtrans->GetDataAddress();
-            int32_t len = pmsgtrans->GetDataLen();
-            // std::cout << "Recordbuf len is " << pmsgtrans->GetDataLen() << std::endl;
-            // std::cout << "msg is : " << tmpdata.msg() << std::endl;
-
-            for(auto& pp : m_clients) {
-                TRACER("sendata to %d\n", pp.first);
-                pp.second->sendmsg(data, len + sizeof(Record));
-            }
-
-            TRACER("all clients sended, go next loop.\n");
-        }
-    }
     return 0;
 }
 

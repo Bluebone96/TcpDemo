@@ -125,13 +125,19 @@ int32_t TcpSocket::RecvData(void* usrbuf, uint32_t size)
 
 int32_t TcpSocket::SendData(void* usrbuf, uint32_t size)
 {
-    uint32_t nleft = size;
+    return TcpSocket::SendData(m_socketfd, usrbuf, size);
+}
+
+int32_t TcpSocket::SendData(const int _fd, const void* _usrbuf, const uint32_t _size)
+{
+    uint32_t nleft = _size;
     int32_t nw = 0;
-    char* pbuf = (char*)usrbuf;
-    TRACER("start to send data to %d\n", m_socketfd);
+    char* pbuf = (char*)_usrbuf;
+    
+    TRACER("start to send data to %d\n", _fd);
     // 写入 size 字节的数据
     while (nleft > 0) {
-        if ((nw = write(m_socketfd, pbuf, nleft)) <= 0) {
+        if ((nw = write(_fd, pbuf, nleft)) <= 0) {
             if (EINTR == errno || EAGAIN == errno) {
                 continue;
             } else {
@@ -144,7 +150,7 @@ int32_t TcpSocket::SendData(void* usrbuf, uint32_t size)
         pbuf += nw;
         nleft -= nw;
     }
-    TRACER("send %d byte data to %d end\n", size - nleft, m_socketfd);
+    TRACER("send %d byte data to %d end\n", _size - nleft, _fd);
     return nleft;
 }
 

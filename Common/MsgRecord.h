@@ -28,7 +28,7 @@ public:
             bzero(m_pRecord, sz + m_RecordSize);
         }
 
-    ~MsgRecord() { free(m_pRecord); }
+    virtual ~MsgRecord() { free(m_pRecord); }
 
     // 初始化 数据的tag, 和 数据的长度
     int32_t MsgRecordInit(int32_t tag, int32_t len);

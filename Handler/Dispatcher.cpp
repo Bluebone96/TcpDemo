@@ -57,11 +57,19 @@ int Dispatcher::Process(Player *_p)
         }
         break;
     case 5:
-        hand = m_eventhandler.Notify(EventType::USERCHAT);
+        if ((hand = m_eventhandler.Notify(EventType::USERCHAT)) != nullptr) {
+            if ((*hand)(_p) < 0) {
+                TRACER("handle USERCHAT failed %s:%d", __POSITION__);
+                return -1;
+            }
+        }
         break;
+
     default:
         // throw; TODO
         break;
     }
+
+    return hand ?  0 : -1;
 
 }
