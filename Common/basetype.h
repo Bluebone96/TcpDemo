@@ -16,7 +16,7 @@ typedef unsigned int UINT32;
 
 typedef int SINT32;
 
-typedef union _OPERATION {
+typedef union _OPERATION_ {
     struct {
         unsigned char _w : 1;
         unsigned char _s : 1;
@@ -43,6 +43,26 @@ typedef union _OPERATION {
     } op;
     UINT32 val;
 } OPERATION;
+
+
+typedef union _TAG_ {
+    struct {
+        unsigned char _type : 8;
+        unsigned int _id : 24;
+    } tag;
+
+    UINT32 val;
+} TAG;
+
+
+enum class EventType {
+    USERLOGIN = 0,
+    USEREXIT = 1,
+    USERALIVE = 2,
+    USERUP,
+    SYNCCLIENT,
+    USERCHAT,
+};
 
 #endif
 

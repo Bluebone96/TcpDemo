@@ -20,6 +20,27 @@ public:
         return 0;
     }
 
+    int32_t RecvMsgHead(char* _usrbuf, int _len)
+    {   
+        if (_len < m_RecordSize) {
+            TRACER("buflen is %d bytes, the message head is %d bytes", _len, m_RecordSize);
+            return -1;
+        }
+        int errnocode = 0;
+        if ( (errnocode = TcpSocket::RecvData(_usrbuf, m_RecordSize)) < 0) {
+            TRACERERRNO("recvmsg error %s:%d\n", __POSITION__);
+            return errnocode;
+        }
+
+        Decode(_usrbuf, m_RecordSize);
+
+        return m_RecordSize;
+    }
+
+    int32_t RecvMsgHead() 
+    {
+        return RecvMsgHead(m_pRecord->m_data, m_RecordSize);
+    }
 
 
     int32_t sendmsg(char* data, int32_t len)

@@ -18,3 +18,8 @@ message PlayerInfo {
 message Operation {
     uint32 op = 1;
 }
+
+message Authentication {
+    string name = 1;
+    string password = 2;
+}

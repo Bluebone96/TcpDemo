@@ -28,6 +28,8 @@ public:
 
     int sendPlayerStatus();
 
+    int getPlayerStatus(char*, int);
+
 private:
 
 #define MAXSTATUS 5
@@ -35,7 +37,6 @@ private:
     PlayerStatus m_pStatus[MAXSTATUS];
     UINT32 m_pos;
     
-    MsgTrans* m_msgTrans;
 
     Proto::Unity::PlayerInfo m_protoInfo;
     Proto::Unity::Operation m_protoOp;
@@ -48,6 +49,8 @@ private:
 
     Inventory m_inventory;
 
+public:
+    MsgTrans* m_msgTrans;
 };
 
 

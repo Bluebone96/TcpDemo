@@ -20,7 +20,9 @@ public:
     explicit MsgRecord(uint32_t sz = MAXDATALEN) 
         : m_RecordSize(sizeof(Record))
         {
+            sz = sz < 0 ? 0 : sz;
             sz = sz < MAXDATALEN ? sz : MAXDATALEN;
+            
             m_size = sz;
             m_pRecord = (Record*)malloc(sz + m_RecordSize);
             bzero(m_pRecord, sz + m_RecordSize);
