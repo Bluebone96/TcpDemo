@@ -102,12 +102,6 @@ string.h
 errno.h
 -
 
-/home/blue/Code/TcpDemo/Handler/Dispatcher.cpp
-Dispatcher.h
-/home/blue/Code/TcpDemo/Handler/Dispatcher.h
-../Player/Player.h
-/home/blue/Code/TcpDemo/Player/Player.h
-
 /home/blue/Code/TcpDemo/Handler/Dispatcher.h
 ../Common/Singleton.h
 /home/blue/Code/TcpDemo/Common/Singleton.h
@@ -116,14 +110,6 @@ EventHandler.h
 ../Player/Player.h
 /home/blue/Code/TcpDemo/Player/Player.h
 
-/home/blue/Code/TcpDemo/Handler/EventHandler.cpp
-utility
--
-EventHandler.h
-/home/blue/Code/TcpDemo/Handler/EventHandler.h
-../Common/log.h
-/home/blue/Code/TcpDemo/Common/log.h
-
 /home/blue/Code/TcpDemo/Handler/EventHandler.h
 unordered_map
 -
@@ -131,16 +117,6 @@ Handle.h
 /home/blue/Code/TcpDemo/Handler/Handle.h
 ../Common/basetype.h
 /home/blue/Code/TcpDemo/Common/basetype.h
-
-/home/blue/Code/TcpDemo/Handler/Handle.cpp
-Handle.h
-/home/blue/Code/TcpDemo/Handler/Handle.h
-Dispatcher.h
-/home/blue/Code/TcpDemo/Handler/Dispatcher.h
-../Player/Player.h
-/home/blue/Code/TcpDemo/Player/Player.h
-../Server/Server.h
-/home/blue/Code/TcpDemo/Server/Server.h
 
 /home/blue/Code/TcpDemo/Handler/Handle.h
 
@@ -149,12 +125,6 @@ unordered_map
 -
 ../Common/basetype.h
 /home/blue/Code/TcpDemo/Common/basetype.h
-
-/home/blue/Code/TcpDemo/Player/Player.cpp
-Player.h
-/home/blue/Code/TcpDemo/Player/Player.h
-../Common/MsgTransmission.hpp
-/home/blue/Code/TcpDemo/Common/MsgTransmission.hpp
 
 /home/blue/Code/TcpDemo/Player/Player.h
 cstring
@@ -221,10 +191,6 @@ unordered_map
 /home/blue/Code/TcpDemo/Common/MsgTransmission.hpp
 ../Player/Player.h
 /home/blue/Code/TcpDemo/Player/Player.h
-
-/home/blue/Code/TcpDemo/Server/main.cpp
-Server.h
-/home/blue/Code/TcpDemo/Server/Server.h
 
 /home/blue/Code/TcpDemo/build/PlayerInfo.pb.h
 limits
