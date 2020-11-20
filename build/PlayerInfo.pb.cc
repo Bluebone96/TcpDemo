@@ -115,8 +115,8 @@ const ::google::protobuf::uint32 TableStruct_PlayerInfo_2eproto::offsets[] PROTO
   PROTOBUF_FIELD_OFFSET(::Proto::Unity::PlayerInfo, rotation_),
   PROTOBUF_FIELD_OFFSET(::Proto::Unity::PlayerInfo, hp_),
   PROTOBUF_FIELD_OFFSET(::Proto::Unity::PlayerInfo, mp_),
-  PROTOBUF_FIELD_OFFSET(::Proto::Unity::PlayerInfo, speed_),
   PROTOBUF_FIELD_OFFSET(::Proto::Unity::PlayerInfo, state_),
+  PROTOBUF_FIELD_OFFSET(::Proto::Unity::PlayerInfo, speed_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Proto::Unity::Operation, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -163,8 +163,8 @@ const char descriptor_table_protodef_PlayerInfo_2eproto[] =
   "\n\020PlayerInfo.proto\022\013Proto.Unity\"\200\001\n\nPlay"
   "erInfo\022\n\n\002id\030\001 \001(\r\022\014\n\004name\030\002 \001(\t\022\020\n\010Posi"
   "tion\030\003 \003(\002\022\020\n\010Rotation\030\004 \003(\002\022\n\n\002hp\030\005 \001(\r"
-  "\022\n\n\002mp\030\006 \001(\r\022\r\n\005speed\030\010 \001(\002\022\r\n\005state\030\007 \001"
-  "(\r\"\027\n\tOperation\022\n\n\002op\030\001 \001(\r\"-\n\004Chat\022\013\n\003i"
+  "\022\n\n\002mp\030\006 \001(\r\022\r\n\005state\030\007 \001(\r\022\r\n\005speed\030\010 \001"
+  "(\002\"\027\n\tOperation\022\n\n\002op\030\001 \001(\r\"-\n\004Chat\022\013\n\003i"
   "ds\030\001 \001(\r\022\013\n\003idt\030\002 \001(\r\022\013\n\003msg\030\003 \001(\t\"0\n\016Au"
   "thentication\022\014\n\004name\030\001 \001(\t\022\020\n\010password\030\002"
   " \001(\tb\006proto3"
@@ -202,8 +202,8 @@ const int PlayerInfo::kPositionFieldNumber;
 const int PlayerInfo::kRotationFieldNumber;
 const int PlayerInfo::kHpFieldNumber;
 const int PlayerInfo::kMpFieldNumber;
-const int PlayerInfo::kSpeedFieldNumber;
 const int PlayerInfo::kStateFieldNumber;
+const int PlayerInfo::kSpeedFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 PlayerInfo::PlayerInfo()

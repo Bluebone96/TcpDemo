@@ -3,7 +3,7 @@
 
 // #define  EOK 0
 // #define  ERR -1
-#include "../Proto/PlayerInfo.pb.h"
+#include "PlayerInfo.pb.h"
 
 typedef  ::google::protobuf::Message PROTOBUF;
 
@@ -19,6 +19,8 @@ typedef unsigned int UINT32;
 
 typedef int SINT32;
 
+
+// TODO 大小端转换有bug，等待重构
 typedef union _OPERATION_ {
     struct {
         unsigned char _w : 1;

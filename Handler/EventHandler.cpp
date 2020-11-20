@@ -20,14 +20,14 @@ int EventHandler::InitHandler()
     flag |= AddHandle(EventType::USERUP, new HandleUpdateStatus);
 
     flag |= AddHandle(EventType::SYNCCLIENT, new HandleSyncClient);
-
+    return 0;
 }
 
 int EventHandler::AddHandle(EventType _type, Handle* _handle)
 {
     auto res = m_handleEvents.insert(std::move(std::make_pair(_type, _handle)));
     if (!res.second) {
-        TRACER("EventHandler insert failed type %d, try replace the old _hanle function\n", _type);
+        TRACER("EventHandler insert failed type %d, try replace the old _hanle function\n", static_cast<int>(_type));
         m_handleEvents[_type] = _handle;
         return EOK;
     }

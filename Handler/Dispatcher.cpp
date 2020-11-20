@@ -3,7 +3,7 @@
 
 int Dispatcher::Process(EventType _type, void* _p)
 {
-    Handle* hand;
+    Handle* hand = nullptr;
 
     switch (_type)
     {
@@ -61,7 +61,7 @@ int Dispatcher::Process(EventType _type, void* _p)
         break;
     }
 
-    return hand ?  0 : -1;
+    return hand  ?  0 : -1;
 }
 
 int Dispatcher::Process(Player *_p)

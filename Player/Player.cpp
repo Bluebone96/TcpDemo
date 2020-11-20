@@ -3,7 +3,6 @@
 
 int Player::InitPlayer()
 {
-    TAG T;
     m_Id = m_msgTrans->GetSocketfd(); 
     // 直接取 玩家发过来的 用户名 和 密码 进行初始化
     Proto::Unity::Authentication A;
@@ -33,6 +32,7 @@ int Player::Update()
 
  
     PlayerStatus nextStatus = m_pStatus[(m_pos + 1) % MAXSTATUS];
+
     nextStatus = m_pStatus[m_pos];
 
     nextStatus.m_position[0] += (passtime * nextStatus.m_speed * ( m_operation.op._w - m_operation.op._s) / 1000);
@@ -42,6 +42,8 @@ int Player::Update()
     setPlayerOp();
 
     m_operation.val = 0;
+
+    return 0;
 }
 
 
@@ -84,3 +86,4 @@ PROTOBUF& Player::GetPlayerInfo()
 
     return m_protoInfo;
 }
+

@@ -8,8 +8,8 @@
 class Handle {
 public:
     virtual int operator()() =0;
-    virtual int operator()(void *);
-    virtual int operator()(void *, int);
+    virtual int operator()(void *) { return 0; };
+    virtual int operator()(void *, int) { return 0;};
     
     Handle() = default;
     virtual ~Handle() {};
@@ -19,15 +19,17 @@ public:
 
 class HandleUserLogin : public Handle {
 public:
-    int operator()() override {};
+    int operator()() override { return 0; };
 
-    int operator()(void* _s, int n) override 
+    int operator()(void* _s) override 
     {
+
+        TRACER("HandleUserLogin\n");
         // TODO
         //SERVER.
         Player* player = static_cast<Player*>(_s);
 
-        player->InitPlayer();
+        (void) player->InitPlayer();
         
 
         // TODO 考虑重新设计，MsgTrans MsgRecord TcpSocket 这 3 个类的封装关系
@@ -43,6 +45,13 @@ public:
 
         int len = msg.Encode(player->GetPlayerInfo());
 
+        SERVER.SendMsgToOne(player->getId(), msg.GetDataAddress(), len);
+
+        t.tag._type = static_cast<unsigned char>(EventType::USERUP);
+
+        msg.SetTag(t.val);
+        msg.Encode();
+
         SERVER.SendMsgToAll(msg.GetDataAddress(), len);
 
         return 0;
@@ -52,32 +61,34 @@ public:
 
 class HandleUserExit : public Handle {
 public:
-    int operator()() override {};
+    int operator()() override { return 0; };
 
-    int operator()(void* _p, int) override
-    {
-        Player* p = static_cast<Player*>(_p);
-
-
-    }
+    // int operator()(void* _p, int) override
+    // {
+    //     Player* p = static_cast<Player*>(_p);
+        
+    //     // TODO
+        
+    //     return 0;
+    // }
 };
 
 
 class HandleUpdateStatus : public Handle {
 public:
-    int operator()() override {};
+    int operator()() override { return 0; };
 
     int operator()(void * _p, int) override
     {
+        TRACER("HandleUpdateStatus\n")s;
+
         Player* player = static_cast<Player*>(_p);
         
-        PROTOBUF& proto = player->GetPlayerInfo();
-
         MsgRecord msg;
 
         TAG t;
 
-        t.tag._type = static_cast<unsigned char>(EventType::USERLOGIN);
+        t.tag._type = static_cast<unsigned char>(EventType::USERUP);
 
         t.tag._id = player->getId();
 
@@ -94,32 +105,48 @@ public:
 
 class HandleSyncClient : public Handle {    
 public:
-    int operator()() override {};
+    int operator()() override { return 0; };
 
     int operator()(void * _s) override
     {
+
+        TRACER("HandleSyncClient\n");
+
         auto playersMap = static_cast<Server::PLAYERMAP *>(_s);
         
-        char* allstatus = new char[4096]; // 保存所有玩家的状态, 较滞后，复杂度 n
-        char* p = allstatus;
+        // char* allstatus = new char[4096]; // 保存所有玩家的状态, 较滞后，复杂度 n
+        // char* p = allstatus;
         
-        int left = 4096;
-        int n = 0;
+        // int left = 4096;
+        // int n = 0;
+        MsgRecord msg;
+        TAG t;
+        t.tag._type = static_cast<unsigned char>(EventType::SYNCCLIENT);
+        
         for (auto& iter : *playersMap) {
-            n = iter.second->getPlayerStatus(p, left);
-            p += n;
-            left -= n;
+
+            t.tag._id = iter.second->getId();
+
+            msg.SetTag(t.val);
+
+            int len = msg.Encode(iter.second->GetPlayerInfo());
+
+            SERVER.SendMsgToAll(msg.GetDataAddress(), len);
         }
 
 
-        Server::GetInstance().SendMsgToAll(allstatus, 4096 - left);
+        // SERVER.SendMsgToAll(allstatus, 4096 - left);
         
-        delete[] allstatus;
+        // delete[] allstatus;
+
+        return 0;
+
     }
 
     int operator()(void * _s, int _n) override
     {
         // ToDo 调用 每个player 的 sendPlayerStatus 复杂度 n * n
+        return 0;
     }
 };
 

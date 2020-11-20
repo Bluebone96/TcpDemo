@@ -21,7 +21,7 @@
 #include <iostream>
 #include <string>
 
-#include "../Proto/PlayerInfo.pb.h"
+#include "PlayerInfo.pb.h"
 
 // #define LOGFILE
 

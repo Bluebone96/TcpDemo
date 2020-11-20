@@ -4,6 +4,7 @@
 #include <memory>
 #include <unordered_map>
 
+#include "../Common/Singleton.h"
 #include "../Common/base.h"
 #include "../Common/Epoll.h"
 #include "../Common/log.h"
@@ -11,18 +12,22 @@
 #include "../Common/MsgRecord.h"
 #include "../Common/MsgTransmission.hpp"
 #include "../Player/Player.h"
-#include "../Handler/EventHandler.h"
+//#include "../Handler/EventHandler.h"
 
 //#include "../Status/"
 
 class Server {
 public:
 
-    static Server& GetInstance ()
-    {
-        static Server Instance;
-        return Instance;
-    }
+    // static Server& GetInstance ()
+    // {
+    //     static Server Instance;
+    //     return Instance;
+    // }
+
+    Server() {  };
+    
+    ~Server() {};
 
     int32_t GOGOGO();
 
@@ -34,14 +39,14 @@ public:
 
     int32_t SendMsgToAll(char*, int);
 
+    int32_t SendMsgToOne(int, char*, int);
+
     int32_t AcceptNewClient();
 
     typedef std::unordered_map<int32_t, Player*> PLAYERMAP;
-private:
-    Server() {  };
-    ~Server();
-    Server(const Server&);
-    Server& operator=(const Server);
+
+//     Server(const Server&);
+//     Server& operator=(const Server);
 
 private:
 
@@ -56,6 +61,8 @@ private:
     friend class Dispatcher; // 
 };
 
-#define SERVER Server::GetInstance()
+// #define SERVER Server::GetInstance()
+
+#define SERVER Singleton<Server>::GetInstance()
 
 #endif

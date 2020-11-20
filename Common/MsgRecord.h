@@ -5,7 +5,7 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "../Proto/PlayerInfo.pb.h"
+#include "PlayerInfo.pb.h"
 
 #define  MAXDATALEN 4096
 

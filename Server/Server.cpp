@@ -3,10 +3,6 @@
 #include "Server.h"
 #include "../Handler/Dispatcher.h"
 
-Server::~Server()
-{
-    
-}
 
 int32_t Server::Init(int32_t port, const char* hostname)
 {
@@ -111,7 +107,7 @@ int32_t Server::AcceptNewClient()
     auto msg = new MsgTrans();
     msg->Init(acceptfd, &addr, len);
     auto player = new Player(msg); 
-    
+    TRACER("the player id is %d", player->getId());
     m_players[acceptfd] = player;
 
     return 0;
@@ -120,11 +116,19 @@ int32_t Server::AcceptNewClient()
 int32_t Server::SendMsgToAll(char* _buf, int _len)
 {
     for (auto& iter : m_players) {
-        if (TcpSocket::SendData(iter.first, _buf, _len) < 0) {
-            TRACER("send data to player id: %d, %s:%d", iter.first, __POSITION__);
-            continue;
-        }
+        SendMsgToOne(iter.first, _buf, _len);
     }
+    return 0;
+}
+
+
+int32_t Server::SendMsgToOne(int fd, char* _buf, int _len)
+{
+    if (TcpSocket::SendData(_len, _buf, _len) < 0) {
+        TRACER("send data failed player id: %d, %s:%d ", fd, __POSITION__);
+        return -1;
+    }
+    
     return 0;
 }
 

@@ -805,20 +805,6 @@ inline void PlayerInfo::set_mp(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:Proto.Unity.PlayerInfo.mp)
 }
 
-// float speed = 8;
-inline void PlayerInfo::clear_speed() {
-  speed_ = 0;
-}
-inline float PlayerInfo::speed() const {
-  // @@protoc_insertion_point(field_get:Proto.Unity.PlayerInfo.speed)
-  return speed_;
-}
-inline void PlayerInfo::set_speed(float value) {
-  
-  speed_ = value;
-  // @@protoc_insertion_point(field_set:Proto.Unity.PlayerInfo.speed)
-}
-
 // uint32 state = 7;
 inline void PlayerInfo::clear_state() {
   state_ = 0u;
@@ -831,6 +817,20 @@ inline void PlayerInfo::set_state(::google::protobuf::uint32 value) {
   
   state_ = value;
   // @@protoc_insertion_point(field_set:Proto.Unity.PlayerInfo.state)
+}
+
+// float speed = 8;
+inline void PlayerInfo::clear_speed() {
+  speed_ = 0;
+}
+inline float PlayerInfo::speed() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.PlayerInfo.speed)
+  return speed_;
+}
+inline void PlayerInfo::set_speed(float value) {
+  
+  speed_ = value;
+  // @@protoc_insertion_point(field_set:Proto.Unity.PlayerInfo.speed)
 }
 
 // -------------------------------------------------------------------

@@ -2,7 +2,7 @@
 
 int main(int argc, char** argv)
 {
-    int port = 0;
+    //int port = 0;
     int flag = -1;
     switch (argc)
     {

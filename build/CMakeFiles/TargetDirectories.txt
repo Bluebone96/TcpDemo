@@ -1,0 +1,4 @@
+/home/blue/Code/TcpDemo/build/CMakeFiles/rebuild_cache.dir
+/home/blue/Code/TcpDemo/build/CMakeFiles/DemoLib.dir
+/home/blue/Code/TcpDemo/build/CMakeFiles/edit_cache.dir
+/home/blue/Code/TcpDemo/build/CMakeFiles/Server.dir

@@ -8,8 +8,7 @@
 #include <string>
 #include <sys/time.h>
 
-#include "command.cpp"
-#include "PlayerStatus.h"
+#include "PlayerStatus.hpp"
 #include "Inventory.hpp"
 #include "../Common/basetype.h"
 #include "../Common/MsgTransmission.hpp"
@@ -17,7 +16,7 @@
 class Player {
 public:
 
-    explicit Player(MsgTrans* msg = nullptr) : m_pos(0), m_msgTrans(msg) {}
+    explicit Player(MsgTrans* msg = nullptr) : m_pos(0), m_msgTrans(msg) { if (msg) { m_Id = msg->GetSocketfd(); }}
 
     ~Player() { delete m_msgTrans; }
 
@@ -58,9 +57,6 @@ private:
     struct  timeval  lastTimeUp;
 
     Inventory m_inventory;
-
-
-
 
 public:
     MsgTrans* m_msgTrans;

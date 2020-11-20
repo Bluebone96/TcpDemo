@@ -6,8 +6,8 @@
 
 class Dispatcher {
 public:
-    Dispatcher() { };
 
+    Dispatcher() { };
     ~Dispatcher() { };
 
     int Init() { return m_eventhandler.InitHandler();}
@@ -17,8 +17,8 @@ public:
     int Process();
 
     int Process(EventType, void* = nullptr);
-
 private:
+
     EventHandler m_eventhandler;
 };
 

@@ -21,7 +21,7 @@ public:
         return 0;
     }
 
-    int32_t RecvMsgHead(char* _usrbuf, int _len)
+    int32_t RecvMsgHead(char* _usrbuf, uint _len)
     {   
         if (_len < m_RecordSize) {
             TRACER("buflen is %d bytes, the message head is %d bytes", _len, m_RecordSize);

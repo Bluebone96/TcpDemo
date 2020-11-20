@@ -3,7 +3,7 @@
 #include <unordered_map>
 #include <string>
 
-#include "command.cpp"
+//#include "command.cpp"
 #include "../Common/base.h"
 #include "../Common/basetype.h"
 #include "../Common/MsgTransmission.hpp"
@@ -43,6 +43,7 @@ public:
         memcpy(&m_rotation, &_status.m_rotation, 3 * sizeof(float));
         m_hp = _status.m_hp;
         m_mp = _status.m_mp;
+        m_speed = _status.m_speed;
         m_state = _status.m_state;
     }
 
@@ -53,6 +54,7 @@ public:
         memcpy(&m_rotation, &_status.m_rotation, 3 * sizeof(float));
         m_hp = _status.m_hp;
         m_mp = _status.m_mp;
+        m_speed = _status.m_speed;
         m_state = _status.m_state;
         return *this;
     }
