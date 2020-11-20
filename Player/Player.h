@@ -24,15 +24,27 @@ public:
     
     int Update();
 
-    int setPlayerOp();
-
     int setPlayerStatus();
 
     int getPlayerStatus(char*, int);
 
     int getId() { return m_Id; }
 
+    int Activity() { return gettimeofday(&m_offline, nullptr); }
+
+    int isActivity() 
+    {
+        struct timeval cur;
+        gettimeofday(&cur, nullptr);
+        if (cur.tv_sec - m_offline.tv_sec < 5) {
+            m_offline = cur;
+            return 0;
+        }
+        return -1;
+    }
+
     PROTOBUF& GetPlayerInfo();
+    
     PROTOBUF& GetPlayerOp();
 
 private:
@@ -45,12 +57,11 @@ private:
     PlayerStatus m_pStatus[MAXSTATUS];
     
     UINT32 m_pos;
-    
 
     Proto::Unity::PlayerInfo m_protoInfo;
-    Proto::Unity::Operation m_protoOp;
 
-    OPERATION m_operation; 
+    Proto::Unity::Operation m_opNew;
+    Proto::Unity::Operation m_opOld;
 
     struct  timeval  m_offline; // 5秒 无响应下线
 

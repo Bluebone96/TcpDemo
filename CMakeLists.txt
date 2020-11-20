@@ -64,7 +64,7 @@ set(SERVER_LIB
     Player/PlayerStatus.hpp
     Player/Player.cpp
     Server/Server.cpp
-    Handler/Handle.hpp
+    Handler/Handle.cpp
     Handler/EventHandler.cpp
     Handler/Dispatcher.cpp
 )

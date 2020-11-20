@@ -8,6 +8,7 @@ CMakeFiles/DemoLib.dir/Common/Epoll.cpp.o: ../Common/log.h
 CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.o: ../Common/MsgRecord.cpp
 CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.o: ../Common/MsgRecord.h
 CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.o: ../Common/log.h
+CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.o: PlayerInfo.pb.h
 CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.o: /usr/local/include/google/protobuf/arena.h
 CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.o: /usr/local/include/google/protobuf/arena_impl.h
 CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.o: /usr/local/include/google/protobuf/arenastring.h
@@ -48,12 +49,12 @@ CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.o: /usr/local/include/google/protobu
 CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.o: /usr/local/include/google/protobuf/unknown_field_set.h
 CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.o: /usr/local/include/google/protobuf/wire_format_lite.h
 CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.o: /usr/local/include/google/protobuf/wire_format_lite_inl.h
-CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.o: PlayerInfo.pb.h
 
 CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.o: ../Common/TcpSocket.cpp
 CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.o: ../Common/TcpSocket.h
 CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.o: ../Common/base.h
 CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.o: ../Common/log.h
+CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.o: PlayerInfo.pb.h
 CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.o: /usr/local/include/google/protobuf/arena.h
 CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.o: /usr/local/include/google/protobuf/arena_impl.h
 CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.o: /usr/local/include/google/protobuf/arenastring.h
@@ -94,7 +95,6 @@ CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.o: /usr/local/include/google/protobu
 CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.o: /usr/local/include/google/protobuf/unknown_field_set.h
 CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.o: /usr/local/include/google/protobuf/wire_format_lite.h
 CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.o: /usr/local/include/google/protobuf/wire_format_lite_inl.h
-CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.o: PlayerInfo.pb.h
 
 CMakeFiles/DemoLib.dir/PlayerInfo.pb.cc.o: PlayerInfo.pb.cc
 CMakeFiles/DemoLib.dir/PlayerInfo.pb.cc.o: PlayerInfo.pb.h

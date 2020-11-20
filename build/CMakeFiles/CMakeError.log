@@ -1,20 +1,20 @@
 Determining if the pthread_create exist failed with the following output:
 Change Dir: /home/blue/Code/TcpDemo/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_34a05/fast"
-/usr/bin/make -f CMakeFiles/cmTC_34a05.dir/build.make CMakeFiles/cmTC_34a05.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_dc81b/fast"
+/usr/bin/make -f CMakeFiles/cmTC_dc81b.dir/build.make CMakeFiles/cmTC_dc81b.dir/build
 make[1]: Entering directory '/home/blue/Code/TcpDemo/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_34a05.dir/CheckSymbolExists.c.o
-/usr/bin/cc   -rdynamic -O3 -fPIC -ggdb -std=c11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations    -o CMakeFiles/cmTC_34a05.dir/CheckSymbolExists.c.o   -c /home/blue/Code/TcpDemo/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
-Linking C executable cmTC_34a05
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_34a05.dir/link.txt --verbose=1
-/usr/bin/cc  -rdynamic -O3 -fPIC -ggdb -std=c11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations     -rdynamic CMakeFiles/cmTC_34a05.dir/CheckSymbolExists.c.o  -o cmTC_34a05 
-/usr/bin/ld: CMakeFiles/cmTC_34a05.dir/CheckSymbolExists.c.o: in function `main':
+Building C object CMakeFiles/cmTC_dc81b.dir/CheckSymbolExists.c.o
+/usr/bin/cc   -rdynamic -O3 -fPIC -ggdb -std=c11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations    -o CMakeFiles/cmTC_dc81b.dir/CheckSymbolExists.c.o   -c /home/blue/Code/TcpDemo/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_dc81b
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_dc81b.dir/link.txt --verbose=1
+/usr/bin/cc  -rdynamic -O3 -fPIC -ggdb -std=c11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations     -rdynamic CMakeFiles/cmTC_dc81b.dir/CheckSymbolExists.c.o  -o cmTC_dc81b 
+/usr/bin/ld: CMakeFiles/cmTC_dc81b.dir/CheckSymbolExists.c.o: in function `main':
 /home/blue/Code/TcpDemo/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:8: undefined reference to `pthread_create'
 collect2: error: ld returned 1 exit status
-make[1]: *** [CMakeFiles/cmTC_34a05.dir/build.make:87: cmTC_34a05] Error 1
+make[1]: *** [CMakeFiles/cmTC_dc81b.dir/build.make:87: cmTC_dc81b] Error 1
 make[1]: Leaving directory '/home/blue/Code/TcpDemo/build/CMakeFiles/CMakeTmp'
-make: *** [Makefile:121: cmTC_34a05/fast] Error 2
+make: *** [Makefile:121: cmTC_dc81b/fast] Error 2
 
 File /home/blue/Code/TcpDemo/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
 /* */
@@ -34,18 +34,18 @@ int main(int argc, char** argv)
 Determining if the function pthread_create exists in the pthreads failed with the following output:
 Change Dir: /home/blue/Code/TcpDemo/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_97b0b/fast"
-/usr/bin/make -f CMakeFiles/cmTC_97b0b.dir/build.make CMakeFiles/cmTC_97b0b.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_79673/fast"
+/usr/bin/make -f CMakeFiles/cmTC_79673.dir/build.make CMakeFiles/cmTC_79673.dir/build
 make[1]: Entering directory '/home/blue/Code/TcpDemo/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_97b0b.dir/CheckFunctionExists.c.o
-/usr/bin/cc   -rdynamic -O3 -fPIC -ggdb -std=c11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_97b0b.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.13/Modules/CheckFunctionExists.c
-Linking C executable cmTC_97b0b
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_97b0b.dir/link.txt --verbose=1
-/usr/bin/cc  -rdynamic -O3 -fPIC -ggdb -std=c11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_97b0b.dir/CheckFunctionExists.c.o  -o cmTC_97b0b -lpthreads 
+Building C object CMakeFiles/cmTC_79673.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -rdynamic -O3 -fPIC -ggdb -std=c11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_79673.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.13/Modules/CheckFunctionExists.c
+Linking C executable cmTC_79673
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_79673.dir/link.txt --verbose=1
+/usr/bin/cc  -rdynamic -O3 -fPIC -ggdb -std=c11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_79673.dir/CheckFunctionExists.c.o  -o cmTC_79673 -lpthreads 
 /usr/bin/ld: cannot find -lpthreads
 collect2: error: ld returned 1 exit status
-make[1]: *** [CMakeFiles/cmTC_97b0b.dir/build.make:87: cmTC_97b0b] Error 1
+make[1]: *** [CMakeFiles/cmTC_79673.dir/build.make:87: cmTC_79673] Error 1
 make[1]: Leaving directory '/home/blue/Code/TcpDemo/build/CMakeFiles/CMakeTmp'
-make: *** [Makefile:121: cmTC_97b0b/fast] Error 2
+make: *** [Makefile:121: cmTC_79673/fast] Error 2
 
 

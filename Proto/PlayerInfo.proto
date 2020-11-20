@@ -17,7 +17,10 @@ message PlayerInfo {
 }
 
 message Operation {
-    uint32 op = 1;
+    uint32 W = 1;
+    uint32 S = 2;
+    uint32 A = 3;
+    uint32 D = 4;
 }
 
 message Chat {

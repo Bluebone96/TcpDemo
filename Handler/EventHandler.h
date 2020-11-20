@@ -3,9 +3,9 @@
 
 #include <unordered_map>
 
-#include "Handle.hpp"
-#include "../Player/Player.h"
-#include "../Server/Server.h"
+#include "Handle.h"
+#include "../Common/basetype.h"
+
 
 class EventHandler {
 public:

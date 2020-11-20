@@ -6,7 +6,7 @@
 
 int32_t Server::Init(int32_t port, const char* hostname)
 {
-    int32_t fd = m_MsgTrans.OpenAsServer(port, hostname);
+    int32_t fd = m_socket.OpenAsServer(port, hostname);
     if (fd < 0) {
         TRACER("Server::Init OpenAsServer failed.\n");
         return -1;
@@ -89,7 +89,7 @@ int32_t Server::AcceptNewClient()
 {
     sockaddr_in addr;
     socklen_t len = sizeof(sockaddr_in);
-    int32_t acceptfd = m_MsgTrans.Accept(m_listenfd, &addr, &len);
+    int32_t acceptfd = m_socket.Accept(m_listenfd, &addr, &len);
 
     if (acceptfd < 0) {
         TRACERERRNO("Server::RecvMsg accept failed");

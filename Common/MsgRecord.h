@@ -5,13 +5,13 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "PlayerInfo.pb.h"
+#include "../build/PlayerInfo.pb.h"
 
 #define  MAXDATALEN 4096
 
 
 struct Record {
-    int32_t m_tag;
+    uint32_t m_tag;   // 第一个字节为 EventType m_tag & 0xFF; 第二个字节为 id m_tag & 0xFF00
     uint32_t m_len; // 仅仅为 protobuf 的大小
     char m_data[0];
 };
@@ -37,10 +37,16 @@ public:
 
     void SetLen(int32_t len) { m_pRecord->m_len = len; };
 
-    uint32_t GetDataLen() { return m_pRecord->m_len; }
-    uint32_t GetTag() { return m_pRecord->m_tag; }
+    uint32_t GetLen() { return m_pRecord->m_len; }
 
+    uint32_t GetTag() { return m_pRecord->m_tag; }
     void  SetTag(int32_t _tag) { m_pRecord->m_tag = _tag; }
+
+    uint32_t GetEventType() { return m_pRecord->m_tag & 0xFF; }
+    uint32_t GetID() { return m_pRecord->m_tag & 0xFF00; }
+
+    void SetEventType(uint32_t _t) { m_pRecord->m_tag |= _t; }
+    void SetID(uint32_t _t) { m_pRecord->m_tag |= (_t << 8); }
 
     int32_t Encode(void* src, uint32_t sz);
     int32_t Decode(void* src, uint32_t sz);
@@ -55,7 +61,8 @@ public:
 
     char*     GetDataAddress() { return m_pRecord->m_data; }
     Record*   GetRecord() { return m_pRecord; }
-protected:
+
+public:
     uint32_t m_size;    // 申请的buff大小，在构造时记录
     uint32_t m_RecordSize;
     Record* m_pRecord;
@@ -67,4 +74,59 @@ public:
     static int32_t decode(void* dest, uint32_t destsz, void* src, uint32_t count);
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #endif
+
+

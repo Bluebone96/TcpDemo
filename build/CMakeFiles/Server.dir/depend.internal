@@ -13,11 +13,11 @@ CMakeFiles/Server.dir/Handler/Dispatcher.cpp.o
  /home/blue/Code/TcpDemo/Handler/Dispatcher.cpp
  /home/blue/Code/TcpDemo/Handler/Dispatcher.h
  /home/blue/Code/TcpDemo/Handler/EventHandler.h
- /home/blue/Code/TcpDemo/Handler/Handle.hpp
+ /home/blue/Code/TcpDemo/Handler/Handle.h
  /home/blue/Code/TcpDemo/Player/Inventory.hpp
  /home/blue/Code/TcpDemo/Player/Player.h
  /home/blue/Code/TcpDemo/Player/PlayerStatus.hpp
- /home/blue/Code/TcpDemo/Server/Server.h
+ /home/blue/Code/TcpDemo/build/PlayerInfo.pb.h
  /usr/local/include/google/protobuf/arena.h
  /usr/local/include/google/protobuf/arena_impl.h
  /usr/local/include/google/protobuf/arenastring.h
@@ -58,8 +58,54 @@ CMakeFiles/Server.dir/Handler/Dispatcher.cpp.o
  /usr/local/include/google/protobuf/unknown_field_set.h
  /usr/local/include/google/protobuf/wire_format_lite.h
  /usr/local/include/google/protobuf/wire_format_lite_inl.h
- PlayerInfo.pb.h
 CMakeFiles/Server.dir/Handler/EventHandler.cpp.o
+ /home/blue/Code/TcpDemo/Common/basetype.h
+ /home/blue/Code/TcpDemo/Common/log.h
+ /home/blue/Code/TcpDemo/Handler/EventHandler.cpp
+ /home/blue/Code/TcpDemo/Handler/EventHandler.h
+ /home/blue/Code/TcpDemo/Handler/Handle.h
+ /home/blue/Code/TcpDemo/build/PlayerInfo.pb.h
+ /usr/local/include/google/protobuf/arena.h
+ /usr/local/include/google/protobuf/arena_impl.h
+ /usr/local/include/google/protobuf/arenastring.h
+ /usr/local/include/google/protobuf/descriptor.h
+ /usr/local/include/google/protobuf/extension_set.h
+ /usr/local/include/google/protobuf/generated_enum_util.h
+ /usr/local/include/google/protobuf/generated_message_table_driven.h
+ /usr/local/include/google/protobuf/generated_message_util.h
+ /usr/local/include/google/protobuf/has_bits.h
+ /usr/local/include/google/protobuf/implicit_weak_message.h
+ /usr/local/include/google/protobuf/inlined_string_field.h
+ /usr/local/include/google/protobuf/io/coded_stream.h
+ /usr/local/include/google/protobuf/map.h
+ /usr/local/include/google/protobuf/map_entry_lite.h
+ /usr/local/include/google/protobuf/map_field_lite.h
+ /usr/local/include/google/protobuf/map_type_handler.h
+ /usr/local/include/google/protobuf/message.h
+ /usr/local/include/google/protobuf/message_lite.h
+ /usr/local/include/google/protobuf/metadata.h
+ /usr/local/include/google/protobuf/metadata_lite.h
+ /usr/local/include/google/protobuf/parse_context.h
+ /usr/local/include/google/protobuf/port.h
+ /usr/local/include/google/protobuf/port_def.inc
+ /usr/local/include/google/protobuf/port_undef.inc
+ /usr/local/include/google/protobuf/repeated_field.h
+ /usr/local/include/google/protobuf/stubs/casts.h
+ /usr/local/include/google/protobuf/stubs/common.h
+ /usr/local/include/google/protobuf/stubs/fastmem.h
+ /usr/local/include/google/protobuf/stubs/hash.h
+ /usr/local/include/google/protobuf/stubs/logging.h
+ /usr/local/include/google/protobuf/stubs/macros.h
+ /usr/local/include/google/protobuf/stubs/mutex.h
+ /usr/local/include/google/protobuf/stubs/once.h
+ /usr/local/include/google/protobuf/stubs/platform_macros.h
+ /usr/local/include/google/protobuf/stubs/port.h
+ /usr/local/include/google/protobuf/stubs/stringpiece.h
+ /usr/local/include/google/protobuf/stubs/strutil.h
+ /usr/local/include/google/protobuf/unknown_field_set.h
+ /usr/local/include/google/protobuf/wire_format_lite.h
+ /usr/local/include/google/protobuf/wire_format_lite_inl.h
+CMakeFiles/Server.dir/Handler/Handle.cpp.o
  /home/blue/Code/TcpDemo/Common/Epoll.h
  /home/blue/Code/TcpDemo/Common/MsgRecord.h
  /home/blue/Code/TcpDemo/Common/MsgTransmission.hpp
@@ -68,13 +114,15 @@ CMakeFiles/Server.dir/Handler/EventHandler.cpp.o
  /home/blue/Code/TcpDemo/Common/base.h
  /home/blue/Code/TcpDemo/Common/basetype.h
  /home/blue/Code/TcpDemo/Common/log.h
- /home/blue/Code/TcpDemo/Handler/EventHandler.cpp
+ /home/blue/Code/TcpDemo/Handler/Dispatcher.h
  /home/blue/Code/TcpDemo/Handler/EventHandler.h
- /home/blue/Code/TcpDemo/Handler/Handle.hpp
+ /home/blue/Code/TcpDemo/Handler/Handle.cpp
+ /home/blue/Code/TcpDemo/Handler/Handle.h
  /home/blue/Code/TcpDemo/Player/Inventory.hpp
  /home/blue/Code/TcpDemo/Player/Player.h
  /home/blue/Code/TcpDemo/Player/PlayerStatus.hpp
  /home/blue/Code/TcpDemo/Server/Server.h
+ /home/blue/Code/TcpDemo/build/PlayerInfo.pb.h
  /usr/local/include/google/protobuf/arena.h
  /usr/local/include/google/protobuf/arena_impl.h
  /usr/local/include/google/protobuf/arenastring.h
@@ -115,7 +163,6 @@ CMakeFiles/Server.dir/Handler/EventHandler.cpp.o
  /usr/local/include/google/protobuf/unknown_field_set.h
  /usr/local/include/google/protobuf/wire_format_lite.h
  /usr/local/include/google/protobuf/wire_format_lite_inl.h
- PlayerInfo.pb.h
 CMakeFiles/Server.dir/Player/Player.cpp.o
  /home/blue/Code/TcpDemo/Common/Epoll.h
  /home/blue/Code/TcpDemo/Common/MsgRecord.h
@@ -128,6 +175,7 @@ CMakeFiles/Server.dir/Player/Player.cpp.o
  /home/blue/Code/TcpDemo/Player/Player.cpp
  /home/blue/Code/TcpDemo/Player/Player.h
  /home/blue/Code/TcpDemo/Player/PlayerStatus.hpp
+ /home/blue/Code/TcpDemo/build/PlayerInfo.pb.h
  /usr/local/include/google/protobuf/arena.h
  /usr/local/include/google/protobuf/arena_impl.h
  /usr/local/include/google/protobuf/arenastring.h
@@ -168,7 +216,6 @@ CMakeFiles/Server.dir/Player/Player.cpp.o
  /usr/local/include/google/protobuf/unknown_field_set.h
  /usr/local/include/google/protobuf/wire_format_lite.h
  /usr/local/include/google/protobuf/wire_format_lite_inl.h
- PlayerInfo.pb.h
 CMakeFiles/Server.dir/Server/Server.cpp.o
  /home/blue/Code/TcpDemo/Common/Epoll.h
  /home/blue/Code/TcpDemo/Common/MsgRecord.h
@@ -180,12 +227,13 @@ CMakeFiles/Server.dir/Server/Server.cpp.o
  /home/blue/Code/TcpDemo/Common/log.h
  /home/blue/Code/TcpDemo/Handler/Dispatcher.h
  /home/blue/Code/TcpDemo/Handler/EventHandler.h
- /home/blue/Code/TcpDemo/Handler/Handle.hpp
+ /home/blue/Code/TcpDemo/Handler/Handle.h
  /home/blue/Code/TcpDemo/Player/Inventory.hpp
  /home/blue/Code/TcpDemo/Player/Player.h
  /home/blue/Code/TcpDemo/Player/PlayerStatus.hpp
  /home/blue/Code/TcpDemo/Server/Server.cpp
  /home/blue/Code/TcpDemo/Server/Server.h
+ /home/blue/Code/TcpDemo/build/PlayerInfo.pb.h
  /usr/local/include/google/protobuf/arena.h
  /usr/local/include/google/protobuf/arena_impl.h
  /usr/local/include/google/protobuf/arenastring.h
@@ -226,7 +274,6 @@ CMakeFiles/Server.dir/Server/Server.cpp.o
  /usr/local/include/google/protobuf/unknown_field_set.h
  /usr/local/include/google/protobuf/wire_format_lite.h
  /usr/local/include/google/protobuf/wire_format_lite_inl.h
- PlayerInfo.pb.h
 CMakeFiles/Server.dir/Server/main.cpp.o
  /home/blue/Code/TcpDemo/Common/Epoll.h
  /home/blue/Code/TcpDemo/Common/MsgRecord.h
@@ -241,6 +288,7 @@ CMakeFiles/Server.dir/Server/main.cpp.o
  /home/blue/Code/TcpDemo/Player/PlayerStatus.hpp
  /home/blue/Code/TcpDemo/Server/Server.h
  /home/blue/Code/TcpDemo/Server/main.cpp
+ /home/blue/Code/TcpDemo/build/PlayerInfo.pb.h
  /usr/local/include/google/protobuf/arena.h
  /usr/local/include/google/protobuf/arena_impl.h
  /usr/local/include/google/protobuf/arenastring.h
@@ -281,4 +329,3 @@ CMakeFiles/Server.dir/Server/main.cpp.o
  /usr/local/include/google/protobuf/unknown_field_set.h
  /usr/local/include/google/protobuf/wire_format_lite.h
  /usr/local/include/google/protobuf/wire_format_lite_inl.h
- PlayerInfo.pb.h

@@ -55,8 +55,8 @@ private:
     int32_t m_listenfd;
 
     Epoll m_epoll;
-    
-    MsgTrans m_MsgTrans;
+
+    TcpSocket m_socket;
         
     friend class Dispatcher; // 
 };

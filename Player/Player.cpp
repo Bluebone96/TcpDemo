@@ -6,7 +6,7 @@ int Player::InitPlayer()
     m_Id = m_msgTrans->GetSocketfd(); 
     // 直接取 玩家发过来的 用户名 和 密码 进行初始化
     Proto::Unity::Authentication A;
-    m_msgTrans->RecvProtobuf(A);
+    m_msgTrans->Decode(A);
     m_name = A.name();
     
     PlayerStatus& currStatus = m_pStatus[m_pos];
@@ -19,6 +19,8 @@ int Player::InitPlayer()
 
 int Player::Update()
 {
+    m_msgTrans->Decode(m_opNew);
+
     struct timeval  curTime;
 
     gettimeofday(&curTime, nullptr);
@@ -35,29 +37,16 @@ int Player::Update()
 
     nextStatus = m_pStatus[m_pos];
 
-    nextStatus.m_position[0] += (passtime * nextStatus.m_speed * ( m_operation.op._w - m_operation.op._s) / 1000);
+    nextStatus.m_position[0] += (passtime * nextStatus.m_speed * ( m_opOld.w() - m_opOld.s()) / 10);
 
-    nextStatus.m_position[2] += (passtime * nextStatus.m_speed * (m_operation.op._a - m_operation.op._d) / 1000);
+    nextStatus.m_position[2] += (passtime * nextStatus.m_speed * (m_opOld.a() - m_opOld.d()) / 10);
     
-    setPlayerOp();
 
-    m_operation.val = 0;
+    m_opOld = m_opNew;
 
     return 0;
 }
 
-
-int Player::setPlayerOp()
-{
-    m_msgTrans->RecvProtobuf(m_protoOp);
-    m_operation.val = m_protoOp.op();
-    if (m_operation.val == 0) {
-        gettimeofday(&m_offline, nullptr);  // 无操作可表示心跳包
-    } else {
-        Update();
-    }
-    return EOK;
-}
 
 int Player::setPlayerStatus()
 {

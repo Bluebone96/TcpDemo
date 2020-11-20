@@ -6,6 +6,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/blue/Code/TcpDemo/Handler/Dispatcher.cpp" "/home/blue/Code/TcpDemo/build/CMakeFiles/Server.dir/Handler/Dispatcher.cpp.o"
   "/home/blue/Code/TcpDemo/Handler/EventHandler.cpp" "/home/blue/Code/TcpDemo/build/CMakeFiles/Server.dir/Handler/EventHandler.cpp.o"
+  "/home/blue/Code/TcpDemo/Handler/Handle.cpp" "/home/blue/Code/TcpDemo/build/CMakeFiles/Server.dir/Handler/Handle.cpp.o"
   "/home/blue/Code/TcpDemo/Player/Player.cpp" "/home/blue/Code/TcpDemo/build/CMakeFiles/Server.dir/Player/Player.cpp.o"
   "/home/blue/Code/TcpDemo/Server/Server.cpp" "/home/blue/Code/TcpDemo/build/CMakeFiles/Server.dir/Server/Server.cpp.o"
   "/home/blue/Code/TcpDemo/Server/main.cpp" "/home/blue/Code/TcpDemo/build/CMakeFiles/Server.dir/Server/main.cpp.o"

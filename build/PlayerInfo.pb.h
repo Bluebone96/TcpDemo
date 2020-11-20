@@ -355,18 +355,39 @@ class Operation final :
 
   // accessors -------------------------------------------------------
 
-  // uint32 op = 1;
-  void clear_op();
-  static const int kOpFieldNumber = 1;
-  ::google::protobuf::uint32 op() const;
-  void set_op(::google::protobuf::uint32 value);
+  // uint32 W = 1;
+  void clear_w();
+  static const int kWFieldNumber = 1;
+  ::google::protobuf::uint32 w() const;
+  void set_w(::google::protobuf::uint32 value);
+
+  // uint32 S = 2;
+  void clear_s();
+  static const int kSFieldNumber = 2;
+  ::google::protobuf::uint32 s() const;
+  void set_s(::google::protobuf::uint32 value);
+
+  // uint32 A = 3;
+  void clear_a();
+  static const int kAFieldNumber = 3;
+  ::google::protobuf::uint32 a() const;
+  void set_a(::google::protobuf::uint32 value);
+
+  // uint32 D = 4;
+  void clear_d();
+  static const int kDFieldNumber = 4;
+  ::google::protobuf::uint32 d() const;
+  void set_d(::google::protobuf::uint32 value);
 
   // @@protoc_insertion_point(class_scope:Proto.Unity.Operation)
  private:
   class HasBitSetters;
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::uint32 op_;
+  ::google::protobuf::uint32 w_;
+  ::google::protobuf::uint32 s_;
+  ::google::protobuf::uint32 a_;
+  ::google::protobuf::uint32 d_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_PlayerInfo_2eproto;
 };
@@ -837,18 +858,60 @@ inline void PlayerInfo::set_speed(float value) {
 
 // Operation
 
-// uint32 op = 1;
-inline void Operation::clear_op() {
-  op_ = 0u;
+// uint32 W = 1;
+inline void Operation::clear_w() {
+  w_ = 0u;
 }
-inline ::google::protobuf::uint32 Operation::op() const {
-  // @@protoc_insertion_point(field_get:Proto.Unity.Operation.op)
-  return op_;
+inline ::google::protobuf::uint32 Operation::w() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.Operation.W)
+  return w_;
 }
-inline void Operation::set_op(::google::protobuf::uint32 value) {
+inline void Operation::set_w(::google::protobuf::uint32 value) {
   
-  op_ = value;
-  // @@protoc_insertion_point(field_set:Proto.Unity.Operation.op)
+  w_ = value;
+  // @@protoc_insertion_point(field_set:Proto.Unity.Operation.W)
+}
+
+// uint32 S = 2;
+inline void Operation::clear_s() {
+  s_ = 0u;
+}
+inline ::google::protobuf::uint32 Operation::s() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.Operation.S)
+  return s_;
+}
+inline void Operation::set_s(::google::protobuf::uint32 value) {
+  
+  s_ = value;
+  // @@protoc_insertion_point(field_set:Proto.Unity.Operation.S)
+}
+
+// uint32 A = 3;
+inline void Operation::clear_a() {
+  a_ = 0u;
+}
+inline ::google::protobuf::uint32 Operation::a() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.Operation.A)
+  return a_;
+}
+inline void Operation::set_a(::google::protobuf::uint32 value) {
+  
+  a_ = value;
+  // @@protoc_insertion_point(field_set:Proto.Unity.Operation.A)
+}
+
+// uint32 D = 4;
+inline void Operation::clear_d() {
+  d_ = 0u;
+}
+inline ::google::protobuf::uint32 Operation::d() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.Operation.D)
+  return d_;
+}
+inline void Operation::set_d(::google::protobuf::uint32 value) {
+  
+  d_ = value;
+  // @@protoc_insertion_point(field_set:Proto.Unity.Operation.D)
 }
 
 // -------------------------------------------------------------------

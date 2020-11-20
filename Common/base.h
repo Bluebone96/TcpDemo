@@ -21,7 +21,7 @@
 #include <iostream>
 #include <string>
 
-#include "PlayerInfo.pb.h"
+#include "../build/PlayerInfo.pb.h"
 
 // #define LOGFILE
 
@@ -33,7 +33,6 @@
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
 #endif
 
-#define __POSITION__ __FILE__, __LINE__
 
 
 #endif

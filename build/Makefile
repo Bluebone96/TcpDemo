@@ -274,6 +274,33 @@ Handler/EventHandler.cpp.s:
 	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Handler/EventHandler.cpp.s
 .PHONY : Handler/EventHandler.cpp.s
 
+Handler/Handle.o: Handler/Handle.cpp.o
+
+.PHONY : Handler/Handle.o
+
+# target to build an object file
+Handler/Handle.cpp.o:
+	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Handler/Handle.cpp.o
+.PHONY : Handler/Handle.cpp.o
+
+Handler/Handle.i: Handler/Handle.cpp.i
+
+.PHONY : Handler/Handle.i
+
+# target to preprocess a source file
+Handler/Handle.cpp.i:
+	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Handler/Handle.cpp.i
+.PHONY : Handler/Handle.cpp.i
+
+Handler/Handle.s: Handler/Handle.cpp.s
+
+.PHONY : Handler/Handle.s
+
+# target to generate assembly for a file
+Handler/Handle.cpp.s:
+	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Handler/Handle.cpp.s
+.PHONY : Handler/Handle.cpp.s
+
 Player/Player.o: Player/Player.cpp.o
 
 .PHONY : Player/Player.o
@@ -407,6 +434,9 @@ help:
 	@echo "... Handler/EventHandler.o"
 	@echo "... Handler/EventHandler.i"
 	@echo "... Handler/EventHandler.s"
+	@echo "... Handler/Handle.o"
+	@echo "... Handler/Handle.i"
+	@echo "... Handler/Handle.s"
 	@echo "... Player/Player.o"
 	@echo "... Player/Player.i"
 	@echo "... Player/Player.s"

@@ -6,6 +6,9 @@
 #include <errno.h>
 
 
+#define __POSITION__ __FILE__, __LINE__
+
+
 #ifdef LOGFILE
 
 
