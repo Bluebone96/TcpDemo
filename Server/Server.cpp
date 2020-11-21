@@ -51,7 +51,6 @@ int32_t Server::GOGOGO()
             } else {
                 uint32_t event = pEvent->events;
                 int32_t fd = pEvent->data.fd;
-
                 switch (event)
                 {
                 case EPOLLIN:
@@ -66,19 +65,30 @@ int32_t Server::GOGOGO()
                     break;
                 default:
                     TRACER("Epoll unknowen fd = %d\n", fd);
-                    break;
+                    delete m_players[fd];
+                    continue;
+                }
+                
+
+                int errorcode = 0;
+                if ((errorcode = DISPATCHER.Process(m_players[fd])) < 0) {
+                    if (errorcode == -2) {
+                        delete m_players[fd];
+                        m_players.erase(fd);
+                    }
                 }
 
-                if (DISPATCHER.Process(m_players[fd]) < 0) {
-                    // TODO
-                }
+                TRACER("Go next epoll\n");
             }
         }
+
         gettimeofday(&curTime, nullptr);
         
         if (curTime.tv_sec - lastTime.tv_sec >= 2) { 
             // 每 2 秒 主动 同步所有玩家
-            DISPATCHER.Process(EventType::SYNCCLIENT);
+            if (DISPATCHER.Process(EventType::SYNCCLIENT) < 0) {
+                // TODO
+            }
         }
 
     }
@@ -107,7 +117,7 @@ int32_t Server::AcceptNewClient()
     auto msg = new MsgTrans();
     msg->Init(acceptfd, &addr, len);
     auto player = new Player(msg); 
-    TRACER("the player id is %d", player->getId());
+    TRACER("the player id is %d, socketid is", player->getId());
     m_players[acceptfd] = player;
 
     return 0;
@@ -116,6 +126,7 @@ int32_t Server::AcceptNewClient()
 int32_t Server::SendMsgToAll(char* _buf, int _len)
 {
     for (auto& iter : m_players) {
+        TRACER("Try to sendmsgto %d: %d\n", iter.first, iter.second->getId());
         SendMsgToOne(iter.first, _buf, _len);
     }
     return 0;
@@ -124,7 +135,7 @@ int32_t Server::SendMsgToAll(char* _buf, int _len)
 
 int32_t Server::SendMsgToOne(int fd, char* _buf, int _len)
 {
-    if (TcpSocket::SendData(_len, _buf, _len) < 0) {
+    if (TcpSocket::SendData(fd, _buf, _len) < 0) {
         TRACER("send data failed player id: %d, %s:%d ", fd, __POSITION__);
         return -1;
     }

@@ -24,7 +24,7 @@ public:
     
     int Update();
 
-    int setPlayerStatus();
+    int setPlayerInfo();
 
     int getPlayerStatus(char*, int);
 

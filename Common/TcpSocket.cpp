@@ -97,7 +97,7 @@ int32_t TcpSocket::RecvData(void* usrbuf, uint32_t size)
     int32_t nleft = size;
     int32_t cnt;
     char* pbuf = (char*)usrbuf;
-    TRACER("sleep 2s for debug");
+    TRACER("sleep 2s for debug\n");
     sleep(2);
 
     while (nleft > 0) {
@@ -127,6 +127,13 @@ int32_t TcpSocket::SendData(void* usrbuf, uint32_t size)
 {
     return TcpSocket::SendData(m_socketfd, usrbuf, size);
 }
+
+// int32_t TcpSocket::RecvData(const int _fd, const void* _usrbuf, const uint32_t _size)
+// {
+//     // test
+    
+// }
+
 
 int32_t TcpSocket::SendData(const int _fd, const void* _usrbuf, const uint32_t _size)
 {

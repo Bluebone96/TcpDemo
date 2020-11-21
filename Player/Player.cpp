@@ -8,10 +8,14 @@ int Player::InitPlayer()
     Proto::Unity::Authentication A;
     m_msgTrans->Decode(A);
     m_name = A.name();
-    
+    TRACER("player name: %s\n id: %d", A.name().c_str(), m_Id);
+
     PlayerStatus& currStatus = m_pStatus[m_pos];
-    m_protoInfo.set_name(currStatus.m_name);
-    m_protoInfo.set_id(currStatus.m_id);
+    currStatus.m_name = m_name;
+    currStatus.m_id = m_Id;
+    currStatus.m_speed = 10;
+    m_protoInfo.set_name(m_name);
+    m_protoInfo.set_id(m_Id);
     
     return 0;
 }
@@ -37,9 +41,9 @@ int Player::Update()
 
     nextStatus = m_pStatus[m_pos];
 
-    nextStatus.m_position[0] += (passtime * nextStatus.m_speed * ( m_opOld.w() - m_opOld.s()) / 10);
+    nextStatus.m_position[0] += (passtime * nextStatus.m_speed * ( m_opOld.w() - m_opOld.s())) / 1000;
 
-    nextStatus.m_position[2] += (passtime * nextStatus.m_speed * (m_opOld.a() - m_opOld.d()) / 10);
+    nextStatus.m_position[2] += (passtime * nextStatus.m_speed * (m_opOld.a() - m_opOld.d())) / 1000;
     
 
     m_opOld = m_opNew;
@@ -48,7 +52,7 @@ int Player::Update()
 }
 
 
-int Player::setPlayerStatus()
+int Player::setPlayerInfo()
 {
 
     PlayerStatus& currStatus = m_pStatus[m_pos];
@@ -71,7 +75,7 @@ PROTOBUF& Player::GetPlayerInfo()
 
     Update();
 
-    setPlayerStatus();
+    setPlayerInfo();
 
     return m_protoInfo;
 }

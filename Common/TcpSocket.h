@@ -49,6 +49,7 @@ public:
     void SetAddr(void *addr, int32_t len) { memcpy(&m_sockaddr, addr, len); }
 
     static int32_t SendData(const int fd, const void* userbuf, const uint32_t size);
+//    static int32_t RecvData(const int fd, const void* userbuf, const uint32_t size);
 
 private:
     // 从内核中读取数据到SockBuf缓冲区

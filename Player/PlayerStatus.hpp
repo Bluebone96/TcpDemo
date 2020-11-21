@@ -25,12 +25,12 @@ public:
     float m_position[3] = {0};
     float m_rotation[3] = {0};
 
-    float m_hp;
-    float m_mp;
+    float m_hp = 100;
+    float m_mp = 100;
 
-    float m_speed;
+    float m_speed = 5;
 
-    STATE m_state;
+    STATE m_state = STATE::IDEL;
 
 
 public:

@@ -24,7 +24,9 @@ int HandleUserLogin::operator()(void* _s)
 
     player->m_msgTrans->Encode();
 
-    SERVER.SendMsgToAll(player->m_msgTrans->GetDataAddress(), player->m_msgTrans->GetLen());
+    SERVER.SendMsgToAll(player->m_msgTrans->GetDataAddress(), player->m_msgTrans->GetLen() + player->m_msgTrans->m_RecordSize);
+
+    TRACER("HandleUserLogin end\n");
 
     return 0;
 }
@@ -58,7 +60,7 @@ int HandleUpdateStatus::operator()(void * _p)
 
     player->m_msgTrans->Encode(player->GetPlayerInfo());
 
-    SERVER.SendMsgToAll(player->m_msgTrans->GetDataAddress(), player->m_msgTrans->GetLen());
+    SERVER.SendMsgToAll(player->m_msgTrans->GetDataAddress(), player->m_msgTrans->GetLen() + player->m_msgTrans->m_RecordSize);
 
     return 0;
 }
