@@ -22,29 +22,14 @@ void TcpSocket::TcpSocketInit(int32_t fd, void *addr, int32_t addrlen)
 //    bzero(m_pdatabuf, m_bufsize);
 }
 
-int32_t TcpSocket::recvdatabuf(void* usrbuf, uint32_t size)
+int32_t TcpSocket::recvdatabuf()
 {
-
-    uint32_t sn = m_pdatabuf->tail - m_pdatabuf->head;
-
-    // 先从缓冲区拷贝数据，如果够就直接返回，不够就从内核读数据到缓冲区
-    sn = MIN(sn, size);
-    
-    TRACER("memcpy %d data to usrbuf:%p start \n", sn, usrbuf);
-
-    memcpy(usrbuf, m_pdatabuf->buffer + m_pdatabuf->head, sn);
-
-    TRACER("memcpy %d data to usrbuf:%p end \n", sn, usrbuf);
-
-    m_pdatabuf->head += sn;
-
-    if (sn == size) {
-        return size;
-    }
     
     // 每次直接尝试填充缓冲区
     char* pbuf = m_pdatabuf->buffer + m_pdatabuf->tail;
-    TRACER("start recv data from %d to socketbuf\nsocket buf is %d left\n", m_socketfd, m_bufsize - m_pdatabuf->tail);
+    TRACER("start recv data from %d to socketbuf\n socket buf has %d bytes data,  %d bytes could use\n", 
+        m_socketfd, m_pdatabuf->tail - m_pdatabuf->head, m_bufsize - m_pdatabuf->tail);
+        
     int cnt = 0;
     while (m_bufsize > m_pdatabuf->tail) {
         
@@ -56,7 +41,7 @@ int32_t TcpSocket::recvdatabuf(void* usrbuf, uint32_t size)
                 continue;                       // 系统中断继续
             } else if (errno == EAGAIN) {
                 TRACER("socketfd %d no data to read, cnt = %d\n", m_socketfd, cnt);
-                break;                          // 无数据退出循环
+                return 0;
             } else {
                 TRACERERRNO("TcpSocket::recvdatabuf read failed. fd = %d. %s:%d", m_socketfd, __POSITION__);
                 return -1;
@@ -73,7 +58,7 @@ int32_t TcpSocket::recvdatabuf(void* usrbuf, uint32_t size)
         m_pdatabuf->tail += cnt;
     }
     
-    TRACER("end recv data from %d, socketbufsize is %d\n", m_socketfd, sn);
+    TRACER("end recv data from %d, socketbufsize is %d\n", m_socketfd, m_pdatabuf->tail - m_pdatabuf->head);
 
 
     // 当数据填充到buf尾部时，尝试移动数据到buf头部
@@ -87,40 +72,32 @@ int32_t TcpSocket::recvdatabuf(void* usrbuf, uint32_t size)
             m_pdatabuf->tail = size;
         }
     }
-    return sn;
+
+    return( m_pdatabuf->tail - m_pdatabuf->head);
 }
 
 int32_t TcpSocket::RecvData(void* usrbuf, uint32_t size)
 {
     TRACER("star recv %d byte data from %d\n", size, m_socketfd);
     
-    int32_t nleft = size;
     int32_t cnt;
-    char* pbuf = (char*)usrbuf;
-    TRACER("sleep 2s for debug\n");
-    sleep(2);
+    // TRACER("sleep 2s for debug\n");
+    // sleep(2);
 
-    while (nleft > 0) {
-        TRACER("start call recvdatabuf(%p, %d)\n", pbuf, nleft);
-
-        cnt = recvdatabuf(pbuf, nleft);
-        
-        TRACER("end call recvdatabuf(%p, %d)\n", pbuf, nleft);
-        
-        // recvdatabuf 错误和结束时都返回 -1
-        if (cnt < 0) {
-            // recvdatabuf 当 read 返回 0 时，返回 -1， 还需要考虑下
-            TRACERERRNO("TcpSocket::RecvData failed cnt = %d. %s : %d\n", cnt, __POSITION__);
-            return -2; // 表示关闭
-        } else if (cnt == 0 && errno == EAGAIN) { // 只有当无数据，EAGAIN 才会返回0
-            // recvdatabuf 当EAFAIN时返回零，这个和EOF相同了，之后再重新设计返回值，现在在这里判断下
-            continue;
+    while (size > (m_pdatabuf->tail - m_pdatabuf->head)) {
+        if ((cnt  = recvdatabuf()) < 0) {
+            TRACERERRNO("read failed peer closed\n");
+            return -1;
         }
-        nleft -= cnt;
-        pbuf += cnt;
     }
-    TRACER("hade recved %d byte data from %d\n", size - nleft, m_socketfd);
-    return size - nleft;
+
+
+    memcpy(usrbuf, m_pdatabuf->buffer + m_pdatabuf->head, size);
+    m_pdatabuf->head += size;
+
+    TRACER("hade recved %d byte data from %d\n", size, m_socketfd);
+
+    return size;
 }
 
 int32_t TcpSocket::SendData(void* usrbuf, uint32_t size)

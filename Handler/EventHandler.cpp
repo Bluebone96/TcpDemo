@@ -18,9 +18,12 @@ int EventHandler::InitHandler()
 
     flag |= AddHandle(EventType::USEREXIT, new HandleUserExit);
 
+    flag |= AddHandle(EventType::USERALIVE, new HandleUserAlive);
+    
     flag |= AddHandle(EventType::USERUP, new HandleUpdateStatus);
 
-    flag |= AddHandle(EventType::SYNCCLIENT, new HandleSyncClient);
+    flag |= AddHandle(EventType::USERSYNC, new HandleSyncClient);
+
     return 0;
 }
 

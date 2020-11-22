@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <cstdlib>
 #include <cstring>
-
+#include "log.h"
 #include "../build/PlayerInfo.pb.h"
 
 #define  MAXDATALEN 4096
@@ -30,7 +30,11 @@ public:
             bzero(m_pRecord, sz + m_RecordSize);
         }
 
-    virtual ~MsgRecord() { free(m_pRecord); }
+    virtual ~MsgRecord() {
+        TRACER("MsgRecord  free m_pRecord\n");
+        free(m_pRecord); 
+        m_pRecord = nullptr;
+    }
 
     // 初始化 数据的tag, 和 数据的长度
     int32_t MsgRecordInit(int32_t tag, int32_t len);
@@ -43,10 +47,18 @@ public:
     void  SetTag(int32_t _tag) { m_pRecord->m_tag = _tag; }
 
     uint32_t GetEventType() { return m_pRecord->m_tag & 0xFF; }
+
     uint32_t GetID() { return m_pRecord->m_tag & 0xFF00; }
 
-    void SetEventType(uint32_t _t) { m_pRecord->m_tag |= _t; }
-    void SetID(uint32_t _t) { m_pRecord->m_tag |= (_t << 8); }
+    void SetEventType(uint32_t _t) { 
+        m_pRecord->m_tag = ((m_pRecord->m_tag >> 8) << 8);
+        m_pRecord->m_tag |= _t;
+    }
+    void SetID(uint32_t _t) 
+    {
+        m_pRecord->m_tag &= 0xffff00ff;
+        m_pRecord->m_tag |= (_t << 8);
+    }
 
     int32_t Encode(void* src, uint32_t sz);
     int32_t Decode(void* src, uint32_t sz);

@@ -37,7 +37,7 @@ int32_t Server::GOGOGO()
     struct timeval curTime;
     struct timeval lastTime;
     gettimeofday(&lastTime, nullptr);
-
+    curTime = lastTime;
     for (;;) {
         int32_t fn = m_epoll.Wait();
         for (int32_t i = 0; i < fn; ++i) {
@@ -60,12 +60,20 @@ int32_t Server::GOGOGO()
                     TRACER("Epoll event epollhup fd = %d\n", fd);
                     break;
                 case EPOLLERR:
-                    TRACER("Epoll event epollerr fd= %d\n", fd);
-                    delete m_players[fd];
-                    break;
+                    TRACER("Epoll event epollerr fd= %d, delete ptr\n", fd);
+                    if (m_players[fd] != nullptr) {
+                        delete m_players[fd];
+                        m_players[fd] = nullptr;
+                    }
+                    m_players.erase(fd);
+                    continue;
                 default:
-                    TRACER("Epoll unknowen fd = %d\n", fd);
-                    delete m_players[fd];
+                    TRACER("Epoll unknowen, fd = %d, delete ptr\n", fd);
+                    if (m_players[fd]) {
+                        delete m_players[fd];
+                        m_players[fd] = nullptr;
+                    }
+                    m_players.erase(fd);
                     continue;
                 }
                 
@@ -73,7 +81,11 @@ int32_t Server::GOGOGO()
                 int errorcode = 0;
                 if ((errorcode = DISPATCHER.Process(m_players[fd])) < 0) {
                     if (errorcode == -2) {
-                        delete m_players[fd];
+                        TRACER("delete ptr\n");
+                        if (m_players[fd]) {
+                            delete m_players[fd];
+                            m_players[fd] = nullptr;
+                        }
                         m_players.erase(fd);
                     }
                 }
@@ -84,11 +96,12 @@ int32_t Server::GOGOGO()
 
         gettimeofday(&curTime, nullptr);
         
-        if (curTime.tv_sec - lastTime.tv_sec >= 2) { 
+        if ((curTime.tv_sec - lastTime.tv_sec ) >= 10 && !m_players.empty()) { 
             // 每 2 秒 主动 同步所有玩家
-            if (DISPATCHER.Process(EventType::SYNCCLIENT) < 0) {
+            if (DISPATCHER.Process(EventType::USERSYNC, &m_players) < 0) {
                 // TODO
             }
+            lastTime = curTime;
         }
 
     }
@@ -125,6 +138,7 @@ int32_t Server::AcceptNewClient()
 
 int32_t Server::SendMsgToAll(char* _buf, int _len)
 {
+    
     for (auto& iter : m_players) {
         TRACER("Try to sendmsgto %d: %d\n", iter.first, iter.second->getId());
         SendMsgToOne(iter.first, _buf, _len);

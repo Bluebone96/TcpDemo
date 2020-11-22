@@ -18,13 +18,17 @@ public:
 
     explicit Player(MsgTrans* msg = nullptr) : m_pos(0), m_msgTrans(msg) { if (msg) { m_Id = msg->GetSocketfd(); }}
 
-    ~Player() { delete m_msgTrans; }
+    ~Player() { 
+        TRACER("player dctor delete msgtrans\n");
+        delete m_msgTrans;
+        m_msgTrans = nullptr; 
+    }
 
     int InitPlayer();
     
     int Update();
 
-    int setPlayerInfo();
+ //   int setPlayerInfo();
 
     int getPlayerStatus(char*, int);
 
@@ -54,14 +58,13 @@ private:
 
 #define MAXSTATUS 5
     // 定义一个环形结构
-    PlayerStatus m_pStatus[MAXSTATUS];
+    // PlayerStatus m_pStatus[MAXSTATUS];
     
     UINT32 m_pos;
 
     Proto::Unity::PlayerInfo m_protoInfo;
 
     Proto::Unity::Operation m_opNew;
-    Proto::Unity::Operation m_opOld;
 
     struct  timeval  m_offline; // 5秒 无响应下线
 

@@ -20,7 +20,7 @@ int HandleUserLogin::operator()(void* _s)
 
     player->m_msgTrans->sendmsg(player->GetPlayerInfo());
 
-    player->m_msgTrans->SetEventType(static_cast<unsigned char>(EventType::USERUP));
+    player->m_msgTrans->SetEventType(static_cast<unsigned char>(EventType::USERSYNC));
 
     player->m_msgTrans->Encode();
 
@@ -46,6 +46,8 @@ int HandleUserExit::operator()(void* _p)
 
 int HandleUserAlive::operator()(void* _p)
 {
+    TRACER("HandleUserkeepAlive\n");
+
     Player *p = static_cast<Player*>(_p);
     return p->Activity();
 }
@@ -53,12 +55,15 @@ int HandleUserAlive::operator()(void* _p)
 
 int HandleUpdateStatus::operator()(void * _p)
 {
+    TRACER("HandleUserUpdate\n");
 
     Player* player = static_cast<Player*>(_p);
 
-    player->m_msgTrans->SetEventType(static_cast<unsigned char>(EventType::USERUP));
+    player->m_msgTrans->SetEventType(static_cast<unsigned char>(EventType::USERSYNC));
 
+    TRACER("Test HandleUPdate\n");
     player->m_msgTrans->Encode(player->GetPlayerInfo());
+    TRACER("Test HandleUPdate end\n");
 
     SERVER.SendMsgToAll(player->m_msgTrans->GetDataAddress(), player->m_msgTrans->GetLen() + player->m_msgTrans->m_RecordSize);
 

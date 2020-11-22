@@ -23,6 +23,8 @@ netinet/in.h
 -
 base.h
 /home/blue/Code/TcpDemo/Common/base.h
+log.h
+/home/blue/Code/TcpDemo/Common/log.h
 
 /home/blue/Code/TcpDemo/Common/base.h
 signal.h

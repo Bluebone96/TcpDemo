@@ -13,6 +13,7 @@ Epoll::~Epoll()
 {
     close(m_epoll_fd);
     delete[] m_pevents;
+    m_pevents = nullptr;
 }
 
 int32_t Epoll::Init(int32_t size)

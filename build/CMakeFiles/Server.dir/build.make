@@ -63,80 +63,80 @@ include CMakeFiles/Server.dir/flags.make
 CMakeFiles/Server.dir/Server/main.cpp.o: CMakeFiles/Server.dir/flags.make
 CMakeFiles/Server.dir/Server/main.cpp.o: ../Server/main.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/blue/Code/TcpDemo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Server.dir/Server/main.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Server.dir/Server/main.cpp.o -c /home/blue/Code/TcpDemo/Server/main.cpp
+	/bin/x86_64-linux-gnu-g++-8  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Server.dir/Server/main.cpp.o -c /home/blue/Code/TcpDemo/Server/main.cpp
 
 CMakeFiles/Server.dir/Server/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Server.dir/Server/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/Server/main.cpp > CMakeFiles/Server.dir/Server/main.cpp.i
+	/bin/x86_64-linux-gnu-g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/Server/main.cpp > CMakeFiles/Server.dir/Server/main.cpp.i
 
 CMakeFiles/Server.dir/Server/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Server.dir/Server/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/Server/main.cpp -o CMakeFiles/Server.dir/Server/main.cpp.s
+	/bin/x86_64-linux-gnu-g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/Server/main.cpp -o CMakeFiles/Server.dir/Server/main.cpp.s
 
 CMakeFiles/Server.dir/Player/Player.cpp.o: CMakeFiles/Server.dir/flags.make
 CMakeFiles/Server.dir/Player/Player.cpp.o: ../Player/Player.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/blue/Code/TcpDemo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Server.dir/Player/Player.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Server.dir/Player/Player.cpp.o -c /home/blue/Code/TcpDemo/Player/Player.cpp
+	/bin/x86_64-linux-gnu-g++-8  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Server.dir/Player/Player.cpp.o -c /home/blue/Code/TcpDemo/Player/Player.cpp
 
 CMakeFiles/Server.dir/Player/Player.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Server.dir/Player/Player.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/Player/Player.cpp > CMakeFiles/Server.dir/Player/Player.cpp.i
+	/bin/x86_64-linux-gnu-g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/Player/Player.cpp > CMakeFiles/Server.dir/Player/Player.cpp.i
 
 CMakeFiles/Server.dir/Player/Player.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Server.dir/Player/Player.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/Player/Player.cpp -o CMakeFiles/Server.dir/Player/Player.cpp.s
+	/bin/x86_64-linux-gnu-g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/Player/Player.cpp -o CMakeFiles/Server.dir/Player/Player.cpp.s
 
 CMakeFiles/Server.dir/Server/Server.cpp.o: CMakeFiles/Server.dir/flags.make
 CMakeFiles/Server.dir/Server/Server.cpp.o: ../Server/Server.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/blue/Code/TcpDemo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Server.dir/Server/Server.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Server.dir/Server/Server.cpp.o -c /home/blue/Code/TcpDemo/Server/Server.cpp
+	/bin/x86_64-linux-gnu-g++-8  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Server.dir/Server/Server.cpp.o -c /home/blue/Code/TcpDemo/Server/Server.cpp
 
 CMakeFiles/Server.dir/Server/Server.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Server.dir/Server/Server.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/Server/Server.cpp > CMakeFiles/Server.dir/Server/Server.cpp.i
+	/bin/x86_64-linux-gnu-g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/Server/Server.cpp > CMakeFiles/Server.dir/Server/Server.cpp.i
 
 CMakeFiles/Server.dir/Server/Server.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Server.dir/Server/Server.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/Server/Server.cpp -o CMakeFiles/Server.dir/Server/Server.cpp.s
+	/bin/x86_64-linux-gnu-g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/Server/Server.cpp -o CMakeFiles/Server.dir/Server/Server.cpp.s
 
 CMakeFiles/Server.dir/Handler/Handle.cpp.o: CMakeFiles/Server.dir/flags.make
 CMakeFiles/Server.dir/Handler/Handle.cpp.o: ../Handler/Handle.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/blue/Code/TcpDemo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Server.dir/Handler/Handle.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Server.dir/Handler/Handle.cpp.o -c /home/blue/Code/TcpDemo/Handler/Handle.cpp
+	/bin/x86_64-linux-gnu-g++-8  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Server.dir/Handler/Handle.cpp.o -c /home/blue/Code/TcpDemo/Handler/Handle.cpp
 
 CMakeFiles/Server.dir/Handler/Handle.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Server.dir/Handler/Handle.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/Handler/Handle.cpp > CMakeFiles/Server.dir/Handler/Handle.cpp.i
+	/bin/x86_64-linux-gnu-g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/Handler/Handle.cpp > CMakeFiles/Server.dir/Handler/Handle.cpp.i
 
 CMakeFiles/Server.dir/Handler/Handle.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Server.dir/Handler/Handle.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/Handler/Handle.cpp -o CMakeFiles/Server.dir/Handler/Handle.cpp.s
+	/bin/x86_64-linux-gnu-g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/Handler/Handle.cpp -o CMakeFiles/Server.dir/Handler/Handle.cpp.s
 
 CMakeFiles/Server.dir/Handler/EventHandler.cpp.o: CMakeFiles/Server.dir/flags.make
 CMakeFiles/Server.dir/Handler/EventHandler.cpp.o: ../Handler/EventHandler.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/blue/Code/TcpDemo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Server.dir/Handler/EventHandler.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Server.dir/Handler/EventHandler.cpp.o -c /home/blue/Code/TcpDemo/Handler/EventHandler.cpp
+	/bin/x86_64-linux-gnu-g++-8  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Server.dir/Handler/EventHandler.cpp.o -c /home/blue/Code/TcpDemo/Handler/EventHandler.cpp
 
 CMakeFiles/Server.dir/Handler/EventHandler.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Server.dir/Handler/EventHandler.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/Handler/EventHandler.cpp > CMakeFiles/Server.dir/Handler/EventHandler.cpp.i
+	/bin/x86_64-linux-gnu-g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/Handler/EventHandler.cpp > CMakeFiles/Server.dir/Handler/EventHandler.cpp.i
 
 CMakeFiles/Server.dir/Handler/EventHandler.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Server.dir/Handler/EventHandler.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/Handler/EventHandler.cpp -o CMakeFiles/Server.dir/Handler/EventHandler.cpp.s
+	/bin/x86_64-linux-gnu-g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/Handler/EventHandler.cpp -o CMakeFiles/Server.dir/Handler/EventHandler.cpp.s
 
 CMakeFiles/Server.dir/Handler/Dispatcher.cpp.o: CMakeFiles/Server.dir/flags.make
 CMakeFiles/Server.dir/Handler/Dispatcher.cpp.o: ../Handler/Dispatcher.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/blue/Code/TcpDemo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Server.dir/Handler/Dispatcher.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Server.dir/Handler/Dispatcher.cpp.o -c /home/blue/Code/TcpDemo/Handler/Dispatcher.cpp
+	/bin/x86_64-linux-gnu-g++-8  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Server.dir/Handler/Dispatcher.cpp.o -c /home/blue/Code/TcpDemo/Handler/Dispatcher.cpp
 
 CMakeFiles/Server.dir/Handler/Dispatcher.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Server.dir/Handler/Dispatcher.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/Handler/Dispatcher.cpp > CMakeFiles/Server.dir/Handler/Dispatcher.cpp.i
+	/bin/x86_64-linux-gnu-g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/Handler/Dispatcher.cpp > CMakeFiles/Server.dir/Handler/Dispatcher.cpp.i
 
 CMakeFiles/Server.dir/Handler/Dispatcher.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Server.dir/Handler/Dispatcher.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/Handler/Dispatcher.cpp -o CMakeFiles/Server.dir/Handler/Dispatcher.cpp.s
+	/bin/x86_64-linux-gnu-g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/Handler/Dispatcher.cpp -o CMakeFiles/Server.dir/Handler/Dispatcher.cpp.s
 
 # Object files for target Server
 Server_OBJECTS = \

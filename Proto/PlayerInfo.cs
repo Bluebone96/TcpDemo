@@ -24,18 +24,19 @@ namespace Proto.Unity {
     static PlayerInfoReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChBQbGF5ZXJJbmZvLnByb3RvEgtQcm90by5Vbml0eSKAAQoKUGxheWVySW5m",
-            "bxIKCgJpZBgBIAEoDRIMCgRuYW1lGAIgASgJEhAKCFBvc2l0aW9uGAMgAygC",
-            "EhAKCFJvdGF0aW9uGAQgAygCEgoKAmhwGAUgASgNEgoKAm1wGAYgASgNEg0K",
-            "BXN0YXRlGAcgASgNEg0KBXNwZWVkGAggASgCIhcKCU9wZXJhdGlvbhIKCgJv",
-            "cBgBIAEoDSItCgRDaGF0EgsKA2lkcxgBIAEoDRILCgNpZHQYAiABKA0SCwoD",
-            "bXNnGAMgASgJIjAKDkF1dGhlbnRpY2F0aW9uEgwKBG5hbWUYASABKAkSEAoI",
-            "cGFzc3dvcmQYAiABKAliBnByb3RvMw=="));
+            "ChBQbGF5ZXJJbmZvLnByb3RvEgtQcm90by5Vbml0eSKfAQoKUGxheWVySW5m",
+            "bxIKCgJpZBgBIAEoDRIMCgRuYW1lGAIgASgJEgwKBHBvc1gYAyABKAISDAoE",
+            "cG9zWhgEIAEoAhINCgVhbmdsZRgFIAEoAhIKCgJIcBgGIAEoDRINCgVzdGF0",
+            "ZRgHIAEoDRINCgVzcGVlZBgIIAEoAhIiCgJvcBgJIAEoCzIWLlByb3RvLlVu",
+            "aXR5Lk9wZXJhdGlvbiIhCglPcGVyYXRpb24SCQoBaBgBIAEoAhIJCgF2GAIg",
+            "ASgCIi0KBENoYXQSCwoDaWRzGAEgASgNEgsKA2lkdBgCIAEoDRILCgNtc2cY",
+            "AyABKAkiMAoOQXV0aGVudGljYXRpb24SDAoEbmFtZRgBIAEoCRIQCghwYXNz",
+            "d29yZBgCIAEoCWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.PlayerInfo), global::Proto.Unity.PlayerInfo.Parser, new[]{ "Id", "Name", "Position", "Rotation", "Hp", "Mp", "State", "Speed" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.Operation), global::Proto.Unity.Operation.Parser, new[]{ "Op" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.PlayerInfo), global::Proto.Unity.PlayerInfo.Parser, new[]{ "Id", "Name", "PosX", "PosZ", "Angle", "Hp", "State", "Speed", "Op" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.Operation), global::Proto.Unity.Operation.Parser, new[]{ "H", "V" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.Chat), global::Proto.Unity.Chat.Parser, new[]{ "Ids", "Idt", "Msg" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.Authentication), global::Proto.Unity.Authentication.Parser, new[]{ "Name", "Password" }, null, null, null)
           }));
@@ -71,12 +72,13 @@ namespace Proto.Unity {
     public PlayerInfo(PlayerInfo other) : this() {
       id_ = other.id_;
       name_ = other.name_;
-      position_ = other.position_.Clone();
-      rotation_ = other.rotation_.Clone();
+      posX_ = other.posX_;
+      posZ_ = other.posZ_;
+      angle_ = other.angle_;
       hp_ = other.hp_;
-      mp_ = other.mp_;
       state_ = other.state_;
       speed_ = other.speed_;
+      op_ = other.op_ != null ? other.op_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -107,45 +109,51 @@ namespace Proto.Unity {
       }
     }
 
-    /// <summary>Field number for the "Position" field.</summary>
-    public const int PositionFieldNumber = 3;
-    private static readonly pb::FieldCodec<float> _repeated_position_codec
-        = pb::FieldCodec.ForFloat(26);
-    private readonly pbc::RepeatedField<float> position_ = new pbc::RepeatedField<float>();
+    /// <summary>Field number for the "posX" field.</summary>
+    public const int PosXFieldNumber = 3;
+    private float posX_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<float> Position {
-      get { return position_; }
+    public float PosX {
+      get { return posX_; }
+      set {
+        posX_ = value;
+      }
     }
 
-    /// <summary>Field number for the "Rotation" field.</summary>
-    public const int RotationFieldNumber = 4;
-    private static readonly pb::FieldCodec<float> _repeated_rotation_codec
-        = pb::FieldCodec.ForFloat(34);
-    private readonly pbc::RepeatedField<float> rotation_ = new pbc::RepeatedField<float>();
+    /// <summary>Field number for the "posZ" field.</summary>
+    public const int PosZFieldNumber = 4;
+    private float posZ_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<float> Rotation {
-      get { return rotation_; }
+    public float PosZ {
+      get { return posZ_; }
+      set {
+        posZ_ = value;
+      }
     }
 
-    /// <summary>Field number for the "hp" field.</summary>
-    public const int HpFieldNumber = 5;
+    /// <summary>Field number for the "angle" field.</summary>
+    public const int AngleFieldNumber = 5;
+    private float angle_;
+    /// <summary>
+    /// repeated float Position = 3;
+    /// repeated float Rotation = 4;
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public float Angle {
+      get { return angle_; }
+      set {
+        angle_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "Hp" field.</summary>
+    public const int HpFieldNumber = 6;
     private uint hp_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public uint Hp {
       get { return hp_; }
       set {
         hp_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "mp" field.</summary>
-    public const int MpFieldNumber = 6;
-    private uint mp_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public uint Mp {
-      get { return mp_; }
-      set {
-        mp_ = value;
       }
     }
 
@@ -174,6 +182,17 @@ namespace Proto.Unity {
       }
     }
 
+    /// <summary>Field number for the "op" field.</summary>
+    public const int OpFieldNumber = 9;
+    private global::Proto.Unity.Operation op_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Proto.Unity.Operation Op {
+      get { return op_; }
+      set {
+        op_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as PlayerInfo);
@@ -189,12 +208,13 @@ namespace Proto.Unity {
       }
       if (Id != other.Id) return false;
       if (Name != other.Name) return false;
-      if(!position_.Equals(other.position_)) return false;
-      if(!rotation_.Equals(other.rotation_)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(PosX, other.PosX)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(PosZ, other.PosZ)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Angle, other.Angle)) return false;
       if (Hp != other.Hp) return false;
-      if (Mp != other.Mp) return false;
       if (State != other.State) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Speed, other.Speed)) return false;
+      if (!object.Equals(Op, other.Op)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -203,12 +223,13 @@ namespace Proto.Unity {
       int hash = 1;
       if (Id != 0) hash ^= Id.GetHashCode();
       if (Name.Length != 0) hash ^= Name.GetHashCode();
-      hash ^= position_.GetHashCode();
-      hash ^= rotation_.GetHashCode();
+      if (PosX != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(PosX);
+      if (PosZ != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(PosZ);
+      if (Angle != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Angle);
       if (Hp != 0) hash ^= Hp.GetHashCode();
-      if (Mp != 0) hash ^= Mp.GetHashCode();
       if (State != 0) hash ^= State.GetHashCode();
       if (Speed != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Speed);
+      if (op_ != null) hash ^= Op.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -230,15 +251,21 @@ namespace Proto.Unity {
         output.WriteRawTag(18);
         output.WriteString(Name);
       }
-      position_.WriteTo(output, _repeated_position_codec);
-      rotation_.WriteTo(output, _repeated_rotation_codec);
-      if (Hp != 0) {
-        output.WriteRawTag(40);
-        output.WriteUInt32(Hp);
+      if (PosX != 0F) {
+        output.WriteRawTag(29);
+        output.WriteFloat(PosX);
       }
-      if (Mp != 0) {
+      if (PosZ != 0F) {
+        output.WriteRawTag(37);
+        output.WriteFloat(PosZ);
+      }
+      if (Angle != 0F) {
+        output.WriteRawTag(45);
+        output.WriteFloat(Angle);
+      }
+      if (Hp != 0) {
         output.WriteRawTag(48);
-        output.WriteUInt32(Mp);
+        output.WriteUInt32(Hp);
       }
       if (State != 0) {
         output.WriteRawTag(56);
@@ -247,6 +274,10 @@ namespace Proto.Unity {
       if (Speed != 0F) {
         output.WriteRawTag(69);
         output.WriteFloat(Speed);
+      }
+      if (op_ != null) {
+        output.WriteRawTag(74);
+        output.WriteMessage(Op);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -262,19 +293,26 @@ namespace Proto.Unity {
       if (Name.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
       }
-      size += position_.CalculateSize(_repeated_position_codec);
-      size += rotation_.CalculateSize(_repeated_rotation_codec);
+      if (PosX != 0F) {
+        size += 1 + 4;
+      }
+      if (PosZ != 0F) {
+        size += 1 + 4;
+      }
+      if (Angle != 0F) {
+        size += 1 + 4;
+      }
       if (Hp != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Hp);
-      }
-      if (Mp != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Mp);
       }
       if (State != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(State);
       }
       if (Speed != 0F) {
         size += 1 + 4;
+      }
+      if (op_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Op);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -293,19 +331,29 @@ namespace Proto.Unity {
       if (other.Name.Length != 0) {
         Name = other.Name;
       }
-      position_.Add(other.position_);
-      rotation_.Add(other.rotation_);
+      if (other.PosX != 0F) {
+        PosX = other.PosX;
+      }
+      if (other.PosZ != 0F) {
+        PosZ = other.PosZ;
+      }
+      if (other.Angle != 0F) {
+        Angle = other.Angle;
+      }
       if (other.Hp != 0) {
         Hp = other.Hp;
-      }
-      if (other.Mp != 0) {
-        Mp = other.Mp;
       }
       if (other.State != 0) {
         State = other.State;
       }
       if (other.Speed != 0F) {
         Speed = other.Speed;
+      }
+      if (other.op_ != null) {
+        if (op_ == null) {
+          Op = new global::Proto.Unity.Operation();
+        }
+        Op.MergeFrom(other.Op);
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -326,22 +374,20 @@ namespace Proto.Unity {
             Name = input.ReadString();
             break;
           }
-          case 26:
           case 29: {
-            position_.AddEntriesFrom(input, _repeated_position_codec);
+            PosX = input.ReadFloat();
             break;
           }
-          case 34:
           case 37: {
-            rotation_.AddEntriesFrom(input, _repeated_rotation_codec);
+            PosZ = input.ReadFloat();
             break;
           }
-          case 40: {
-            Hp = input.ReadUInt32();
+          case 45: {
+            Angle = input.ReadFloat();
             break;
           }
           case 48: {
-            Mp = input.ReadUInt32();
+            Hp = input.ReadUInt32();
             break;
           }
           case 56: {
@@ -350,6 +396,13 @@ namespace Proto.Unity {
           }
           case 69: {
             Speed = input.ReadFloat();
+            break;
+          }
+          case 74: {
+            if (op_ == null) {
+              Op = new global::Proto.Unity.Operation();
+            }
+            input.ReadMessage(Op);
             break;
           }
         }
@@ -383,7 +436,8 @@ namespace Proto.Unity {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public Operation(Operation other) : this() {
-      op_ = other.op_;
+      h_ = other.h_;
+      v_ = other.v_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -392,14 +446,25 @@ namespace Proto.Unity {
       return new Operation(this);
     }
 
-    /// <summary>Field number for the "op" field.</summary>
-    public const int OpFieldNumber = 1;
-    private uint op_;
+    /// <summary>Field number for the "h" field.</summary>
+    public const int HFieldNumber = 1;
+    private float h_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public uint Op {
-      get { return op_; }
+    public float H {
+      get { return h_; }
       set {
-        op_ = value;
+        h_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "v" field.</summary>
+    public const int VFieldNumber = 2;
+    private float v_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public float V {
+      get { return v_; }
+      set {
+        v_ = value;
       }
     }
 
@@ -416,14 +481,16 @@ namespace Proto.Unity {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (Op != other.Op) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(H, other.H)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(V, other.V)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (Op != 0) hash ^= Op.GetHashCode();
+      if (H != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(H);
+      if (V != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(V);
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -437,9 +504,13 @@ namespace Proto.Unity {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      if (Op != 0) {
-        output.WriteRawTag(8);
-        output.WriteUInt32(Op);
+      if (H != 0F) {
+        output.WriteRawTag(13);
+        output.WriteFloat(H);
+      }
+      if (V != 0F) {
+        output.WriteRawTag(21);
+        output.WriteFloat(V);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -449,8 +520,11 @@ namespace Proto.Unity {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (Op != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Op);
+      if (H != 0F) {
+        size += 1 + 4;
+      }
+      if (V != 0F) {
+        size += 1 + 4;
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -463,8 +537,11 @@ namespace Proto.Unity {
       if (other == null) {
         return;
       }
-      if (other.Op != 0) {
-        Op = other.Op;
+      if (other.H != 0F) {
+        H = other.H;
+      }
+      if (other.V != 0F) {
+        V = other.V;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -477,8 +554,12 @@ namespace Proto.Unity {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 8: {
-            Op = input.ReadUInt32();
+          case 13: {
+            H = input.ReadFloat();
+            break;
+          }
+          case 21: {
+            V = input.ReadFloat();
             break;
           }
         }

@@ -6,21 +6,23 @@ message PlayerInfo {
     uint32 id = 1;
     string name = 2;
 
-    repeated float Position = 3;
-    repeated float Rotation = 4;
+    float posX = 3;
+    float posZ = 4;
+    float angle = 5;
+    // repeated float Position = 3;
+    // repeated float Rotation = 4;
 
-    uint32 hp = 5;
-    uint32 mp = 6;
+    uint32 Hp = 6;
 
     uint32 state = 7;   // 0 IDEL 1 WALK
     float speed = 8;
+    
+    Operation op = 9;
 }
 
 message Operation {
-    uint32 W = 1;
-    uint32 S = 2;
-    uint32 A = 3;
-    uint32 D = 4;
+    float h = 1;
+    float v = 2;
 }
 
 message Chat {

@@ -71,54 +71,54 @@ PlayerInfo.pb.cc: PlayerInfo.pb.h
 CMakeFiles/DemoLib.dir/Common/Epoll.cpp.o: CMakeFiles/DemoLib.dir/flags.make
 CMakeFiles/DemoLib.dir/Common/Epoll.cpp.o: ../Common/Epoll.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/blue/Code/TcpDemo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/DemoLib.dir/Common/Epoll.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/DemoLib.dir/Common/Epoll.cpp.o -c /home/blue/Code/TcpDemo/Common/Epoll.cpp
+	/bin/x86_64-linux-gnu-g++-8  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/DemoLib.dir/Common/Epoll.cpp.o -c /home/blue/Code/TcpDemo/Common/Epoll.cpp
 
 CMakeFiles/DemoLib.dir/Common/Epoll.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/DemoLib.dir/Common/Epoll.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/Common/Epoll.cpp > CMakeFiles/DemoLib.dir/Common/Epoll.cpp.i
+	/bin/x86_64-linux-gnu-g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/Common/Epoll.cpp > CMakeFiles/DemoLib.dir/Common/Epoll.cpp.i
 
 CMakeFiles/DemoLib.dir/Common/Epoll.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/DemoLib.dir/Common/Epoll.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/Common/Epoll.cpp -o CMakeFiles/DemoLib.dir/Common/Epoll.cpp.s
+	/bin/x86_64-linux-gnu-g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/Common/Epoll.cpp -o CMakeFiles/DemoLib.dir/Common/Epoll.cpp.s
 
 CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.o: CMakeFiles/DemoLib.dir/flags.make
 CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.o: ../Common/TcpSocket.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/blue/Code/TcpDemo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.o -c /home/blue/Code/TcpDemo/Common/TcpSocket.cpp
+	/bin/x86_64-linux-gnu-g++-8  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.o -c /home/blue/Code/TcpDemo/Common/TcpSocket.cpp
 
 CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/Common/TcpSocket.cpp > CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.i
+	/bin/x86_64-linux-gnu-g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/Common/TcpSocket.cpp > CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.i
 
 CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/Common/TcpSocket.cpp -o CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.s
+	/bin/x86_64-linux-gnu-g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/Common/TcpSocket.cpp -o CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.s
 
 CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.o: CMakeFiles/DemoLib.dir/flags.make
 CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.o: ../Common/MsgRecord.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/blue/Code/TcpDemo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.o -c /home/blue/Code/TcpDemo/Common/MsgRecord.cpp
+	/bin/x86_64-linux-gnu-g++-8  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.o -c /home/blue/Code/TcpDemo/Common/MsgRecord.cpp
 
 CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/Common/MsgRecord.cpp > CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.i
+	/bin/x86_64-linux-gnu-g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/Common/MsgRecord.cpp > CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.i
 
 CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/Common/MsgRecord.cpp -o CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.s
+	/bin/x86_64-linux-gnu-g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/Common/MsgRecord.cpp -o CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.s
 
 CMakeFiles/DemoLib.dir/PlayerInfo.pb.cc.o: CMakeFiles/DemoLib.dir/flags.make
 CMakeFiles/DemoLib.dir/PlayerInfo.pb.cc.o: PlayerInfo.pb.cc
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/blue/Code/TcpDemo/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/DemoLib.dir/PlayerInfo.pb.cc.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/DemoLib.dir/PlayerInfo.pb.cc.o -c /home/blue/Code/TcpDemo/build/PlayerInfo.pb.cc
+	/bin/x86_64-linux-gnu-g++-8  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/DemoLib.dir/PlayerInfo.pb.cc.o -c /home/blue/Code/TcpDemo/build/PlayerInfo.pb.cc
 
 CMakeFiles/DemoLib.dir/PlayerInfo.pb.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/DemoLib.dir/PlayerInfo.pb.cc.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/build/PlayerInfo.pb.cc > CMakeFiles/DemoLib.dir/PlayerInfo.pb.cc.i
+	/bin/x86_64-linux-gnu-g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/build/PlayerInfo.pb.cc > CMakeFiles/DemoLib.dir/PlayerInfo.pb.cc.i
 
 CMakeFiles/DemoLib.dir/PlayerInfo.pb.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/DemoLib.dir/PlayerInfo.pb.cc.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/build/PlayerInfo.pb.cc -o CMakeFiles/DemoLib.dir/PlayerInfo.pb.cc.s
+	/bin/x86_64-linux-gnu-g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/build/PlayerInfo.pb.cc -o CMakeFiles/DemoLib.dir/PlayerInfo.pb.cc.s
 
 # Object files for target DemoLib
 DemoLib_OBJECTS = \

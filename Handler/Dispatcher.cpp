@@ -27,6 +27,7 @@ int Dispatcher::Process(Player *_p)
             // TODO 可能析构2次
             return -2;
         }
+        TRACER("%x\n", msg->GetTag());
         uint32_t tag = msg->GetEventType();
         return Process(static_cast<EventType>(tag), _p);
     }

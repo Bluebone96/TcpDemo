@@ -4,6 +4,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include "base.h"
+#include "log.h"
 
 #define SOCKETBUFLEN 4096
 
@@ -12,9 +13,11 @@ class TcpSocket {
 public:
     explicit TcpSocket(int32_t fd = -1, uint32_t size = SOCKETBUFLEN);
     virtual ~TcpSocket() 
-    { 
+    {   
+        TRACER("TcpSocet dctor free m_pdata\n");
         free(m_pdatabuf); 
-        close(m_socketfd); // ? TcpSocket::SendData() 中是否调用close()
+        m_pdatabuf = nullptr;
+        close(m_socketfd);
     };
 
     TcpSocket(const TcpSocket&) = delete;
@@ -53,9 +56,8 @@ public:
 
 private:
     // 从内核中读取数据到SockBuf缓冲区
-    // 复制min(tail - head, size)个字节到用户缓冲区
-    // 返回：成功 返回拷贝到用户缓冲区的字节数，EOF为0，出错返回-1
-    int32_t recvdatabuf(void* usrbuf, uint32_t size);
+    // 返回：成功缓冲区的字节数，EOF为0，出错返回-1
+    int32_t recvdatabuf();
 
     // 设置非阻塞模式
     static  int32_t setnonblock(int32_t fd);

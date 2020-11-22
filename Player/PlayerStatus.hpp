@@ -21,28 +21,29 @@ public:
     
     UINT32 m_id;
     std::string m_name;
+    float m_hp;
 
-    float m_position[3] = {0};
-    float m_rotation[3] = {0};
+    float m_posX;
+    float m_posZ;
+    float m_angle;
 
-    float m_hp = 100;
-    float m_mp = 100;
+    float m_speed;
 
-    float m_speed = 5;
-
-    STATE m_state = STATE::IDEL;
+    STATE m_state;
 
 
 public:
 
-    PlayerStatus() : m_hp(0), m_mp(0), m_state(IDEL) {}
+    PlayerStatus() : m_id(0), m_name(0), m_hp(100), m_posX(0), m_posZ(0), 
+                     m_angle(0), m_speed(10), m_state(IDEL) {}
     
     PlayerStatus(const PlayerStatus& _status)
     {
-        memcpy(&m_position, &_status.m_position, 3 * sizeof(float));
-        memcpy(&m_rotation, &_status.m_rotation, 3 * sizeof(float));
+        m_id = _status.m_id;
+        m_name = _status.m_name;
         m_hp = _status.m_hp;
-        m_mp = _status.m_mp;
+        m_posX = _status.m_posX;
+        m_posZ = _status.m_posZ;
         m_speed = _status.m_speed;
         m_state = _status.m_state;
     }
@@ -50,10 +51,11 @@ public:
 
     PlayerStatus& operator=(const PlayerStatus& _status)
     {
-        memcpy(&m_position, &_status.m_position, 3 * sizeof(float));
-        memcpy(&m_rotation, &_status.m_rotation, 3 * sizeof(float));
+        m_id = _status.m_id;
+        m_name = _status.m_name;
         m_hp = _status.m_hp;
-        m_mp = _status.m_mp;
+        m_posX = _status.m_posX;
+        m_posZ = _status.m_posZ;
         m_speed = _status.m_speed;
         m_state = _status.m_state;
         return *this;

@@ -1,0 +1,2 @@
+# Hashes of file build rules.
+564d624c09009df6e5fe552f18c58553 PlayerInfo.pb.h
