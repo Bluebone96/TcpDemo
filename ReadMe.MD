@@ -1,16 +1,8 @@
-编译demo 
+cd build 
+cmake ..
+make
 
-sudo ./build_all.sh
-
-可执行文件在 ./Bin目录
-
-目前基本可以运行
-服务端可指定端口 和 IP，默认 0.0.0.0:8888  ./server <Port><IP> 
-客户端需指定服务器IP，及端口  ./client <IP> <Port>
+cd bin
+./Server
 
 
-客户端从标准输入流中获取数据，发到服务端，服务端再转发给每一个已连接的客户端
-客户端显示格式为：
-    发送消息的IP ：消息
- 
-很多debug的打印信息还未处理
