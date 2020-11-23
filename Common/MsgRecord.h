@@ -11,7 +11,11 @@
 
 
 struct Record {
-    uint32_t m_tag;   // 第一个字节为 EventType m_tag & 0xFF; 第二个字节为 id m_tag & 0xFF00
+    // uint32_t m_tag;   // 第一个字节为 EventType m_tag & 0xFF; 第二个字节为 id m_tag & 0xFF00
+    unsigned char m_type;
+    unsigned char m_id;
+    unsigned char m_add1;
+    unsigned char m_add2;
     uint32_t m_len; // 仅仅为 protobuf 的大小
     char m_data[0];
 };
@@ -43,22 +47,27 @@ public:
 
     uint32_t GetLen() { return m_pRecord->m_len; }
 
-    uint32_t GetTag() { return m_pRecord->m_tag; }
-    void  SetTag(int32_t _tag) { m_pRecord->m_tag = _tag; }
+    uint32_t GetId() { return m_pRecord->m_id; }
+    uint32_t GetType() { return m_pRecord->m_type; }
+    void SetId(uint _id) { m_pRecord->m_id = _id; }
+    void SetType(uint _type) { m_pRecord->m_type = _type; }
 
-    uint32_t GetEventType() { return m_pRecord->m_tag & 0xFF; }
+    // uint32_t GetTag() { return m_pRecord->m_tag; }
+    // void  SetTag(int32_t _tag) { m_pRecord->m_tag = _tag; }
 
-    uint32_t GetID() { return m_pRecord->m_tag & 0xFF00; }
+    // uint32_t GetEventType() { return m_pRecord->m_tag & 0xFF; }
 
-    void SetEventType(uint32_t _t) { 
-        m_pRecord->m_tag = ((m_pRecord->m_tag >> 8) << 8);
-        m_pRecord->m_tag |= _t;
-    }
-    void SetID(uint32_t _t) 
-    {
-        m_pRecord->m_tag &= 0xffff00ff;
-        m_pRecord->m_tag |= (_t << 8);
-    }
+    // uint32_t GetID() { return (m_pRecord->m_tag >> 8) & 0xFF; }
+
+    // void SetEventType(uint32_t _t) { 
+    //     m_pRecord->m_tag = ((m_pRecord->m_tag >> 8) << 8);
+    //     m_pRecord->m_tag |= _t;
+    // }
+    // void SetID(uint32_t _t) 
+    // {
+    //     m_pRecord->m_tag &= 0xffff00ff;
+    //     m_pRecord->m_tag |= (_t << 8);
+    // }
 
     int32_t Encode(void* src, uint32_t sz);
     int32_t Decode(void* src, uint32_t sz);

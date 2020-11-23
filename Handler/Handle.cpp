@@ -14,13 +14,13 @@ int HandleUserLogin::operator()(void* _s)
 
     (void) player->InitPlayer();
     
-    player->m_msgTrans->SetEventType(static_cast<unsigned char>(EventType::USERLOGIN));
+    player->m_msgTrans->SetType(static_cast<unsigned char>(EventType::USERLOGIN));
 
-    player->m_msgTrans->SetID(player->getId());
+    player->m_msgTrans->SetId(player->getId());
 
     player->m_msgTrans->sendmsg(player->GetPlayerInfo());
 
-    player->m_msgTrans->SetEventType(static_cast<unsigned char>(EventType::USERSYNC));
+    player->m_msgTrans->SetType(static_cast<unsigned char>(EventType::USERSYNC));
 
     player->m_msgTrans->Encode();
 
@@ -59,7 +59,7 @@ int HandleUpdateStatus::operator()(void * _p)
 
     Player* player = static_cast<Player*>(_p);
 
-    player->m_msgTrans->SetEventType(static_cast<unsigned char>(EventType::USERSYNC));
+    player->m_msgTrans->SetType(static_cast<unsigned char>(EventType::USERSYNC));
 
     TRACER("Test HandleUPdate\n");
     player->m_msgTrans->Encode(player->GetPlayerInfo());
