@@ -119,6 +119,7 @@ int32_t TcpSocket::SendData(const int _fd, const void* _usrbuf, const uint32_t _
     char* pbuf = (char*)_usrbuf;
     
     TRACER("start to send data to %d\n", _fd);
+    printf("send msghead is %d %d %d %d %d %d %d %d\n", pbuf[0], pbuf[1], pbuf[2], pbuf[3], pbuf[4], pbuf[5], pbuf[6], pbuf[7]);
     // 写入 size 字节的数据
     while (nleft > 0) {
         if ((nw = write(_fd, pbuf, nleft)) <= 0) {

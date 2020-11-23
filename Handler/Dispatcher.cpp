@@ -27,7 +27,8 @@ int Dispatcher::Process(Player *_p)
             // TODO 可能析构2次
             return -2;
         }
-        TRACER("%x\n", msg->GetId());
+        
+        TRACER("msg head type is %d, id is %d, add1 is %d, add2 is %d", msg->GetId(), msg->GetType(), msg->m_pRecord->m_add1, msg->m_pRecord->m_add2);
         uint32_t tag = msg->GetType();
         return Process(static_cast<EventType>(tag), _p);
     }

@@ -59,12 +59,26 @@ int32_t MsgRecord::MsgRecordInit(int32_t tag, int32_t len)
 
 int32_t MsgRecord::Encode(void *dest, uint32_t sz)
 {
-    return Coder::encode(dest, sz, m_pRecord, m_RecordSize);
+    m_pRecord->m_data[0] = m_pRecord->m_type;
+    m_pRecord->m_data[1] = m_pRecord->m_id;
+    m_pRecord->m_data[2] = m_pRecord->m_add1;
+    m_pRecord->m_data[3] = m_pRecord->m_add2;
+    *((uint32_t *)(m_pRecord->m_data + 4)) = htonl(m_pRecord->m_len);
+    return m_RecordSize;
+    // return Coder::encode(dest, sz, m_pRecord, m_RecordSize);
 }
 
 int32_t MsgRecord::Decode(void *src, uint32_t sz)
 {
-    return Coder::decode(m_pRecord, m_RecordSize, src, sz);
+    m_pRecord->m_type = m_pRecord->m_data[0];
+    m_pRecord->m_id = m_pRecord->m_data[1];
+    m_pRecord->m_add1 = m_pRecord->m_data[2];
+    m_pRecord->m_add2 = m_pRecord->m_data[3];
+
+    m_pRecord->m_len = ntohl(*((uint32_t *)(m_pRecord->m_data + 4)));
+    
+    return m_RecordSize;
+//    return Coder::decode(m_pRecord, m_RecordSize, src, sz);
 }
 
 int32_t MsgRecord::Encode()
@@ -95,6 +109,8 @@ int32_t MsgRecord::Decode()
 int32_t MsgRecord::Encode(const ::google::protobuf::Message& _protobuf)
 {
     m_pRecord->m_len = _protobuf.ByteSizeLong();
+
+    TRACER("Prorobuf Encode  m_pRecord len is %d\n", m_pRecord->m_len);
 
     if (!_protobuf.SerializeToArray(m_pRecord->m_data + m_RecordSize, m_pRecord->m_len)) {
         TRACER("protobuf SerializePartialToArray failed.%s:%d", __FILE__, __LINE__);

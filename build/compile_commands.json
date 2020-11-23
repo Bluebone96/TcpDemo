@@ -1,0 +1,52 @@
+[
+{
+  "directory": "/home/blue/Code/TcpDemo/build",
+  "command": "/bin/x86_64-linux-gnu-g++-8   -I/usr/local/include -I/home/blue/Code/TcpDemo/. -I/home/blue/Code/TcpDemo/Proto -I/home/blue/Code/TcpDemo/Player -I/home/blue/Code/TcpDemo/Common -I/home/blue/Code/TcpDemo/Handler -I/home/blue/Code/TcpDemo/Server -I/home/blue/Code/TcpDemo/build   -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g   -o CMakeFiles/DemoLib.dir/Common/Epoll.cpp.o -c /home/blue/Code/TcpDemo/Common/Epoll.cpp",
+  "file": "/home/blue/Code/TcpDemo/Common/Epoll.cpp"
+},
+{
+  "directory": "/home/blue/Code/TcpDemo/build",
+  "command": "/bin/x86_64-linux-gnu-g++-8   -I/usr/local/include -I/home/blue/Code/TcpDemo/. -I/home/blue/Code/TcpDemo/Proto -I/home/blue/Code/TcpDemo/Player -I/home/blue/Code/TcpDemo/Common -I/home/blue/Code/TcpDemo/Handler -I/home/blue/Code/TcpDemo/Server -I/home/blue/Code/TcpDemo/build   -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g   -o CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.o -c /home/blue/Code/TcpDemo/Common/TcpSocket.cpp",
+  "file": "/home/blue/Code/TcpDemo/Common/TcpSocket.cpp"
+},
+{
+  "directory": "/home/blue/Code/TcpDemo/build",
+  "command": "/bin/x86_64-linux-gnu-g++-8   -I/usr/local/include -I/home/blue/Code/TcpDemo/. -I/home/blue/Code/TcpDemo/Proto -I/home/blue/Code/TcpDemo/Player -I/home/blue/Code/TcpDemo/Common -I/home/blue/Code/TcpDemo/Handler -I/home/blue/Code/TcpDemo/Server -I/home/blue/Code/TcpDemo/build   -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g   -o CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.o -c /home/blue/Code/TcpDemo/Common/MsgRecord.cpp",
+  "file": "/home/blue/Code/TcpDemo/Common/MsgRecord.cpp"
+},
+{
+  "directory": "/home/blue/Code/TcpDemo/build",
+  "command": "/bin/x86_64-linux-gnu-g++-8   -I/usr/local/include -I/home/blue/Code/TcpDemo/. -I/home/blue/Code/TcpDemo/Proto -I/home/blue/Code/TcpDemo/Player -I/home/blue/Code/TcpDemo/Common -I/home/blue/Code/TcpDemo/Handler -I/home/blue/Code/TcpDemo/Server -I/home/blue/Code/TcpDemo/build   -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g   -o CMakeFiles/DemoLib.dir/PlayerInfo.pb.cc.o -c /home/blue/Code/TcpDemo/build/PlayerInfo.pb.cc",
+  "file": "/home/blue/Code/TcpDemo/build/PlayerInfo.pb.cc"
+},
+{
+  "directory": "/home/blue/Code/TcpDemo/build",
+  "command": "/bin/x86_64-linux-gnu-g++-8   -I/usr/local/include -I/home/blue/Code/TcpDemo/. -I/home/blue/Code/TcpDemo/Proto -I/home/blue/Code/TcpDemo/Player -I/home/blue/Code/TcpDemo/Common -I/home/blue/Code/TcpDemo/Handler -I/home/blue/Code/TcpDemo/Server -I/home/blue/Code/TcpDemo/build   -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g   -o CMakeFiles/Server.dir/Server/main.cpp.o -c /home/blue/Code/TcpDemo/Server/main.cpp",
+  "file": "/home/blue/Code/TcpDemo/Server/main.cpp"
+},
+{
+  "directory": "/home/blue/Code/TcpDemo/build",
+  "command": "/bin/x86_64-linux-gnu-g++-8   -I/usr/local/include -I/home/blue/Code/TcpDemo/. -I/home/blue/Code/TcpDemo/Proto -I/home/blue/Code/TcpDemo/Player -I/home/blue/Code/TcpDemo/Common -I/home/blue/Code/TcpDemo/Handler -I/home/blue/Code/TcpDemo/Server -I/home/blue/Code/TcpDemo/build   -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g   -o CMakeFiles/Server.dir/Player/Player.cpp.o -c /home/blue/Code/TcpDemo/Player/Player.cpp",
+  "file": "/home/blue/Code/TcpDemo/Player/Player.cpp"
+},
+{
+  "directory": "/home/blue/Code/TcpDemo/build",
+  "command": "/bin/x86_64-linux-gnu-g++-8   -I/usr/local/include -I/home/blue/Code/TcpDemo/. -I/home/blue/Code/TcpDemo/Proto -I/home/blue/Code/TcpDemo/Player -I/home/blue/Code/TcpDemo/Common -I/home/blue/Code/TcpDemo/Handler -I/home/blue/Code/TcpDemo/Server -I/home/blue/Code/TcpDemo/build   -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g   -o CMakeFiles/Server.dir/Server/Server.cpp.o -c /home/blue/Code/TcpDemo/Server/Server.cpp",
+  "file": "/home/blue/Code/TcpDemo/Server/Server.cpp"
+},
+{
+  "directory": "/home/blue/Code/TcpDemo/build",
+  "command": "/bin/x86_64-linux-gnu-g++-8   -I/usr/local/include -I/home/blue/Code/TcpDemo/. -I/home/blue/Code/TcpDemo/Proto -I/home/blue/Code/TcpDemo/Player -I/home/blue/Code/TcpDemo/Common -I/home/blue/Code/TcpDemo/Handler -I/home/blue/Code/TcpDemo/Server -I/home/blue/Code/TcpDemo/build   -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g   -o CMakeFiles/Server.dir/Handler/Handle.cpp.o -c /home/blue/Code/TcpDemo/Handler/Handle.cpp",
+  "file": "/home/blue/Code/TcpDemo/Handler/Handle.cpp"
+},
+{
+  "directory": "/home/blue/Code/TcpDemo/build",
+  "command": "/bin/x86_64-linux-gnu-g++-8   -I/usr/local/include -I/home/blue/Code/TcpDemo/. -I/home/blue/Code/TcpDemo/Proto -I/home/blue/Code/TcpDemo/Player -I/home/blue/Code/TcpDemo/Common -I/home/blue/Code/TcpDemo/Handler -I/home/blue/Code/TcpDemo/Server -I/home/blue/Code/TcpDemo/build   -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g   -o CMakeFiles/Server.dir/Handler/EventHandler.cpp.o -c /home/blue/Code/TcpDemo/Handler/EventHandler.cpp",
+  "file": "/home/blue/Code/TcpDemo/Handler/EventHandler.cpp"
+},
+{
+  "directory": "/home/blue/Code/TcpDemo/build",
+  "command": "/bin/x86_64-linux-gnu-g++-8   -I/usr/local/include -I/home/blue/Code/TcpDemo/. -I/home/blue/Code/TcpDemo/Proto -I/home/blue/Code/TcpDemo/Player -I/home/blue/Code/TcpDemo/Common -I/home/blue/Code/TcpDemo/Handler -I/home/blue/Code/TcpDemo/Server -I/home/blue/Code/TcpDemo/build   -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -g   -o CMakeFiles/Server.dir/Handler/Dispatcher.cpp.o -c /home/blue/Code/TcpDemo/Handler/Dispatcher.cpp",
+  "file": "/home/blue/Code/TcpDemo/Handler/Dispatcher.cpp"
+}
+]

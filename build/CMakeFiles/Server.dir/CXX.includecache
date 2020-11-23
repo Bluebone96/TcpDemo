@@ -122,16 +122,6 @@ Handle.h
 ../Common/basetype.h
 /home/blue/Code/TcpDemo/Common/basetype.h
 
-/home/blue/Code/TcpDemo/Handler/Handle.cpp
-Handle.h
-/home/blue/Code/TcpDemo/Handler/Handle.h
-Dispatcher.h
-/home/blue/Code/TcpDemo/Handler/Dispatcher.h
-../Player/Player.h
-/home/blue/Code/TcpDemo/Player/Player.h
-../Server/Server.h
-/home/blue/Code/TcpDemo/Server/Server.h
-
 /home/blue/Code/TcpDemo/Handler/Handle.h
 
 /home/blue/Code/TcpDemo/Player/Inventory.hpp
@@ -175,6 +165,14 @@ string
 /home/blue/Code/TcpDemo/Common/basetype.h
 ../Common/MsgTransmission.hpp
 /home/blue/Code/TcpDemo/Common/MsgTransmission.hpp
+
+/home/blue/Code/TcpDemo/Server/Server.cpp
+sys/time.h
+-
+Server.h
+/home/blue/Code/TcpDemo/Server/Server.h
+../Handler/Dispatcher.h
+/home/blue/Code/TcpDemo/Handler/Dispatcher.h
 
 /home/blue/Code/TcpDemo/Server/Server.h
 memory

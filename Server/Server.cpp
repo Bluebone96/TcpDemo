@@ -34,10 +34,10 @@ int32_t Server::Init(int32_t port, const char* hostname)
 
 int32_t Server::GOGOGO()
 {
-    // struct timeval curTime;
-    // struct timeval lastTime;
-    // gettimeofday(&lastTime, nullptr);
-    // curTime = lastTime;
+    struct timeval curTime;
+    struct timeval lastTime;
+    gettimeofday(&lastTime, nullptr);
+    curTime = lastTime;
     for (;;) {
         int32_t fn = m_epoll.Wait();
         for (int32_t i = 0; i < fn; ++i) {
@@ -94,15 +94,15 @@ int32_t Server::GOGOGO()
             }
         }
 
-        // gettimeofday(&curTime, nullptr);
+        gettimeofday(&curTime, nullptr);
         
-        // if ((curTime.tv_sec - lastTime.tv_sec ) >= 10 && !m_players.empty()) { 
-        //     // 每 2 秒 主动 同步所有玩家
-        //     if (DISPATCHER.Process(EventType::USERSYNC, &m_players) < 0) {
-        //         // TODO
-        //     }
-        //     lastTime = curTime;
-        // }
+        if ((curTime.tv_sec - lastTime.tv_sec ) >= 10 && !m_players.empty()) { 
+            // 每 2 秒 主动 同步所有玩家
+            if (DISPATCHER.Process(EventType::USERSYNC, &m_players) < 0) {
+                // TODO
+            }
+            lastTime = curTime;
+        }
 
     }
     return 0;
