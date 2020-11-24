@@ -17,14 +17,20 @@ bool BaseBag::addItem(BaseItem* _baseitem)
     }
 
     if (m_nCapacity >= m_mItems.size()) {
-        if (_baseitem->isStack()) {
-            if (m_mItems.count(_baseitem->getType())) {
+        if (m_mItems.count(_baseitem->getUID())) {
+            if (_baseitem->isStack()) {
                 m_mItems[_baseitem->getType()]->addItem(_baseitem);
-            } else {
-                m_mItems.insert(std::make_pair<_baseitem->getType, >)  
+                return true;
             }
         }
-    }
+
+        m_mItems.insert(std::make_pair(_baseitem->getUID(), _baseitem));
+        return true;
+    } 
+    return false;
 }
 
-EquipItem
+bool BaseBag::delItem(BaseBag* _baseitem)
+{
+    
+}

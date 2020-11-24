@@ -6,7 +6,7 @@
 class BaseBag {
 public:
     BaseBag();
-    ~BaseBage();
+    ~BaseBag();
 
     bool addItem(BaseItem*);
     bool delItem(BaseItem*);
@@ -18,8 +18,8 @@ protected:
 
 class EquipBag  {
 public:
-    EquipItem();
-    ~EquipItem();
+    EquipBag();
+    ~EquipBag();
 
     void addItem(EquipItem*);
     void delItem(EquipItem*);
@@ -32,17 +32,14 @@ private:
 class MoneyBag : public BaseBag {
 public:
     MoneyBag();
-    ~EquipItem();
+    ~MoneyBag();
 
     void addItem(MoneyItem*);
     void delItem(MoneyItem*);
 
 private:
     MoneyItem[2] m_aMoney;
-}
-
-
-
-   
+};
+ 
 
 #endif

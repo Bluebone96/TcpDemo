@@ -27,6 +27,28 @@ enum class ItemModuleType {
 };
 
 
+class BaseItem {
+public:
+    virtual void setUID(int);
+    virtual int getUID();
+    virtual void setType(int);
+    virtual int getType();
+    virtual int getConfID();
+    virtual bool isStack()=0;
+    virtual bool isBind()=0;
+    virtual void setAttribute(ItemAttributeType key, int value) = 0;
+    virtual int getAttribute(ItemAttributeType key) = 0;
+    virtual void initItem() = 0;
+    virtual std::string toString() =0;
+    virtual void addItem(const BaseItem*)=0;
+protected:
+    unsigned long m_nUID;       // UID  低 32 位 是 物品配置id, 高32位是该类型物品唯一id
+    int m_nFlagBit;             // 标记
+    int m_nType;                // 类型
+    int m_nCount;               // 数量
+    bool m_bSaveNow;            // 立即存档
+};
+
 class ItemAttribute {
 public:
     std::map<ItemAttributeType, int> m_mpValue;
@@ -35,32 +57,6 @@ private:
     void setAttribute(ItemAttributeType _key, int _value);
     int getAttribute(ItemAttributeType _key);
 };
-
-
-
-class BaseItem {
-public:
-    virtual void setUID(int);
-    virtual int getUID();
-    virtual void setType(int);
-    virtual int getType();
-    virtual int getConfID();
-    virtual void setAttribute(ItemAttributeType key, int value) = 0;
-    virtual int getAttribute(ItemAttributeType key) = 0;
-    virtual void initItem() = 0;
-    virtual std::string toString() =0;
-    virtual bool isBind()=0;
-    virtual bool isStack()=0;
-    virtual void addItem(const BaseItem*)=0;
-protected:
-    int m_nFlagBit;             // 标记
-    int m_nUID;                 // UID
-    int m_nType;                // 类型
-    int m_nConfID;              // 配置ID
-    int m_nCount;               // 数量
-    bool m_bSaveNow;            // 立即存档
-};
-
 
 
 class EquipItem : public BaseItem {
@@ -75,8 +71,13 @@ private:
 
 class MoneyItem : public BaseItem {
 public:
-    void initItem();
-    std::string toString();
+    void initItem() override;
+    void setAttribute(ItemAttributeType key, int value) override;
+    int getAttribute(ItemAttributeType key) override;
+    bool isBind() override;
+    bool isStack() override;
+    void addItem(const BaseItem*) override;
+    std::string toString() override;
 };
 
 
