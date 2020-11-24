@@ -9,8 +9,6 @@
 #include "../Common/MsgTransmission.hpp"
 
 
-
-
 class PlayerStatus {
 
 public:

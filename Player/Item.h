@@ -1,6 +1,10 @@
 #ifndef _ITEM_H_
 #define _ITEM_H_
 
+
+#include <string>
+#include <map>
+
 // 道具类型
 enum class ItemType {
     Money,                      // 货币
@@ -19,19 +23,74 @@ enum class ItemAttributeType {
 enum class ItemModuleType {
     ITEM_MODULE_BASE,           // 基础模块
     ITEM_MODULE_POWER,          // 强化
-    ITEM_MODULE_INSERT_ITEM      // 镶嵌
+    ITEM_MODULE_INSERT_ITEM     // 镶嵌
 };
 
 
-class ItemFactory {
+class ItemAttribute {
 public:
-    BaseItem* CreateItem(int type)
-}
+    std::map<ItemAttributeType, int> m_mpValue;
+    BaseItem* m_pFather;
+private:
+    void setAttribute(ItemAttributeType _key, int _value);
+    int getAttribute(ItemAttributeType _key);
+};
+
+
 
 class BaseItem {
+public:
+    virtual void setUID(int);
+    virtual int getUID();
+    virtual void setType(int);
+    virtual int getType();
+    virtual int getConfID();
+    virtual void setAttribute(ItemAttributeType key, int value) = 0;
+    virtual int getAttribute(ItemAttributeType key) = 0;
+    virtual void initItem() = 0;
+    virtual std::string toString() =0;
+    virtual bool isBind()=0;
+    virtual bool isStack()=0;
+    virtual void addItem(const BaseItem*)=0;
+protected:
+    int m_nFlagBit;             // 标记
+    int m_nUID;                 // UID
+    int m_nType;                // 类型
+    int m_nConfID;              // 配置ID
+    int m_nCount;               // 数量
+    bool m_bSaveNow;            // 立即存档
+};
 
 
-}
+
+class EquipItem : public BaseItem {
+public:
+    void initItem();
+    std::string toString();
+
+private:
+    std::map<ItemModuleType, ItemAttribute> m_mAttributes;
+};
+
+
+class MoneyItem : public BaseItem {
+public:
+    void initItem();
+    std::string toString();
+};
+
+
+class ConsumItem : public BaseItem {
+public:
+    void initItem();
+    std::string toString();
+};
+
+class ItemFactory {
+public:
+    BaseItem* CreateItem(int type);
+};
+
 
 
 #endif

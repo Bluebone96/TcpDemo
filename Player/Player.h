@@ -8,8 +8,7 @@
 #include <string>
 #include <sys/time.h>
 
-#include "PlayerStatus.hpp"
-#include "Inventory.hpp"
+#include "Bag.h"
 #include "../Common/basetype.h"
 #include "../Common/MsgTransmission.hpp"
 
@@ -70,7 +69,9 @@ private:
 
     struct  timeval  lastTimeUp;
 
-    Inventory m_inventory;
+    BaseBag m_baseBag;
+    EquipBag m_equipBag;
+    MoneyBag m_moneyBag;
 
 public:
     MsgTrans* m_msgTrans;
