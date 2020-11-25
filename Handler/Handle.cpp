@@ -107,3 +107,7 @@ int HandleSyncClient::operator()(void * _s)
 }
 
 
+int HandleEventItem::operator()(void *_s)
+{
+    
+}

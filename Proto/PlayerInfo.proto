@@ -38,3 +38,21 @@ message Authentication {
 }
 
 
+message ItemEvent {
+    int optype;     // 0 增加， 1 减少， 2 交易, 3 强化， 4 客户端更新属性
+    int uid;        // 物品id
+    int bag;       // 如果是交易类型， 就是playerid
+    int add1;
+    string add2;
+}
+
+
+message ItemAttribute {
+    int uid;
+    int mask;   // 或者 0不显示
+    int type;
+    int lv;
+    int hp;
+    int atk;
+    int value;
+}

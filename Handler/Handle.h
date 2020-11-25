@@ -44,4 +44,11 @@ public:
 };
 
 
+class HandleEventItem : public Handle {
+public:
+    int operator()(void *_s) override;
+};
+
+
+
 #endif

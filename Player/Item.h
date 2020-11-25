@@ -26,25 +26,40 @@ enum class ItemModuleType {
     ITEM_MODULE_INSERT_ITEM     // 镶嵌
 };
 
-
 class BaseItem {
 public:
-    virtual void setUID(int);
-    virtual int getUID();
-    virtual void setType(int);
-    virtual int getType();
-    virtual int getConfID();
-    virtual bool isStack()=0;
-    virtual bool isBind()=0;
-    virtual void setAttribute(ItemAttributeType key, int value) = 0;
-    virtual int getAttribute(ItemAttributeType key) = 0;
-    virtual void initItem() = 0;
+    BaseItem();
+    virtual ~BaseItem();
+    virtual void initItem(int) = 0;
+
+    void setUID(unsigned long);
+    unsigned long getUID();
+    void setType(int);
+    int getType();
+    int getConfID();
+
+    bool isStack();
+    bool isBind();
+    bool setBind();
+    
+    virtual void setAttribute(ItemAttributeType key, int value);
+    virtual int getAttribute(ItemAttributeType key);
     virtual std::string toString() =0;
-    virtual void addItem(const BaseItem*)=0;
+
+    virtual int getCount();
+
+    // 返回： 成功当前数量，失败 -1
+    virtual int addItem(const int n) =0;
+    virtual int addItem(const BaseItem*);
+
+    // 返回： 成功当前数量，失败 -1
+    virtual int delItem(const int n);
+
+    virtual BaseItem* getBak(int _n = 1) =0;   // 默认复制数量为1
 protected:
     unsigned long m_nUID;       // UID  低 32 位 是 物品配置id, 高32位是该类型物品唯一id
     int m_nFlagBit;             // 标记
-    int m_nType;                // 类型
+    int m_nType;                // 类型  装备需要标记部位
     int m_nCount;               // 数量
     bool m_bSaveNow;            // 立即存档
 };
@@ -61,35 +76,39 @@ private:
 
 class EquipItem : public BaseItem {
 public:
-    void initItem();
-    std::string toString();
-
+    void initItem(int) override;
+    int addItem(const int) override;
+    std::string toString() override;
+    BaseItem* getBak(int n) override;
 private:
+    void setAttribute(ItemAttributeType key, int value) override;
+    int getAttribute(ItemAttributeType key) override;
     std::map<ItemModuleType, ItemAttribute> m_mAttributes;
 };
 
 
 class MoneyItem : public BaseItem {
 public:
-    void initItem() override;
-    void setAttribute(ItemAttributeType key, int value) override;
-    int getAttribute(ItemAttributeType key) override;
-    bool isBind() override;
-    bool isStack() override;
-    void addItem(const BaseItem*) override;
+    void initItem(int) override;
+    int addItem(const BaseItem*) override;
+    int addItem(const int ) override;
     std::string toString() override;
+    BaseItem* getBak(int n) override;
 };
 
 
 class ConsumItem : public BaseItem {
 public:
-    void initItem();
-    std::string toString();
+    void initItem(int) override;
+    int addItem(const BaseItem*) override;
+    int addItem(const int ) override;
+    std::string toString() override;
+    BaseItem* getBak(int) override;
 };
 
 class ItemFactory {
 public:
-    BaseItem* CreateItem(int type);
+    BaseItem* CreateItem(int type, int n);
 };
 
 
