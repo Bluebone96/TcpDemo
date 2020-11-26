@@ -8,7 +8,7 @@
 #include <string>
 #include <sys/time.h>
 
-#include "Bag.h"
+#include "Inventory.h"
 #include "../Common/basetype.h"
 #include "../Common/MsgTransmission.hpp"
 
@@ -50,6 +50,9 @@ public:
     
     PROTOBUF& GetPlayerOp();
 
+
+    int updateInventroy( /* Message* */);
+
 private:
 
     int32_t m_Id; // 暂时定为 acceptfd
@@ -69,10 +72,7 @@ private:
 
     struct  timeval  lastTimeUp;
 
-    BaseBag m_baseBag;
-    EquipBag m_equipBag;
-    MoneyBag m_moneyBag;
-
+    Inventory m_inventory;
 public:
     MsgTrans* m_msgTrans;
 };

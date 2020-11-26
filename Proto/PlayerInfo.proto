@@ -38,21 +38,85 @@ message Authentication {
 }
 
 
+
+message Items {
+    enum ITEMTYPE {
+        MONEY = 0;
+        CONSUME = 1;
+        EQUIP = 2;
+    }
+    uint32 m_mask=1;   // 或者 0不显示
+    uint32 m_uid =2;
+    uint32 m_type =3;
+    uint32 m_lv =4;
+    int32  m_price =8;
+    repeated ItemsAttribute m_attribute =9;
+}
+
+message ItemsAttribute {
+    enum ATTRIBUTETYPE {
+        HP = 0;
+        MP = 1;
+        ATK = 2;
+    }
+    ATTRIBUTETYPE m_type = 1;
+    float m_value = 2;
+}
+
+
+
+/*
+ * optype : value
+ *  0       basebag 增加物品，add1 为数量
+ *  1       basebag 减少物品，add1 为数量
+ *  2       basebag 使用物品，add1 为数量
+ *  3       money   增加， add1 为数量
+ *  4       money   减少   add1 为数量
+ *  5       equip   装备
+ *  6       unequip  卸下装备
+ *  7       trade   交易物品，add1 为数量， add2 为交易对象 id
+ *  8       
+ */
 message ItemEvent {
-    int optype;     // 0 增加， 1 减少， 2 交易, 3 强化， 4 客户端更新属性
-    int uid;        // 物品id
-    int bag;       // 如果是交易类型， 就是playerid
-    int add1;
-    string add2;
+    uint32 optype = 1;     // 0 增加， 1 减少， 2 交易, 3 强化， 4 客户端更新属性
+    uint32 uid =2;         // 物品id
+    uint32 count =3;       // 数量
+    string add1 =5;        // 增加
+    uint32 tid =4;         // 交易对象id
+}
+
+message ItemAdd {
+    uint32 optype = 1;
+    uint32 uid = 2;
+    uint32 count =3;
+}
+
+message ItemDel {
+    uint32 optype =1;   // 0 代表摧毁， 1 代表使用
+    uint32 uid =2;
+    uint32 count =3;
+}
+
+message ItemTrade {
+    uint32 optype =1;
+    uint32 uid = 2;
+    uint32 count =3;
+    uint32 tid  = 4;
+}
+
+message ItemEquip {
+    uint32 optype = 1;
+    uint32 uid = 2;
+}
+
+message ItemUnEquip {
+    uint32 optype = 1;
+    uint32 uid = 2;
+}
+
+message ItemUpdate {
+    uint32 m_optype = 1;
+    Items  m_item;  // 更新装备属性
 }
 
 
-message ItemAttribute {
-    int uid;
-    int mask;   // 或者 0不显示
-    int type;
-    int lv;
-    int hp;
-    int atk;
-    int value;
-}

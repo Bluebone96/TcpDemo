@@ -109,5 +109,8 @@ int HandleSyncClient::operator()(void * _s)
 
 int HandleEventItem::operator()(void *_s)
 {
+    Player* player = static_cast<Player*>(_s);
+
+    player->updateInventroy();
     
 }

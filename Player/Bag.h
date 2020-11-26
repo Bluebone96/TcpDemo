@@ -14,24 +14,19 @@ public:
     bool delItem(BaseItem*);
     bool delItem(unsigned long, int n = 1);
 
-    static bool transItem(BaseBag*, BaseBag*, BaseItem*);
-    static bool transItem(BaseBag*, BaseBag*, unsigned long, int);
 protected:
     int m_nCapacity;
     std::map<int, BaseItem*> m_mItems;
 };
 
 
-class EquipBag : public BaseBag {
+class EquipBag {
 public:
     EquipBag();
     ~EquipBag();
 
-    bool addItem(BaseItem*);
-    bool delItem(BaseItem*);
     bool equip(EquipItem*);
     bool unequip(EquipItem*);
-    bool unequip(unsigned long);
 };
 
 class MoneyBag : public BaseBag {
@@ -42,3 +37,4 @@ public:
  
 
 #endif
+

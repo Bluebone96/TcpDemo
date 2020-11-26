@@ -15,7 +15,8 @@ enum class ItemType {
 // 道具属性类型
 enum class ItemAttributeType {
     ITEM_ATTRIBUTE_ATK,         // 攻击力
-    ITEM_ATTRIBUTE_HP           // 加血
+    ITEM_ATTRIBUTE_HP,           // 加血
+    ITEM_ATTRIBUTE_SPEED        // 移速
 };
 
 
@@ -28,34 +29,39 @@ enum class ItemModuleType {
 
 class BaseItem {
 public:
-    BaseItem();
+    explicit BaseItem(int n = 1);
     virtual ~BaseItem();
-    virtual void initItem(int) = 0;
+    BaseItem(const BaseItem&, int n = 1);
+    virtual void initItem(int) =0;
 
     void setUID(unsigned long);
-    unsigned long getUID();
+    unsigned long getUID() const;
     void setType(int);
-    int getType();
-    int getConfID();
+    int getType() const;
+    int getConfID() const;
+    int getCount() const;
 
-    bool isStack();
-    bool isBind();
+    bool isSaveNow() const;
+    bool isStack() const;
+    bool isBind() const;
     bool setBind();
-    
-    virtual void setAttribute(ItemAttributeType key, int value);
-    virtual int getAttribute(ItemAttributeType key);
-    virtual std::string toString() =0;
 
-    virtual int getCount();
+    virtual void setAttribute(ItemAttributeType key, int value);
+    virtual int getAttribute(ItemAttributeType key) const;
+
+    virtual std::string toString() const =0;
 
     // 返回： 成功当前数量，失败 -1
-    virtual int addItem(const int n) =0;
+    virtual int addItem(const int n);
     virtual int addItem(const BaseItem*);
 
     // 返回： 成功当前数量，失败 -1
     virtual int delItem(const int n);
 
-    virtual BaseItem* getBak(int _n = 1) =0;   // 默认复制数量为1
+    virtual BaseItem* getBak(int _n = 1) const =0;   // 默认复制数量为1
+    
+
+
 protected:
     unsigned long m_nUID;       // UID  低 32 位 是 物品配置id, 高32位是该类型物品唯一id
     int m_nFlagBit;             // 标记
@@ -66,11 +72,11 @@ protected:
 
 class ItemAttribute {
 public:
-    std::map<ItemAttributeType, int> m_mpValue;
-    BaseItem* m_pFather;
-private:
     void setAttribute(ItemAttributeType _key, int _value);
     int getAttribute(ItemAttributeType _key);
+    ItemAttribute& operator=(const ItemAttribute&);
+private:
+    std::map<ItemAttributeType, int> m_mpValue;
 };
 
 
@@ -78,32 +84,38 @@ class EquipItem : public BaseItem {
 public:
     void initItem(int) override;
     int addItem(const int) override;
-    std::string toString() override;
-    BaseItem* getBak(int n) override;
+    std::string toString() const override;
+    BaseItem* getBak(int n) const override;
 private:
-    void setAttribute(ItemAttributeType key, int value) override;
-    int getAttribute(ItemAttributeType key) override;
+
     std::map<ItemModuleType, ItemAttribute> m_mAttributes;
 };
 
 
 class MoneyItem : public BaseItem {
 public:
+    explicit MoneyItem(int n = 1);
+    ~MoneyItem();
+    MoneyItem(const MoneyItem&, int);
     void initItem(int) override;
-    int addItem(const BaseItem*) override;
-    int addItem(const int ) override;
-    std::string toString() override;
-    BaseItem* getBak(int n) override;
+
+    std::string toString() const override;
+    BaseItem* getBak(int n)  const override;
 };
 
 
 class ConsumItem : public BaseItem {
 public:
+    explicit ConsumItem(int _n = 1);
+    ~ConsumItem();
+    ConsumItem::ConsumItem(const ConsumItem&, int _n = 1);
+
     void initItem(int) override;
-    int addItem(const BaseItem*) override;
-    int addItem(const int ) override;
-    std::string toString() override;
-    BaseItem* getBak(int) override;
+    std::string toString() const override;
+    BaseItem* getBak(int) const override;
+
+private:
+    ItemAttribute m_Attribute;
 };
 
 class ItemFactory {

@@ -1,6 +1,8 @@
 #include "Player.h"
 #include "../Common/MsgTransmission.hpp"
 
+#include "../build/PlayerInfo.pb.h"
+
 int Player::InitPlayer()
 {
     m_Id = m_msgTrans->GetSocketfd(); 
@@ -80,3 +82,55 @@ PROTOBUF& Player::GetPlayerInfo()
     return m_protoInfo;
 }
 
+int Player::updateInventroy()
+{
+
+/*
+ * optype : value
+ *  0       basebag 增加物品，add1 为数量
+ *  1       basebag 减少物品，add1 为数量
+ *  2       basebag 使用物品，add1 为数量
+ *  3       money   增加， add1 为数量
+ *  4       money   减少   add1 为数量
+ *  5       equip   装备
+ *  6       unequip  卸下装备
+ *  7       trade   交易物品，add1 为数量， add2 为交易对象 id
+ *  8       
+ */
+    int rn = -1;   // 结果标记
+    Proto::Unity::ItemEvent itemEvent;
+    m_msgTrans->Decode(itemEvent);
+    switch (itemEvent.optype())
+    {
+    case 0:
+        rn = m_inventory.baseBagAdd(itemEvent.uid(), itemEvent.count());
+        break;
+    case 1:
+        rn = m_inventory.baseBagDel(itemEvent.uid(), itemEvent.count());
+        break;
+    case 2:
+        rn = m_inventory.baseBagUse(itemEvent.uid());
+        break;
+    case 3:
+        rn = m_inventory.moneyAdd(itemEvent.uid(), itemEvent.count());
+        break;
+    case 4:
+        rn = m_inventory.moneyDel(itemEvent.uid(), itemEvent.count());
+        break;
+    case 5:
+        rn = m_inventory.equipItem(itemEvent.uid());
+        break;
+    case 6:
+        rn = m_inventory.unequipItem(itemEvent.uid());
+        break;
+    case 7:
+        rn = m_inventory.tradeItem(itemEvent.uid(), itemEvent.count(), itemEvent.tid());
+        break;
+    default:
+        break;
+    }
+
+    if (rn >= 0) {
+        m_msgTrans->sendmsg(itemEvent);
+    }
+}
