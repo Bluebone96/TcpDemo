@@ -54,7 +54,11 @@
         "stdexcept": "cpp",
         "streambuf": "cpp",
         "thread": "cpp",
-        "cinttypes": "cpp"
+        "cinttypes": "cpp",
+        "list": "cpp",
+        "slist": "cpp",
+        "iomanip": "cpp",
+        "cfenv": "cpp"
     },
     "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools"
 }
