@@ -1,10 +1,22 @@
 #ifndef _INVENTORY_HPP_
 #define _INVENTORY_HPP_
 
-#include "Bag.h"
+#include <map>
+#include <set>
+
+//#include "Bag.h"
 #include "Item.h"
 #include "Player.h"
 
+
+struct Bag {
+    int capacity;
+    std::set<unsigned long> items;
+    Bag(int _n) : capacity(_n) { }
+    void add(int _n) { items.insert(_n); }
+    void del(int _n) { items.remove(_n); }
+    int isexist(int _n) { return items.count(_n); }
+};
 
 class Inventory {
 public:
@@ -14,29 +26,24 @@ public:
     Inventory& operator=(const Inventory&) =delete;
 
 
-    int baseBagAdd(unsigned long, int n =1);
-    int baseBagDel(unsigned long, int n =1);
-    int baseBagUse(unsigned long, int n =1);
+    int addItem(BaseItem*);
+    int delItem(unsigned long, int n = 1);
 
+    int useItem(unsigned long);
 
     int equipItem(unsigned long);
     int unequipItem(unsigned long);
 
-    int moneyAdd(unsigned long, int);
-    int moneyDel(unsigned long, int);
-
-
     int tradeItem(unsigned long _uid, int _n, int _playerid);
-
-    // static bool transItem(BaseBag*, BaseBag*, unsigned long, int);
-    // static bool transItem(BaseBag*, BaseBag*, BaseItem*);
 
 private:
     Player* m_owner;
 
-    BaseBag m_baseBag;
-    EquipBag m_equipBag;
-    MoneyBag m_moneyBag;
+    std::map<unsigned long, BaseItem*> m_mItems;
+
+    Bag m_baseBag;
+    Bag m_equipBag;
+    Bag m_moneyBag;
 };
 
 

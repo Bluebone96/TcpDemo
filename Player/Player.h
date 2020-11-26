@@ -73,6 +73,7 @@ private:
     struct  timeval  lastTimeUp;
 
     Inventory m_inventory;
+
 public:
     MsgTrans* m_msgTrans;
 };

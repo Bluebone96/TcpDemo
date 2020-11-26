@@ -110,6 +110,8 @@ public:
     ~ConsumItem();
     ConsumItem::ConsumItem(const ConsumItem&, int _n = 1);
 
+    virtual int getAttribute(ItemAttributeType key) const;
+    
     void initItem(int) override;
     std::string toString() const override;
     BaseItem* getBak(int) const override;
