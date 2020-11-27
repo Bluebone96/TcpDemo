@@ -7,37 +7,21 @@
 #include <hiredis/hiredis.h>
 
 
-// enum class RedisResultType {
-//     REPLY_INVALID = -1,
-//     REPLY_STRING,
-//     REPLY_INTEGET,
-//     REPLY_ARRAY,
-//     REPLY_NULL
-// };
-
-
-// struct  RedisResult
-// {
-//     RedisResultType ty
-//     REDIS_REP
-// };
-
-// #define TOSTIRNG(key, value, str) \
-// do { \
-    
-// } while (0);
-
 
 class ToRedis {
 public:
-    ToRedis(const std::string& _ip = "127.0.0.1", int port = 6379);
+    ToRedis();
     ~ToRedis();
     
-    bool Connect();
+    int Init(const std::string& _ip = "127.0.0.1", int port = 6379);
+    
+    int Connect();
 
-    bool DisConnect();
+    int DisConnect();
 
     int FreeReply();
+
+    int Restart();
 
     template<typename T>
     int SetByString(const std::string& key , T& _t)
@@ -58,11 +42,13 @@ public:
 
     int GetByBit(const std::string& key, void**, int*);
 
-    int GetByString(std::string &);
+    int HSetByBit(const std::string& key, const std::string& field, void*, int);
 
-    int Restart();
+    int HGetByBit(const std::string& key, const std::string& field, void**, int*);
+
 
 private:
+
     std::stringstream m_ss;
     std::string m_cmd;
     redisReply* m_reply;

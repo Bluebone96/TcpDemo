@@ -11,11 +11,19 @@
 #include "Inventory.h"
 #include "../Common/basetype.h"
 #include "../Common/MsgTransmission.hpp"
+#include "../SQL/toredis.h"
+#include "../SQL/tomysql.h"
+
+
 
 class Player {
 public:
-
-    explicit Player(MsgTrans* msg = nullptr) : m_pos(0), m_msgTrans(msg) { if (msg) { m_Id = msg->GetSocketfd(); }}
+    explicit Player(MsgTrans* msg = nullptr, ToMysql* _sql, ToRedis* _redis) : m_pos(0), m_msgTrans(msg), m_pmysql(_sql), m_predis(_redis)
+    {
+        if (msg) {
+            m_Id = msg->GetSocketfd();
+        }
+    }
 
     ~Player() { 
         TRACER("player dctor delete msgtrans\n");
@@ -53,9 +61,21 @@ public:
 
     int updateInventroy( /* Message* */);
 
+    int savePlayer();
+
+    int saveItem(BaseItem*);
+
+    int saveAll();
+
+    int getItem();
+
+    int getPlayer();
+
 private:
 
     int32_t m_Id; // 暂时定为 acceptfd
+
+    char m_idstr[20];
     std::string m_name;
 
 #define MAXSTATUS 5
@@ -73,6 +93,9 @@ private:
     struct  timeval  lastTimeUp;
 
     Inventory m_inventory;
+
+    ToMysql* m_pmysql;
+    ToRedis* m_predis;
 
 public:
     MsgTrans* m_msgTrans;

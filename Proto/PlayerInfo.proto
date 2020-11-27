@@ -9,10 +9,11 @@ message PlayerInfo {
     float posX = 3;
     float posZ = 4;
     float angle = 5;
+
     // repeated float Position = 3;
     // repeated float Rotation = 4;
-
     uint32 Hp = 6;
+
 
     uint32 state = 7;   // 0 IDEL 1 WALK
     float speed = 8;
@@ -39,30 +40,40 @@ message Authentication {
 
 
 
+// message Items {
+//     enum ITEMTYPE {
+//         MONEY = 0;
+//         CONSUME = 1;
+//         EQUIP = 2;
+//     }
+//     uint32 m_mask=1;   // 或者 0不显示
+//     uint32 m_uid =2;
+//     uint32 m_type =3;
+//     uint32 m_lv =4;
+//     int32  m_price =8;
+//     repeated ItemsAttribute m_attribute =9;
+// }
+
+// message ItemsAttribute {
+//     enum ATTRIBUTETYPE {
+//         HP = 0;
+//         MP = 1;
+//         ATK = 2;
+//     }
+//     ATTRIBUTETYPE m_type = 1;
+//     float m_value = 2;
+// }
+
+
 message Items {
-    enum ITEMTYPE {
-        MONEY = 0;
-        CONSUME = 1;
-        EQUIP = 2;
-    }
-    uint32 m_mask=1;   // 或者 0不显示
-    uint32 m_uid =2;
-    uint32 m_type =3;
-    uint32 m_lv =4;
-    int32  m_price =8;
-    repeated ItemsAttribute m_attribute =9;
+    uint32 m_uid = 1;
+    uint32 m_type = 2;
+    uint32 m_hp = 3;
+    uint32 m_mp = 4;
+    uint32 m_atk = 5;
+    uint32 m_price = 6;
+    uint32 m_count = 7;
 }
-
-message ItemsAttribute {
-    enum ATTRIBUTETYPE {
-        HP = 0;
-        MP = 1;
-        ATK = 2;
-    }
-    ATTRIBUTETYPE m_type = 1;
-    float m_value = 2;
-}
-
 
 
 /*
@@ -70,15 +81,13 @@ message ItemsAttribute {
  *  0       basebag 增加物品，add1 为数量
  *  1       basebag 减少物品，add1 为数量
  *  2       basebag 使用物品，add1 为数量
- *  3       money   增加， add1 为数量
- *  4       money   减少   add1 为数量
- *  5       equip   装备
- *  6       unequip  卸下装备
- *  7       trade   交易物品，add1 为数量， add2 为交易对象 id
- *  8       
+ *  3       equip   装备
+ *  4       unequip  卸下装备
+ *  5       trade   交易物品，add1 为数量， add2 为交易对象 id
+ *  6       
  */
 message ItemEvent {
-    uint32 optype = 1;     // 0 增加， 1 减少， 2 交易, 3 强化， 4 客户端更新属性
+    uint32 optype = 1;     // 
     uint32 uid =2;         // 物品id
     uint32 count =3;       // 数量
     string add1 =5;        // 增加
@@ -116,7 +125,7 @@ message ItemUnEquip {
 
 message ItemUpdate {
     uint32 m_optype = 1;
-    Items  m_item;  // 更新装备属性
+    Items  m_item = 2;  // 更新装备属性
 }
 
 

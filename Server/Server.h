@@ -11,7 +11,10 @@
 #include "../Common/TcpSocket.h"
 #include "../Common/MsgRecord.h"
 #include "../Common/MsgTransmission.hpp"
+#include "../SQL/tomysql.h"
+#include "../SQL/toredis.h"
 #include "../Player/Player.h"
+
 //#include "../Handler/EventHandler.h"
 
 //#include "../Status/"
@@ -47,6 +50,11 @@ public:
 
 //     Server(const Server&);
 //     Server& operator=(const Server);
+    static unsigned int BKDRHash(const std::string&);
+
+public:
+    ToMysql m_mysql;
+    ToRedis m_redis;
 
 private:
 
@@ -57,6 +65,8 @@ private:
     Epoll m_epoll;
 
     TcpSocket m_socket;
+
+
         
     friend class Dispatcher; // 
 };

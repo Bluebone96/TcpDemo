@@ -30,7 +30,6 @@
 #include <google/protobuf/message.h>
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
-#include <google/protobuf/generated_enum_reflection.h>
 #include <google/protobuf/unknown_field_set.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
@@ -75,12 +74,12 @@ extern ItemTradeDefaultTypeInternal _ItemTrade_default_instance_;
 class ItemUnEquip;
 class ItemUnEquipDefaultTypeInternal;
 extern ItemUnEquipDefaultTypeInternal _ItemUnEquip_default_instance_;
+class ItemUpdate;
+class ItemUpdateDefaultTypeInternal;
+extern ItemUpdateDefaultTypeInternal _ItemUpdate_default_instance_;
 class Items;
 class ItemsDefaultTypeInternal;
 extern ItemsDefaultTypeInternal _Items_default_instance_;
-class ItemsAttribute;
-class ItemsAttributeDefaultTypeInternal;
-extern ItemsAttributeDefaultTypeInternal _ItemsAttribute_default_instance_;
 class Operation;
 class OperationDefaultTypeInternal;
 extern OperationDefaultTypeInternal _Operation_default_instance_;
@@ -99,8 +98,8 @@ template<> ::Proto::Unity::ItemEquip* Arena::CreateMaybeMessage<::Proto::Unity::
 template<> ::Proto::Unity::ItemEvent* Arena::CreateMaybeMessage<::Proto::Unity::ItemEvent>(Arena*);
 template<> ::Proto::Unity::ItemTrade* Arena::CreateMaybeMessage<::Proto::Unity::ItemTrade>(Arena*);
 template<> ::Proto::Unity::ItemUnEquip* Arena::CreateMaybeMessage<::Proto::Unity::ItemUnEquip>(Arena*);
+template<> ::Proto::Unity::ItemUpdate* Arena::CreateMaybeMessage<::Proto::Unity::ItemUpdate>(Arena*);
 template<> ::Proto::Unity::Items* Arena::CreateMaybeMessage<::Proto::Unity::Items>(Arena*);
-template<> ::Proto::Unity::ItemsAttribute* Arena::CreateMaybeMessage<::Proto::Unity::ItemsAttribute>(Arena*);
 template<> ::Proto::Unity::Operation* Arena::CreateMaybeMessage<::Proto::Unity::Operation>(Arena*);
 template<> ::Proto::Unity::PlayerInfo* Arena::CreateMaybeMessage<::Proto::Unity::PlayerInfo>(Arena*);
 }  // namespace protobuf
@@ -108,50 +107,6 @@ template<> ::Proto::Unity::PlayerInfo* Arena::CreateMaybeMessage<::Proto::Unity:
 namespace Proto {
 namespace Unity {
 
-enum Items_ITEMTYPE {
-  Items_ITEMTYPE_MONEY = 0,
-  Items_ITEMTYPE_CONSUME = 1,
-  Items_ITEMTYPE_EQUIP = 2,
-  Items_ITEMTYPE_Items_ITEMTYPE_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::google::protobuf::int32>::min(),
-  Items_ITEMTYPE_Items_ITEMTYPE_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::google::protobuf::int32>::max()
-};
-bool Items_ITEMTYPE_IsValid(int value);
-const Items_ITEMTYPE Items_ITEMTYPE_ITEMTYPE_MIN = Items_ITEMTYPE_MONEY;
-const Items_ITEMTYPE Items_ITEMTYPE_ITEMTYPE_MAX = Items_ITEMTYPE_EQUIP;
-const int Items_ITEMTYPE_ITEMTYPE_ARRAYSIZE = Items_ITEMTYPE_ITEMTYPE_MAX + 1;
-
-const ::google::protobuf::EnumDescriptor* Items_ITEMTYPE_descriptor();
-inline const ::std::string& Items_ITEMTYPE_Name(Items_ITEMTYPE value) {
-  return ::google::protobuf::internal::NameOfEnum(
-    Items_ITEMTYPE_descriptor(), value);
-}
-inline bool Items_ITEMTYPE_Parse(
-    const ::std::string& name, Items_ITEMTYPE* value) {
-  return ::google::protobuf::internal::ParseNamedEnum<Items_ITEMTYPE>(
-    Items_ITEMTYPE_descriptor(), name, value);
-}
-enum ItemsAttribute_ATTRIBUTETYPE {
-  ItemsAttribute_ATTRIBUTETYPE_HP = 0,
-  ItemsAttribute_ATTRIBUTETYPE_MP = 1,
-  ItemsAttribute_ATTRIBUTETYPE_ATK = 2,
-  ItemsAttribute_ATTRIBUTETYPE_ItemsAttribute_ATTRIBUTETYPE_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::google::protobuf::int32>::min(),
-  ItemsAttribute_ATTRIBUTETYPE_ItemsAttribute_ATTRIBUTETYPE_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::google::protobuf::int32>::max()
-};
-bool ItemsAttribute_ATTRIBUTETYPE_IsValid(int value);
-const ItemsAttribute_ATTRIBUTETYPE ItemsAttribute_ATTRIBUTETYPE_ATTRIBUTETYPE_MIN = ItemsAttribute_ATTRIBUTETYPE_HP;
-const ItemsAttribute_ATTRIBUTETYPE ItemsAttribute_ATTRIBUTETYPE_ATTRIBUTETYPE_MAX = ItemsAttribute_ATTRIBUTETYPE_ATK;
-const int ItemsAttribute_ATTRIBUTETYPE_ATTRIBUTETYPE_ARRAYSIZE = ItemsAttribute_ATTRIBUTETYPE_ATTRIBUTETYPE_MAX + 1;
-
-const ::google::protobuf::EnumDescriptor* ItemsAttribute_ATTRIBUTETYPE_descriptor();
-inline const ::std::string& ItemsAttribute_ATTRIBUTETYPE_Name(ItemsAttribute_ATTRIBUTETYPE value) {
-  return ::google::protobuf::internal::NameOfEnum(
-    ItemsAttribute_ATTRIBUTETYPE_descriptor(), value);
-}
-inline bool ItemsAttribute_ATTRIBUTETYPE_Parse(
-    const ::std::string& name, ItemsAttribute_ATTRIBUTETYPE* value) {
-  return ::google::protobuf::internal::ParseNamedEnum<ItemsAttribute_ATTRIBUTETYPE>(
-    ItemsAttribute_ATTRIBUTETYPE_descriptor(), name, value);
-}
 // ===================================================================
 
 class PlayerInfo final :
@@ -721,6 +676,160 @@ class Authentication final :
 };
 // -------------------------------------------------------------------
 
+class Items final :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Proto.Unity.Items) */ {
+ public:
+  Items();
+  virtual ~Items();
+
+  Items(const Items& from);
+
+  inline Items& operator=(const Items& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  Items(Items&& from) noexcept
+    : Items() {
+    *this = ::std::move(from);
+  }
+
+  inline Items& operator=(Items&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return default_instance().GetDescriptor();
+  }
+  static const Items& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const Items* internal_default_instance() {
+    return reinterpret_cast<const Items*>(
+               &_Items_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    4;
+
+  void Swap(Items* other);
+  friend void swap(Items& a, Items& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline Items* New() const final {
+    return CreateMaybeMessage<Items>(nullptr);
+  }
+
+  Items* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<Items>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const Items& from);
+  void MergeFrom(const Items& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
+  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
+  #else
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Items* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // uint32 m_uid = 1;
+  void clear_m_uid();
+  static const int kMUidFieldNumber = 1;
+  ::google::protobuf::uint32 m_uid() const;
+  void set_m_uid(::google::protobuf::uint32 value);
+
+  // uint32 m_type = 2;
+  void clear_m_type();
+  static const int kMTypeFieldNumber = 2;
+  ::google::protobuf::uint32 m_type() const;
+  void set_m_type(::google::protobuf::uint32 value);
+
+  // uint32 m_hp = 3;
+  void clear_m_hp();
+  static const int kMHpFieldNumber = 3;
+  ::google::protobuf::uint32 m_hp() const;
+  void set_m_hp(::google::protobuf::uint32 value);
+
+  // uint32 m_mp = 4;
+  void clear_m_mp();
+  static const int kMMpFieldNumber = 4;
+  ::google::protobuf::uint32 m_mp() const;
+  void set_m_mp(::google::protobuf::uint32 value);
+
+  // uint32 m_atk = 5;
+  void clear_m_atk();
+  static const int kMAtkFieldNumber = 5;
+  ::google::protobuf::uint32 m_atk() const;
+  void set_m_atk(::google::protobuf::uint32 value);
+
+  // uint32 m_price = 6;
+  void clear_m_price();
+  static const int kMPriceFieldNumber = 6;
+  ::google::protobuf::uint32 m_price() const;
+  void set_m_price(::google::protobuf::uint32 value);
+
+  // uint32 m_count = 7;
+  void clear_m_count();
+  static const int kMCountFieldNumber = 7;
+  ::google::protobuf::uint32 m_count() const;
+  void set_m_count(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:Proto.Unity.Items)
+ private:
+  class HasBitSetters;
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::uint32 m_uid_;
+  ::google::protobuf::uint32 m_type_;
+  ::google::protobuf::uint32 m_hp_;
+  ::google::protobuf::uint32 m_mp_;
+  ::google::protobuf::uint32 m_atk_;
+  ::google::protobuf::uint32 m_price_;
+  ::google::protobuf::uint32 m_count_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_PlayerInfo_2eproto;
+};
+// -------------------------------------------------------------------
+
 class ItemEvent final :
     public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Proto.Unity.ItemEvent) */ {
  public:
@@ -759,7 +868,7 @@ class ItemEvent final :
                &_ItemEvent_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    5;
 
   void Swap(ItemEvent* other);
   friend void swap(ItemEvent& a, ItemEvent& b) {
@@ -907,7 +1016,7 @@ class ItemAdd final :
                &_ItemAdd_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    6;
 
   void Swap(ItemAdd* other);
   friend void swap(ItemAdd& a, ItemAdd& b) {
@@ -1033,7 +1142,7 @@ class ItemDel final :
                &_ItemDel_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    7;
 
   void Swap(ItemDel* other);
   friend void swap(ItemDel& a, ItemDel& b) {
@@ -1159,7 +1268,7 @@ class ItemTrade final :
                &_ItemTrade_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    8;
 
   void Swap(ItemTrade* other);
   friend void swap(ItemTrade& a, ItemTrade& b) {
@@ -1292,7 +1401,7 @@ class ItemEquip final :
                &_ItemEquip_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    9;
 
   void Swap(ItemEquip* other);
   friend void swap(ItemEquip& a, ItemEquip& b) {
@@ -1411,7 +1520,7 @@ class ItemUnEquip final :
                &_ItemUnEquip_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    10;
 
   void Swap(ItemUnEquip* other);
   friend void swap(ItemUnEquip& a, ItemUnEquip& b) {
@@ -1492,25 +1601,25 @@ class ItemUnEquip final :
 };
 // -------------------------------------------------------------------
 
-class Items final :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Proto.Unity.Items) */ {
+class ItemUpdate final :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Proto.Unity.ItemUpdate) */ {
  public:
-  Items();
-  virtual ~Items();
+  ItemUpdate();
+  virtual ~ItemUpdate();
 
-  Items(const Items& from);
+  ItemUpdate(const ItemUpdate& from);
 
-  inline Items& operator=(const Items& from) {
+  inline ItemUpdate& operator=(const ItemUpdate& from) {
     CopyFrom(from);
     return *this;
   }
   #if LANG_CXX11
-  Items(Items&& from) noexcept
-    : Items() {
+  ItemUpdate(ItemUpdate&& from) noexcept
+    : ItemUpdate() {
     *this = ::std::move(from);
   }
 
-  inline Items& operator=(Items&& from) noexcept {
+  inline ItemUpdate& operator=(ItemUpdate&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -1522,215 +1631,34 @@ class Items final :
   static const ::google::protobuf::Descriptor* descriptor() {
     return default_instance().GetDescriptor();
   }
-  static const Items& default_instance();
+  static const ItemUpdate& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const Items* internal_default_instance() {
-    return reinterpret_cast<const Items*>(
-               &_Items_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    10;
-
-  void Swap(Items* other);
-  friend void swap(Items& a, Items& b) {
-    a.Swap(&b);
-  }
-
-  // implements Message ----------------------------------------------
-
-  inline Items* New() const final {
-    return CreateMaybeMessage<Items>(nullptr);
-  }
-
-  Items* New(::google::protobuf::Arena* arena) const final {
-    return CreateMaybeMessage<Items>(arena);
-  }
-  void CopyFrom(const ::google::protobuf::Message& from) final;
-  void MergeFrom(const ::google::protobuf::Message& from) final;
-  void CopyFrom(const Items& from);
-  void MergeFrom(const Items& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
-  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
-  #else
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input) final;
-  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const final;
-  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
-      ::google::protobuf::uint8* target) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(Items* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return nullptr;
-  }
-  inline void* MaybeArenaPtr() const {
-    return nullptr;
-  }
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  typedef Items_ITEMTYPE ITEMTYPE;
-  static const ITEMTYPE MONEY =
-    Items_ITEMTYPE_MONEY;
-  static const ITEMTYPE CONSUME =
-    Items_ITEMTYPE_CONSUME;
-  static const ITEMTYPE EQUIP =
-    Items_ITEMTYPE_EQUIP;
-  static inline bool ITEMTYPE_IsValid(int value) {
-    return Items_ITEMTYPE_IsValid(value);
-  }
-  static const ITEMTYPE ITEMTYPE_MIN =
-    Items_ITEMTYPE_ITEMTYPE_MIN;
-  static const ITEMTYPE ITEMTYPE_MAX =
-    Items_ITEMTYPE_ITEMTYPE_MAX;
-  static const int ITEMTYPE_ARRAYSIZE =
-    Items_ITEMTYPE_ITEMTYPE_ARRAYSIZE;
-  static inline const ::google::protobuf::EnumDescriptor*
-  ITEMTYPE_descriptor() {
-    return Items_ITEMTYPE_descriptor();
-  }
-  static inline const ::std::string& ITEMTYPE_Name(ITEMTYPE value) {
-    return Items_ITEMTYPE_Name(value);
-  }
-  static inline bool ITEMTYPE_Parse(const ::std::string& name,
-      ITEMTYPE* value) {
-    return Items_ITEMTYPE_Parse(name, value);
-  }
-
-  // accessors -------------------------------------------------------
-
-  // repeated .Proto.Unity.ItemsAttribute m_attribute = 9;
-  int m_attribute_size() const;
-  void clear_m_attribute();
-  static const int kMAttributeFieldNumber = 9;
-  ::Proto::Unity::ItemsAttribute* mutable_m_attribute(int index);
-  ::google::protobuf::RepeatedPtrField< ::Proto::Unity::ItemsAttribute >*
-      mutable_m_attribute();
-  const ::Proto::Unity::ItemsAttribute& m_attribute(int index) const;
-  ::Proto::Unity::ItemsAttribute* add_m_attribute();
-  const ::google::protobuf::RepeatedPtrField< ::Proto::Unity::ItemsAttribute >&
-      m_attribute() const;
-
-  // uint32 m_mask = 1;
-  void clear_m_mask();
-  static const int kMMaskFieldNumber = 1;
-  ::google::protobuf::uint32 m_mask() const;
-  void set_m_mask(::google::protobuf::uint32 value);
-
-  // uint32 m_uid = 2;
-  void clear_m_uid();
-  static const int kMUidFieldNumber = 2;
-  ::google::protobuf::uint32 m_uid() const;
-  void set_m_uid(::google::protobuf::uint32 value);
-
-  // uint32 m_type = 3;
-  void clear_m_type();
-  static const int kMTypeFieldNumber = 3;
-  ::google::protobuf::uint32 m_type() const;
-  void set_m_type(::google::protobuf::uint32 value);
-
-  // uint32 m_lv = 4;
-  void clear_m_lv();
-  static const int kMLvFieldNumber = 4;
-  ::google::protobuf::uint32 m_lv() const;
-  void set_m_lv(::google::protobuf::uint32 value);
-
-  // int32 m_price = 8;
-  void clear_m_price();
-  static const int kMPriceFieldNumber = 8;
-  ::google::protobuf::int32 m_price() const;
-  void set_m_price(::google::protobuf::int32 value);
-
-  // @@protoc_insertion_point(class_scope:Proto.Unity.Items)
- private:
-  class HasBitSetters;
-
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::RepeatedPtrField< ::Proto::Unity::ItemsAttribute > m_attribute_;
-  ::google::protobuf::uint32 m_mask_;
-  ::google::protobuf::uint32 m_uid_;
-  ::google::protobuf::uint32 m_type_;
-  ::google::protobuf::uint32 m_lv_;
-  ::google::protobuf::int32 m_price_;
-  mutable ::google::protobuf::internal::CachedSize _cached_size_;
-  friend struct ::TableStruct_PlayerInfo_2eproto;
-};
-// -------------------------------------------------------------------
-
-class ItemsAttribute final :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Proto.Unity.ItemsAttribute) */ {
- public:
-  ItemsAttribute();
-  virtual ~ItemsAttribute();
-
-  ItemsAttribute(const ItemsAttribute& from);
-
-  inline ItemsAttribute& operator=(const ItemsAttribute& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  #if LANG_CXX11
-  ItemsAttribute(ItemsAttribute&& from) noexcept
-    : ItemsAttribute() {
-    *this = ::std::move(from);
-  }
-
-  inline ItemsAttribute& operator=(ItemsAttribute&& from) noexcept {
-    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
-      if (this != &from) InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-  #endif
-  static const ::google::protobuf::Descriptor* descriptor() {
-    return default_instance().GetDescriptor();
-  }
-  static const ItemsAttribute& default_instance();
-
-  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const ItemsAttribute* internal_default_instance() {
-    return reinterpret_cast<const ItemsAttribute*>(
-               &_ItemsAttribute_default_instance_);
+  static inline const ItemUpdate* internal_default_instance() {
+    return reinterpret_cast<const ItemUpdate*>(
+               &_ItemUpdate_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     11;
 
-  void Swap(ItemsAttribute* other);
-  friend void swap(ItemsAttribute& a, ItemsAttribute& b) {
+  void Swap(ItemUpdate* other);
+  friend void swap(ItemUpdate& a, ItemUpdate& b) {
     a.Swap(&b);
   }
 
   // implements Message ----------------------------------------------
 
-  inline ItemsAttribute* New() const final {
-    return CreateMaybeMessage<ItemsAttribute>(nullptr);
+  inline ItemUpdate* New() const final {
+    return CreateMaybeMessage<ItemUpdate>(nullptr);
   }
 
-  ItemsAttribute* New(::google::protobuf::Arena* arena) const final {
-    return CreateMaybeMessage<ItemsAttribute>(arena);
+  ItemUpdate* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<ItemUpdate>(arena);
   }
   void CopyFrom(const ::google::protobuf::Message& from) final;
   void MergeFrom(const ::google::protobuf::Message& from) final;
-  void CopyFrom(const ItemsAttribute& from);
-  void MergeFrom(const ItemsAttribute& from);
+  void CopyFrom(const ItemUpdate& from);
+  void MergeFrom(const ItemUpdate& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -1752,7 +1680,7 @@ class ItemsAttribute final :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(ItemsAttribute* other);
+  void InternalSwap(ItemUpdate* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return nullptr;
@@ -1766,55 +1694,30 @@ class ItemsAttribute final :
 
   // nested types ----------------------------------------------------
 
-  typedef ItemsAttribute_ATTRIBUTETYPE ATTRIBUTETYPE;
-  static const ATTRIBUTETYPE HP =
-    ItemsAttribute_ATTRIBUTETYPE_HP;
-  static const ATTRIBUTETYPE MP =
-    ItemsAttribute_ATTRIBUTETYPE_MP;
-  static const ATTRIBUTETYPE ATK =
-    ItemsAttribute_ATTRIBUTETYPE_ATK;
-  static inline bool ATTRIBUTETYPE_IsValid(int value) {
-    return ItemsAttribute_ATTRIBUTETYPE_IsValid(value);
-  }
-  static const ATTRIBUTETYPE ATTRIBUTETYPE_MIN =
-    ItemsAttribute_ATTRIBUTETYPE_ATTRIBUTETYPE_MIN;
-  static const ATTRIBUTETYPE ATTRIBUTETYPE_MAX =
-    ItemsAttribute_ATTRIBUTETYPE_ATTRIBUTETYPE_MAX;
-  static const int ATTRIBUTETYPE_ARRAYSIZE =
-    ItemsAttribute_ATTRIBUTETYPE_ATTRIBUTETYPE_ARRAYSIZE;
-  static inline const ::google::protobuf::EnumDescriptor*
-  ATTRIBUTETYPE_descriptor() {
-    return ItemsAttribute_ATTRIBUTETYPE_descriptor();
-  }
-  static inline const ::std::string& ATTRIBUTETYPE_Name(ATTRIBUTETYPE value) {
-    return ItemsAttribute_ATTRIBUTETYPE_Name(value);
-  }
-  static inline bool ATTRIBUTETYPE_Parse(const ::std::string& name,
-      ATTRIBUTETYPE* value) {
-    return ItemsAttribute_ATTRIBUTETYPE_Parse(name, value);
-  }
-
   // accessors -------------------------------------------------------
 
-  // .Proto.Unity.ItemsAttribute.ATTRIBUTETYPE m_type = 1;
-  void clear_m_type();
-  static const int kMTypeFieldNumber = 1;
-  ::Proto::Unity::ItemsAttribute_ATTRIBUTETYPE m_type() const;
-  void set_m_type(::Proto::Unity::ItemsAttribute_ATTRIBUTETYPE value);
+  // .Proto.Unity.Items m_item = 2;
+  bool has_m_item() const;
+  void clear_m_item();
+  static const int kMItemFieldNumber = 2;
+  const ::Proto::Unity::Items& m_item() const;
+  ::Proto::Unity::Items* release_m_item();
+  ::Proto::Unity::Items* mutable_m_item();
+  void set_allocated_m_item(::Proto::Unity::Items* m_item);
 
-  // float m_value = 2;
-  void clear_m_value();
-  static const int kMValueFieldNumber = 2;
-  float m_value() const;
-  void set_m_value(float value);
+  // uint32 m_optype = 1;
+  void clear_m_optype();
+  static const int kMOptypeFieldNumber = 1;
+  ::google::protobuf::uint32 m_optype() const;
+  void set_m_optype(::google::protobuf::uint32 value);
 
-  // @@protoc_insertion_point(class_scope:Proto.Unity.ItemsAttribute)
+  // @@protoc_insertion_point(class_scope:Proto.Unity.ItemUpdate)
  private:
   class HasBitSetters;
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  int m_type_;
-  float m_value_;
+  ::Proto::Unity::Items* m_item_;
+  ::google::protobuf::uint32 m_optype_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_PlayerInfo_2eproto;
 };
@@ -2260,6 +2163,108 @@ inline void Authentication::set_allocated_password(::std::string* password) {
 
 // -------------------------------------------------------------------
 
+// Items
+
+// uint32 m_uid = 1;
+inline void Items::clear_m_uid() {
+  m_uid_ = 0u;
+}
+inline ::google::protobuf::uint32 Items::m_uid() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.Items.m_uid)
+  return m_uid_;
+}
+inline void Items::set_m_uid(::google::protobuf::uint32 value) {
+  
+  m_uid_ = value;
+  // @@protoc_insertion_point(field_set:Proto.Unity.Items.m_uid)
+}
+
+// uint32 m_type = 2;
+inline void Items::clear_m_type() {
+  m_type_ = 0u;
+}
+inline ::google::protobuf::uint32 Items::m_type() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.Items.m_type)
+  return m_type_;
+}
+inline void Items::set_m_type(::google::protobuf::uint32 value) {
+  
+  m_type_ = value;
+  // @@protoc_insertion_point(field_set:Proto.Unity.Items.m_type)
+}
+
+// uint32 m_hp = 3;
+inline void Items::clear_m_hp() {
+  m_hp_ = 0u;
+}
+inline ::google::protobuf::uint32 Items::m_hp() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.Items.m_hp)
+  return m_hp_;
+}
+inline void Items::set_m_hp(::google::protobuf::uint32 value) {
+  
+  m_hp_ = value;
+  // @@protoc_insertion_point(field_set:Proto.Unity.Items.m_hp)
+}
+
+// uint32 m_mp = 4;
+inline void Items::clear_m_mp() {
+  m_mp_ = 0u;
+}
+inline ::google::protobuf::uint32 Items::m_mp() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.Items.m_mp)
+  return m_mp_;
+}
+inline void Items::set_m_mp(::google::protobuf::uint32 value) {
+  
+  m_mp_ = value;
+  // @@protoc_insertion_point(field_set:Proto.Unity.Items.m_mp)
+}
+
+// uint32 m_atk = 5;
+inline void Items::clear_m_atk() {
+  m_atk_ = 0u;
+}
+inline ::google::protobuf::uint32 Items::m_atk() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.Items.m_atk)
+  return m_atk_;
+}
+inline void Items::set_m_atk(::google::protobuf::uint32 value) {
+  
+  m_atk_ = value;
+  // @@protoc_insertion_point(field_set:Proto.Unity.Items.m_atk)
+}
+
+// uint32 m_price = 6;
+inline void Items::clear_m_price() {
+  m_price_ = 0u;
+}
+inline ::google::protobuf::uint32 Items::m_price() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.Items.m_price)
+  return m_price_;
+}
+inline void Items::set_m_price(::google::protobuf::uint32 value) {
+  
+  m_price_ = value;
+  // @@protoc_insertion_point(field_set:Proto.Unity.Items.m_price)
+}
+
+// uint32 m_count = 7;
+inline void Items::clear_m_count() {
+  m_count_ = 0u;
+}
+inline ::google::protobuf::uint32 Items::m_count() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.Items.m_count)
+  return m_count_;
+}
+inline void Items::set_m_count(::google::protobuf::uint32 value) {
+  
+  m_count_ = value;
+  // @@protoc_insertion_point(field_set:Proto.Unity.Items.m_count)
+}
+
+// -------------------------------------------------------------------
+
 // ItemEvent
 
 // uint32 optype = 1;
@@ -2589,138 +2594,71 @@ inline void ItemUnEquip::set_uid(::google::protobuf::uint32 value) {
 
 // -------------------------------------------------------------------
 
-// Items
+// ItemUpdate
 
-// uint32 m_mask = 1;
-inline void Items::clear_m_mask() {
-  m_mask_ = 0u;
+// uint32 m_optype = 1;
+inline void ItemUpdate::clear_m_optype() {
+  m_optype_ = 0u;
 }
-inline ::google::protobuf::uint32 Items::m_mask() const {
-  // @@protoc_insertion_point(field_get:Proto.Unity.Items.m_mask)
-  return m_mask_;
+inline ::google::protobuf::uint32 ItemUpdate::m_optype() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.ItemUpdate.m_optype)
+  return m_optype_;
 }
-inline void Items::set_m_mask(::google::protobuf::uint32 value) {
+inline void ItemUpdate::set_m_optype(::google::protobuf::uint32 value) {
   
-  m_mask_ = value;
-  // @@protoc_insertion_point(field_set:Proto.Unity.Items.m_mask)
+  m_optype_ = value;
+  // @@protoc_insertion_point(field_set:Proto.Unity.ItemUpdate.m_optype)
 }
 
-// uint32 m_uid = 2;
-inline void Items::clear_m_uid() {
-  m_uid_ = 0u;
+// .Proto.Unity.Items m_item = 2;
+inline bool ItemUpdate::has_m_item() const {
+  return this != internal_default_instance() && m_item_ != nullptr;
 }
-inline ::google::protobuf::uint32 Items::m_uid() const {
-  // @@protoc_insertion_point(field_get:Proto.Unity.Items.m_uid)
-  return m_uid_;
+inline void ItemUpdate::clear_m_item() {
+  if (GetArenaNoVirtual() == nullptr && m_item_ != nullptr) {
+    delete m_item_;
+  }
+  m_item_ = nullptr;
 }
-inline void Items::set_m_uid(::google::protobuf::uint32 value) {
+inline const ::Proto::Unity::Items& ItemUpdate::m_item() const {
+  const ::Proto::Unity::Items* p = m_item_;
+  // @@protoc_insertion_point(field_get:Proto.Unity.ItemUpdate.m_item)
+  return p != nullptr ? *p : *reinterpret_cast<const ::Proto::Unity::Items*>(
+      &::Proto::Unity::_Items_default_instance_);
+}
+inline ::Proto::Unity::Items* ItemUpdate::release_m_item() {
+  // @@protoc_insertion_point(field_release:Proto.Unity.ItemUpdate.m_item)
   
-  m_uid_ = value;
-  // @@protoc_insertion_point(field_set:Proto.Unity.Items.m_uid)
+  ::Proto::Unity::Items* temp = m_item_;
+  m_item_ = nullptr;
+  return temp;
 }
-
-// uint32 m_type = 3;
-inline void Items::clear_m_type() {
-  m_type_ = 0u;
-}
-inline ::google::protobuf::uint32 Items::m_type() const {
-  // @@protoc_insertion_point(field_get:Proto.Unity.Items.m_type)
-  return m_type_;
-}
-inline void Items::set_m_type(::google::protobuf::uint32 value) {
+inline ::Proto::Unity::Items* ItemUpdate::mutable_m_item() {
   
-  m_type_ = value;
-  // @@protoc_insertion_point(field_set:Proto.Unity.Items.m_type)
+  if (m_item_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Proto::Unity::Items>(GetArenaNoVirtual());
+    m_item_ = p;
+  }
+  // @@protoc_insertion_point(field_mutable:Proto.Unity.ItemUpdate.m_item)
+  return m_item_;
 }
-
-// uint32 m_lv = 4;
-inline void Items::clear_m_lv() {
-  m_lv_ = 0u;
-}
-inline ::google::protobuf::uint32 Items::m_lv() const {
-  // @@protoc_insertion_point(field_get:Proto.Unity.Items.m_lv)
-  return m_lv_;
-}
-inline void Items::set_m_lv(::google::protobuf::uint32 value) {
-  
-  m_lv_ = value;
-  // @@protoc_insertion_point(field_set:Proto.Unity.Items.m_lv)
-}
-
-// int32 m_price = 8;
-inline void Items::clear_m_price() {
-  m_price_ = 0;
-}
-inline ::google::protobuf::int32 Items::m_price() const {
-  // @@protoc_insertion_point(field_get:Proto.Unity.Items.m_price)
-  return m_price_;
-}
-inline void Items::set_m_price(::google::protobuf::int32 value) {
-  
-  m_price_ = value;
-  // @@protoc_insertion_point(field_set:Proto.Unity.Items.m_price)
-}
-
-// repeated .Proto.Unity.ItemsAttribute m_attribute = 9;
-inline int Items::m_attribute_size() const {
-  return m_attribute_.size();
-}
-inline void Items::clear_m_attribute() {
-  m_attribute_.Clear();
-}
-inline ::Proto::Unity::ItemsAttribute* Items::mutable_m_attribute(int index) {
-  // @@protoc_insertion_point(field_mutable:Proto.Unity.Items.m_attribute)
-  return m_attribute_.Mutable(index);
-}
-inline ::google::protobuf::RepeatedPtrField< ::Proto::Unity::ItemsAttribute >*
-Items::mutable_m_attribute() {
-  // @@protoc_insertion_point(field_mutable_list:Proto.Unity.Items.m_attribute)
-  return &m_attribute_;
-}
-inline const ::Proto::Unity::ItemsAttribute& Items::m_attribute(int index) const {
-  // @@protoc_insertion_point(field_get:Proto.Unity.Items.m_attribute)
-  return m_attribute_.Get(index);
-}
-inline ::Proto::Unity::ItemsAttribute* Items::add_m_attribute() {
-  // @@protoc_insertion_point(field_add:Proto.Unity.Items.m_attribute)
-  return m_attribute_.Add();
-}
-inline const ::google::protobuf::RepeatedPtrField< ::Proto::Unity::ItemsAttribute >&
-Items::m_attribute() const {
-  // @@protoc_insertion_point(field_list:Proto.Unity.Items.m_attribute)
-  return m_attribute_;
-}
-
-// -------------------------------------------------------------------
-
-// ItemsAttribute
-
-// .Proto.Unity.ItemsAttribute.ATTRIBUTETYPE m_type = 1;
-inline void ItemsAttribute::clear_m_type() {
-  m_type_ = 0;
-}
-inline ::Proto::Unity::ItemsAttribute_ATTRIBUTETYPE ItemsAttribute::m_type() const {
-  // @@protoc_insertion_point(field_get:Proto.Unity.ItemsAttribute.m_type)
-  return static_cast< ::Proto::Unity::ItemsAttribute_ATTRIBUTETYPE >(m_type_);
-}
-inline void ItemsAttribute::set_m_type(::Proto::Unity::ItemsAttribute_ATTRIBUTETYPE value) {
-  
-  m_type_ = value;
-  // @@protoc_insertion_point(field_set:Proto.Unity.ItemsAttribute.m_type)
-}
-
-// float m_value = 2;
-inline void ItemsAttribute::clear_m_value() {
-  m_value_ = 0;
-}
-inline float ItemsAttribute::m_value() const {
-  // @@protoc_insertion_point(field_get:Proto.Unity.ItemsAttribute.m_value)
-  return m_value_;
-}
-inline void ItemsAttribute::set_m_value(float value) {
-  
-  m_value_ = value;
-  // @@protoc_insertion_point(field_set:Proto.Unity.ItemsAttribute.m_value)
+inline void ItemUpdate::set_allocated_m_item(::Proto::Unity::Items* m_item) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete m_item_;
+  }
+  if (m_item) {
+    ::google::protobuf::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      m_item = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, m_item, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  m_item_ = m_item;
+  // @@protoc_insertion_point(field_set_allocated:Proto.Unity.ItemUpdate.m_item)
 }
 
 #ifdef __GNUC__
@@ -2753,23 +2691,6 @@ inline void ItemsAttribute::set_m_value(float value) {
 
 }  // namespace Unity
 }  // namespace Proto
-
-namespace google {
-namespace protobuf {
-
-template <> struct is_proto_enum< ::Proto::Unity::Items_ITEMTYPE> : ::std::true_type {};
-template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::Proto::Unity::Items_ITEMTYPE>() {
-  return ::Proto::Unity::Items_ITEMTYPE_descriptor();
-}
-template <> struct is_proto_enum< ::Proto::Unity::ItemsAttribute_ATTRIBUTETYPE> : ::std::true_type {};
-template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::Proto::Unity::ItemsAttribute_ATTRIBUTETYPE>() {
-  return ::Proto::Unity::ItemsAttribute_ATTRIBUTETYPE_descriptor();
-}
-
-}  // namespace protobuf
-}  // namespace google
 
 // @@protoc_insertion_point(global_scope)
 

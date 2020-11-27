@@ -29,6 +29,16 @@ int32_t Server::Init(int32_t port, const char* hostname)
         TRACER("dispatcher init failed\n");
         return -1;
     }
+
+    if (m_mysql.Init("ProjectA", "127.0.0.1:3306", "Blue", "1024") || m_mysql.Connect()) {
+        TRACER("mysql connect failed");
+        return -1;
+    }
+
+    if (m_redis.Init("127.0.0.1", 6379) || m_redis.Connect()) {
+        TRACER("redis connect failed");
+        return -1;
+    }
     return 0;
 }
 
@@ -167,5 +177,14 @@ int32_t Server::SendMsg()
     return 0;
 }
 
+unsigned int Server::BKDRHash(const std::string& _str)
+{
+    unsigned int seed = 1313;
+    unsigned int hash = 0;
+    for (auto& c : _str) {
+        hash = hash * seed + c;
+    }
+    return (hash & 0x7FFFFFFF)
+}
 
 

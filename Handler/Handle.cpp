@@ -12,7 +12,9 @@ int HandleUserLogin::operator()(void* _s)
     //SERVER.
     Player* player = static_cast<Player*>(_s);
 
-    (void) player->InitPlayer();
+    if (player->InitPlayer() < 0) {
+        return -1;
+    }
     
     player->m_msgTrans->SetType(static_cast<unsigned char>(EventType::USERLOGIN));
 
@@ -113,4 +115,5 @@ int HandleEventItem::operator()(void *_s)
 
     player->updateInventroy();
     
+    return 0;
 }

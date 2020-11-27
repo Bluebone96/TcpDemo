@@ -1,4 +1,4 @@
-file(REMOVE_RECURSE
+FILE(REMOVE_RECURSE
   "CMakeFiles/Server.dir/Server/main.cpp.o"
   "CMakeFiles/Server.dir/Player/Player.cpp.o"
   "CMakeFiles/Server.dir/Server/Server.cpp.o"
@@ -10,6 +10,6 @@ file(REMOVE_RECURSE
 )
 
 # Per-language clean rules from dependency scanning.
-foreach(lang CXX)
-  include(CMakeFiles/Server.dir/cmake_clean_${lang}.cmake OPTIONAL)
-endforeach()
+FOREACH(lang CXX)
+  INCLUDE(CMakeFiles/Server.dir/cmake_clean_${lang}.cmake OPTIONAL)
+ENDFOREACH(lang)

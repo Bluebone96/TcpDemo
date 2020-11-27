@@ -10,7 +10,10 @@
 int main()
 {
     mysqlpp::StoreQueryResult result;
-    ToMysql sql("ProjectA", "127.0.0.1:3306", "Blue", "1024");
+    ToMysql sql;
+
+    sql.Init("ProjectA", "127.0.0.1:3306", "Blue", "1024");
+    
     sql.Connect();
 
     PLAYER dog(33, "dog", 100, 50, 99, 0, 0, 0, 0);
@@ -21,7 +24,7 @@ int main()
 
     std::vector<PLAYER> players;
 
-    sql.testgetsql(players);
+    // sql.testgetsql(players);
     // char* cmd[] = {"PLAYER", "*", "id = 33" };
 
     // sql.GetBySQL(players, 3, cmd);

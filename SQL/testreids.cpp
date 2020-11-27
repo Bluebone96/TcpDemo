@@ -6,6 +6,7 @@ int main()
     ToRedis redis;
     
     char arr[20] = "just test";
+    redis.Init();
     redis.Connect();
     
     redis.SetByBit("test", arr, 20);
@@ -15,4 +16,5 @@ int main()
 
     std::cout << "reply: len is " << len << " data is " << result << std::endl;
 
+    
 }

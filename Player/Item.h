@@ -34,8 +34,8 @@ public:
     BaseItem(const BaseItem&, int n = 1);
     virtual void initItem(int) =0;
 
-    void setUID(unsigned long);
-    unsigned long getUID() const;
+    void setUID(uint);
+    uint getUID() const;
     void setType(int);
     int getType() const;
     int getConfID() const;
@@ -63,7 +63,7 @@ public:
 
 
 protected:
-    unsigned long m_nUID;       // UID  低 32 位 是 物品配置id, 高32位是该类型物品唯一id
+    uint m_nUID;                // UID  低 16 位 是 物品配置id, 高 16位是该类型物品唯一id
     int m_nFlagBit;             // 标记
     int m_nType;                // 类型  装备需要标记部位
     int m_nCount;               // 数量

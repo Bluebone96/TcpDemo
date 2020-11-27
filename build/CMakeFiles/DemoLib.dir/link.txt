@@ -1,2 +1,2 @@
-/bin/ar qc ../lib/libDemoLib.a  CMakeFiles/DemoLib.dir/Common/Epoll.cpp.o CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.o CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.o CMakeFiles/DemoLib.dir/PlayerInfo.pb.cc.o
-/bin/ranlib ../lib/libDemoLib.a
+/usr/bin/ar cr ../lib/libDemoLib.a  CMakeFiles/DemoLib.dir/Common/Epoll.cpp.o CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.o CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.o CMakeFiles/DemoLib.dir/PlayerInfo.pb.cc.o CMakeFiles/DemoLib.dir/SQL/tomysql.cpp.o CMakeFiles/DemoLib.dir/SQL/toredis.cpp.o
+/usr/bin/ranlib ../lib/libDemoLib.a

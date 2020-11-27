@@ -1,22 +1,87 @@
 #include "Player.h"
 #include "../Common/MsgTransmission.hpp"
-
 #include "../build/PlayerInfo.pb.h"
+#include <vector>
+#include <cstdlib>
+
+unsigned int BKDRHash(const std::string& _str)
+{
+    unsigned int seed = 1313;
+    unsigned int hash = 0;
+    for (auto& c : _str) {
+        hash = hash * seed + c;
+    }
+    return (hash & 0x7FFFFFFF);
+}
+
 
 int Player::InitPlayer()
 {
-    m_Id = m_msgTrans->GetSocketfd(); 
-    // 直接取 玩家发过来的 用户名 和 密码 进行初始化
+
     Proto::Unity::Authentication A;
     m_msgTrans->Decode(A);
-    m_name = A.name();
+    
+    unsigned int id = BKDRHash(A.name());
+    unsigned int pass = BKDRHash(A.password());
+
+    char tmp1 [30];
+    snprintf(tmp1, 30, "pass_%d", id);
+
+    char* data = nullptr;
+    int n = 0;
+    if (m_predis->GetByBit(tmp1, (void**)&data, &n)) {
+        
+    }
+    if (data) {
+        *((unsigned int*)data) == pass;
+        
+        snprintf(tmp1, 30, "usr_%d", id);
+
+        if (m_predis->GetByBit(tmp1, (void**)&data, &n)) {
+
+        }
+        if (data) {
+            m_protoInfo.ParseFromArray(data, n);
+            snprintf(m_idstr, 20, "%d", id);
+            return 0;
+        }
+    }
+
+
+    // redis 没找到， 去数据库找
+    std::vector<PASS> passSql;
+
+    char tmp[40];
+
+    snprintf(tmp, 40, "SELECT * FROM PASS where id = %d", id);
+
+    if (m_pmysql->GetBySQL(passSql, tmp)) {
+        
+    }
+
+    if (passSql[0].pass != pass) {
+        return -1;
+    }
+
+    std::vector<PLAYER> playerSql;
+
+    snprintf(tmp, 40, "SELECT * FROM PLAYER where id = %d", id);
+    if (m_pmysql->GetBySQL(playerSql, tmp)) {
+
+    }
+    
+
     TRACER("player name: %s\n id: %d", A.name().c_str(), m_Id);
 
-    m_protoInfo.set_id(m_Id);
+    m_Id = id;
+    m_name = playerSql[0].name;
+    m_protoInfo.set_id(id);
     m_protoInfo.set_name(m_name);
-    m_protoInfo.set_posx(random() % 10);
-    m_protoInfo.set_posz(random() % 10);
-    m_protoInfo.set_speed(10);
+    m_protoInfo.set_hp(playerSql[0].hp);
+    m_protoInfo.set_posx(playerSql[0].posx);
+    m_protoInfo.set_posz(playerSql[0].posz);
+    m_protoInfo.set_speed(playerSql[0].speed);
+
     m_protoInfo.set_state(0);
     return 0;
 }
@@ -102,35 +167,101 @@ int Player::updateInventroy()
     m_msgTrans->Decode(itemEvent);
     switch (itemEvent.optype())
     {
-    case 0:
-        rn = m_inventory.baseBagAdd(itemEvent.uid(), itemEvent.count());
-        break;
-    case 1:
-        rn = m_inventory.baseBagDel(itemEvent.uid(), itemEvent.count());
-        break;
-    case 2:
-        rn = m_inventory.baseBagUse(itemEvent.uid());
-        break;
-    case 3:
-        rn = m_inventory.moneyAdd(itemEvent.uid(), itemEvent.count());
-        break;
-    case 4:
-        rn = m_inventory.moneyDel(itemEvent.uid(), itemEvent.count());
-        break;
-    case 5:
-        rn = m_inventory.equipItem(itemEvent.uid());
-        break;
-    case 6:
-        rn = m_inventory.unequipItem(itemEvent.uid());
-        break;
-    case 7:
-        rn = m_inventory.tradeItem(itemEvent.uid(), itemEvent.count(), itemEvent.tid());
-        break;
-    default:
-        break;
+        case 0:
+            // TODO 装备工厂产生了一个装备后，写入数据库，然后这里去数据库找到了再加入
+            // m_inventory.addItem(nullptr);
+            rn = m_inventory.addItem(itemEvent.uid(), itemEvent.count());
+            break;
+        case 1:
+            rn = m_inventory.delItem(itemEvent.uid(), itemEvent.count());
+            break;
+        case 2:
+            rn = m_inventory.useItem(itemEvent.uid());
+            break;
+        case 3:
+            rn = m_inventory.equipItem(itemEvent.uid());
+            break;
+        case 4:
+            rn = m_inventory.unequipItem(itemEvent.uid());
+            break;
+        default:
+            break;
     }
 
     if (rn >= 0) {
         m_msgTrans->sendmsg(itemEvent);
     }
+}
+
+
+int Player::savePlayer()
+{
+    PLAYER playersql;
+
+    playersql.hp = m_protoInfo.hp();
+    playersql.posx = m_protoInfo.posx();
+    playersql.posz = m_protoInfo.posz();
+
+    m_pmysql->SetBySQL(playersql);
+
+    char tmp [30];
+
+    snprintf(tmp, 30, "usr_%d", m_Id);
+
+    int size = m_protoInfo.ByteSizeLong();
+    char tmp2[size];
+
+    m_protoInfo.SerializeToArray(tmp2, size);
+
+    m_predis->SetByBit(tmp, tmp2, size);
+
+    return 0;
+}
+
+
+int Player::saveItem(BaseItem* _item)
+{
+    ITEM item;
+
+    item.itemid = _item->getUID();
+
+    item.userid = m_Id;
+
+    item.type = _item->getType();
+
+    item.count = _item->getCount();
+
+    item.hp = _item->getAttribute(ItemAttributeType::ITEM_ATTRIBUTE_HP);
+    item.atk = _item->getAttribute(ItemAttributeType::ITEM_ATTRIBUTE_ATK);
+
+    m_pmysql->SetBySQL(item);
+
+
+    char key[20] = {0};
+    char fiel[20] = {0};
+    snprintf(key, 20, "%d", item.userid);
+    snprintf(fiel, 20, "%d", item.itemid);
+
+    Proto::Unity::Items item2;
+    item2.set_m_uid(item.itemid);
+    item2.set_m_type(item.type);
+    item2.set_m_count(item.count);
+    item2.set_m_hp(item.hp);
+    item2.set_m_atk(item.atk);
+
+    int size = item2.ByteSizeLong();
+    char tmp[size];
+    item2.SerializeToArray(tmp, size);
+
+    m_predis->HSetByBit(key, fiel, tmp, size);
+
+    return 0;
+}
+
+
+
+int Player::saveAll() {
+    this->savePlayer();
+    m_inventory.saveAll();
+    return 0;
 }

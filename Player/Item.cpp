@@ -47,19 +47,19 @@ BaseItem::BaseItem(const BaseItem& _bi, int _n)
 }
 
 
-unsigned long BaseItem::getUID() const
+uint BaseItem::getUID() const
 {
     return m_nUID;
 }
 
-void BaseItem::setUID(unsigned long _uid)
+void BaseItem::setUID(uint _uid)
 {
     m_nUID = _uid;
 }
 
 int BaseItem::getConfID() const
 {
-    return (m_nUID & 0x0000ffff);
+    return (m_nUID & 0xffff);
 }
 
 int BaseItem::getCount() const

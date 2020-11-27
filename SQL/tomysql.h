@@ -11,7 +11,10 @@
 // #define MYSQLPP_SSQLS_NO_STATICS
 // #endif
 
-
+sql_create_2 (PASS, 1, 2,
+    mysqlpp::sql_int, id,
+    mysqlpp::sql_int, pass
+)
 
 sql_create_9 (PLAYER, 2, 9,
     mysqlpp::sql_int, id,
@@ -26,9 +29,11 @@ sql_create_9 (PLAYER, 2, 9,
 )
 
 
-sql_create_7 (ITEM, 2, 7,
+sql_create_9 (ITEM, 2, 9,
     mysqlpp::sql_int, userid,
     mysqlpp::sql_int, itemid,
+    mysqlpp::sql_int, type,
+    mysqlpp::sql_int, count,
     mysqlpp::sql_char, name,
     mysqlpp::sql_int, hp,
     mysqlpp::sql_int, mp,
@@ -42,14 +47,28 @@ sql_create_7 (ITEM, 2, 7,
 // #include <mysql++/ssqls.h>
 
 
-// using namespace mysqlpp;
 
 
+// #define FORMATSTRING(_argc, format, args...) \
+// do { \
+//     if (_argc)
+
+// }
+
+
+
+
+
+
+
+
+// TODO 错误处理，出错会抛出异常，未处理
 class ToMysql {
 public:
-    ToMysql(const std::string& db, const std::string& server, const std::string&, const std::string&);
+    ToMysql();
     ~ToMysql();
 
+    int Init(const std::string& _db, const std::string& _server, const std::string& _usr, const std::string& _pass);
     int Connect();
     int DisConnect();
 
@@ -69,21 +88,7 @@ public:
     template<typename T>
     int GetBySQL( T& t, int _argc, const char* const _argv[]) 
     {
-        switch (_argc)
-        {
-        case 1:
-            snprintf(m_cmd, 50, "SELECT * FROM %s", _argv[0]);
-            break;
-        case 2:
-            snprintf(m_cmd, 50, "SELECT %s FROM %s ", _argv[1], _argv[0]);
-            break;
-        case 3:
-            snprintf(m_cmd, 50, "SELECT %s FROM %s where %s", _argv[1], _argv[0], _argv[2]);
-            break;
-        default:
-            // TODO tracer log
-            break;
-        }
+        FormatCmd(_argc, _argv);
 
         m_query << m_cmd;
 
@@ -92,17 +97,42 @@ public:
         return 0;
     }
 
+    // select * from _where = what 
     template<typename T>
-    int ModBySQL(const T& t)
+    int GetBySQL(T& t, const char* _table, const char* _where, const char* _what)
     {
+        // m_query << "select * from %0:table where %1:wheref = %2q:what";
 
+        // m_query.parse();
+
+        // t = m_query.store(_table, _where, _what);
+        snprintf(m_cmd, 50, "SELECT * FROM %s where %s = %s", _table, _where, _what);
+        m_query << m_cmd;
+        m_query.storein(t);
+        return 0;
     }
 
-    void testgetsql(std::vector<PLAYER>& _player)
+    
+    template<typename T>
+    int GetBySQL(T& t, const char* _cmd)
     {
-        m_query << "SELECT * FROM PLAYER";
-        m_query.storein(_player);
+        m_query << _cmd;
+        m_query.storein(t);
+        return 0;
     }
+
+    template<typename T>
+    int ModBySQL(const T& _old, const T& _new)
+    {
+        m_query.update(_old, _new)
+        m_query.execute();
+    }
+
+    // void testgetsql(std::vector<PLAYER>& _player)
+    // {
+    //     m_query << "SELECT * FROM PLAYER";
+    //     m_query.storein(_player);
+    // }
 
     // mysqlpp::Query& operator<<(const std::string&);
     
@@ -110,7 +140,7 @@ public:
     // mysqlpp::Query& operator>>(std::vecotr<string>&);
 private:
     int Query(const std::string&, mysqlpp::StoreQueryResult&);
-    
+    int FormatCmd(int _argc, const char * const _argv[]);
     char m_cmd[50];
     std::string m_dbname;
     std::string m_server;

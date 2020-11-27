@@ -1,4 +1,4 @@
-# cmake_minimum_required(VERSION 3.10)
+# cmake_minimum_required(VERSION 2.8)
 
 # set (PROJECT_NAME TcpDemo)
 
@@ -23,7 +23,7 @@
 
 
 
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 2.8)
 project(TcpDemo)
 
 set(CMAKE_VERBOSE_MAKEFILE ON)
@@ -49,9 +49,19 @@ PROTOBUF_GENERATE_CPP(PROTO_SRCS PROTO_HDRS ${PROTO_FILES})
 
 set(PROTOLIB ${PROTO_SRCS})
 
-add_library(DemoLib ${LIB_SRC} ${PROTOLIB})
+set(SQL_LIB
+    SQL/tomysql.cpp
+    SQL/toredis.cpp
+)
+
+
+add_library(DemoLib ${LIB_SRC} ${PROTOLIB} ${SQL_LIB})
 #add_library(Hook_static STATIC ${LIB_SRC})
 #SET_TARGET_PROPERTIES (Hook_static PROPERTIES OUTPUT_NAME "Hook_lib")
+
+
+
+
 
 # set(PLAYER_LIB
 #     Player/Inventory.hpp
@@ -60,7 +70,7 @@ add_library(DemoLib ${LIB_SRC} ${PROTOLIB})
 # )
 
 set(SERVER_LIB
-    Player/Inventory.hpp
+    Player/Inventory.h
     Player/PlayerStatus.hpp
     Player/Player.cpp
     Server/Server.cpp

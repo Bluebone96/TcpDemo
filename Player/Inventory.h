@@ -11,10 +11,10 @@
 
 struct Bag {
     int capacity;
-    std::set<unsigned long> items;
+    std::set<uint> items;
     Bag(int _n) : capacity(_n) { }
     void add(int _n) { items.insert(_n); }
-    void del(int _n) { items.remove(_n); }
+    void del(int _n) { items.erase(_n); }
     int isexist(int _n) { return items.count(_n); }
 };
 
@@ -27,19 +27,25 @@ public:
 
 
     int addItem(BaseItem*);
-    int delItem(unsigned long, int n = 1);
+    
+    // 增加已有的, 如money
+    int addItem(uint, int);
 
-    int useItem(unsigned long);
+    int delItem(uint, int n = 1);
 
-    int equipItem(unsigned long);
-    int unequipItem(unsigned long);
+    int useItem(uint);
 
-    int tradeItem(unsigned long _uid, int _n, int _playerid);
+    int equipItem(uint);
+    int unequipItem(uint);
+
+    int tradeItem(uint _uid, int _n, int _playerid);
+
+    int saveAll();
 
 private:
     Player* m_owner;
 
-    std::map<unsigned long, BaseItem*> m_mItems;
+    std::map<uint, BaseItem*> m_mItems;
 
     Bag m_baseBag;
     Bag m_equipBag;
