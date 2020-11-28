@@ -170,6 +170,23 @@ BaseItem* ConsumItem::getBak(int _n) const
     return new ConsumItem(*this, _n);
 }
 
+void ConsumItem::setAttribute(ItemAttributeType _key, int val)
+{
+    m_attribute[_key] = val;
+}
+
+int ConsumItem::getAttribute(ItemAttributeType _key) const
+{
+    int val = 0;
+    try {
+        val = m_attribute.at(_key);
+    } catch (...) {
+
+    }
+    return val;
+}
+
+
 
 EquipItem::EquipItem()
 {
@@ -205,9 +222,14 @@ int EquipItem::unequip()
     return -1;
 }
 
-int EquipItem::setAttribute(ItemAttributeType _key, int _val)
+void EquipItem::setAttribute(ItemAttributeType _key, int _val)
 {
-    
+    m_attribute[_key] = _val;
+}
+
+int EquipItem::getAttribute(ItemAttributeType _key) const
+{
+    return m_attribute.at(_key);
 }
 
 

@@ -1,2 +1,0 @@
-/home/blue/Code/TcpDemo/build/CMakeFiles/DemoLib.dir
-/home/blue/Code/TcpDemo/build/CMakeFiles/Server.dir

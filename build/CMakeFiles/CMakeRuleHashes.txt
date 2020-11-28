@@ -1,2 +1,0 @@
-# Hashes of file build rules.
-30c5897823fa328e1ddb077bbd7e6307 PlayerInfo.pb.cc
