@@ -2,11 +2,11 @@
 #include "ItemConfig.h"
 
 
-ItemAttribute& ItemAttribute::operator=(const ItemAttribute& _ia)
-{
-    m_mpValue = _ia.m_mpValue;
-    return *this;
-}
+// ItemAttribute& ItemAttribute::operator=(const ItemAttribute& _ia)
+// {
+//     m_mpValue = _ia.m_mpValue;
+//     return *this;
+// }
 
 
 BaseItem* ItemFactory::CreateItem(int _type, int _configId)
@@ -150,7 +150,7 @@ ConsumItem::~ConsumItem()
 
 ConsumItem::ConsumItem(const ConsumItem& _ci, int _n) : BaseItem(_ci, _n)
 {
-    m_Attribute = _ci.m_Attribute;
+    m_attribute = _ci.m_attribute;
 }
 
 void ConsumItem::initItem(int _confd)
@@ -174,6 +174,40 @@ BaseItem* ConsumItem::getBak(int _n) const
 EquipItem::EquipItem()
 {
 
+}
+
+
+EquipItem::~EquipItem()
+{
+
+}
+
+bool EquipItem::isEquip()
+{
+    return m_nFlagBit & 0x4;
+}
+
+int EquipItem::equip() 
+{
+    if (isEquip()) {
+        return -1;
+    }
+    m_nFlagBit |= 0x4;
+    return 0;
+}
+
+int EquipItem::unequip() 
+{
+    if (isEquip()) {
+        m_nFlagBit ^= 0x4;
+        return 0;
+    }
+    return -1;
+}
+
+int EquipItem::setAttribute(ItemAttributeType _key, int _val)
+{
+    
 }
 
 

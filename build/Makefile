@@ -274,6 +274,54 @@ Handler/Handle.cpp.s:
 	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Handler/Handle.cpp.s
 .PHONY : Handler/Handle.cpp.s
 
+Player/Inventory.o: Player/Inventory.cpp.o
+.PHONY : Player/Inventory.o
+
+# target to build an object file
+Player/Inventory.cpp.o:
+	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Player/Inventory.cpp.o
+.PHONY : Player/Inventory.cpp.o
+
+Player/Inventory.i: Player/Inventory.cpp.i
+.PHONY : Player/Inventory.i
+
+# target to preprocess a source file
+Player/Inventory.cpp.i:
+	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Player/Inventory.cpp.i
+.PHONY : Player/Inventory.cpp.i
+
+Player/Inventory.s: Player/Inventory.cpp.s
+.PHONY : Player/Inventory.s
+
+# target to generate assembly for a file
+Player/Inventory.cpp.s:
+	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Player/Inventory.cpp.s
+.PHONY : Player/Inventory.cpp.s
+
+Player/Item.o: Player/Item.cpp.o
+.PHONY : Player/Item.o
+
+# target to build an object file
+Player/Item.cpp.o:
+	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Player/Item.cpp.o
+.PHONY : Player/Item.cpp.o
+
+Player/Item.i: Player/Item.cpp.i
+.PHONY : Player/Item.i
+
+# target to preprocess a source file
+Player/Item.cpp.i:
+	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Player/Item.cpp.i
+.PHONY : Player/Item.cpp.i
+
+Player/Item.s: Player/Item.cpp.s
+.PHONY : Player/Item.s
+
+# target to generate assembly for a file
+Player/Item.cpp.s:
+	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Player/Item.cpp.s
+.PHONY : Player/Item.cpp.s
+
 Player/Player.o: Player/Player.cpp.o
 .PHONY : Player/Player.o
 
@@ -446,6 +494,12 @@ help:
 	@echo "... Handler/Handle.o"
 	@echo "... Handler/Handle.i"
 	@echo "... Handler/Handle.s"
+	@echo "... Player/Inventory.o"
+	@echo "... Player/Inventory.i"
+	@echo "... Player/Inventory.s"
+	@echo "... Player/Item.o"
+	@echo "... Player/Item.i"
+	@echo "... Player/Item.s"
 	@echo "... Player/Player.o"
 	@echo "... Player/Player.i"
 	@echo "... Player/Player.s"

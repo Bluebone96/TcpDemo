@@ -3,7 +3,7 @@
 
 // #define  EOK 0
 // #define  ERR -1
-#include "../build/PlayerInfo.pb.h"
+#include "../Proto/PlayerInfo.pb.h"
 
 typedef  ::google::protobuf::Message PROTOBUF;
 

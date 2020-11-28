@@ -34,7 +34,7 @@ int Player::InitPlayer()
             snprintf(key1, 30, "usr_%d", id);
             if (REDIS.Get(key1, buf, &len) == EOK) {
                 m_protoInfo.ParseFromArray(buf, len);
-                m_inventory.InitInventory(this);
+                m_inventory.InitInventory(this, m_fuckAllPb.mutable_baginfo());
                 return 0;
             }
         }
@@ -59,6 +59,8 @@ int Player::InitPlayer()
 
     snprintf(tmp, 40, "SELECT * FROM PLAYER where id = %d", id);
     if (MYSQL.GetBySQL(playerSql, tmp) < 0) {
+        
+        
         return -1;
     }
     
@@ -74,7 +76,7 @@ int Player::InitPlayer()
     m_protoInfo.set_speed(playerSql[0].speed);
     m_protoInfo.set_state(0);
 
-    m_inventory.InitInventory(this);
+    m_inventory.InitInventory(this, m_fuckAllPb.mutable_baginfo());
     
     return 0;
 }
@@ -212,48 +214,17 @@ int Player::savePlayer()
 }
 
 
-// int Player::saveItem(BaseItem* _item)
-// {
-//     ITEM item;
-
-//     item.itemid = _item->getUID();
-
-//     item.userid = m_Id;
-
-//     item.type = _item->getType();
-
-//     item.count = _item->getCount();
-
-//     item.hp = _item->getAttribute(ItemAttributeType::ITEM_ATTRIBUTE_HP);
-//     item.atk = _item->getAttribute(ItemAttributeType::ITEM_ATTRIBUTE_ATK);
-
-//     MYSQL.SetBySQL(item);
-
-
-//     char key[20] = {0};
-//     char fiel[20] = {0};
-//     snprintf(key, 20, "bag_%d", item.userid);
-//     snprintf(fiel, 20, "item_%d", item.itemid);
-
-//     Proto::Unity::Items item2;
-//     item2.set_m_uid(item.itemid);
-//     item2.set_m_type(item.type);
-//     item2.set_m_count(item.count);
-//     item2.set_m_hp(item.hp);
-//     item2.set_m_atk(item.atk);
-
-//     int size = item2.ByteSizeLong();
-//     char tmp[size];
-//     item2.SerializeToArray(tmp, size);
-
-//     REDIS.HSetByBit(key, fiel, tmp, size);
-
-//     return 0;
-// }
-
 
 int Player::saveAll() {
     this->savePlayer();
     m_inventory.saveAll();
     return 0;
+}
+
+
+Proto::Unity::PlayerAllFuckInfo&  Player::getAllFuckInfo()
+{
+    m_fuckAllPb.mutable_baseinfo()->operator=(m_protoInfo);
+
+    return m_fuckAllPb;
 }

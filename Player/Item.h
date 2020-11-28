@@ -22,12 +22,23 @@ enum class ItemAttributeType {
 };
 
 
-// 道具模块类型
-enum class ItemModuleType {
-    ITEM_MODULE_BASE,           // 基础模块
-    ITEM_MODULE_POWER,          // 强化
-    ITEM_MODULE_INSERT_ITEM     // 镶嵌
-};
+// // 道具模块类型
+// enum class ItemModuleType {
+//     ITEM_MODULE_BASE,           // 基础模块
+//     ITEM_MODULE_POWER,          // 强化
+//     ITEM_MODULE_INSERT_ITEM     // 镶嵌
+// };
+
+
+// class ItemAttribute {
+// public:
+//     void setAttribute(ItemAttributeType _key, int _value);
+//     int getAttribute(ItemAttributeType _key);
+//     ItemAttribute& operator=(const ItemAttribute&);
+// private:
+//     std::map<ItemAttributeType, int> m_mpValue;
+// };
+
 
 class BaseItem {
 public:
@@ -67,31 +78,29 @@ public:
 
 protected:
     uint m_nUID;                // UID  低 16 位 是 物品配置id, 高 16位是该类型物品唯一id
-    int m_nFlagBit;             // 标记
+    int m_nFlagBit;             // 标记 是否绑定0x1，  是否可叠加 0x2, 是否已装备0x4
     int m_nType;                // 类型  装备需要标记部位
     int m_nCount;               // 数量
     bool m_bSaveNow;            // 立即存档
 };
 
-class ItemAttribute {
-public:
-    void setAttribute(ItemAttributeType _key, int _value);
-    int getAttribute(ItemAttributeType _key);
-    ItemAttribute& operator=(const ItemAttribute&);
-private:
-    std::map<ItemAttributeType, int> m_mpValue;
-};
+
 
 
 class EquipItem : public BaseItem {
 public:
     void initItem(int) override;
-    int addItem(const int) override;
+    int addItem(const int) override { return -1; /* 装备不可加 */};
     std::string toString() const override;
     BaseItem* getBak(int n) const override;
+    bool isEquip();
+    int equip();
+    int unequip();
+    void setAttribute(ItemAttributeType key, int value);
+    int getAttribute(ItemAttributeType key) const;
 private:
 
-    std::map<ItemModuleType, ItemAttribute> m_mAttributes;
+    std::map<ItemAttributeType, int> m_attribute;
 };
 
 
@@ -113,14 +122,15 @@ public:
     ~ConsumItem();
     ConsumItem(const ConsumItem&, int _n = 1);
 
-    virtual int getAttribute(ItemAttributeType key) const;
+    int getAttribute(ItemAttributeType key) const;
+    void setAttribute(ItemAttributeType key, int value);
     
     void initItem(int) override;
     std::string toString() const override;
     BaseItem* getBak(int) const override;
 
 private:
-    ItemAttribute m_Attribute;
+    std::map<ItemAttributeType, int> m_attribute;
 };
 
 class ItemFactory {

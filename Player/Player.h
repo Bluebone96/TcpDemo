@@ -64,6 +64,8 @@ public:
 
     int getPlayer();
 
+    Proto::Unity::PlayerAllFuckInfo&  getAllFuckInfo();
+
 private:
 
     int32_t m_Id; 
@@ -79,6 +81,8 @@ private:
     Proto::Unity::PlayerInfo m_protoInfo;
 
     Proto::Unity::Operation m_opNew;
+
+    Proto::Unity::PlayerAllFuckInfo m_fuckAllPb;
 
     struct  timeval  m_offline; // 5秒 无响应下线
 

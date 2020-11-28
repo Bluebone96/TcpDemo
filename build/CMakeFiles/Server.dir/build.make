@@ -59,15 +59,15 @@ CMakeFiles/Server.dir/Server/main.cpp.o: CMakeFiles/Server.dir/flags.make
 CMakeFiles/Server.dir/Server/main.cpp.o: ../Server/main.cpp
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/blue/Code/TcpDemo/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Server.dir/Server/main.cpp.o"
-	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Server.dir/Server/main.cpp.o -c /home/blue/Code/TcpDemo/Server/main.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Server.dir/Server/main.cpp.o -c /home/blue/Code/TcpDemo/Server/main.cpp
 
 CMakeFiles/Server.dir/Server/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Server.dir/Server/main.cpp.i"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/Server/main.cpp > CMakeFiles/Server.dir/Server/main.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/Server/main.cpp > CMakeFiles/Server.dir/Server/main.cpp.i
 
 CMakeFiles/Server.dir/Server/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Server.dir/Server/main.cpp.s"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/Server/main.cpp -o CMakeFiles/Server.dir/Server/main.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/Server/main.cpp -o CMakeFiles/Server.dir/Server/main.cpp.s
 
 CMakeFiles/Server.dir/Server/main.cpp.o.requires:
 .PHONY : CMakeFiles/Server.dir/Server/main.cpp.o.requires
@@ -78,19 +78,65 @@ CMakeFiles/Server.dir/Server/main.cpp.o.provides: CMakeFiles/Server.dir/Server/m
 
 CMakeFiles/Server.dir/Server/main.cpp.o.provides.build: CMakeFiles/Server.dir/Server/main.cpp.o
 
+CMakeFiles/Server.dir/Player/Item.cpp.o: CMakeFiles/Server.dir/flags.make
+CMakeFiles/Server.dir/Player/Item.cpp.o: ../Player/Item.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/blue/Code/TcpDemo/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Server.dir/Player/Item.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Server.dir/Player/Item.cpp.o -c /home/blue/Code/TcpDemo/Player/Item.cpp
+
+CMakeFiles/Server.dir/Player/Item.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Server.dir/Player/Item.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/Player/Item.cpp > CMakeFiles/Server.dir/Player/Item.cpp.i
+
+CMakeFiles/Server.dir/Player/Item.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Server.dir/Player/Item.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/Player/Item.cpp -o CMakeFiles/Server.dir/Player/Item.cpp.s
+
+CMakeFiles/Server.dir/Player/Item.cpp.o.requires:
+.PHONY : CMakeFiles/Server.dir/Player/Item.cpp.o.requires
+
+CMakeFiles/Server.dir/Player/Item.cpp.o.provides: CMakeFiles/Server.dir/Player/Item.cpp.o.requires
+	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Player/Item.cpp.o.provides.build
+.PHONY : CMakeFiles/Server.dir/Player/Item.cpp.o.provides
+
+CMakeFiles/Server.dir/Player/Item.cpp.o.provides.build: CMakeFiles/Server.dir/Player/Item.cpp.o
+
+CMakeFiles/Server.dir/Player/Inventory.cpp.o: CMakeFiles/Server.dir/flags.make
+CMakeFiles/Server.dir/Player/Inventory.cpp.o: ../Player/Inventory.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/blue/Code/TcpDemo/build/CMakeFiles $(CMAKE_PROGRESS_3)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Server.dir/Player/Inventory.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Server.dir/Player/Inventory.cpp.o -c /home/blue/Code/TcpDemo/Player/Inventory.cpp
+
+CMakeFiles/Server.dir/Player/Inventory.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Server.dir/Player/Inventory.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/Player/Inventory.cpp > CMakeFiles/Server.dir/Player/Inventory.cpp.i
+
+CMakeFiles/Server.dir/Player/Inventory.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Server.dir/Player/Inventory.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/Player/Inventory.cpp -o CMakeFiles/Server.dir/Player/Inventory.cpp.s
+
+CMakeFiles/Server.dir/Player/Inventory.cpp.o.requires:
+.PHONY : CMakeFiles/Server.dir/Player/Inventory.cpp.o.requires
+
+CMakeFiles/Server.dir/Player/Inventory.cpp.o.provides: CMakeFiles/Server.dir/Player/Inventory.cpp.o.requires
+	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Player/Inventory.cpp.o.provides.build
+.PHONY : CMakeFiles/Server.dir/Player/Inventory.cpp.o.provides
+
+CMakeFiles/Server.dir/Player/Inventory.cpp.o.provides.build: CMakeFiles/Server.dir/Player/Inventory.cpp.o
+
 CMakeFiles/Server.dir/Player/Player.cpp.o: CMakeFiles/Server.dir/flags.make
 CMakeFiles/Server.dir/Player/Player.cpp.o: ../Player/Player.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/blue/Code/TcpDemo/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/blue/Code/TcpDemo/build/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Server.dir/Player/Player.cpp.o"
-	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Server.dir/Player/Player.cpp.o -c /home/blue/Code/TcpDemo/Player/Player.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Server.dir/Player/Player.cpp.o -c /home/blue/Code/TcpDemo/Player/Player.cpp
 
 CMakeFiles/Server.dir/Player/Player.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Server.dir/Player/Player.cpp.i"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/Player/Player.cpp > CMakeFiles/Server.dir/Player/Player.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/Player/Player.cpp > CMakeFiles/Server.dir/Player/Player.cpp.i
 
 CMakeFiles/Server.dir/Player/Player.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Server.dir/Player/Player.cpp.s"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/Player/Player.cpp -o CMakeFiles/Server.dir/Player/Player.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/Player/Player.cpp -o CMakeFiles/Server.dir/Player/Player.cpp.s
 
 CMakeFiles/Server.dir/Player/Player.cpp.o.requires:
 .PHONY : CMakeFiles/Server.dir/Player/Player.cpp.o.requires
@@ -103,17 +149,17 @@ CMakeFiles/Server.dir/Player/Player.cpp.o.provides.build: CMakeFiles/Server.dir/
 
 CMakeFiles/Server.dir/Server/Server.cpp.o: CMakeFiles/Server.dir/flags.make
 CMakeFiles/Server.dir/Server/Server.cpp.o: ../Server/Server.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/blue/Code/TcpDemo/build/CMakeFiles $(CMAKE_PROGRESS_3)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/blue/Code/TcpDemo/build/CMakeFiles $(CMAKE_PROGRESS_5)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Server.dir/Server/Server.cpp.o"
-	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Server.dir/Server/Server.cpp.o -c /home/blue/Code/TcpDemo/Server/Server.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Server.dir/Server/Server.cpp.o -c /home/blue/Code/TcpDemo/Server/Server.cpp
 
 CMakeFiles/Server.dir/Server/Server.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Server.dir/Server/Server.cpp.i"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/Server/Server.cpp > CMakeFiles/Server.dir/Server/Server.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/Server/Server.cpp > CMakeFiles/Server.dir/Server/Server.cpp.i
 
 CMakeFiles/Server.dir/Server/Server.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Server.dir/Server/Server.cpp.s"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/Server/Server.cpp -o CMakeFiles/Server.dir/Server/Server.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/Server/Server.cpp -o CMakeFiles/Server.dir/Server/Server.cpp.s
 
 CMakeFiles/Server.dir/Server/Server.cpp.o.requires:
 .PHONY : CMakeFiles/Server.dir/Server/Server.cpp.o.requires
@@ -126,17 +172,17 @@ CMakeFiles/Server.dir/Server/Server.cpp.o.provides.build: CMakeFiles/Server.dir/
 
 CMakeFiles/Server.dir/Handler/Handle.cpp.o: CMakeFiles/Server.dir/flags.make
 CMakeFiles/Server.dir/Handler/Handle.cpp.o: ../Handler/Handle.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/blue/Code/TcpDemo/build/CMakeFiles $(CMAKE_PROGRESS_4)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/blue/Code/TcpDemo/build/CMakeFiles $(CMAKE_PROGRESS_6)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Server.dir/Handler/Handle.cpp.o"
-	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Server.dir/Handler/Handle.cpp.o -c /home/blue/Code/TcpDemo/Handler/Handle.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Server.dir/Handler/Handle.cpp.o -c /home/blue/Code/TcpDemo/Handler/Handle.cpp
 
 CMakeFiles/Server.dir/Handler/Handle.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Server.dir/Handler/Handle.cpp.i"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/Handler/Handle.cpp > CMakeFiles/Server.dir/Handler/Handle.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/Handler/Handle.cpp > CMakeFiles/Server.dir/Handler/Handle.cpp.i
 
 CMakeFiles/Server.dir/Handler/Handle.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Server.dir/Handler/Handle.cpp.s"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/Handler/Handle.cpp -o CMakeFiles/Server.dir/Handler/Handle.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/Handler/Handle.cpp -o CMakeFiles/Server.dir/Handler/Handle.cpp.s
 
 CMakeFiles/Server.dir/Handler/Handle.cpp.o.requires:
 .PHONY : CMakeFiles/Server.dir/Handler/Handle.cpp.o.requires
@@ -149,17 +195,17 @@ CMakeFiles/Server.dir/Handler/Handle.cpp.o.provides.build: CMakeFiles/Server.dir
 
 CMakeFiles/Server.dir/Handler/EventHandler.cpp.o: CMakeFiles/Server.dir/flags.make
 CMakeFiles/Server.dir/Handler/EventHandler.cpp.o: ../Handler/EventHandler.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/blue/Code/TcpDemo/build/CMakeFiles $(CMAKE_PROGRESS_5)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/blue/Code/TcpDemo/build/CMakeFiles $(CMAKE_PROGRESS_7)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Server.dir/Handler/EventHandler.cpp.o"
-	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Server.dir/Handler/EventHandler.cpp.o -c /home/blue/Code/TcpDemo/Handler/EventHandler.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Server.dir/Handler/EventHandler.cpp.o -c /home/blue/Code/TcpDemo/Handler/EventHandler.cpp
 
 CMakeFiles/Server.dir/Handler/EventHandler.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Server.dir/Handler/EventHandler.cpp.i"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/Handler/EventHandler.cpp > CMakeFiles/Server.dir/Handler/EventHandler.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/Handler/EventHandler.cpp > CMakeFiles/Server.dir/Handler/EventHandler.cpp.i
 
 CMakeFiles/Server.dir/Handler/EventHandler.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Server.dir/Handler/EventHandler.cpp.s"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/Handler/EventHandler.cpp -o CMakeFiles/Server.dir/Handler/EventHandler.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/Handler/EventHandler.cpp -o CMakeFiles/Server.dir/Handler/EventHandler.cpp.s
 
 CMakeFiles/Server.dir/Handler/EventHandler.cpp.o.requires:
 .PHONY : CMakeFiles/Server.dir/Handler/EventHandler.cpp.o.requires
@@ -172,17 +218,17 @@ CMakeFiles/Server.dir/Handler/EventHandler.cpp.o.provides.build: CMakeFiles/Serv
 
 CMakeFiles/Server.dir/Handler/Dispatcher.cpp.o: CMakeFiles/Server.dir/flags.make
 CMakeFiles/Server.dir/Handler/Dispatcher.cpp.o: ../Handler/Dispatcher.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/blue/Code/TcpDemo/build/CMakeFiles $(CMAKE_PROGRESS_6)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/blue/Code/TcpDemo/build/CMakeFiles $(CMAKE_PROGRESS_8)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Server.dir/Handler/Dispatcher.cpp.o"
-	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Server.dir/Handler/Dispatcher.cpp.o -c /home/blue/Code/TcpDemo/Handler/Dispatcher.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Server.dir/Handler/Dispatcher.cpp.o -c /home/blue/Code/TcpDemo/Handler/Dispatcher.cpp
 
 CMakeFiles/Server.dir/Handler/Dispatcher.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Server.dir/Handler/Dispatcher.cpp.i"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/Handler/Dispatcher.cpp > CMakeFiles/Server.dir/Handler/Dispatcher.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/Handler/Dispatcher.cpp > CMakeFiles/Server.dir/Handler/Dispatcher.cpp.i
 
 CMakeFiles/Server.dir/Handler/Dispatcher.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Server.dir/Handler/Dispatcher.cpp.s"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/Handler/Dispatcher.cpp -o CMakeFiles/Server.dir/Handler/Dispatcher.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/Handler/Dispatcher.cpp -o CMakeFiles/Server.dir/Handler/Dispatcher.cpp.s
 
 CMakeFiles/Server.dir/Handler/Dispatcher.cpp.o.requires:
 .PHONY : CMakeFiles/Server.dir/Handler/Dispatcher.cpp.o.requires
@@ -196,6 +242,8 @@ CMakeFiles/Server.dir/Handler/Dispatcher.cpp.o.provides.build: CMakeFiles/Server
 # Object files for target Server
 Server_OBJECTS = \
 "CMakeFiles/Server.dir/Server/main.cpp.o" \
+"CMakeFiles/Server.dir/Player/Item.cpp.o" \
+"CMakeFiles/Server.dir/Player/Inventory.cpp.o" \
 "CMakeFiles/Server.dir/Player/Player.cpp.o" \
 "CMakeFiles/Server.dir/Server/Server.cpp.o" \
 "CMakeFiles/Server.dir/Handler/Handle.cpp.o" \
@@ -206,6 +254,8 @@ Server_OBJECTS = \
 Server_EXTERNAL_OBJECTS =
 
 ../bin/Server: CMakeFiles/Server.dir/Server/main.cpp.o
+../bin/Server: CMakeFiles/Server.dir/Player/Item.cpp.o
+../bin/Server: CMakeFiles/Server.dir/Player/Inventory.cpp.o
 ../bin/Server: CMakeFiles/Server.dir/Player/Player.cpp.o
 ../bin/Server: CMakeFiles/Server.dir/Server/Server.cpp.o
 ../bin/Server: CMakeFiles/Server.dir/Handler/Handle.cpp.o
@@ -222,6 +272,8 @@ CMakeFiles/Server.dir/build: ../bin/Server
 .PHONY : CMakeFiles/Server.dir/build
 
 CMakeFiles/Server.dir/requires: CMakeFiles/Server.dir/Server/main.cpp.o.requires
+CMakeFiles/Server.dir/requires: CMakeFiles/Server.dir/Player/Item.cpp.o.requires
+CMakeFiles/Server.dir/requires: CMakeFiles/Server.dir/Player/Inventory.cpp.o.requires
 CMakeFiles/Server.dir/requires: CMakeFiles/Server.dir/Player/Player.cpp.o.requires
 CMakeFiles/Server.dir/requires: CMakeFiles/Server.dir/Server/Server.cpp.o.requires
 CMakeFiles/Server.dir/requires: CMakeFiles/Server.dir/Handler/Handle.cpp.o.requires

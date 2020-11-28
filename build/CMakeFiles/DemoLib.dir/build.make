@@ -66,15 +66,15 @@ CMakeFiles/DemoLib.dir/Common/Epoll.cpp.o: CMakeFiles/DemoLib.dir/flags.make
 CMakeFiles/DemoLib.dir/Common/Epoll.cpp.o: ../Common/Epoll.cpp
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/blue/Code/TcpDemo/build/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/DemoLib.dir/Common/Epoll.cpp.o"
-	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/DemoLib.dir/Common/Epoll.cpp.o -c /home/blue/Code/TcpDemo/Common/Epoll.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/DemoLib.dir/Common/Epoll.cpp.o -c /home/blue/Code/TcpDemo/Common/Epoll.cpp
 
 CMakeFiles/DemoLib.dir/Common/Epoll.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/DemoLib.dir/Common/Epoll.cpp.i"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/Common/Epoll.cpp > CMakeFiles/DemoLib.dir/Common/Epoll.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/Common/Epoll.cpp > CMakeFiles/DemoLib.dir/Common/Epoll.cpp.i
 
 CMakeFiles/DemoLib.dir/Common/Epoll.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/DemoLib.dir/Common/Epoll.cpp.s"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/Common/Epoll.cpp -o CMakeFiles/DemoLib.dir/Common/Epoll.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/Common/Epoll.cpp -o CMakeFiles/DemoLib.dir/Common/Epoll.cpp.s
 
 CMakeFiles/DemoLib.dir/Common/Epoll.cpp.o.requires:
 .PHONY : CMakeFiles/DemoLib.dir/Common/Epoll.cpp.o.requires
@@ -89,15 +89,15 @@ CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.o: CMakeFiles/DemoLib.dir/flags.make
 CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.o: ../Common/TcpSocket.cpp
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/blue/Code/TcpDemo/build/CMakeFiles $(CMAKE_PROGRESS_3)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.o"
-	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.o -c /home/blue/Code/TcpDemo/Common/TcpSocket.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.o -c /home/blue/Code/TcpDemo/Common/TcpSocket.cpp
 
 CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.i"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/Common/TcpSocket.cpp > CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/Common/TcpSocket.cpp > CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.i
 
 CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.s"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/Common/TcpSocket.cpp -o CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/Common/TcpSocket.cpp -o CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.s
 
 CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.o.requires:
 .PHONY : CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.o.requires
@@ -112,15 +112,15 @@ CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.o: CMakeFiles/DemoLib.dir/flags.make
 CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.o: ../Common/MsgRecord.cpp
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/blue/Code/TcpDemo/build/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.o"
-	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.o -c /home/blue/Code/TcpDemo/Common/MsgRecord.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.o -c /home/blue/Code/TcpDemo/Common/MsgRecord.cpp
 
 CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.i"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/Common/MsgRecord.cpp > CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/Common/MsgRecord.cpp > CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.i
 
 CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.s"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/Common/MsgRecord.cpp -o CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/Common/MsgRecord.cpp -o CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.s
 
 CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.o.requires:
 .PHONY : CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.o.requires
@@ -135,15 +135,15 @@ CMakeFiles/DemoLib.dir/PlayerInfo.pb.cc.o: CMakeFiles/DemoLib.dir/flags.make
 CMakeFiles/DemoLib.dir/PlayerInfo.pb.cc.o: PlayerInfo.pb.cc
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/blue/Code/TcpDemo/build/CMakeFiles $(CMAKE_PROGRESS_5)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/DemoLib.dir/PlayerInfo.pb.cc.o"
-	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/DemoLib.dir/PlayerInfo.pb.cc.o -c /home/blue/Code/TcpDemo/build/PlayerInfo.pb.cc
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/DemoLib.dir/PlayerInfo.pb.cc.o -c /home/blue/Code/TcpDemo/build/PlayerInfo.pb.cc
 
 CMakeFiles/DemoLib.dir/PlayerInfo.pb.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/DemoLib.dir/PlayerInfo.pb.cc.i"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/build/PlayerInfo.pb.cc > CMakeFiles/DemoLib.dir/PlayerInfo.pb.cc.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/build/PlayerInfo.pb.cc > CMakeFiles/DemoLib.dir/PlayerInfo.pb.cc.i
 
 CMakeFiles/DemoLib.dir/PlayerInfo.pb.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/DemoLib.dir/PlayerInfo.pb.cc.s"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/build/PlayerInfo.pb.cc -o CMakeFiles/DemoLib.dir/PlayerInfo.pb.cc.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/build/PlayerInfo.pb.cc -o CMakeFiles/DemoLib.dir/PlayerInfo.pb.cc.s
 
 CMakeFiles/DemoLib.dir/PlayerInfo.pb.cc.o.requires:
 .PHONY : CMakeFiles/DemoLib.dir/PlayerInfo.pb.cc.o.requires
@@ -158,15 +158,15 @@ CMakeFiles/DemoLib.dir/SQL/tomysql.cpp.o: CMakeFiles/DemoLib.dir/flags.make
 CMakeFiles/DemoLib.dir/SQL/tomysql.cpp.o: ../SQL/tomysql.cpp
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/blue/Code/TcpDemo/build/CMakeFiles $(CMAKE_PROGRESS_6)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/DemoLib.dir/SQL/tomysql.cpp.o"
-	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/DemoLib.dir/SQL/tomysql.cpp.o -c /home/blue/Code/TcpDemo/SQL/tomysql.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/DemoLib.dir/SQL/tomysql.cpp.o -c /home/blue/Code/TcpDemo/SQL/tomysql.cpp
 
 CMakeFiles/DemoLib.dir/SQL/tomysql.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/DemoLib.dir/SQL/tomysql.cpp.i"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/SQL/tomysql.cpp > CMakeFiles/DemoLib.dir/SQL/tomysql.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/SQL/tomysql.cpp > CMakeFiles/DemoLib.dir/SQL/tomysql.cpp.i
 
 CMakeFiles/DemoLib.dir/SQL/tomysql.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/DemoLib.dir/SQL/tomysql.cpp.s"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/SQL/tomysql.cpp -o CMakeFiles/DemoLib.dir/SQL/tomysql.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/SQL/tomysql.cpp -o CMakeFiles/DemoLib.dir/SQL/tomysql.cpp.s
 
 CMakeFiles/DemoLib.dir/SQL/tomysql.cpp.o.requires:
 .PHONY : CMakeFiles/DemoLib.dir/SQL/tomysql.cpp.o.requires
@@ -181,15 +181,15 @@ CMakeFiles/DemoLib.dir/SQL/toredis.cpp.o: CMakeFiles/DemoLib.dir/flags.make
 CMakeFiles/DemoLib.dir/SQL/toredis.cpp.o: ../SQL/toredis.cpp
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/blue/Code/TcpDemo/build/CMakeFiles $(CMAKE_PROGRESS_7)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/DemoLib.dir/SQL/toredis.cpp.o"
-	/usr/bin/g++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/DemoLib.dir/SQL/toredis.cpp.o -c /home/blue/Code/TcpDemo/SQL/toredis.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/DemoLib.dir/SQL/toredis.cpp.o -c /home/blue/Code/TcpDemo/SQL/toredis.cpp
 
 CMakeFiles/DemoLib.dir/SQL/toredis.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/DemoLib.dir/SQL/toredis.cpp.i"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/SQL/toredis.cpp > CMakeFiles/DemoLib.dir/SQL/toredis.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/blue/Code/TcpDemo/SQL/toredis.cpp > CMakeFiles/DemoLib.dir/SQL/toredis.cpp.i
 
 CMakeFiles/DemoLib.dir/SQL/toredis.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/DemoLib.dir/SQL/toredis.cpp.s"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/SQL/toredis.cpp -o CMakeFiles/DemoLib.dir/SQL/toredis.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/blue/Code/TcpDemo/SQL/toredis.cpp -o CMakeFiles/DemoLib.dir/SQL/toredis.cpp.s
 
 CMakeFiles/DemoLib.dir/SQL/toredis.cpp.o.requires:
 .PHONY : CMakeFiles/DemoLib.dir/SQL/toredis.cpp.o.requires

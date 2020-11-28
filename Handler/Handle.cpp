@@ -9,7 +9,7 @@ int HandleUserLogin::operator()(void* _s)
 
     TRACER("HandleUserLogin\n");
     // TODO
-    //SERVER.
+    // SERVER.
     Player* player = static_cast<Player*>(_s);
 
     if (player->InitPlayer() < 0) {
@@ -20,13 +20,12 @@ int HandleUserLogin::operator()(void* _s)
 
     player->m_msgTrans->SetId(player->getId());
 
-    player->m_msgTrans->sendmsg(player->GetPlayerInfo());
+    player->m_msgTrans->sendmsg(player->getAllFuckInfo());
 
     player->m_msgTrans->SetType(static_cast<unsigned char>(EventType::USERSYNC));
 
-    player->m_msgTrans->Encode();
+    player->m_msgTrans->Encode(player->GetPlayerInfo());
 
-    
     SERVER.SendMsgToAll(player->m_msgTrans->GetDataAddress(), player->m_msgTrans->GetLen() + player->m_msgTrans->m_RecordSize);
 
     TRACER("HandleUserLogin end\n");

@@ -12,7 +12,7 @@ Inventory::~Inventory()
     
 }
 
-int Inventory::InitInventory(Player* _p)
+int Inventory::InitInventory(Player* _p,  Proto::Unity::PlayerBag* _pb)
 {
     m_player = _p;
 
@@ -23,9 +23,13 @@ int Inventory::InitInventory(Player* _p)
 
     if (REDIS.HMGET(m_bagkey, (char**)buf, &count) == 0) {
         for (int i = 0; i < count; ++i) {
-            m_itempb.ParseFromString(buf[i]);
+            // m_itempb.ParseFromString(buf[i]);
+            Proto::Unity::ItemInfo *pitem  =  _pb->add_items();
+            pitem->ParseFromString(buf[i]);
+
             BaseItem* item = ITEMFACTORY.CreateItem(m_itempb.m_type(), m_itempb.m_uid());
-            pb2item(m_itempb, item);
+            pb2item(*pitem, item);
+            
             addItem(item);
         }
     } else {

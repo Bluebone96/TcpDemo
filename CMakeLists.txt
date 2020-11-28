@@ -71,7 +71,8 @@ add_library(DemoLib ${LIB_SRC} ${PROTOLIB} ${SQL_LIB})
 # )
 
 set(SERVER_LIB
-    Player/Inventory.h
+    Player/Item.cpp
+    Player/Inventory.cpp
     Player/PlayerStatus.hpp
     Player/Player.cpp
     Server/Server.cpp

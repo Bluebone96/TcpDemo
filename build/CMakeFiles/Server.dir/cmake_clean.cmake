@@ -1,5 +1,7 @@
 FILE(REMOVE_RECURSE
   "CMakeFiles/Server.dir/Server/main.cpp.o"
+  "CMakeFiles/Server.dir/Player/Item.cpp.o"
+  "CMakeFiles/Server.dir/Player/Inventory.cpp.o"
   "CMakeFiles/Server.dir/Player/Player.cpp.o"
   "CMakeFiles/Server.dir/Server/Server.cpp.o"
   "CMakeFiles/Server.dir/Handler/Handle.cpp.o"
