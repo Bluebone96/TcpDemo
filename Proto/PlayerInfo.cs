@@ -31,19 +31,23 @@ namespace Proto.Unity {
             "aXR5Lk9wZXJhdGlvbiIhCglPcGVyYXRpb24SCQoBaBgBIAEoAhIJCgF2GAIg",
             "ASgCIi0KBENoYXQSCwoDaWRzGAEgASgNEgsKA2lkdBgCIAEoDRILCgNtc2cY",
             "AyABKAkiMAoOQXV0aGVudGljYXRpb24SDAoEbmFtZRgBIAEoCRIQCghwYXNz",
-            "d29yZBgCIAEoCSJzCgVJdGVtcxINCgVtX3VpZBgBIAEoDRIOCgZtX3R5cGUY",
-            "AiABKA0SDAoEbV9ocBgDIAEoDRIMCgRtX21wGAQgASgNEg0KBW1fYXRrGAUg",
-            "ASgNEg8KB21fcHJpY2UYBiABKA0SDwoHbV9jb3VudBgHIAEoDSJSCglJdGVt",
-            "RXZlbnQSDgoGb3B0eXBlGAEgASgNEgsKA3VpZBgCIAEoDRINCgVjb3VudBgD",
-            "IAEoDRIMCgRhZGQxGAUgASgJEgsKA3RpZBgEIAEoDSI1CgdJdGVtQWRkEg4K",
-            "Bm9wdHlwZRgBIAEoDRILCgN1aWQYAiABKA0SDQoFY291bnQYAyABKA0iNQoH",
-            "SXRlbURlbBIOCgZvcHR5cGUYASABKA0SCwoDdWlkGAIgASgNEg0KBWNvdW50",
-            "GAMgASgNIkQKCUl0ZW1UcmFkZRIOCgZvcHR5cGUYASABKA0SCwoDdWlkGAIg",
-            "ASgNEg0KBWNvdW50GAMgASgNEgsKA3RpZBgEIAEoDSIoCglJdGVtRXF1aXAS",
-            "DgoGb3B0eXBlGAEgASgNEgsKA3VpZBgCIAEoDSIqCgtJdGVtVW5FcXVpcBIO",
-            "CgZvcHR5cGUYASABKA0SCwoDdWlkGAIgASgNIkIKCkl0ZW1VcGRhdGUSEAoI",
-            "bV9vcHR5cGUYASABKA0SIgoGbV9pdGVtGAIgASgLMhIuUHJvdG8uVW5pdHku",
-            "SXRlbXNiBnByb3RvMw=="));
+            "d29yZBgCIAEoCSJ2CghJdGVtSW5mbxINCgVtX3VpZBgBIAEoDRIOCgZtX3R5",
+            "cGUYAiABKA0SDAoEbV9ocBgDIAEoDRIMCgRtX21wGAQgASgNEg0KBW1fYXRr",
+            "GAUgASgNEg8KB21fcHJpY2UYBiABKA0SDwoHbV9jb3VudBgHIAEoDSJSCglJ",
+            "dGVtRXZlbnQSDgoGb3B0eXBlGAEgASgNEgsKA3VpZBgCIAEoDRINCgVjb3Vu",
+            "dBgDIAEoDRIMCgRhZGQxGAUgASgJEgsKA3RpZBgEIAEoDSI1CgdJdGVtQWRk",
+            "Eg4KBm9wdHlwZRgBIAEoDRILCgN1aWQYAiABKA0SDQoFY291bnQYAyABKA0i",
+            "NQoHSXRlbURlbBIOCgZvcHR5cGUYASABKA0SCwoDdWlkGAIgASgNEg0KBWNv",
+            "dW50GAMgASgNIkQKCUl0ZW1UcmFkZRIOCgZvcHR5cGUYASABKA0SCwoDdWlk",
+            "GAIgASgNEg0KBWNvdW50GAMgASgNEgsKA3RpZBgEIAEoDSIoCglJdGVtRXF1",
+            "aXASDgoGb3B0eXBlGAEgASgNEgsKA3VpZBgCIAEoDSIqCgtJdGVtVW5FcXVp",
+            "cBIOCgZvcHR5cGUYASABKA0SCwoDdWlkGAIgASgNIkUKCkl0ZW1VcGRhdGUS",
+            "EAoIbV9vcHR5cGUYASABKA0SJQoGbV9pdGVtGAIgASgLMhUuUHJvdG8uVW5p",
+            "dHkuSXRlbUluZm8iQgoJUGxheWVyQmFnEiQKBUl0ZW1zGAEgAygLMhUuUHJv",
+            "dG8uVW5pdHkuSXRlbUluZm8SDwoHZXF1aXBlZBgCIAMoDSJnChFQbGF5ZXJB",
+            "bGxGdWNrSW5mbxIpCghiYXNlaW5mbxgBIAEoCzIXLlByb3RvLlVuaXR5LlBs",
+            "YXllckluZm8SJwoHYmFnaW5mbxgCIAEoCzIWLlByb3RvLlVuaXR5LlBsYXll",
+            "ckJhZ2IGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -51,14 +55,16 @@ namespace Proto.Unity {
             new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.Operation), global::Proto.Unity.Operation.Parser, new[]{ "H", "V" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.Chat), global::Proto.Unity.Chat.Parser, new[]{ "Ids", "Idt", "Msg" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.Authentication), global::Proto.Unity.Authentication.Parser, new[]{ "Name", "Password" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.Items), global::Proto.Unity.Items.Parser, new[]{ "MUid", "MType", "MHp", "MMp", "MAtk", "MPrice", "MCount" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.ItemInfo), global::Proto.Unity.ItemInfo.Parser, new[]{ "MUid", "MType", "MHp", "MMp", "MAtk", "MPrice", "MCount" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.ItemEvent), global::Proto.Unity.ItemEvent.Parser, new[]{ "Optype", "Uid", "Count", "Add1", "Tid" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.ItemAdd), global::Proto.Unity.ItemAdd.Parser, new[]{ "Optype", "Uid", "Count" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.ItemDel), global::Proto.Unity.ItemDel.Parser, new[]{ "Optype", "Uid", "Count" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.ItemTrade), global::Proto.Unity.ItemTrade.Parser, new[]{ "Optype", "Uid", "Count", "Tid" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.ItemEquip), global::Proto.Unity.ItemEquip.Parser, new[]{ "Optype", "Uid" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.ItemUnEquip), global::Proto.Unity.ItemUnEquip.Parser, new[]{ "Optype", "Uid" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.ItemUpdate), global::Proto.Unity.ItemUpdate.Parser, new[]{ "MOptype", "MItem" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.ItemUpdate), global::Proto.Unity.ItemUpdate.Parser, new[]{ "MOptype", "MItem" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.PlayerBag), global::Proto.Unity.PlayerBag.Parser, new[]{ "Items", "Equiped" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.PlayerAllFuckInfo), global::Proto.Unity.PlayerAllFuckInfo.Parser, new[]{ "Baseinfo", "Baginfo" }, null, null, null)
           }));
     }
     #endregion
@@ -936,11 +942,11 @@ namespace Proto.Unity {
 
   }
 
-  public sealed partial class Items : pb::IMessage<Items> {
-    private static readonly pb::MessageParser<Items> _parser = new pb::MessageParser<Items>(() => new Items());
+  public sealed partial class ItemInfo : pb::IMessage<ItemInfo> {
+    private static readonly pb::MessageParser<ItemInfo> _parser = new pb::MessageParser<ItemInfo>(() => new ItemInfo());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<Items> Parser { get { return _parser; } }
+    public static pb::MessageParser<ItemInfo> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
@@ -953,14 +959,14 @@ namespace Proto.Unity {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public Items() {
+    public ItemInfo() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public Items(Items other) : this() {
+    public ItemInfo(ItemInfo other) : this() {
       mUid_ = other.mUid_;
       mType_ = other.mType_;
       mHp_ = other.mHp_;
@@ -972,8 +978,8 @@ namespace Proto.Unity {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public Items Clone() {
-      return new Items(this);
+    public ItemInfo Clone() {
+      return new ItemInfo(this);
     }
 
     /// <summary>Field number for the "m_uid" field.</summary>
@@ -1055,11 +1061,11 @@ namespace Proto.Unity {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as Items);
+      return Equals(other as ItemInfo);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(Items other) {
+    public bool Equals(ItemInfo other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -1163,7 +1169,7 @@ namespace Proto.Unity {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(Items other) {
+    public void MergeFrom(ItemInfo other) {
       if (other == null) {
         return;
       }
@@ -2448,12 +2454,12 @@ namespace Proto.Unity {
 
     /// <summary>Field number for the "m_item" field.</summary>
     public const int MItemFieldNumber = 2;
-    private global::Proto.Unity.Items mItem_;
+    private global::Proto.Unity.ItemInfo mItem_;
     /// <summary>
     /// 更新装备属性
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Proto.Unity.Items MItem {
+    public global::Proto.Unity.ItemInfo MItem {
       get { return mItem_; }
       set {
         mItem_ = value;
@@ -2534,7 +2540,7 @@ namespace Proto.Unity {
       }
       if (other.mItem_ != null) {
         if (mItem_ == null) {
-          MItem = new global::Proto.Unity.Items();
+          MItem = new global::Proto.Unity.ItemInfo();
         }
         MItem.MergeFrom(other.MItem);
       }
@@ -2555,9 +2561,320 @@ namespace Proto.Unity {
           }
           case 18: {
             if (mItem_ == null) {
-              MItem = new global::Proto.Unity.Items();
+              MItem = new global::Proto.Unity.ItemInfo();
             }
             input.ReadMessage(MItem);
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class PlayerBag : pb::IMessage<PlayerBag> {
+    private static readonly pb::MessageParser<PlayerBag> _parser = new pb::MessageParser<PlayerBag>(() => new PlayerBag());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<PlayerBag> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Proto.Unity.PlayerInfoReflection.Descriptor.MessageTypes[12]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public PlayerBag() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public PlayerBag(PlayerBag other) : this() {
+      items_ = other.items_.Clone();
+      equiped_ = other.equiped_.Clone();
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public PlayerBag Clone() {
+      return new PlayerBag(this);
+    }
+
+    /// <summary>Field number for the "Items" field.</summary>
+    public const int ItemsFieldNumber = 1;
+    private static readonly pb::FieldCodec<global::Proto.Unity.ItemInfo> _repeated_items_codec
+        = pb::FieldCodec.ForMessage(10, global::Proto.Unity.ItemInfo.Parser);
+    private readonly pbc::RepeatedField<global::Proto.Unity.ItemInfo> items_ = new pbc::RepeatedField<global::Proto.Unity.ItemInfo>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<global::Proto.Unity.ItemInfo> Items {
+      get { return items_; }
+    }
+
+    /// <summary>Field number for the "equiped" field.</summary>
+    public const int EquipedFieldNumber = 2;
+    private static readonly pb::FieldCodec<uint> _repeated_equiped_codec
+        = pb::FieldCodec.ForUInt32(18);
+    private readonly pbc::RepeatedField<uint> equiped_ = new pbc::RepeatedField<uint>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<uint> Equiped {
+      get { return equiped_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as PlayerBag);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(PlayerBag other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if(!items_.Equals(other.items_)) return false;
+      if(!equiped_.Equals(other.equiped_)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      hash ^= items_.GetHashCode();
+      hash ^= equiped_.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      items_.WriteTo(output, _repeated_items_codec);
+      equiped_.WriteTo(output, _repeated_equiped_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      size += items_.CalculateSize(_repeated_items_codec);
+      size += equiped_.CalculateSize(_repeated_equiped_codec);
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(PlayerBag other) {
+      if (other == null) {
+        return;
+      }
+      items_.Add(other.items_);
+      equiped_.Add(other.equiped_);
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            items_.AddEntriesFrom(input, _repeated_items_codec);
+            break;
+          }
+          case 18:
+          case 16: {
+            equiped_.AddEntriesFrom(input, _repeated_equiped_codec);
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class PlayerAllFuckInfo : pb::IMessage<PlayerAllFuckInfo> {
+    private static readonly pb::MessageParser<PlayerAllFuckInfo> _parser = new pb::MessageParser<PlayerAllFuckInfo>(() => new PlayerAllFuckInfo());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<PlayerAllFuckInfo> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Proto.Unity.PlayerInfoReflection.Descriptor.MessageTypes[13]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public PlayerAllFuckInfo() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public PlayerAllFuckInfo(PlayerAllFuckInfo other) : this() {
+      baseinfo_ = other.baseinfo_ != null ? other.baseinfo_.Clone() : null;
+      baginfo_ = other.baginfo_ != null ? other.baginfo_.Clone() : null;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public PlayerAllFuckInfo Clone() {
+      return new PlayerAllFuckInfo(this);
+    }
+
+    /// <summary>Field number for the "baseinfo" field.</summary>
+    public const int BaseinfoFieldNumber = 1;
+    private global::Proto.Unity.PlayerInfo baseinfo_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Proto.Unity.PlayerInfo Baseinfo {
+      get { return baseinfo_; }
+      set {
+        baseinfo_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "baginfo" field.</summary>
+    public const int BaginfoFieldNumber = 2;
+    private global::Proto.Unity.PlayerBag baginfo_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Proto.Unity.PlayerBag Baginfo {
+      get { return baginfo_; }
+      set {
+        baginfo_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as PlayerAllFuckInfo);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(PlayerAllFuckInfo other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (!object.Equals(Baseinfo, other.Baseinfo)) return false;
+      if (!object.Equals(Baginfo, other.Baginfo)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (baseinfo_ != null) hash ^= Baseinfo.GetHashCode();
+      if (baginfo_ != null) hash ^= Baginfo.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (baseinfo_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(Baseinfo);
+      }
+      if (baginfo_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(Baginfo);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (baseinfo_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Baseinfo);
+      }
+      if (baginfo_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Baginfo);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(PlayerAllFuckInfo other) {
+      if (other == null) {
+        return;
+      }
+      if (other.baseinfo_ != null) {
+        if (baseinfo_ == null) {
+          Baseinfo = new global::Proto.Unity.PlayerInfo();
+        }
+        Baseinfo.MergeFrom(other.Baseinfo);
+      }
+      if (other.baginfo_ != null) {
+        if (baginfo_ == null) {
+          Baginfo = new global::Proto.Unity.PlayerBag();
+        }
+        Baginfo.MergeFrom(other.Baginfo);
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            if (baseinfo_ == null) {
+              Baseinfo = new global::Proto.Unity.PlayerInfo();
+            }
+            input.ReadMessage(Baseinfo);
+            break;
+          }
+          case 18: {
+            if (baginfo_ == null) {
+              Baginfo = new global::Proto.Unity.PlayerBag();
+            }
+            input.ReadMessage(Baginfo);
             break;
           }
         }

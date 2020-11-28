@@ -41,7 +41,7 @@ struct TableStruct_PlayerInfo_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::google::protobuf::internal::ParseTable schema[12]
+  static const ::google::protobuf::internal::ParseTable schema[14]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
@@ -68,6 +68,9 @@ extern ItemEquipDefaultTypeInternal _ItemEquip_default_instance_;
 class ItemEvent;
 class ItemEventDefaultTypeInternal;
 extern ItemEventDefaultTypeInternal _ItemEvent_default_instance_;
+class ItemInfo;
+class ItemInfoDefaultTypeInternal;
+extern ItemInfoDefaultTypeInternal _ItemInfo_default_instance_;
 class ItemTrade;
 class ItemTradeDefaultTypeInternal;
 extern ItemTradeDefaultTypeInternal _ItemTrade_default_instance_;
@@ -77,12 +80,15 @@ extern ItemUnEquipDefaultTypeInternal _ItemUnEquip_default_instance_;
 class ItemUpdate;
 class ItemUpdateDefaultTypeInternal;
 extern ItemUpdateDefaultTypeInternal _ItemUpdate_default_instance_;
-class Items;
-class ItemsDefaultTypeInternal;
-extern ItemsDefaultTypeInternal _Items_default_instance_;
 class Operation;
 class OperationDefaultTypeInternal;
 extern OperationDefaultTypeInternal _Operation_default_instance_;
+class PlayerAllFuckInfo;
+class PlayerAllFuckInfoDefaultTypeInternal;
+extern PlayerAllFuckInfoDefaultTypeInternal _PlayerAllFuckInfo_default_instance_;
+class PlayerBag;
+class PlayerBagDefaultTypeInternal;
+extern PlayerBagDefaultTypeInternal _PlayerBag_default_instance_;
 class PlayerInfo;
 class PlayerInfoDefaultTypeInternal;
 extern PlayerInfoDefaultTypeInternal _PlayerInfo_default_instance_;
@@ -96,11 +102,13 @@ template<> ::Proto::Unity::ItemAdd* Arena::CreateMaybeMessage<::Proto::Unity::It
 template<> ::Proto::Unity::ItemDel* Arena::CreateMaybeMessage<::Proto::Unity::ItemDel>(Arena*);
 template<> ::Proto::Unity::ItemEquip* Arena::CreateMaybeMessage<::Proto::Unity::ItemEquip>(Arena*);
 template<> ::Proto::Unity::ItemEvent* Arena::CreateMaybeMessage<::Proto::Unity::ItemEvent>(Arena*);
+template<> ::Proto::Unity::ItemInfo* Arena::CreateMaybeMessage<::Proto::Unity::ItemInfo>(Arena*);
 template<> ::Proto::Unity::ItemTrade* Arena::CreateMaybeMessage<::Proto::Unity::ItemTrade>(Arena*);
 template<> ::Proto::Unity::ItemUnEquip* Arena::CreateMaybeMessage<::Proto::Unity::ItemUnEquip>(Arena*);
 template<> ::Proto::Unity::ItemUpdate* Arena::CreateMaybeMessage<::Proto::Unity::ItemUpdate>(Arena*);
-template<> ::Proto::Unity::Items* Arena::CreateMaybeMessage<::Proto::Unity::Items>(Arena*);
 template<> ::Proto::Unity::Operation* Arena::CreateMaybeMessage<::Proto::Unity::Operation>(Arena*);
+template<> ::Proto::Unity::PlayerAllFuckInfo* Arena::CreateMaybeMessage<::Proto::Unity::PlayerAllFuckInfo>(Arena*);
+template<> ::Proto::Unity::PlayerBag* Arena::CreateMaybeMessage<::Proto::Unity::PlayerBag>(Arena*);
 template<> ::Proto::Unity::PlayerInfo* Arena::CreateMaybeMessage<::Proto::Unity::PlayerInfo>(Arena*);
 }  // namespace protobuf
 }  // namespace google
@@ -676,25 +684,25 @@ class Authentication final :
 };
 // -------------------------------------------------------------------
 
-class Items final :
-    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Proto.Unity.Items) */ {
+class ItemInfo final :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Proto.Unity.ItemInfo) */ {
  public:
-  Items();
-  virtual ~Items();
+  ItemInfo();
+  virtual ~ItemInfo();
 
-  Items(const Items& from);
+  ItemInfo(const ItemInfo& from);
 
-  inline Items& operator=(const Items& from) {
+  inline ItemInfo& operator=(const ItemInfo& from) {
     CopyFrom(from);
     return *this;
   }
   #if LANG_CXX11
-  Items(Items&& from) noexcept
-    : Items() {
+  ItemInfo(ItemInfo&& from) noexcept
+    : ItemInfo() {
     *this = ::std::move(from);
   }
 
-  inline Items& operator=(Items&& from) noexcept {
+  inline ItemInfo& operator=(ItemInfo&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -706,34 +714,34 @@ class Items final :
   static const ::google::protobuf::Descriptor* descriptor() {
     return default_instance().GetDescriptor();
   }
-  static const Items& default_instance();
+  static const ItemInfo& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const Items* internal_default_instance() {
-    return reinterpret_cast<const Items*>(
-               &_Items_default_instance_);
+  static inline const ItemInfo* internal_default_instance() {
+    return reinterpret_cast<const ItemInfo*>(
+               &_ItemInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     4;
 
-  void Swap(Items* other);
-  friend void swap(Items& a, Items& b) {
+  void Swap(ItemInfo* other);
+  friend void swap(ItemInfo& a, ItemInfo& b) {
     a.Swap(&b);
   }
 
   // implements Message ----------------------------------------------
 
-  inline Items* New() const final {
-    return CreateMaybeMessage<Items>(nullptr);
+  inline ItemInfo* New() const final {
+    return CreateMaybeMessage<ItemInfo>(nullptr);
   }
 
-  Items* New(::google::protobuf::Arena* arena) const final {
-    return CreateMaybeMessage<Items>(arena);
+  ItemInfo* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<ItemInfo>(arena);
   }
   void CopyFrom(const ::google::protobuf::Message& from) final;
   void MergeFrom(const ::google::protobuf::Message& from) final;
-  void CopyFrom(const Items& from);
-  void MergeFrom(const Items& from);
+  void CopyFrom(const ItemInfo& from);
+  void MergeFrom(const ItemInfo& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -755,7 +763,7 @@ class Items final :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(Items* other);
+  void InternalSwap(ItemInfo* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return nullptr;
@@ -813,7 +821,7 @@ class Items final :
   ::google::protobuf::uint32 m_count() const;
   void set_m_count(::google::protobuf::uint32 value);
 
-  // @@protoc_insertion_point(class_scope:Proto.Unity.Items)
+  // @@protoc_insertion_point(class_scope:Proto.Unity.ItemInfo)
  private:
   class HasBitSetters;
 
@@ -1696,14 +1704,14 @@ class ItemUpdate final :
 
   // accessors -------------------------------------------------------
 
-  // .Proto.Unity.Items m_item = 2;
+  // .Proto.Unity.ItemInfo m_item = 2;
   bool has_m_item() const;
   void clear_m_item();
   static const int kMItemFieldNumber = 2;
-  const ::Proto::Unity::Items& m_item() const;
-  ::Proto::Unity::Items* release_m_item();
-  ::Proto::Unity::Items* mutable_m_item();
-  void set_allocated_m_item(::Proto::Unity::Items* m_item);
+  const ::Proto::Unity::ItemInfo& m_item() const;
+  ::Proto::Unity::ItemInfo* release_m_item();
+  ::Proto::Unity::ItemInfo* mutable_m_item();
+  void set_allocated_m_item(::Proto::Unity::ItemInfo* m_item);
 
   // uint32 m_optype = 1;
   void clear_m_optype();
@@ -1716,8 +1724,265 @@ class ItemUpdate final :
   class HasBitSetters;
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::Proto::Unity::Items* m_item_;
+  ::Proto::Unity::ItemInfo* m_item_;
   ::google::protobuf::uint32 m_optype_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_PlayerInfo_2eproto;
+};
+// -------------------------------------------------------------------
+
+class PlayerBag final :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Proto.Unity.PlayerBag) */ {
+ public:
+  PlayerBag();
+  virtual ~PlayerBag();
+
+  PlayerBag(const PlayerBag& from);
+
+  inline PlayerBag& operator=(const PlayerBag& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  PlayerBag(PlayerBag&& from) noexcept
+    : PlayerBag() {
+    *this = ::std::move(from);
+  }
+
+  inline PlayerBag& operator=(PlayerBag&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return default_instance().GetDescriptor();
+  }
+  static const PlayerBag& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const PlayerBag* internal_default_instance() {
+    return reinterpret_cast<const PlayerBag*>(
+               &_PlayerBag_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    12;
+
+  void Swap(PlayerBag* other);
+  friend void swap(PlayerBag& a, PlayerBag& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline PlayerBag* New() const final {
+    return CreateMaybeMessage<PlayerBag>(nullptr);
+  }
+
+  PlayerBag* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<PlayerBag>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const PlayerBag& from);
+  void MergeFrom(const PlayerBag& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
+  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
+  #else
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(PlayerBag* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated .Proto.Unity.ItemInfo Items = 1;
+  int items_size() const;
+  void clear_items();
+  static const int kItemsFieldNumber = 1;
+  ::Proto::Unity::ItemInfo* mutable_items(int index);
+  ::google::protobuf::RepeatedPtrField< ::Proto::Unity::ItemInfo >*
+      mutable_items();
+  const ::Proto::Unity::ItemInfo& items(int index) const;
+  ::Proto::Unity::ItemInfo* add_items();
+  const ::google::protobuf::RepeatedPtrField< ::Proto::Unity::ItemInfo >&
+      items() const;
+
+  // repeated uint32 equiped = 2;
+  int equiped_size() const;
+  void clear_equiped();
+  static const int kEquipedFieldNumber = 2;
+  ::google::protobuf::uint32 equiped(int index) const;
+  void set_equiped(int index, ::google::protobuf::uint32 value);
+  void add_equiped(::google::protobuf::uint32 value);
+  const ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >&
+      equiped() const;
+  ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >*
+      mutable_equiped();
+
+  // @@protoc_insertion_point(class_scope:Proto.Unity.PlayerBag)
+ private:
+  class HasBitSetters;
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::RepeatedPtrField< ::Proto::Unity::ItemInfo > items_;
+  ::google::protobuf::RepeatedField< ::google::protobuf::uint32 > equiped_;
+  mutable std::atomic<int> _equiped_cached_byte_size_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_PlayerInfo_2eproto;
+};
+// -------------------------------------------------------------------
+
+class PlayerAllFuckInfo final :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Proto.Unity.PlayerAllFuckInfo) */ {
+ public:
+  PlayerAllFuckInfo();
+  virtual ~PlayerAllFuckInfo();
+
+  PlayerAllFuckInfo(const PlayerAllFuckInfo& from);
+
+  inline PlayerAllFuckInfo& operator=(const PlayerAllFuckInfo& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  PlayerAllFuckInfo(PlayerAllFuckInfo&& from) noexcept
+    : PlayerAllFuckInfo() {
+    *this = ::std::move(from);
+  }
+
+  inline PlayerAllFuckInfo& operator=(PlayerAllFuckInfo&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return default_instance().GetDescriptor();
+  }
+  static const PlayerAllFuckInfo& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const PlayerAllFuckInfo* internal_default_instance() {
+    return reinterpret_cast<const PlayerAllFuckInfo*>(
+               &_PlayerAllFuckInfo_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    13;
+
+  void Swap(PlayerAllFuckInfo* other);
+  friend void swap(PlayerAllFuckInfo& a, PlayerAllFuckInfo& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline PlayerAllFuckInfo* New() const final {
+    return CreateMaybeMessage<PlayerAllFuckInfo>(nullptr);
+  }
+
+  PlayerAllFuckInfo* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<PlayerAllFuckInfo>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const PlayerAllFuckInfo& from);
+  void MergeFrom(const PlayerAllFuckInfo& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
+  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
+  #else
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(PlayerAllFuckInfo* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // .Proto.Unity.PlayerInfo baseinfo = 1;
+  bool has_baseinfo() const;
+  void clear_baseinfo();
+  static const int kBaseinfoFieldNumber = 1;
+  const ::Proto::Unity::PlayerInfo& baseinfo() const;
+  ::Proto::Unity::PlayerInfo* release_baseinfo();
+  ::Proto::Unity::PlayerInfo* mutable_baseinfo();
+  void set_allocated_baseinfo(::Proto::Unity::PlayerInfo* baseinfo);
+
+  // .Proto.Unity.PlayerBag baginfo = 2;
+  bool has_baginfo() const;
+  void clear_baginfo();
+  static const int kBaginfoFieldNumber = 2;
+  const ::Proto::Unity::PlayerBag& baginfo() const;
+  ::Proto::Unity::PlayerBag* release_baginfo();
+  ::Proto::Unity::PlayerBag* mutable_baginfo();
+  void set_allocated_baginfo(::Proto::Unity::PlayerBag* baginfo);
+
+  // @@protoc_insertion_point(class_scope:Proto.Unity.PlayerAllFuckInfo)
+ private:
+  class HasBitSetters;
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::Proto::Unity::PlayerInfo* baseinfo_;
+  ::Proto::Unity::PlayerBag* baginfo_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_PlayerInfo_2eproto;
 };
@@ -2163,104 +2428,104 @@ inline void Authentication::set_allocated_password(::std::string* password) {
 
 // -------------------------------------------------------------------
 
-// Items
+// ItemInfo
 
 // uint32 m_uid = 1;
-inline void Items::clear_m_uid() {
+inline void ItemInfo::clear_m_uid() {
   m_uid_ = 0u;
 }
-inline ::google::protobuf::uint32 Items::m_uid() const {
-  // @@protoc_insertion_point(field_get:Proto.Unity.Items.m_uid)
+inline ::google::protobuf::uint32 ItemInfo::m_uid() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.ItemInfo.m_uid)
   return m_uid_;
 }
-inline void Items::set_m_uid(::google::protobuf::uint32 value) {
+inline void ItemInfo::set_m_uid(::google::protobuf::uint32 value) {
   
   m_uid_ = value;
-  // @@protoc_insertion_point(field_set:Proto.Unity.Items.m_uid)
+  // @@protoc_insertion_point(field_set:Proto.Unity.ItemInfo.m_uid)
 }
 
 // uint32 m_type = 2;
-inline void Items::clear_m_type() {
+inline void ItemInfo::clear_m_type() {
   m_type_ = 0u;
 }
-inline ::google::protobuf::uint32 Items::m_type() const {
-  // @@protoc_insertion_point(field_get:Proto.Unity.Items.m_type)
+inline ::google::protobuf::uint32 ItemInfo::m_type() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.ItemInfo.m_type)
   return m_type_;
 }
-inline void Items::set_m_type(::google::protobuf::uint32 value) {
+inline void ItemInfo::set_m_type(::google::protobuf::uint32 value) {
   
   m_type_ = value;
-  // @@protoc_insertion_point(field_set:Proto.Unity.Items.m_type)
+  // @@protoc_insertion_point(field_set:Proto.Unity.ItemInfo.m_type)
 }
 
 // uint32 m_hp = 3;
-inline void Items::clear_m_hp() {
+inline void ItemInfo::clear_m_hp() {
   m_hp_ = 0u;
 }
-inline ::google::protobuf::uint32 Items::m_hp() const {
-  // @@protoc_insertion_point(field_get:Proto.Unity.Items.m_hp)
+inline ::google::protobuf::uint32 ItemInfo::m_hp() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.ItemInfo.m_hp)
   return m_hp_;
 }
-inline void Items::set_m_hp(::google::protobuf::uint32 value) {
+inline void ItemInfo::set_m_hp(::google::protobuf::uint32 value) {
   
   m_hp_ = value;
-  // @@protoc_insertion_point(field_set:Proto.Unity.Items.m_hp)
+  // @@protoc_insertion_point(field_set:Proto.Unity.ItemInfo.m_hp)
 }
 
 // uint32 m_mp = 4;
-inline void Items::clear_m_mp() {
+inline void ItemInfo::clear_m_mp() {
   m_mp_ = 0u;
 }
-inline ::google::protobuf::uint32 Items::m_mp() const {
-  // @@protoc_insertion_point(field_get:Proto.Unity.Items.m_mp)
+inline ::google::protobuf::uint32 ItemInfo::m_mp() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.ItemInfo.m_mp)
   return m_mp_;
 }
-inline void Items::set_m_mp(::google::protobuf::uint32 value) {
+inline void ItemInfo::set_m_mp(::google::protobuf::uint32 value) {
   
   m_mp_ = value;
-  // @@protoc_insertion_point(field_set:Proto.Unity.Items.m_mp)
+  // @@protoc_insertion_point(field_set:Proto.Unity.ItemInfo.m_mp)
 }
 
 // uint32 m_atk = 5;
-inline void Items::clear_m_atk() {
+inline void ItemInfo::clear_m_atk() {
   m_atk_ = 0u;
 }
-inline ::google::protobuf::uint32 Items::m_atk() const {
-  // @@protoc_insertion_point(field_get:Proto.Unity.Items.m_atk)
+inline ::google::protobuf::uint32 ItemInfo::m_atk() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.ItemInfo.m_atk)
   return m_atk_;
 }
-inline void Items::set_m_atk(::google::protobuf::uint32 value) {
+inline void ItemInfo::set_m_atk(::google::protobuf::uint32 value) {
   
   m_atk_ = value;
-  // @@protoc_insertion_point(field_set:Proto.Unity.Items.m_atk)
+  // @@protoc_insertion_point(field_set:Proto.Unity.ItemInfo.m_atk)
 }
 
 // uint32 m_price = 6;
-inline void Items::clear_m_price() {
+inline void ItemInfo::clear_m_price() {
   m_price_ = 0u;
 }
-inline ::google::protobuf::uint32 Items::m_price() const {
-  // @@protoc_insertion_point(field_get:Proto.Unity.Items.m_price)
+inline ::google::protobuf::uint32 ItemInfo::m_price() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.ItemInfo.m_price)
   return m_price_;
 }
-inline void Items::set_m_price(::google::protobuf::uint32 value) {
+inline void ItemInfo::set_m_price(::google::protobuf::uint32 value) {
   
   m_price_ = value;
-  // @@protoc_insertion_point(field_set:Proto.Unity.Items.m_price)
+  // @@protoc_insertion_point(field_set:Proto.Unity.ItemInfo.m_price)
 }
 
 // uint32 m_count = 7;
-inline void Items::clear_m_count() {
+inline void ItemInfo::clear_m_count() {
   m_count_ = 0u;
 }
-inline ::google::protobuf::uint32 Items::m_count() const {
-  // @@protoc_insertion_point(field_get:Proto.Unity.Items.m_count)
+inline ::google::protobuf::uint32 ItemInfo::m_count() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.ItemInfo.m_count)
   return m_count_;
 }
-inline void Items::set_m_count(::google::protobuf::uint32 value) {
+inline void ItemInfo::set_m_count(::google::protobuf::uint32 value) {
   
   m_count_ = value;
-  // @@protoc_insertion_point(field_set:Proto.Unity.Items.m_count)
+  // @@protoc_insertion_point(field_set:Proto.Unity.ItemInfo.m_count)
 }
 
 // -------------------------------------------------------------------
@@ -2610,7 +2875,7 @@ inline void ItemUpdate::set_m_optype(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:Proto.Unity.ItemUpdate.m_optype)
 }
 
-// .Proto.Unity.Items m_item = 2;
+// .Proto.Unity.ItemInfo m_item = 2;
 inline bool ItemUpdate::has_m_item() const {
   return this != internal_default_instance() && m_item_ != nullptr;
 }
@@ -2620,29 +2885,29 @@ inline void ItemUpdate::clear_m_item() {
   }
   m_item_ = nullptr;
 }
-inline const ::Proto::Unity::Items& ItemUpdate::m_item() const {
-  const ::Proto::Unity::Items* p = m_item_;
+inline const ::Proto::Unity::ItemInfo& ItemUpdate::m_item() const {
+  const ::Proto::Unity::ItemInfo* p = m_item_;
   // @@protoc_insertion_point(field_get:Proto.Unity.ItemUpdate.m_item)
-  return p != nullptr ? *p : *reinterpret_cast<const ::Proto::Unity::Items*>(
-      &::Proto::Unity::_Items_default_instance_);
+  return p != nullptr ? *p : *reinterpret_cast<const ::Proto::Unity::ItemInfo*>(
+      &::Proto::Unity::_ItemInfo_default_instance_);
 }
-inline ::Proto::Unity::Items* ItemUpdate::release_m_item() {
+inline ::Proto::Unity::ItemInfo* ItemUpdate::release_m_item() {
   // @@protoc_insertion_point(field_release:Proto.Unity.ItemUpdate.m_item)
   
-  ::Proto::Unity::Items* temp = m_item_;
+  ::Proto::Unity::ItemInfo* temp = m_item_;
   m_item_ = nullptr;
   return temp;
 }
-inline ::Proto::Unity::Items* ItemUpdate::mutable_m_item() {
+inline ::Proto::Unity::ItemInfo* ItemUpdate::mutable_m_item() {
   
   if (m_item_ == nullptr) {
-    auto* p = CreateMaybeMessage<::Proto::Unity::Items>(GetArenaNoVirtual());
+    auto* p = CreateMaybeMessage<::Proto::Unity::ItemInfo>(GetArenaNoVirtual());
     m_item_ = p;
   }
   // @@protoc_insertion_point(field_mutable:Proto.Unity.ItemUpdate.m_item)
   return m_item_;
 }
-inline void ItemUpdate::set_allocated_m_item(::Proto::Unity::Items* m_item) {
+inline void ItemUpdate::set_allocated_m_item(::Proto::Unity::ItemInfo* m_item) {
   ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
   if (message_arena == nullptr) {
     delete m_item_;
@@ -2661,9 +2926,183 @@ inline void ItemUpdate::set_allocated_m_item(::Proto::Unity::Items* m_item) {
   // @@protoc_insertion_point(field_set_allocated:Proto.Unity.ItemUpdate.m_item)
 }
 
+// -------------------------------------------------------------------
+
+// PlayerBag
+
+// repeated .Proto.Unity.ItemInfo Items = 1;
+inline int PlayerBag::items_size() const {
+  return items_.size();
+}
+inline void PlayerBag::clear_items() {
+  items_.Clear();
+}
+inline ::Proto::Unity::ItemInfo* PlayerBag::mutable_items(int index) {
+  // @@protoc_insertion_point(field_mutable:Proto.Unity.PlayerBag.Items)
+  return items_.Mutable(index);
+}
+inline ::google::protobuf::RepeatedPtrField< ::Proto::Unity::ItemInfo >*
+PlayerBag::mutable_items() {
+  // @@protoc_insertion_point(field_mutable_list:Proto.Unity.PlayerBag.Items)
+  return &items_;
+}
+inline const ::Proto::Unity::ItemInfo& PlayerBag::items(int index) const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.PlayerBag.Items)
+  return items_.Get(index);
+}
+inline ::Proto::Unity::ItemInfo* PlayerBag::add_items() {
+  // @@protoc_insertion_point(field_add:Proto.Unity.PlayerBag.Items)
+  return items_.Add();
+}
+inline const ::google::protobuf::RepeatedPtrField< ::Proto::Unity::ItemInfo >&
+PlayerBag::items() const {
+  // @@protoc_insertion_point(field_list:Proto.Unity.PlayerBag.Items)
+  return items_;
+}
+
+// repeated uint32 equiped = 2;
+inline int PlayerBag::equiped_size() const {
+  return equiped_.size();
+}
+inline void PlayerBag::clear_equiped() {
+  equiped_.Clear();
+}
+inline ::google::protobuf::uint32 PlayerBag::equiped(int index) const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.PlayerBag.equiped)
+  return equiped_.Get(index);
+}
+inline void PlayerBag::set_equiped(int index, ::google::protobuf::uint32 value) {
+  equiped_.Set(index, value);
+  // @@protoc_insertion_point(field_set:Proto.Unity.PlayerBag.equiped)
+}
+inline void PlayerBag::add_equiped(::google::protobuf::uint32 value) {
+  equiped_.Add(value);
+  // @@protoc_insertion_point(field_add:Proto.Unity.PlayerBag.equiped)
+}
+inline const ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >&
+PlayerBag::equiped() const {
+  // @@protoc_insertion_point(field_list:Proto.Unity.PlayerBag.equiped)
+  return equiped_;
+}
+inline ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >*
+PlayerBag::mutable_equiped() {
+  // @@protoc_insertion_point(field_mutable_list:Proto.Unity.PlayerBag.equiped)
+  return &equiped_;
+}
+
+// -------------------------------------------------------------------
+
+// PlayerAllFuckInfo
+
+// .Proto.Unity.PlayerInfo baseinfo = 1;
+inline bool PlayerAllFuckInfo::has_baseinfo() const {
+  return this != internal_default_instance() && baseinfo_ != nullptr;
+}
+inline void PlayerAllFuckInfo::clear_baseinfo() {
+  if (GetArenaNoVirtual() == nullptr && baseinfo_ != nullptr) {
+    delete baseinfo_;
+  }
+  baseinfo_ = nullptr;
+}
+inline const ::Proto::Unity::PlayerInfo& PlayerAllFuckInfo::baseinfo() const {
+  const ::Proto::Unity::PlayerInfo* p = baseinfo_;
+  // @@protoc_insertion_point(field_get:Proto.Unity.PlayerAllFuckInfo.baseinfo)
+  return p != nullptr ? *p : *reinterpret_cast<const ::Proto::Unity::PlayerInfo*>(
+      &::Proto::Unity::_PlayerInfo_default_instance_);
+}
+inline ::Proto::Unity::PlayerInfo* PlayerAllFuckInfo::release_baseinfo() {
+  // @@protoc_insertion_point(field_release:Proto.Unity.PlayerAllFuckInfo.baseinfo)
+  
+  ::Proto::Unity::PlayerInfo* temp = baseinfo_;
+  baseinfo_ = nullptr;
+  return temp;
+}
+inline ::Proto::Unity::PlayerInfo* PlayerAllFuckInfo::mutable_baseinfo() {
+  
+  if (baseinfo_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Proto::Unity::PlayerInfo>(GetArenaNoVirtual());
+    baseinfo_ = p;
+  }
+  // @@protoc_insertion_point(field_mutable:Proto.Unity.PlayerAllFuckInfo.baseinfo)
+  return baseinfo_;
+}
+inline void PlayerAllFuckInfo::set_allocated_baseinfo(::Proto::Unity::PlayerInfo* baseinfo) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete baseinfo_;
+  }
+  if (baseinfo) {
+    ::google::protobuf::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      baseinfo = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, baseinfo, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  baseinfo_ = baseinfo;
+  // @@protoc_insertion_point(field_set_allocated:Proto.Unity.PlayerAllFuckInfo.baseinfo)
+}
+
+// .Proto.Unity.PlayerBag baginfo = 2;
+inline bool PlayerAllFuckInfo::has_baginfo() const {
+  return this != internal_default_instance() && baginfo_ != nullptr;
+}
+inline void PlayerAllFuckInfo::clear_baginfo() {
+  if (GetArenaNoVirtual() == nullptr && baginfo_ != nullptr) {
+    delete baginfo_;
+  }
+  baginfo_ = nullptr;
+}
+inline const ::Proto::Unity::PlayerBag& PlayerAllFuckInfo::baginfo() const {
+  const ::Proto::Unity::PlayerBag* p = baginfo_;
+  // @@protoc_insertion_point(field_get:Proto.Unity.PlayerAllFuckInfo.baginfo)
+  return p != nullptr ? *p : *reinterpret_cast<const ::Proto::Unity::PlayerBag*>(
+      &::Proto::Unity::_PlayerBag_default_instance_);
+}
+inline ::Proto::Unity::PlayerBag* PlayerAllFuckInfo::release_baginfo() {
+  // @@protoc_insertion_point(field_release:Proto.Unity.PlayerAllFuckInfo.baginfo)
+  
+  ::Proto::Unity::PlayerBag* temp = baginfo_;
+  baginfo_ = nullptr;
+  return temp;
+}
+inline ::Proto::Unity::PlayerBag* PlayerAllFuckInfo::mutable_baginfo() {
+  
+  if (baginfo_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Proto::Unity::PlayerBag>(GetArenaNoVirtual());
+    baginfo_ = p;
+  }
+  // @@protoc_insertion_point(field_mutable:Proto.Unity.PlayerAllFuckInfo.baginfo)
+  return baginfo_;
+}
+inline void PlayerAllFuckInfo::set_allocated_baginfo(::Proto::Unity::PlayerBag* baginfo) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete baginfo_;
+  }
+  if (baginfo) {
+    ::google::protobuf::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      baginfo = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, baginfo, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  baginfo_ = baginfo;
+  // @@protoc_insertion_point(field_set_allocated:Proto.Unity.PlayerAllFuckInfo.baginfo)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

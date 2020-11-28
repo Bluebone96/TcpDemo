@@ -65,7 +65,7 @@ message Authentication {
 // }
 
 
-message Items {
+message ItemInfo {
     uint32 m_uid = 1;
     uint32 m_type = 2;
     uint32 m_hp = 3;
@@ -125,19 +125,19 @@ message ItemUnEquip {
 
 message ItemUpdate {
     uint32 m_optype = 1;
-    Items  m_item = 2;  // 更新装备属性
+    ItemInfo  m_item = 2;  // 更新装备属性
 }
 
 
 message PlayerBag {
-    repeated Items = 0;
-    repeated equiped = 1;
+    repeated ItemInfo Items = 1;
+    repeated uint32 equiped = 2;
 }
 
 
 
 
 message PlayerAllFuckInfo {
-    PlayerInfo baseinfo;
-    PlayerBag baginfo;
+    PlayerInfo baseinfo = 1;
+    PlayerBag baginfo = 2;
 }
