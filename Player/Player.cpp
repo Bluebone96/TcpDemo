@@ -24,38 +24,30 @@ int Player::InitPlayer()
     unsigned int id = BKDRHash(A.name());
     unsigned int pass = BKDRHash(A.password());
 
-    char tmp1 [30];
-    snprintf(tmp1, 30, "pass_%d", id);
+    char key1 [30];
+    snprintf(key1, 30, "pass_%d", id);
 
-    char* data = nullptr;
-    int n = 0;
-    if (m_predis->GetByBit(tmp1, (void**)&data, &n)) {
-        
-    }
-    if (data) {
-        *((unsigned int*)data) == pass;
-        
-        snprintf(tmp1, 30, "usr_%d", id);
-
-        if (m_predis->GetByBit(tmp1, (void**)&data, &n)) {
-
-        }
-        if (data) {
-            m_protoInfo.ParseFromArray(data, n);
-            snprintf(m_idstr, 20, "%d", id);
-            return 0;
+    char buf[512] = {0};
+    int len = 0;
+    if (REDIS.Get(key1, buf, &len) == EOK) {
+        if (pass == atoi(buf)) {
+            snprintf(key1, 30, "usr_%d", id);
+            if (REDIS.Get(key1, buf, &len) == EOK) {
+                m_protoInfo.ParseFromArray(buf, len);
+                m_inventory.InitInventory(this);
+                return 0;
+            }
         }
     }
-
-
+    
     // redis 没找到， 去数据库找
     std::vector<PASS> passSql;
-
+    
     char tmp[40];
 
     snprintf(tmp, 40, "SELECT * FROM PASS where id = %d", id);
 
-    if (m_pmysql->GetBySQL(passSql, tmp)) {
+    if (MYSQL.GetBySQL(passSql, tmp)) {
         
     }
 
@@ -66,11 +58,10 @@ int Player::InitPlayer()
     std::vector<PLAYER> playerSql;
 
     snprintf(tmp, 40, "SELECT * FROM PLAYER where id = %d", id);
-    if (m_pmysql->GetBySQL(playerSql, tmp)) {
-
+    if (MYSQL.GetBySQL(playerSql, tmp) < 0) {
+        return -1;
     }
     
-
     TRACER("player name: %s\n id: %d", A.name().c_str(), m_Id);
 
     m_Id = id;
@@ -81,8 +72,10 @@ int Player::InitPlayer()
     m_protoInfo.set_posx(playerSql[0].posx);
     m_protoInfo.set_posz(playerSql[0].posz);
     m_protoInfo.set_speed(playerSql[0].speed);
-
     m_protoInfo.set_state(0);
+
+    m_inventory.InitInventory(this);
+    
     return 0;
 }
 
@@ -202,7 +195,7 @@ int Player::savePlayer()
     playersql.posx = m_protoInfo.posx();
     playersql.posz = m_protoInfo.posz();
 
-    m_pmysql->SetBySQL(playersql);
+    MYSQL.SetBySQL(playersql);
 
     char tmp [30];
 
@@ -213,51 +206,50 @@ int Player::savePlayer()
 
     m_protoInfo.SerializeToArray(tmp2, size);
 
-    m_predis->SetByBit(tmp, tmp2, size);
+    REDIS.Set("usr_%d", tmp2, size, m_Id);
 
     return 0;
 }
 
 
-int Player::saveItem(BaseItem* _item)
-{
-    ITEM item;
+// int Player::saveItem(BaseItem* _item)
+// {
+//     ITEM item;
 
-    item.itemid = _item->getUID();
+//     item.itemid = _item->getUID();
 
-    item.userid = m_Id;
+//     item.userid = m_Id;
 
-    item.type = _item->getType();
+//     item.type = _item->getType();
 
-    item.count = _item->getCount();
+//     item.count = _item->getCount();
 
-    item.hp = _item->getAttribute(ItemAttributeType::ITEM_ATTRIBUTE_HP);
-    item.atk = _item->getAttribute(ItemAttributeType::ITEM_ATTRIBUTE_ATK);
+//     item.hp = _item->getAttribute(ItemAttributeType::ITEM_ATTRIBUTE_HP);
+//     item.atk = _item->getAttribute(ItemAttributeType::ITEM_ATTRIBUTE_ATK);
 
-    m_pmysql->SetBySQL(item);
+//     MYSQL.SetBySQL(item);
 
 
-    char key[20] = {0};
-    char fiel[20] = {0};
-    snprintf(key, 20, "%d", item.userid);
-    snprintf(fiel, 20, "%d", item.itemid);
+//     char key[20] = {0};
+//     char fiel[20] = {0};
+//     snprintf(key, 20, "bag_%d", item.userid);
+//     snprintf(fiel, 20, "item_%d", item.itemid);
 
-    Proto::Unity::Items item2;
-    item2.set_m_uid(item.itemid);
-    item2.set_m_type(item.type);
-    item2.set_m_count(item.count);
-    item2.set_m_hp(item.hp);
-    item2.set_m_atk(item.atk);
+//     Proto::Unity::Items item2;
+//     item2.set_m_uid(item.itemid);
+//     item2.set_m_type(item.type);
+//     item2.set_m_count(item.count);
+//     item2.set_m_hp(item.hp);
+//     item2.set_m_atk(item.atk);
 
-    int size = item2.ByteSizeLong();
-    char tmp[size];
-    item2.SerializeToArray(tmp, size);
+//     int size = item2.ByteSizeLong();
+//     char tmp[size];
+//     item2.SerializeToArray(tmp, size);
 
-    m_predis->HSetByBit(key, fiel, tmp, size);
+//     REDIS.HSetByBit(key, fiel, tmp, size);
 
-    return 0;
-}
-
+//     return 0;
+// }
 
 
 int Player::saveAll() {

@@ -26,6 +26,8 @@ public:
     template<typename T>
     int SetByString(const std::string& key , T& _t)
     {
+        FreeReply();
+
         m_ss << "SET " << key << " " << _t;
         m_ss >> m_cmd;
         
@@ -38,26 +40,38 @@ public:
         return 0;
     }
 
-    int SetByBit(const std::string& key, void*, int);
 
-    int GetByBit(const std::string& key, void**, int*);
+    int Set(const char *_key, const char *format, ...);
 
-    int HSetByBit(const std::string& key, const std::string& field, void*, int);
+    int Get(const char *_key, char *_buf, int* _len);
 
-    int HGetByBit(const std::string& key, const std::string& field, void**, int*);
 
+
+    int HSetField(const char *_key, const char *_field, const char *_format, ...);
+
+    int HGetField(const char *key, const char *_field, char *_usrbuf, int *_len);
+
+
+    int HMSET(const char *_key, const char *_format, ...);
+
+    // 传递二维数组, 获取整个hash表
+    int HMGET(const char* _key, char **_bufv, int *_count);
+
+    int Del(const char *_key);
 
 private:
 
     std::stringstream m_ss;
     std::string m_cmd;
+
     redisReply* m_reply;
     redisContext* m_context;
 
-    char* m_pcmd;
-
     std::string m_ip;
     int m_port;
+
+    char *m_pbuf;
+    int m_bufsize;
 };
 
 

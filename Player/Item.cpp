@@ -67,6 +67,11 @@ int BaseItem::getCount() const
     return m_nCount;
 }
 
+int BaseItem::setCount(int n)
+{
+    return (m_nCount = n);
+}
+
 
 int BaseItem::getType() const
 {

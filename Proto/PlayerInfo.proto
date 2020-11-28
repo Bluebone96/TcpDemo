@@ -129,3 +129,15 @@ message ItemUpdate {
 }
 
 
+message PlayerBag {
+    repeated Items = 0;
+    repeated equiped = 1;
+}
+
+
+
+
+message PlayerAllFuckInfo {
+    PlayerInfo baseinfo;
+    PlayerBag baginfo;
+}

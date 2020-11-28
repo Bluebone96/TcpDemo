@@ -7,12 +7,14 @@
 //#include "Bag.h"
 #include "Item.h"
 #include "Player.h"
+#include "../Proto/PlayerInfo.pb.h"
+
 
 
 struct Bag {
     int capacity;
     std::set<uint> items;
-    Bag(int _n) : capacity(_n) { }
+    Bag(int _n = 20) : capacity(_n) { }
     void add(int _n) { items.insert(_n); }
     void del(int _n) { items.erase(_n); }
     int isexist(int _n) { return items.count(_n); }
@@ -20,8 +22,10 @@ struct Bag {
 
 class Inventory {
 public:
-    Inventory(Player*);
+    Inventory();
     ~Inventory();
+
+    int InitInventory(Player *);
     Inventory(const Inventory&) = delete;
     Inventory& operator=(const Inventory&) =delete;
 
@@ -42,14 +46,32 @@ public:
 
     int saveAll();
 
+    int saveItem(BaseItem*);
+    
+    int item2Sql(BaseItem* _item, ITEM&);
+    int item2pb(BaseItem* _item, Proto::Unity::Items&);
+
+    int sql2item(ITEM&, BaseItem* _item);
+    int pb2item(Proto::Unity::Items&, BaseItem* _item);
+
+
+
 private:
-    Player* m_owner;
+
+    Player* m_player;
 
     std::map<uint, BaseItem*> m_mItems;
 
     Bag m_baseBag;
     Bag m_equipBag;
     Bag m_moneyBag;
+
+
+
+    ITEM m_itemsql;
+    Proto::Unity::Items m_itempb;
+
+    char m_bagkey[30];
 };
 
 

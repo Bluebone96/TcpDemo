@@ -16,6 +16,8 @@ int ToMysql::Init(const std::string& _db, const std::string& _server, const std:
     m_server = _server;
     m_user = _usr;
     m_pass = _pass;
+
+    return 0;
 }
 
 
@@ -31,7 +33,8 @@ int ToMysql::Connect()
 
 int ToMysql::DisConnect()
 {
-
+    // TODO
+    return 0;
 }
 
 

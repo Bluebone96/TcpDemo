@@ -74,5 +74,6 @@ private:
 // #define SERVER Server::GetInstance()
 
 #define SERVER Singleton<Server>::GetInstance()
-
+#define REDIS  SERVER.m_redis
+#define MYSQL  SERVER.m_mysql
 #endif

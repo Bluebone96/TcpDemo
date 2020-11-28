@@ -49,8 +49,8 @@ sql_create_9 (ITEM, 2, 9,
 
 
 
-// #define FORMATSTRING(_argc, format, args...) \
-// do { \
+// #define FORMATSTRING(_argc, format, args...) 
+// do { 
 //     if (_argc)
 
 // }
@@ -82,6 +82,7 @@ public:
     {
         m_query.insert(t);
         m_query.execute();
+        return 0;
     }
 
     // _argv 顺序 _tabel, _what, _where, 参考 GetByString
@@ -124,8 +125,9 @@ public:
     template<typename T>
     int ModBySQL(const T& _old, const T& _new)
     {
-        m_query.update(_old, _new)
+        m_query.update(_old, _new);
         m_query.execute();
+        return 0;
     }
 
     // void testgetsql(std::vector<PLAYER>& _player)

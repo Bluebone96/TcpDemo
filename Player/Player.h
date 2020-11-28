@@ -13,20 +13,17 @@
 #include "../Common/MsgTransmission.hpp"
 #include "../SQL/toredis.h"
 #include "../SQL/tomysql.h"
+#include "../Server/Server.h"
 
 
 
 class Player {
 public:
-    explicit Player(MsgTrans* msg = nullptr, ToMysql* _sql, ToRedis* _redis) : m_pos(0), m_msgTrans(msg), m_pmysql(_sql), m_predis(_redis)
-    {
-        if (msg) {
-            m_Id = msg->GetSocketfd();
-        }
-    }
+    explicit Player(MsgTrans* msg = nullptr) :  m_msgTrans(msg) { }
 
     ~Player() { 
         TRACER("player dctor delete msgtrans\n");
+        saveAll();
         delete m_msgTrans;
         m_msgTrans = nullptr; 
     }
@@ -63,17 +60,13 @@ public:
 
     int savePlayer();
 
-    int saveItem(BaseItem*);
-
     int saveAll();
-
-    int getItem();
 
     int getPlayer();
 
 private:
 
-    int32_t m_Id; // 暂时定为 acceptfd
+    int32_t m_Id; 
 
     char m_idstr[20];
     std::string m_name;
@@ -82,7 +75,6 @@ private:
     // 定义一个环形结构
     // PlayerStatus m_pStatus[MAXSTATUS];
     
-    UINT32 m_pos;
 
     Proto::Unity::PlayerInfo m_protoInfo;
 
@@ -93,9 +85,6 @@ private:
     struct  timeval  lastTimeUp;
 
     Inventory m_inventory;
-
-    ToMysql* m_pmysql;
-    ToRedis* m_predis;
 
 public:
     MsgTrans* m_msgTrans;

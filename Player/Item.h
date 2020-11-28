@@ -5,6 +5,8 @@
 #include <string>
 #include <map>
 
+#include "../Common/Singleton.h"
+
 // 道具类型
 enum class ItemType {
     Money,                      // 货币
@@ -40,14 +42,15 @@ public:
     int getType() const;
     int getConfID() const;
     int getCount() const;
+    int setCount(int n);
 
     bool isSaveNow() const;
     bool isStack() const;
     bool isBind() const;
     bool setBind();
 
-    virtual void setAttribute(ItemAttributeType key, int value);
-    virtual int getAttribute(ItemAttributeType key) const;
+    virtual void setAttribute(ItemAttributeType key, int value) { /* none */ }
+    virtual int getAttribute(ItemAttributeType key) const { /* none */ return 0; }
 
     virtual std::string toString() const =0;
 
@@ -108,7 +111,7 @@ class ConsumItem : public BaseItem {
 public:
     explicit ConsumItem(int _n = 1);
     ~ConsumItem();
-    ConsumItem::ConsumItem(const ConsumItem&, int _n = 1);
+    ConsumItem(const ConsumItem&, int _n = 1);
 
     virtual int getAttribute(ItemAttributeType key) const;
     
@@ -125,6 +128,6 @@ public:
     BaseItem* CreateItem(int type, int n);
 };
 
-
+#define ITEMFACTORY Singleton<ItemFactory>::GetInstance()
 
 #endif
