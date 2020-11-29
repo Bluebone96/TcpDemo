@@ -78,20 +78,34 @@ int BaseItem::getType() const
     return m_nType;
 }
 
+void BaseItem::setType(int _t)
+{
+    m_nType = _t;
+}
+
 bool BaseItem::isBind() const
 {
-    return (m_nFlagBit & 0x1); 
+    return (m_nFlagBit & 0x2); 
 }
 
 bool BaseItem::isStack() const
 {
-    return (m_nFlagBit & 0x2);
+    return (m_nFlagBit & 0x1);
 }
 
 
 int BaseItem::addItem(int _n)
 {
     return (m_nCount += _n);
+}
+
+
+int BaseItem::addItem(const BaseItem* _item)
+{
+    if (_item->getUID() == m_nUID) {
+        m_nCount += _item->getCount();
+    }
+    return m_nCount;
 }
 
 int BaseItem::delItem(int _n)
@@ -125,9 +139,13 @@ std::string MoneyItem::toString() const
     return "money";
 }
 
-void MoneyItem::initItem(int _config)
+void MoneyItem::initItem(int _confd)
 {
-    // TODO
+    m_nType = 0;
+    m_nUID = _confd;
+    m_nFlagBit = 0x1;   // 可叠加 不绑定
+    m_bSaveNow = true;
+    m_nCount = 1;
 }
 
 
@@ -155,7 +173,12 @@ ConsumItem::ConsumItem(const ConsumItem& _ci, int _n) : BaseItem(_ci, _n)
 
 void ConsumItem::initItem(int _confd)
 {
-    // TODO
+    m_nType = 1;
+    m_nUID = _confd;
+    m_nFlagBit = 0x1; // 可叠加 不绑定
+    m_bSaveNow = true;
+    m_nCount = 1;
+    m_attribute.insert(std::make_pair(ItemAttributeType::ITEM_ATTRIBUTE_HP, 100));
 }
 
 
@@ -199,6 +222,20 @@ EquipItem::~EquipItem()
 
 }
 
+int EquipItem::uniqueID = 0;    // 唯一ID, 每初始化一次加一
+
+void EquipItem::initItem(int _n)
+{
+    m_nType = 2;
+    m_nUID = _n + ((++uniqueID) << 16);
+    m_nFlagBit = 0x0;   // 初始为非绑定，不可叠加，未装备
+    m_bSaveNow = true;
+    m_nCount = 1;
+    m_attribute.insert(std::make_pair(ItemAttributeType::ITEM_ATTRIBUTE_ATK, 100));
+    m_attribute.insert(std::make_pair(ItemAttributeType::ITEM_ATTRIBUTE_HP, 100));
+    m_attribute.insert(std::make_pair(ItemAttributeType::ITEM_ATTRIBUTE_SPEED, 10));
+}
+
 bool EquipItem::isEquip()
 {
     return m_nFlagBit & 0x4;
@@ -232,7 +269,12 @@ int EquipItem::getAttribute(ItemAttributeType _key) const
     return m_attribute.at(_key);
 }
 
+std::string EquipItem::toString() const
+{
+    return "equip";
+}
 
-
-
-
+BaseItem* EquipItem::getBak(int) const
+{
+    return nullptr;
+}

@@ -9,9 +9,9 @@
 
 // 道具类型
 enum class ItemType {
-    Money,                      // 货币
-    CONSUME,                    // 消耗品
-    EQUIP                       // 装备
+    Money,                      // 货币 0
+    CONSUME,                    // 消耗品 1
+    EQUIP                       // 装备 2
 };
 
 // 道具属性类型
@@ -78,7 +78,7 @@ public:
 
 protected:
     uint m_nUID;                // UID  低 16 位 是 物品配置id, 高 16位是该类型物品唯一id
-    int m_nFlagBit;             // 标记 是否绑定0x1，  是否可叠加 0x2, 是否已装备0x4
+    int m_nFlagBit;             // 标记 是否可叠加 0x1,是否绑定0x2, 是否已装备0x4
     int m_nType;                // 类型  装备需要标记部位
     int m_nCount;               // 数量
     bool m_bSaveNow;            // 立即存档
@@ -98,8 +98,10 @@ public:
     bool isEquip();
     int equip();
     int unequip();
-    void setAttribute(ItemAttributeType key, int value);
-    int getAttribute(ItemAttributeType key) const;
+    void setAttribute(ItemAttributeType key, int value) override;
+    int getAttribute(ItemAttributeType key) const override;
+
+    static int uniqueID;
 private:
 
     std::map<ItemAttributeType, int> m_attribute;
@@ -124,8 +126,8 @@ public:
     ~ConsumItem();
     ConsumItem(const ConsumItem&, int _n = 1);
 
-    int getAttribute(ItemAttributeType key) const;
-    void setAttribute(ItemAttributeType key, int value);
+    int getAttribute(ItemAttributeType key) const override;
+    void setAttribute(ItemAttributeType key, int value) override;
     
     void initItem(int) override;
     std::string toString() const override;

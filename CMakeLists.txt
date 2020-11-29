@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
-SET (CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES /usr/local/bin/gcc)
-SET (CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES /usr/local/bin/g++)
-SET (CMAKE_CXX_FLAGS -I /usr/local/inclue)
+#SET (CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES /usr/local/bin/gcc)
+#SET (CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES /usr/local/bin/g++)
+#SET (CMAKE_CXX_FLAGS -I /usr/local/inclue)
 project(TcpDemo)
 add_definitions(-std=c++11)
 
