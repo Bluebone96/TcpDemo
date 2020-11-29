@@ -8,7 +8,6 @@
 
 
 // #ifndef _DEMO_DB_TYPE_
-// #define MYSQLPP_SSQLS_NO_STATICS
 // #endif
 
 sql_create_2 (PASS, 1, 2,

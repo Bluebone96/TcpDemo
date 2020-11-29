@@ -1,18 +1,22 @@
-#ifndef _INVENTORY_HPP_
-#define _INVENTORY_HPP_
+#ifndef _INVENTORY_H_
+#define _INVENTORY_H_
 
 #include <map>
 #include <set>
 
-//#include "Bag.h"
-#include "Item.h"
-#include "Player.h"
 #include "../Proto/PlayerInfo.pb.h"
+// #include "../Server/Server.h"
+
+#include "Item.h"
+#include "../SQL/toredis.h"
+
+#define MYSQLPP_SSQLS_NO_STATICS
+#include "../SQL/tomysql.h"
 
 
 
 struct Bag {
-    int capacity;
+    uint32_t capacity;
     std::set<uint> items;
     Bag(int _n = 20) : capacity(_n) { }
     void add(int _n) { items.insert(_n); }
@@ -25,10 +29,10 @@ public:
     Inventory();
     ~Inventory();
 
-    int InitInventory(Player *, Proto::Unity::PlayerBag*);
     Inventory(const Inventory&) = delete;
     Inventory& operator=(const Inventory&) =delete;
 
+    int InitInventory(uint32_t , Proto::Unity::PlayerBag*);
 
     int addItem(BaseItem*);
     
@@ -58,7 +62,7 @@ public:
 
 private:
 
-    Player* m_player;
+    uint32_t m_playerId;
 
     std::map<uint, BaseItem*> m_mItems;
 

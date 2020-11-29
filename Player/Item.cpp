@@ -28,7 +28,7 @@ BaseItem* ItemFactory::CreateItem(int _type, int _configId)
     return item;
 }
 
-BaseItem::BaseItem(int _n) : m_nFlagBit(0), m_nType(0), m_nUID(0), m_bSaveNow(false), m_nCount((m_nCount = _n) > 0 ? _n : 1)
+BaseItem::BaseItem(int _n) : m_nUID(0), m_nFlagBit(0), m_nType(0), m_nCount((_n > 0) ? _n : 1), m_bSaveNow(false)
 {
 }
 

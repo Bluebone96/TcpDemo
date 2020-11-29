@@ -1,6 +1,8 @@
 #include "Player.h"
 #include "../Common/MsgTransmission.hpp"
-#include "../build/PlayerInfo.pb.h"
+#include "../Proto/PlayerInfo.pb.h"
+#include "../Server/Server.h"
+
 #include <vector>
 #include <cstdlib>
 
@@ -30,11 +32,11 @@ int Player::InitPlayer()
     char buf[512] = {0};
     int len = 0;
     if (REDIS.Get(key1, buf, &len) == EOK) {
-        if (pass == atoi(buf)) {
+        if (pass == (unsigned int)atoi(buf)) {
             snprintf(key1, 30, "usr_%d", id);
             if (REDIS.Get(key1, buf, &len) == EOK) {
                 m_protoInfo.ParseFromArray(buf, len);
-                m_inventory.InitInventory(this, m_fuckAllPb.mutable_baginfo());
+                m_inventory.InitInventory(id, m_fuckAllPb.mutable_baginfo());
                 return 0;
             }
         }
@@ -51,7 +53,7 @@ int Player::InitPlayer()
         
     }
 
-    if (passSql[0].pass != pass) {
+    if ((unsigned int)(passSql[0].pass) != pass) {
         return -1;
     }
 
@@ -76,7 +78,7 @@ int Player::InitPlayer()
     m_protoInfo.set_speed(playerSql[0].speed);
     m_protoInfo.set_state(0);
 
-    m_inventory.InitInventory(this, m_fuckAllPb.mutable_baginfo());
+    m_inventory.InitInventory(id, m_fuckAllPb.mutable_baginfo());
     
     return 0;
 }
@@ -186,6 +188,7 @@ int Player::updateInventroy()
     if (rn >= 0) {
         m_msgTrans->sendmsg(itemEvent);
     }
+    return 0;
 }
 
 

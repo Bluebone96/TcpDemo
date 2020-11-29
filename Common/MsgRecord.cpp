@@ -2,7 +2,6 @@
 #include "MsgRecord.h"
 #include "log.h"
 
-
 // src to dest
 int32_t 
 Coder::encode(void* dest, uint32_t destsz, void* src, uint32_t count) 

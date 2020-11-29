@@ -89,6 +89,8 @@ protected:
 
 class EquipItem : public BaseItem {
 public:
+    EquipItem();
+    ~EquipItem();
     void initItem(int) override;
     int addItem(const int) override { return -1; /* 装备不可加 */};
     std::string toString() const override;

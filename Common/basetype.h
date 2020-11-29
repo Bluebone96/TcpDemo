@@ -62,14 +62,14 @@ typedef int SINT32;
 // } TAG;
 
 
-enum class EventType {
-    USERLOGIN = 0,
-    USEREXIT = 1,
-    USERALIVE = 2,
-    USERUP = 3,
-    USERSYNC = 4,
-    USERCHAT = 5,
-};
+// enum class EventType {
+//     USERLOGIN = 0,
+//     USEREXIT = 1,
+//     USERALIVE = 2,
+//     USERUP = 3,
+//     USERSYNC = 4,
+//     USERCHAT = 5,
+// };
 
 #endif
 

@@ -11,9 +11,12 @@
 #include "../Common/TcpSocket.h"
 #include "../Common/MsgRecord.h"
 #include "../Common/MsgTransmission.hpp"
-#include "../SQL/tomysql.h"
+
 #include "../SQL/toredis.h"
 #include "../Player/Player.h"
+
+#define MYSQLPP_SSQLS_NO_STATICS
+#include "../SQL/tomysql.h"
 
 //#include "../Handler/EventHandler.h"
 

@@ -2,7 +2,10 @@
 #include "EventHandler.h"
 #include "../Common/log.h"
 
-EventHandler::EventHandler() {}
+EventHandler::EventHandler()
+{
+
+}
 
 EventHandler::~EventHandler()
 {

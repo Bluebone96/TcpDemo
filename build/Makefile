@@ -105,253 +105,89 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named DemoLib
+# Target rules for targets named proto
 
 # Build rule for target.
-DemoLib: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 DemoLib
-.PHONY : DemoLib
+proto: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 proto
+.PHONY : proto
 
 # fast build rule for target.
-DemoLib/fast:
-	$(MAKE) -f CMakeFiles/DemoLib.dir/build.make CMakeFiles/DemoLib.dir/build
-.PHONY : DemoLib/fast
+proto/fast:
+	$(MAKE) -f CMakeFiles/proto.dir/build.make CMakeFiles/proto.dir/build
+.PHONY : proto/fast
 
 #=============================================================================
-# Target rules for targets named Server
+# Target rules for targets named server
 
 # Build rule for target.
-Server: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 Server
-.PHONY : Server
+server: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 server
+.PHONY : server
 
 # fast build rule for target.
-Server/fast:
-	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/build
-.PHONY : Server/fast
+server/fast:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/build
+.PHONY : server/fast
 
-Common/Epoll.o: Common/Epoll.cpp.o
-.PHONY : Common/Epoll.o
+#=============================================================================
+# Target rules for targets named common
 
-# target to build an object file
-Common/Epoll.cpp.o:
-	$(MAKE) -f CMakeFiles/DemoLib.dir/build.make CMakeFiles/DemoLib.dir/Common/Epoll.cpp.o
-.PHONY : Common/Epoll.cpp.o
+# Build rule for target.
+common: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 common
+.PHONY : common
 
-Common/Epoll.i: Common/Epoll.cpp.i
-.PHONY : Common/Epoll.i
+# fast build rule for target.
+common/fast:
+	$(MAKE) -f Common/CMakeFiles/common.dir/build.make Common/CMakeFiles/common.dir/build
+.PHONY : common/fast
 
-# target to preprocess a source file
-Common/Epoll.cpp.i:
-	$(MAKE) -f CMakeFiles/DemoLib.dir/build.make CMakeFiles/DemoLib.dir/Common/Epoll.cpp.i
-.PHONY : Common/Epoll.cpp.i
+#=============================================================================
+# Target rules for targets named sql
 
-Common/Epoll.s: Common/Epoll.cpp.s
-.PHONY : Common/Epoll.s
+# Build rule for target.
+sql: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 sql
+.PHONY : sql
 
-# target to generate assembly for a file
-Common/Epoll.cpp.s:
-	$(MAKE) -f CMakeFiles/DemoLib.dir/build.make CMakeFiles/DemoLib.dir/Common/Epoll.cpp.s
-.PHONY : Common/Epoll.cpp.s
+# fast build rule for target.
+sql/fast:
+	$(MAKE) -f SQL/CMakeFiles/sql.dir/build.make SQL/CMakeFiles/sql.dir/build
+.PHONY : sql/fast
 
-Common/MsgRecord.o: Common/MsgRecord.cpp.o
-.PHONY : Common/MsgRecord.o
+#=============================================================================
+# Target rules for targets named player
 
-# target to build an object file
-Common/MsgRecord.cpp.o:
-	$(MAKE) -f CMakeFiles/DemoLib.dir/build.make CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.o
-.PHONY : Common/MsgRecord.cpp.o
+# Build rule for target.
+player: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 player
+.PHONY : player
 
-Common/MsgRecord.i: Common/MsgRecord.cpp.i
-.PHONY : Common/MsgRecord.i
+# fast build rule for target.
+player/fast:
+	$(MAKE) -f Player/CMakeFiles/player.dir/build.make Player/CMakeFiles/player.dir/build
+.PHONY : player/fast
 
-# target to preprocess a source file
-Common/MsgRecord.cpp.i:
-	$(MAKE) -f CMakeFiles/DemoLib.dir/build.make CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.i
-.PHONY : Common/MsgRecord.cpp.i
+#=============================================================================
+# Target rules for targets named handle
 
-Common/MsgRecord.s: Common/MsgRecord.cpp.s
-.PHONY : Common/MsgRecord.s
+# Build rule for target.
+handle: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 handle
+.PHONY : handle
 
-# target to generate assembly for a file
-Common/MsgRecord.cpp.s:
-	$(MAKE) -f CMakeFiles/DemoLib.dir/build.make CMakeFiles/DemoLib.dir/Common/MsgRecord.cpp.s
-.PHONY : Common/MsgRecord.cpp.s
-
-Common/TcpSocket.o: Common/TcpSocket.cpp.o
-.PHONY : Common/TcpSocket.o
-
-# target to build an object file
-Common/TcpSocket.cpp.o:
-	$(MAKE) -f CMakeFiles/DemoLib.dir/build.make CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.o
-.PHONY : Common/TcpSocket.cpp.o
-
-Common/TcpSocket.i: Common/TcpSocket.cpp.i
-.PHONY : Common/TcpSocket.i
-
-# target to preprocess a source file
-Common/TcpSocket.cpp.i:
-	$(MAKE) -f CMakeFiles/DemoLib.dir/build.make CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.i
-.PHONY : Common/TcpSocket.cpp.i
-
-Common/TcpSocket.s: Common/TcpSocket.cpp.s
-.PHONY : Common/TcpSocket.s
-
-# target to generate assembly for a file
-Common/TcpSocket.cpp.s:
-	$(MAKE) -f CMakeFiles/DemoLib.dir/build.make CMakeFiles/DemoLib.dir/Common/TcpSocket.cpp.s
-.PHONY : Common/TcpSocket.cpp.s
-
-Handler/Dispatcher.o: Handler/Dispatcher.cpp.o
-.PHONY : Handler/Dispatcher.o
-
-# target to build an object file
-Handler/Dispatcher.cpp.o:
-	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Handler/Dispatcher.cpp.o
-.PHONY : Handler/Dispatcher.cpp.o
-
-Handler/Dispatcher.i: Handler/Dispatcher.cpp.i
-.PHONY : Handler/Dispatcher.i
-
-# target to preprocess a source file
-Handler/Dispatcher.cpp.i:
-	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Handler/Dispatcher.cpp.i
-.PHONY : Handler/Dispatcher.cpp.i
-
-Handler/Dispatcher.s: Handler/Dispatcher.cpp.s
-.PHONY : Handler/Dispatcher.s
-
-# target to generate assembly for a file
-Handler/Dispatcher.cpp.s:
-	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Handler/Dispatcher.cpp.s
-.PHONY : Handler/Dispatcher.cpp.s
-
-Handler/EventHandler.o: Handler/EventHandler.cpp.o
-.PHONY : Handler/EventHandler.o
-
-# target to build an object file
-Handler/EventHandler.cpp.o:
-	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Handler/EventHandler.cpp.o
-.PHONY : Handler/EventHandler.cpp.o
-
-Handler/EventHandler.i: Handler/EventHandler.cpp.i
-.PHONY : Handler/EventHandler.i
-
-# target to preprocess a source file
-Handler/EventHandler.cpp.i:
-	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Handler/EventHandler.cpp.i
-.PHONY : Handler/EventHandler.cpp.i
-
-Handler/EventHandler.s: Handler/EventHandler.cpp.s
-.PHONY : Handler/EventHandler.s
-
-# target to generate assembly for a file
-Handler/EventHandler.cpp.s:
-	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Handler/EventHandler.cpp.s
-.PHONY : Handler/EventHandler.cpp.s
-
-Handler/Handle.o: Handler/Handle.cpp.o
-.PHONY : Handler/Handle.o
-
-# target to build an object file
-Handler/Handle.cpp.o:
-	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Handler/Handle.cpp.o
-.PHONY : Handler/Handle.cpp.o
-
-Handler/Handle.i: Handler/Handle.cpp.i
-.PHONY : Handler/Handle.i
-
-# target to preprocess a source file
-Handler/Handle.cpp.i:
-	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Handler/Handle.cpp.i
-.PHONY : Handler/Handle.cpp.i
-
-Handler/Handle.s: Handler/Handle.cpp.s
-.PHONY : Handler/Handle.s
-
-# target to generate assembly for a file
-Handler/Handle.cpp.s:
-	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Handler/Handle.cpp.s
-.PHONY : Handler/Handle.cpp.s
-
-Player/Inventory.o: Player/Inventory.cpp.o
-.PHONY : Player/Inventory.o
-
-# target to build an object file
-Player/Inventory.cpp.o:
-	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Player/Inventory.cpp.o
-.PHONY : Player/Inventory.cpp.o
-
-Player/Inventory.i: Player/Inventory.cpp.i
-.PHONY : Player/Inventory.i
-
-# target to preprocess a source file
-Player/Inventory.cpp.i:
-	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Player/Inventory.cpp.i
-.PHONY : Player/Inventory.cpp.i
-
-Player/Inventory.s: Player/Inventory.cpp.s
-.PHONY : Player/Inventory.s
-
-# target to generate assembly for a file
-Player/Inventory.cpp.s:
-	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Player/Inventory.cpp.s
-.PHONY : Player/Inventory.cpp.s
-
-Player/Item.o: Player/Item.cpp.o
-.PHONY : Player/Item.o
-
-# target to build an object file
-Player/Item.cpp.o:
-	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Player/Item.cpp.o
-.PHONY : Player/Item.cpp.o
-
-Player/Item.i: Player/Item.cpp.i
-.PHONY : Player/Item.i
-
-# target to preprocess a source file
-Player/Item.cpp.i:
-	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Player/Item.cpp.i
-.PHONY : Player/Item.cpp.i
-
-Player/Item.s: Player/Item.cpp.s
-.PHONY : Player/Item.s
-
-# target to generate assembly for a file
-Player/Item.cpp.s:
-	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Player/Item.cpp.s
-.PHONY : Player/Item.cpp.s
-
-Player/Player.o: Player/Player.cpp.o
-.PHONY : Player/Player.o
-
-# target to build an object file
-Player/Player.cpp.o:
-	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Player/Player.cpp.o
-.PHONY : Player/Player.cpp.o
-
-Player/Player.i: Player/Player.cpp.i
-.PHONY : Player/Player.i
-
-# target to preprocess a source file
-Player/Player.cpp.i:
-	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Player/Player.cpp.i
-.PHONY : Player/Player.cpp.i
-
-Player/Player.s: Player/Player.cpp.s
-.PHONY : Player/Player.s
-
-# target to generate assembly for a file
-Player/Player.cpp.s:
-	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Player/Player.cpp.s
-.PHONY : Player/Player.cpp.s
+# fast build rule for target.
+handle/fast:
+	$(MAKE) -f Handler/CMakeFiles/handle.dir/build.make Handler/CMakeFiles/handle.dir/build
+.PHONY : handle/fast
 
 PlayerInfo.pb.o: PlayerInfo.pb.cc.o
 .PHONY : PlayerInfo.pb.o
 
 # target to build an object file
 PlayerInfo.pb.cc.o:
-	$(MAKE) -f CMakeFiles/DemoLib.dir/build.make CMakeFiles/DemoLib.dir/PlayerInfo.pb.cc.o
+	$(MAKE) -f CMakeFiles/proto.dir/build.make CMakeFiles/proto.dir/PlayerInfo.pb.cc.o
 .PHONY : PlayerInfo.pb.cc.o
 
 PlayerInfo.pb.i: PlayerInfo.pb.cc.i
@@ -359,7 +195,7 @@ PlayerInfo.pb.i: PlayerInfo.pb.cc.i
 
 # target to preprocess a source file
 PlayerInfo.pb.cc.i:
-	$(MAKE) -f CMakeFiles/DemoLib.dir/build.make CMakeFiles/DemoLib.dir/PlayerInfo.pb.cc.i
+	$(MAKE) -f CMakeFiles/proto.dir/build.make CMakeFiles/proto.dir/PlayerInfo.pb.cc.i
 .PHONY : PlayerInfo.pb.cc.i
 
 PlayerInfo.pb.s: PlayerInfo.pb.cc.s
@@ -367,63 +203,15 @@ PlayerInfo.pb.s: PlayerInfo.pb.cc.s
 
 # target to generate assembly for a file
 PlayerInfo.pb.cc.s:
-	$(MAKE) -f CMakeFiles/DemoLib.dir/build.make CMakeFiles/DemoLib.dir/PlayerInfo.pb.cc.s
+	$(MAKE) -f CMakeFiles/proto.dir/build.make CMakeFiles/proto.dir/PlayerInfo.pb.cc.s
 .PHONY : PlayerInfo.pb.cc.s
-
-SQL/tomysql.o: SQL/tomysql.cpp.o
-.PHONY : SQL/tomysql.o
-
-# target to build an object file
-SQL/tomysql.cpp.o:
-	$(MAKE) -f CMakeFiles/DemoLib.dir/build.make CMakeFiles/DemoLib.dir/SQL/tomysql.cpp.o
-.PHONY : SQL/tomysql.cpp.o
-
-SQL/tomysql.i: SQL/tomysql.cpp.i
-.PHONY : SQL/tomysql.i
-
-# target to preprocess a source file
-SQL/tomysql.cpp.i:
-	$(MAKE) -f CMakeFiles/DemoLib.dir/build.make CMakeFiles/DemoLib.dir/SQL/tomysql.cpp.i
-.PHONY : SQL/tomysql.cpp.i
-
-SQL/tomysql.s: SQL/tomysql.cpp.s
-.PHONY : SQL/tomysql.s
-
-# target to generate assembly for a file
-SQL/tomysql.cpp.s:
-	$(MAKE) -f CMakeFiles/DemoLib.dir/build.make CMakeFiles/DemoLib.dir/SQL/tomysql.cpp.s
-.PHONY : SQL/tomysql.cpp.s
-
-SQL/toredis.o: SQL/toredis.cpp.o
-.PHONY : SQL/toredis.o
-
-# target to build an object file
-SQL/toredis.cpp.o:
-	$(MAKE) -f CMakeFiles/DemoLib.dir/build.make CMakeFiles/DemoLib.dir/SQL/toredis.cpp.o
-.PHONY : SQL/toredis.cpp.o
-
-SQL/toredis.i: SQL/toredis.cpp.i
-.PHONY : SQL/toredis.i
-
-# target to preprocess a source file
-SQL/toredis.cpp.i:
-	$(MAKE) -f CMakeFiles/DemoLib.dir/build.make CMakeFiles/DemoLib.dir/SQL/toredis.cpp.i
-.PHONY : SQL/toredis.cpp.i
-
-SQL/toredis.s: SQL/toredis.cpp.s
-.PHONY : SQL/toredis.s
-
-# target to generate assembly for a file
-SQL/toredis.cpp.s:
-	$(MAKE) -f CMakeFiles/DemoLib.dir/build.make CMakeFiles/DemoLib.dir/SQL/toredis.cpp.s
-.PHONY : SQL/toredis.cpp.s
 
 Server/Server.o: Server/Server.cpp.o
 .PHONY : Server/Server.o
 
 # target to build an object file
 Server/Server.cpp.o:
-	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Server/Server.cpp.o
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/Server/Server.cpp.o
 .PHONY : Server/Server.cpp.o
 
 Server/Server.i: Server/Server.cpp.i
@@ -431,7 +219,7 @@ Server/Server.i: Server/Server.cpp.i
 
 # target to preprocess a source file
 Server/Server.cpp.i:
-	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Server/Server.cpp.i
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/Server/Server.cpp.i
 .PHONY : Server/Server.cpp.i
 
 Server/Server.s: Server/Server.cpp.s
@@ -439,7 +227,7 @@ Server/Server.s: Server/Server.cpp.s
 
 # target to generate assembly for a file
 Server/Server.cpp.s:
-	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Server/Server.cpp.s
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/Server/Server.cpp.s
 .PHONY : Server/Server.cpp.s
 
 Server/main.o: Server/main.cpp.o
@@ -447,7 +235,7 @@ Server/main.o: Server/main.cpp.o
 
 # target to build an object file
 Server/main.cpp.o:
-	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Server/main.cpp.o
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/Server/main.cpp.o
 .PHONY : Server/main.cpp.o
 
 Server/main.i: Server/main.cpp.i
@@ -455,7 +243,7 @@ Server/main.i: Server/main.cpp.i
 
 # target to preprocess a source file
 Server/main.cpp.i:
-	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Server/main.cpp.i
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/Server/main.cpp.i
 .PHONY : Server/main.cpp.i
 
 Server/main.s: Server/main.cpp.s
@@ -463,7 +251,7 @@ Server/main.s: Server/main.cpp.s
 
 # target to generate assembly for a file
 Server/main.cpp.s:
-	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Server/main.cpp.s
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/Server/main.cpp.s
 .PHONY : Server/main.cpp.s
 
 # Help Target
@@ -472,46 +260,17 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... DemoLib"
-	@echo "... Server"
 	@echo "... edit_cache"
+	@echo "... proto"
 	@echo "... rebuild_cache"
-	@echo "... Common/Epoll.o"
-	@echo "... Common/Epoll.i"
-	@echo "... Common/Epoll.s"
-	@echo "... Common/MsgRecord.o"
-	@echo "... Common/MsgRecord.i"
-	@echo "... Common/MsgRecord.s"
-	@echo "... Common/TcpSocket.o"
-	@echo "... Common/TcpSocket.i"
-	@echo "... Common/TcpSocket.s"
-	@echo "... Handler/Dispatcher.o"
-	@echo "... Handler/Dispatcher.i"
-	@echo "... Handler/Dispatcher.s"
-	@echo "... Handler/EventHandler.o"
-	@echo "... Handler/EventHandler.i"
-	@echo "... Handler/EventHandler.s"
-	@echo "... Handler/Handle.o"
-	@echo "... Handler/Handle.i"
-	@echo "... Handler/Handle.s"
-	@echo "... Player/Inventory.o"
-	@echo "... Player/Inventory.i"
-	@echo "... Player/Inventory.s"
-	@echo "... Player/Item.o"
-	@echo "... Player/Item.i"
-	@echo "... Player/Item.s"
-	@echo "... Player/Player.o"
-	@echo "... Player/Player.i"
-	@echo "... Player/Player.s"
+	@echo "... server"
+	@echo "... common"
+	@echo "... sql"
+	@echo "... player"
+	@echo "... handle"
 	@echo "... PlayerInfo.pb.o"
 	@echo "... PlayerInfo.pb.i"
 	@echo "... PlayerInfo.pb.s"
-	@echo "... SQL/tomysql.o"
-	@echo "... SQL/tomysql.i"
-	@echo "... SQL/tomysql.s"
-	@echo "... SQL/toredis.o"
-	@echo "... SQL/toredis.i"
-	@echo "... SQL/toredis.s"
 	@echo "... Server/Server.o"
 	@echo "... Server/Server.i"
 	@echo "... Server/Server.s"

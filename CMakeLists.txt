@@ -1,105 +1,64 @@
-# cmake_minimum_required(VERSION 2.8)
-
-# set (PROJECT_NAME TcpDemo)
-
-# project(${PROJECT_NAME})
-
-# aux_source_directory(src DIR_SRCS)
-
-# add_subdirectory(Common)
-
-# add_subdirectory(Handler)
-
-# add_subdirectory(Player)
-
-# add_subdirectory(Server)
-
-# add_subdirectory(Proto)
-
-# add_executable(${PROJECT_NAME} ${DIR_SRCS})
-
-# target_link_libraries(${PROJECT_NAME} )
-
-
-
-
 cmake_minimum_required(VERSION 2.8)
+SET (CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES /usr/local/bin/gcc)
+SET (CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES /usr/local/bin/g++)
+SET (CMAKE_CXX_FLAGS -I /usr/local/inclue)
 project(TcpDemo)
 add_definitions(-std=c++11)
+
 
 set(CMAKE_VERBOSE_MAKEFILE ON)
 set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -fno-strict-aliasing")
 set(CMAKE_C_FLAGS "$ENV{CXXFLAGS} -rdynamic -O3 -fPIC -ggdb -std=c11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -fno-strict-aliasing")
+
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
+
+SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
 find_package(Protobuf)
 if(Protobuf_FOUND)
     include_directories(${Protobuf_INCLUDE_DIRS})
 endif()
 
-include_directories(.)
-include_directories(${PROJECT_SOURCE_DIR}/Proto ${PROJECT_SOURCE_DIR}/Player  ${PROJECT_SOURCE_DIR}/Common  ${PROJECT_SOURCE_DIR}/Handler ${PROJECT_SOURCE_DIR}/Server
-		    ${PROJECT_SOURCE_DIR}/build)
-set(LIB_SRC
-	Common/Epoll.cpp
-    Common/TcpSocket.cpp
-    Common/MsgRecord.cpp
-    )
-
 set(PROTO_FILES Proto/PlayerInfo.proto)
 PROTOBUF_GENERATE_CPP(PROTO_SRCS PROTO_HDRS ${PROTO_FILES})
 
-set(PROTOLIB ${PROTO_SRCS})
+add_library(proto ${PROTO_SRCS})
 
-set(SQL_LIB
-    SQL/tomysql.cpp
-    SQL/toredis.cpp
+#ADD_SUBDIRECTORY(Proto)
+ADD_SUBDIRECTORY(Common)
+ADD_SUBDIRECTORY(SQL)
+ADD_SUBDIRECTORY(Player)
+ADD_SUBDIRECTORY(Handler)
+
+LINK_DIRECTORIES(/usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64)
+
+SET(EXTRA_LIBS ${EXTRA_LIBS}  common sql player handle  )
+
+
+include_directories(.)
+
+include_directories(
+    ${PROJECT_SOURCE_DIR}/Proto 
+    ${PROJECT_SOURCE_DIR}/Common  
+    ${PROJECT_SOURCE_DIR}/Player  
+    ${PROJECT_SOURCE_DIR}/Handler 
+    ${PROJECT_SOURCE_DIR}/SQL
+    ${PROJECT_SOURCE_DIR}/Server
 )
 
 
-add_library(DemoLib ${LIB_SRC} ${PROTOLIB} ${SQL_LIB})
-#add_library(Hook_static STATIC ${LIB_SRC})
-#SET_TARGET_PROPERTIES (Hook_static PROPERTIES OUTPUT_NAME "Hook_lib")
+AUX_SOURCE_DIRECTORY(./Server SRC_SERVER)
 
+add_executable(server ${SRC_SERVER})
 
-
-
-
-# set(PLAYER_LIB
-#     Player/Inventory.hpp
-#     Player/PlayerStatus.hpp
-#     Player/Player.cpp
-# )
-
-set(SERVER_LIB
-    Player/Item.cpp
-    Player/Inventory.cpp
-    Player/PlayerStatus.hpp
-    Player/Player.cpp
-    Server/Server.cpp
-    Handler/Handle.cpp
-    Handler/EventHandler.cpp
-    Handler/Dispatcher.cpp
-)
-
-# set(HANDLE_LIB
-#     Handler/Handle.hpp
-#     Handler/EventHandler.cpp
-#     Handler/Dispatcher.cpp
-# )
-
-
-
-
-
-add_executable(Server Server/main.cpp   ${SERVER_LIB} )
-target_link_libraries(Server DemoLib ${Protobuf_LIBRARIES})
+target_link_libraries(server -Wl,--start-group proto ${Protobuf_LIBRARIES} ${EXTRA_LIBS} -lmysqlclient -lmysqlpp -lhiredis -Wl,--end-group)
 
 # set(CLIENT_LIB 
-# 	client/client.cc
+# 	client/client.ccsudo
 # )
 
 # add_executable(client client/main.cc ${CLIENT_LIB})
 # target_link_libraries(client demo_lib ${Protobuf_LIBRARIES})
 
-SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
-SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
+#SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
+#SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)

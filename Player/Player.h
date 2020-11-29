@@ -8,13 +8,17 @@
 #include <string>
 #include <sys/time.h>
 
-#include "Inventory.h"
 #include "../Common/basetype.h"
 #include "../Common/MsgTransmission.hpp"
 #include "../SQL/toredis.h"
-#include "../SQL/tomysql.h"
-#include "../Server/Server.h"
 
+
+#define MYSQLPP_SSQLS_NO_STATICS
+
+#include "../SQL/tomysql.h"
+
+
+#include "Inventory.h"
 
 
 class Player {

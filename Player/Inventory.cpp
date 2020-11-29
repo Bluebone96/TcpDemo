@@ -1,5 +1,6 @@
 #include "Inventory.h"
 #include "../Server/Server.h"
+
 #include <vector>
 
 Inventory::Inventory()
@@ -12,14 +13,14 @@ Inventory::~Inventory()
     
 }
 
-int Inventory::InitInventory(Player* _p,  Proto::Unity::PlayerBag* _pb)
+int Inventory::InitInventory(uint32_t _id,  Proto::Unity::PlayerBag* _pb)
 {
-    m_player = _p;
+    m_playerId = _id;
 
     // 从redis 读取 物品
     char buf[20][1024];
     int count = 0;
-    snprintf(m_bagkey, 30, "bag_%d", m_player->getId());
+    snprintf(m_bagkey, 30, "bag_%d", m_playerId);
 
     if (REDIS.HMGET(m_bagkey, (char**)buf, &count) == 0) {
         for (int i = 0; i < count; ++i) {
@@ -29,13 +30,13 @@ int Inventory::InitInventory(Player* _p,  Proto::Unity::PlayerBag* _pb)
 
             BaseItem* item = ITEMFACTORY.CreateItem(m_itempb.m_type(), m_itempb.m_uid());
             pb2item(*pitem, item);
-            
+
             addItem(item);
         }
     } else {
         std::vector<ITEM> items;
         char cmd[40];
-        snprintf(cmd, 40, "SELECT * FROM ITEM where userid = %d", m_player->getId());
+        snprintf(cmd, 40, "SELECT * FROM ITEM where userid = %d", m_playerId);
         MYSQL.GetBySQL(items, cmd);
 
         for (auto& x : items) {
@@ -44,6 +45,8 @@ int Inventory::InitInventory(Player* _p,  Proto::Unity::PlayerBag* _pb)
             addItem(item);
         }
     }
+
+    return 0;
 }
 
 
@@ -67,7 +70,7 @@ int Inventory::addItem(BaseItem* _item)
                     char buf[200] = {0};
                     m_itempb.SerializeToArray(buf, size);
                     
-                    REDIS.HSetField("bag_%d", "%d", buf, m_player->getId());
+                    REDIS.HSetField("bag_%d", "%d", buf, m_playerId);
                 }
             } else {
                 m_mItems.insert(std::make_pair(_item->getUID(), _item));
@@ -160,6 +163,7 @@ int Inventory::unequipItem(uint _uid)
 int Inventory::tradeItem(uint _uid, int _n, int _playerid)
 {
     // TODO
+    return 0;
 }
 
 
@@ -175,7 +179,7 @@ int Inventory::saveAll()
 
 int Inventory::item2Sql(BaseItem* _baseitem, ITEM& _itemsql)
 {
-    _itemsql.userid = m_player->getId();
+    _itemsql.userid = m_playerId;
     _itemsql.itemid = _baseitem->getUID();
     _itemsql.hp = _baseitem->getAttribute(ItemAttributeType::ITEM_ATTRIBUTE_HP);
     _itemsql.atk = _baseitem->getAttribute(ItemAttributeType::ITEM_ATTRIBUTE_ATK);
@@ -199,7 +203,7 @@ int Inventory::sql2item(ITEM& _itemsql, BaseItem* _baseitem)
 }
 
 
-int Inventory::item2pb(BaseItem* _baseitem, Proto::Unity::Items& _itempb)
+int Inventory::item2pb(BaseItem* _baseitem, Proto::Unity::ItemInfo& _itempb)
 {
     _itempb.set_m_uid(_baseitem->getUID());
     _itempb.set_m_count(_baseitem->getCount());
@@ -211,7 +215,7 @@ int Inventory::item2pb(BaseItem* _baseitem, Proto::Unity::Items& _itempb)
 }
 
 
-int Inventory::pb2item(Proto::Unity::Items& _itempb, BaseItem* _baseitem)
+int Inventory::pb2item(Proto::Unity::ItemInfo& _itempb, BaseItem* _baseitem)
 {
     _baseitem->setUID(_itempb.m_uid());
     _baseitem->setType(_itempb.m_type());
@@ -236,7 +240,7 @@ int Inventory::saveItem(BaseItem* _item)
     char tmp[size];
     m_itempb.SerializeToArray(tmp, size);
 
-    REDIS.HSetField("bag_%d", "%d", tmp, size, m_player->getId(), _item->getUID());
+    REDIS.HSetField("bag_%d", "%d", tmp, size, m_playerId, _item->getUID());
 
     return 0;
 }

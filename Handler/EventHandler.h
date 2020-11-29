@@ -7,6 +7,15 @@
 #include "../Common/basetype.h"
 
 
+enum EventType {
+    USERLOGIN = 0,
+    USEREXIT = 1,
+    USERALIVE = 2,
+    USERUP = 3,
+    USERSYNC = 4,
+    USERCHAT = 5,
+};
+
 class EventHandler {
 public:
     EventHandler();

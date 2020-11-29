@@ -179,12 +179,12 @@ int32_t Server::SendMsg()
 
 unsigned int Server::BKDRHash(const std::string& _str)
 {
-    unsigned int seed = 1313;
-    unsigned int hash = 0;
+    unsigned int _seed = 1313;
+    unsigned int _hash = 0;
     for (auto& c : _str) {
-        hash = hash * seed + c;
+        _hash = _hash * _seed + c;
     }
-    return (hash & 0x7FFFFFFF)
+    return (_hash & 0x7FFFFFFF);
 }
 
 
