@@ -39,6 +39,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
+  include("/home/blue/Code/TcpDemo/build/Proto/cmake_install.cmake")
   include("/home/blue/Code/TcpDemo/build/Common/cmake_install.cmake")
   include("/home/blue/Code/TcpDemo/build/SQL/cmake_install.cmake")
   include("/home/blue/Code/TcpDemo/build/Player/cmake_install.cmake")

@@ -41,23 +41,6 @@ sql_create_9 (ITEM, 2, 9,
 )
 
 
-// #endif
-// #include <mysql++/mysql++.h>
-// #include <mysql++/ssqls.h>
-
-
-
-
-// #define FORMATSTRING(_argc, format, args...) 
-// do { 
-//     if (_argc)
-
-// }
-
-
-
-
-
 
 
 
@@ -77,9 +60,16 @@ public:
     int GetByString(const std::string& _table, const std::string& _what, const std::string& _where, mysqlpp::StoreQueryResult&);
 
     template<typename T>
-    int SetBySQL(const T& t /*, int _argc, char **_argv */)
+    int SetBySQL(const T& t)
     {
         m_query.insert(t);
+        m_query.execute();
+        return 0;
+    }
+
+    int SetByString(const char* cmd)
+    {
+        m_query << cmd;
         m_query.execute();
         return 0;
     }
@@ -115,16 +105,27 @@ public:
     
     template<typename T>
     int GetBySQL(T& t, const char* _cmd)
-    {
+    {   
         m_query << _cmd;
         m_query.storein(t);
+        std::cout << "try get by sql cmd is " << _cmd << std::endl;
         return 0;
     }
 
     template<typename T>
     int ModBySQL(const T& _old, const T& _new)
     {
+        std::cout << "update sql\n";
         m_query.update(_old, _new);
+        m_query.execute();
+        return 0;
+    }
+    
+    int ModByStr(const std::string& _str)
+    {
+
+        std::cout << "try modbystr\n";
+        m_query << _str.c_str();
         m_query.execute();
         return 0;
     }

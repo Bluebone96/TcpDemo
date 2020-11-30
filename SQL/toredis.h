@@ -31,7 +31,7 @@ public:
         m_ss << "SET " << key << " " << _t;
         m_ss >> m_cmd;
         
-        m_reply = (redisReply)redisCommand(m_context, m_cmd.c_str());
+        m_reply = (redisReply*)redisCommand(m_context, m_cmd.c_str());
 
         if (m_reply == nullptr || m_reply->type != REDIS_REPLY_STATUS) {
             // error
@@ -55,7 +55,7 @@ public:
     int HMSET(const char *_key, const char *_format, ...);
 
     // 传递二维数组, 获取整个hash表
-    int HMGET(const char* _key, char **_bufv, int *_count);
+    int HMGET(const char* _key, std::vector<std::string>&, int *_count);
 
     int Del(const char *_key);
 

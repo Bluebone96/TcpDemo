@@ -59,17 +59,6 @@ CMAKE_BINARY_DIR = /home/blue/Code/TcpDemo/build
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
-
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
@@ -80,6 +69,17 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
+
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -114,19 +114,6 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named proto
-
-# Build rule for target.
-proto: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 proto
-.PHONY : proto
-
-# fast build rule for target.
-proto/fast:
-	$(MAKE) -f CMakeFiles/proto.dir/build.make CMakeFiles/proto.dir/build
-.PHONY : proto/fast
-
-#=============================================================================
 # Target rules for targets named server
 
 # Build rule for target.
@@ -138,6 +125,19 @@ server: cmake_check_build_system
 server/fast:
 	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/build
 .PHONY : server/fast
+
+#=============================================================================
+# Target rules for targets named proto
+
+# Build rule for target.
+proto: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 proto
+.PHONY : proto
+
+# fast build rule for target.
+proto/fast:
+	$(MAKE) -f Proto/CMakeFiles/proto.dir/build.make Proto/CMakeFiles/proto.dir/build
+.PHONY : proto/fast
 
 #=============================================================================
 # Target rules for targets named common
@@ -190,33 +190,6 @@ handle: cmake_check_build_system
 handle/fast:
 	$(MAKE) -f Handler/CMakeFiles/handle.dir/build.make Handler/CMakeFiles/handle.dir/build
 .PHONY : handle/fast
-
-PlayerInfo.pb.o: PlayerInfo.pb.cc.o
-
-.PHONY : PlayerInfo.pb.o
-
-# target to build an object file
-PlayerInfo.pb.cc.o:
-	$(MAKE) -f CMakeFiles/proto.dir/build.make CMakeFiles/proto.dir/PlayerInfo.pb.cc.o
-.PHONY : PlayerInfo.pb.cc.o
-
-PlayerInfo.pb.i: PlayerInfo.pb.cc.i
-
-.PHONY : PlayerInfo.pb.i
-
-# target to preprocess a source file
-PlayerInfo.pb.cc.i:
-	$(MAKE) -f CMakeFiles/proto.dir/build.make CMakeFiles/proto.dir/PlayerInfo.pb.cc.i
-.PHONY : PlayerInfo.pb.cc.i
-
-PlayerInfo.pb.s: PlayerInfo.pb.cc.s
-
-.PHONY : PlayerInfo.pb.s
-
-# target to generate assembly for a file
-PlayerInfo.pb.cc.s:
-	$(MAKE) -f CMakeFiles/proto.dir/build.make CMakeFiles/proto.dir/PlayerInfo.pb.cc.s
-.PHONY : PlayerInfo.pb.cc.s
 
 Server/Server.o: Server/Server.cpp.o
 
@@ -278,17 +251,14 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... edit_cache"
-	@echo "... proto"
 	@echo "... rebuild_cache"
 	@echo "... server"
+	@echo "... edit_cache"
+	@echo "... proto"
 	@echo "... common"
 	@echo "... sql"
 	@echo "... player"
 	@echo "... handle"
-	@echo "... PlayerInfo.pb.o"
-	@echo "... PlayerInfo.pb.i"
-	@echo "... PlayerInfo.pb.s"
 	@echo "... Server/Server.o"
 	@echo "... Server/Server.i"
 	@echo "... Server/Server.s"

@@ -30,7 +30,7 @@ int32_t Server::Init(int32_t port, const char* hostname)
         return -1;
     }
 
-    if (m_mysql.Init("ProjectA", "127.0.0.1:3306", "Blue", "1024") || m_mysql.Connect()) {
+    if (m_mysql.Init("ProjectA", "127.0.0.1:3306", "blue", "1024") || m_mysql.Connect()) {
         TRACER("mysql connect failed");
         return -1;
     }
@@ -44,10 +44,10 @@ int32_t Server::Init(int32_t port, const char* hostname)
 
 int32_t Server::GOGOGO()
 {
-    struct timeval curTime;
-    struct timeval lastTime;
-    gettimeofday(&lastTime, nullptr);
-    curTime = lastTime;
+    // struct timeval curTime;
+    // struct timeval lastTime;
+    // gettimeofday(&lastTime, nullptr);
+    // curTime = lastTime;
     for (;;) {
         int32_t fn = m_epoll.Wait();
         for (int32_t i = 0; i < fn; ++i) {
@@ -104,15 +104,15 @@ int32_t Server::GOGOGO()
             }
         }
 
-        gettimeofday(&curTime, nullptr);
+        // gettimeofday(&curTime, nullptr);
         
-        if ((curTime.tv_sec - lastTime.tv_sec ) >= 10 && !m_players.empty()) { 
-            // 每 2 秒 主动 同步所有玩家
-            if (DISPATCHER.Process(EventType::USERSYNC, &m_players) < 0) {
-                // TODO
-            }
-            lastTime = curTime;
-        }
+        // if ((curTime.tv_sec - lastTime.tv_sec ) >= 10 && !m_players.empty()) { 
+        //     // 每 2 秒 主动 同步所有玩家
+        //     if (DISPATCHER.Process(EventType::USERSYNC, &m_players) < 0) {
+        //         // TODO
+        //     }
+        //     lastTime = curTime;
+        // }
 
     }
     return 0;
@@ -140,7 +140,7 @@ int32_t Server::AcceptNewClient()
     auto msg = new MsgTrans();
     msg->Init(acceptfd, &addr, len);
     auto player = new Player(msg); 
-    TRACER("the player id is %d, socketid is", player->getId());
+    TRACER("socketid is %d\n", acceptfd);
     m_players[acceptfd] = player;
 
     return 0;

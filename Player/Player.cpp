@@ -29,25 +29,26 @@ int Player::InitPlayer()
     char key1 [30];
     snprintf(key1, 30, "pass_%d", id);
 
-    char buf[512] = {0};
-    int len = 0;
-    if (REDIS.Get(key1, buf, &len) == EOK) {
-        if (pass == (unsigned int)atoi(buf)) {
-            snprintf(key1, 30, "usr_%d", id);
-            if (REDIS.Get(key1, buf, &len) == EOK) {
-                m_protoInfo.ParseFromArray(buf, len);
-                m_inventory.InitInventory(id, m_fuckAllPb.mutable_baginfo());
-                return 0;
-            }
-        }
-    }
+    // char buf[512] = {0};
+    // int len = 0;
+    // if (REDIS.Get(key1, buf, &len) == EOK) {
+    //     if (pass == (unsigned int)atoi(buf)) {
+    //         snprintf(key1, 30, "usr_%d", id);
+    //         if (REDIS.Get(key1, buf, &len) == EOK) {
+    //             std::cout << "player info len is " << len << std::endl;
+    //             m_protoInfo.ParseFromString(std::string(buf, len));
+    //             m_inventory.InitInventory(id, this);
+    //             return 0;
+    //         }
+    //     }
+    // }
     
     // redis 没找到， 去数据库找
     std::vector<PASS> passSql;
     
-    char tmp[40];
+    char tmp[50];
 
-    snprintf(tmp, 40, "SELECT * FROM PASS where id = %d", id);
+    snprintf(tmp, 50, "SELECT * FROM PASS where id = %d", id);
 
     if (MYSQL.GetBySQL(passSql, tmp)) {
         
@@ -56,20 +57,24 @@ int Player::InitPlayer()
     if ((unsigned int)(passSql[0].pass) != pass) {
         return -1;
     }
+    
+    REDIS.Set(key1, "%d", pass);    // 密码 存入 redis
 
     std::vector<PLAYER> playerSql;
 
-    snprintf(tmp, 40, "SELECT * FROM PLAYER where id = %d", id);
+    snprintf(tmp, 50, "SELECT * FROM PLAYER where id = %d", id);
     if (MYSQL.GetBySQL(playerSql, tmp) < 0) {
         
         
         return -1;
     }
     
-    TRACER("player name: %s\n id: %d", A.name().c_str(), m_Id);
 
-    m_Id = id;
     m_name = playerSql[0].name;
+    m_Id = id;
+
+    TRACER("player name: %s, id: %d", A.name().c_str(), m_Id);
+
     m_protoInfo.set_id(id);
     m_protoInfo.set_name(m_name);
     m_protoInfo.set_hp(playerSql[0].hp);
@@ -78,7 +83,14 @@ int Player::InitPlayer()
     m_protoInfo.set_speed(playerSql[0].speed);
     m_protoInfo.set_state(0);
 
-    m_inventory.InitInventory(id, m_fuckAllPb.mutable_baginfo());
+    snprintf(tmp, 50, "usr_%d", m_Id);
+    std::string str = m_protoInfo.SerializeAsString();
+    std::cout << "player info len is " << str.size() << std::endl; 
+    REDIS.Set("usr_%d", str.c_str(), m_Id);
+
+    TRACER("player name: %s id: %d\n", m_name.c_str(), id);
+
+    m_inventory.InitInventory(id, this);
     
     return 0;
 }
@@ -206,12 +218,12 @@ int Player::savePlayer()
 
     snprintf(tmp, 30, "usr_%d", m_Id);
 
-    int size = m_protoInfo.ByteSizeLong();
-    char tmp2[size];
+    // int size = m_protoInfo.ByteSizeLong();
+    std::string str = m_protoInfo.SerializeAsString();
+    // char tmp2[size];
+    // m_protoInfo.SerializeToArray(tmp2, size);
 
-    m_protoInfo.SerializeToArray(tmp2, size);
-
-    REDIS.Set("usr_%d", tmp2, size, m_Id);
+    REDIS.Set("usr_%d", str.c_str(), m_Id);
 
     return 0;
 }
@@ -228,6 +240,8 @@ int Player::saveAll() {
 Proto::Unity::PlayerAllFuckInfo&  Player::getAllFuckInfo()
 {
     m_fuckAllPb.mutable_baseinfo()->operator=(m_protoInfo);
+
+    m_fuckAllPb.mutable_baginfo()->operator=(m_inventory.getbagPb());
 
     return m_fuckAllPb;
 }

@@ -14,6 +14,8 @@ enum EventType {
     USERUP = 3,
     USERSYNC = 4,
     USERCHAT = 5,
+
+    ITEMEVENT = 6    // 先用一个顶着
 };
 
 class EventHandler {

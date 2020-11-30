@@ -22,11 +22,11 @@ int HandleUserLogin::operator()(void* _s)
 
     player->m_msgTrans->sendmsg(player->getAllFuckInfo());
 
-    player->m_msgTrans->SetType(static_cast<unsigned char>(EventType::USERSYNC));
+    // player->m_msgTrans->SetType(static_cast<unsigned char>(EventType::USERSYNC));
 
-    player->m_msgTrans->Encode(player->GetPlayerInfo());
+    // player->m_msgTrans->Encode(player->GetPlayerInfo());
 
-    SERVER.SendMsgToAll(player->m_msgTrans->GetDataAddress(), player->m_msgTrans->GetLen() + player->m_msgTrans->m_RecordSize);
+    // SERVER.SendMsgToAll(player->m_msgTrans->GetDataAddress(), player->m_msgTrans->GetLen() + player->m_msgTrans->m_RecordSize);
 
     TRACER("HandleUserLogin end\n");
 

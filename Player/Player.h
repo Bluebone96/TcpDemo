@@ -27,6 +27,7 @@ public:
 
     ~Player() { 
         TRACER("player dctor delete msgtrans\n");
+        
         saveAll();
         delete m_msgTrans;
         m_msgTrans = nullptr; 

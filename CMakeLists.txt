@@ -14,17 +14,17 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
-find_package(Protobuf)
-if(Protobuf_FOUND)
-    include_directories(${Protobuf_INCLUDE_DIRS})
-endif()
+# find_package(Protobuf)
+# if(Protobuf_FOUND)
+#     include_directories(${Protobuf_INCLUDE_DIRS})
+# endif()
 
-set(PROTO_FILES Proto/PlayerInfo.proto)
-PROTOBUF_GENERATE_CPP(PROTO_SRCS PROTO_HDRS ${PROTO_FILES})
+# set(PROTO_FILES Proto/PlayerInfo.proto)
+# PROTOBUF_GENERATE_CPP(PROTO_SRCS PROTO_HDRS ${PROTO_FILES})
 
-add_library(proto ${PROTO_SRCS})
+# add_library(proto ${PROTO_SRCS})
 
-#ADD_SUBDIRECTORY(Proto)
+ADD_SUBDIRECTORY(Proto)
 ADD_SUBDIRECTORY(Common)
 ADD_SUBDIRECTORY(SQL)
 ADD_SUBDIRECTORY(Player)
@@ -32,7 +32,7 @@ ADD_SUBDIRECTORY(Handler)
 
 LINK_DIRECTORIES(/usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64)
 
-SET(EXTRA_LIBS ${EXTRA_LIBS}  common sql player handle  )
+SET(EXTRA_LIBS ${EXTRA_LIBS} proto common sql player handle -lprotobuf -lmysqlclient -lmysqlpp -lhiredis )
 
 
 include_directories(.)
@@ -51,7 +51,7 @@ AUX_SOURCE_DIRECTORY(./Server SRC_SERVER)
 
 add_executable(server ${SRC_SERVER})
 
-target_link_libraries(server -Wl,--start-group proto ${Protobuf_LIBRARIES} ${EXTRA_LIBS} -lmysqlclient -lmysqlpp -lhiredis -Wl,--end-group)
+target_link_libraries(server -Wl,--start-group proto ${EXTRA_LIBS}  -Wl,--end-group)
 
 # set(CLIENT_LIB 
 # 	client/client.ccsudo

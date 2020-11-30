@@ -106,6 +106,7 @@ int ToRedis::Get(const char *_key, char *_buf, int* _len)
 }
 
 
+
 int ToRedis::HSetField(const char *_key, const char *_field, const char *_format, ...)
 {
     FreeReply();
@@ -170,23 +171,30 @@ int ToRedis::HMSET(const char *_key, const char *format, ...)
 }
 
 
-int ToRedis::HMGET(const char* _key, char** _bufv, int* _count)
+int ToRedis::HMGET(const char* _key, std::vector<std::string>& _bufs , int* _count)
 {
     FreeReply();
 
+    std::cout << "hmget cmd is " << _key << std::endl;
+
     m_reply = (redisReply*)redisCommand(m_context, "HGETALL %s", _key);
+    std::cout << "hmget complete\n";
     if (m_reply == nullptr || m_reply->type == REDIS_REPLY_ERROR) {
+        std::cout << "hmget failed\n"; 
         FreeReply();
         return -1;
     }
 
     if (m_reply->type == REDIS_REPLY_ARRAY) {
+        std::cout << "copy item\n";
         for (uint i = 0; i < m_reply->elements; ++i) {
-            strncpy(_bufv[i], m_reply->element[i]->str, m_reply->element[i]->len);
+            _bufs.emplace_back(std::string(m_reply->element[i]->str, m_reply->element[i]->len));
+            // strncpy(_bufv[i], m_reply->element[i]->str, m_reply->element[i]->len);
         }
+
         *_count = m_reply->elements;
     }
-    return 0;
+    return m_reply->elements;
 }
 
 
@@ -203,3 +211,5 @@ int ToRedis::Del(const char *_key)
     }
     return 0;
 }
+
+

@@ -1,6 +1,6 @@
 #include "Item.h"
 #include "ItemConfig.h"
-
+#include <iostream>
 
 // ItemAttribute& ItemAttribute::operator=(const ItemAttribute& _ia)
 // {
@@ -11,20 +11,27 @@
 
 BaseItem* ItemFactory::CreateItem(int _type, int _configId)
 {
+    std::cout << "ItemFactory createItem type is " << _type << "id is " << _configId << std::endl; 
     BaseItem* item = nullptr;
     switch (_type)
     {
         case 0:
             item = new MoneyItem();
+            break;
         case 1:
             item = new ConsumItem();
-        case 3:
+            break;
+        case 2:
             item = new EquipItem();
+            break;
         default:
+            std::cout << "undefined _type\n";
             return nullptr;
     }
 
     item->initItem(_configId);
+
+    std::cout << "createItem end\n";
     return item;
 }
 
@@ -141,6 +148,7 @@ std::string MoneyItem::toString() const
 
 void MoneyItem::initItem(int _confd)
 {
+    std::cout << "money init start" << std::endl;
     m_nType = 0;
     m_nUID = _confd;
     m_nFlagBit = 0x1;   // 可叠加 不绑定
@@ -173,6 +181,7 @@ ConsumItem::ConsumItem(const ConsumItem& _ci, int _n) : BaseItem(_ci, _n)
 
 void ConsumItem::initItem(int _confd)
 {
+    std::cout << "consumitem start" << std::endl;
     m_nType = 1;
     m_nUID = _confd;
     m_nFlagBit = 0x1; // 可叠加 不绑定
@@ -226,6 +235,7 @@ int EquipItem::uniqueID = 0;    // 唯一ID, 每初始化一次加一
 
 void EquipItem::initItem(int _n)
 {
+    std::cout << "Equip init start" << std::endl;
     m_nType = 2;
     m_nUID = _n + ((++uniqueID) << 16);
     m_nFlagBit = 0x0;   // 初始为非绑定，不可叠加，未装备

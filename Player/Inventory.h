@@ -5,16 +5,15 @@
 #include <set>
 
 #include "../Proto/PlayerInfo.pb.h"
-// #include "../Server/Server.h"
-
 #include "Item.h"
+
 #include "../SQL/toredis.h"
 
 #define MYSQLPP_SSQLS_NO_STATICS
 #include "../SQL/tomysql.h"
 
 
-
+class Player;
 struct Bag {
     uint32_t capacity;
     std::set<uint> items;
@@ -32,7 +31,7 @@ public:
     Inventory(const Inventory&) = delete;
     Inventory& operator=(const Inventory&) =delete;
 
-    int InitInventory(uint32_t , Proto::Unity::PlayerBag*);
+    int InitInventory(uint32_t, Player*);
 
     int addItem(BaseItem*);
     
@@ -58,10 +57,12 @@ public:
     int sql2item(ITEM&, BaseItem* _item);
     int pb2item(Proto::Unity::ItemInfo&, BaseItem* _item);
 
+    Proto::Unity::PlayerBag& getbagPb();
 
 
 private:
 
+    Player* m_player;
     uint32_t m_playerId;
 
     std::map<uint, BaseItem*> m_mItems;
@@ -74,6 +75,7 @@ private:
 
     ITEM m_itemsql;
     Proto::Unity::ItemInfo m_itempb;
+    Proto::Unity::PlayerBag m_bagPb;
 
     char m_bagkey[30];
 };

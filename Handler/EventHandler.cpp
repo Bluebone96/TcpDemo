@@ -27,6 +27,8 @@ int EventHandler::InitHandler()
 
     flag |= AddHandle(EventType::USERSYNC, new HandleSyncClient);
 
+    flag |= AddHandle(EventType::ITEMEVENT, new HandleEventItem);
+
     return 0;
 }
 
