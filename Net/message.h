@@ -5,11 +5,12 @@
 #include "byte_swap.hpp"
 
 struct msg_head {
-#define MSG_HEAD_SIZE 16
+#define MSG_HEAD_SIZE 20
     uint32_t m_len; // 消息头 加 消息体 总长度
     uint32_t m_type;
     uint32_t m_from;
     uint32_t m_to;
+    uint32_t m_usrID;
 
     msg_head();
     ~msg_head();

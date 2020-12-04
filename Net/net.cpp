@@ -16,7 +16,7 @@ net::~net()
 
 // }
 
-int8_t net::run()
+int8_t net::recvmsg()
 {
     for (;;) {
         int32_t fn = m_epoll.Wait();
@@ -27,11 +27,11 @@ int8_t net::run()
                 
                 uint32_t newclient = m_listenfd.tcp_accept(nullptr, nullptr);
                 if (newclient > 0) {
-                    auto re = m_clients.insert(std::make_pair(newclient, std::make_shared<tcp_socket>(new tcp_socket())));
+                    auto re = m_connections.insert(std::make_pair(newclient, std::make_shared<tcp_socket>(new tcp_socket())));
                     if (re.second == false) {
                         TRACER("insert failed\n");
                     }
-                    m_clients[newclient]->tcp_init(newclient);
+                    m_connections[newclient]->tcp_init(newclient);
                 }
                 TRACER("new client\n");
             } else {
@@ -47,21 +47,21 @@ int8_t net::run()
                     break;
                 case EPOLLERR:
                     TRACER("Epoll event epollerr fd= %d, delete ptr\n", fd);
-                    m_clients.erase(fd);
+                    m_connections.erase(fd);
                     continue;
                 default:
                     TRACER("Epoll unknowen, fd = %d, delete ptr\n", fd);
-                    m_clients.erase(fd);
+                    m_connections.erase(fd);
                     continue;
                 }
-                auto socket = m_clients[fd];
+                auto socket = m_connections[fd];
                 int ret = 0;
                 message *msg = nullptr;
-                while((msg = m_pmsg->enqueue()) ) {
+                while ((msg = g_recv_queue.enqueue())) {
                     ret = socket->tcp_recv(msg->m_data, MSG_HEAD_SIZE);
                     if (ret < 0) {
                         TRACER("connect failed");
-                        m_clients.erase(fd);
+                        m_connections.erase(fd);
                         break;
                     } else if (ret == 0) {
                         break;
@@ -70,7 +70,7 @@ int8_t net::run()
                     ret = socket->tcp_recv(msg->m_data + MSG_HEAD_SIZE, msg->m_head.m_len);
                     if (ret < 0 ) {
                         TRACER("connect failed");
-                        m_clients.erase(fd);
+                        m_connections.erase(fd);
                         break;
                     }
                     msg->setvalid();
@@ -78,4 +78,53 @@ int8_t net::run()
             }
         }
     }
+}
+
+
+int8_t net::sendmsg()
+{
+    message *msg = nullptr;
+    for (;;) {
+        if ((msg = g_send_queue.dequeue()) == nullptr) {
+            sleep(2);
+            continue;
+        }
+        auto iter = m_connections.find(msg->m_head.m_to);
+
+        if (iter == m_connections.end()) {
+            return -1;
+        }
+
+        iter->second->tcp_send(msg->m_data, msg->m_head.m_len);
+        msg->setinvalid();
+    }
+}
+
+
+int8_t net::recvmsg(std::shared_ptr<tcp_socket>& _socket, message& _msg)
+{
+    int ret = 0;
+    ret = _socket->tcp_recv(_msg.m_data, MSG_HEAD_SIZE);
+    if (ret < 0) {
+        TRACER("connect failed");
+        return -1;
+    }
+    //  else if (ret == 0) {
+// 
+    // }
+
+    _msg.decode();
+    ret = _socket->tcp_recv(_msg.m_data + MSG_HEAD_SIZE, _msg.m_head.m_len);
+    if (ret < 0 ) {
+        TRACER("connect failed");
+        return -1;
+    }
+
+    return 0;
+}
+
+int8_t net::sendmsg(std::shared_ptr<tcp_socket>& _socket, message& _msg)
+{
+    _msg.encode();
+    return _socket->tcp_send(_msg.m_data, _msg.m_head.m_len);
 }

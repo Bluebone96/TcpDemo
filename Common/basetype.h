@@ -71,5 +71,28 @@ typedef int SINT32;
 //     USERCHAT = 5,
 // };
 
+
+    enum MsgType {
+        USERLOGIN = 0,
+        USEREXIT = 1,
+        USERALIVE = 2,
+        USERUP = 3,
+        USERSYNC = 4,
+        USERCHAT = 5,
+
+        LOGIN_REQUEST = 6,
+        LOGIN_SUCCESS = 7,
+        LOGIN_FAILED = 8,
+
+        GETPASS = 9,
+        SETPASS = 10,
+        
+        GETITEM = 11,
+        SETITEM = 12,
+
+        GETPLAYER = 13,
+        SETPLAYER = 14
+    }
+
 #endif
 

@@ -23,4 +23,11 @@
         <port>3333</port>
     </login_server>
 
+    <sql id = "5">
+        <db>ProjectA</db>
+        <ip>127.0.0.1:3306</ip>
+        <usr>blue</usr>
+        <pass>1234</pass>
+    </sql>
+
 </server_config>

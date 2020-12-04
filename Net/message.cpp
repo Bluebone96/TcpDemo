@@ -20,11 +20,12 @@ uint8_t msg_head::decode(uint8_t *_data, uint32_t _len)
     m_type = ntoh_32(*(uint32_t*)(_data + 4));
     m_from = ntoh_32(*(uint32_t*)(_data + 8));
     m_to = ntoh_32(*(uint32_t*)(_data + 12));
+    m_usrID = ntoh_32(*(uint32_t*)(_data + 16));
+
     return 0;
 }
 
 uint8_t msg_head::encode(uint8_t *_data, uint32_t _len)
-
 {
     if (_len < MSG_HEAD_SIZE) { return -1; }
     
@@ -32,6 +33,8 @@ uint8_t msg_head::encode(uint8_t *_data, uint32_t _len)
     *(uint32_t*)(_data + 4) = hton_32(m_type);
     *(uint32_t*)(_data + 8) = hton_32(m_from);
     *(uint32_t*)(_data + 12) = hton_32(m_to);
+    *(uint32_t*)(_data + 16) = hton_32(m_usrID);
+
     return 0;
 }
 
