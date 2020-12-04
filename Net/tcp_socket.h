@@ -12,7 +12,11 @@ public:
     tcp_socket();
     ~tcp_socket();
 
-    int8_t tcp_init(uint32_t fd, uint32_t _bufsz = (1024 * 1024));
+    tcp_socket(const tcp_socket&) = delete;
+
+    tcp_socket& operator=(const tcp_socket&) = delete;
+
+    int8_t tcp_init(int32_t fd, uint32_t _bufsz = (1024 * 1024));
 
 
     uint32_t tcp_connect(const char* hostname, int16_t port);
@@ -27,13 +31,15 @@ public:
 
     uint32_t tcp_send(const uint8_t *_usrbuf, uint32_t _len);
 
-    uint32_t getfd() { return m_socketfd; }
+    static uint32_t tcp_send(uint32_t fd, const uint8_t *_usrbuf, uint32_t _len);
+
+    int32_t getfd() { return m_socketfd; }
 
 private:
     uint32_t recv(uint8_t *_usrbuf, uint32_t _len);
     uint32_t recv();
     
-    uint32_t m_socketfd;
+    int32_t m_socketfd;
     struct sockaddr_in m_sockaddr;
 
     // 环形缓冲区

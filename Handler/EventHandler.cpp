@@ -17,22 +17,22 @@ EventHandler::~EventHandler()
 int EventHandler::InitHandler()
 {
     int flag = 0;
-    flag |= AddHandle(EventType::USERLOGIN, new HandleUserLogin);
+    flag |= AddHandle(MsgType::USERLOGIN, new HandleUserLogin);
 
-    flag |= AddHandle(EventType::USEREXIT, new HandleUserExit);
+    flag |= AddHandle(MsgType::USEREXIT, new HandleUserExit);
 
-    flag |= AddHandle(EventType::USERALIVE, new HandleUserAlive);
+    flag |= AddHandle(MsgType::USERALIVE, new HandleUserAlive);
     
-    flag |= AddHandle(EventType::USERUP, new HandleUpdateStatus);
+    flag |= AddHandle(MsgType::USERUP, new HandleUpdateStatus);
 
-    flag |= AddHandle(EventType::USERSYNC, new HandleSyncClient);
+    flag |= AddHandle(MsgType::USERSYNC, new HandleSyncClient);
 
-    flag |= AddHandle(EventType::ITEMEVENT, new HandleEventItem);
+    flag |= AddHandle(MsgType::ITEMEVENT, new HandleEventItem);
 
     return 0;
 }
 
-int EventHandler::AddHandle(EventType _type, Handle* _handle)
+int EventHandler::AddHandle(MsgType _type, Handle* _handle)
 {
     auto res = m_handleEvents.insert(std::move(std::make_pair(_type, _handle)));
     if (!res.second) {
@@ -43,7 +43,7 @@ int EventHandler::AddHandle(EventType _type, Handle* _handle)
     return EOK;
 }
 
-int EventHandler::DelHandle(EventType _type)
+int EventHandler::DelHandle(MsgType _type)
 {
     auto iter = m_handleEvents.find(_type);
     if (iter != m_handleEvents.end()) {
@@ -54,7 +54,7 @@ int EventHandler::DelHandle(EventType _type)
     return ERR;
 }
 
-Handle* EventHandler::Notify(EventType _type)
+Handle* EventHandler::Notify(MsgType _type)
 {
     Handle* handle = nullptr;
     try {

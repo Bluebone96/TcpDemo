@@ -6,26 +6,28 @@
 #include "../Common/log.h"
 #include "byte_swap.hpp"
 
-
+#ifndef MIN
 #define MIN(A, B) (((A) < (B)) ? (A) : (B))
-
-static inline bool is_pow_of_two (uint32_t _n)
-{
-    return (_n != 0 && ((_n & (_n - 1)) == 0));
-}
+#endif
 
 
-static inline uint32_t roundup_pow_of_two(uint32_t _s)
-{
-    if (!is_pow_of_two(_s)) {
-        int p = 0;
-        for (int i = _s; i != 0; i >>= 1) {
-            ++p;
-        }
-        return (1u << p);
-    }
-    return _s;
-}
+// static inline bool is_pow_of_two (uint32_t _n)
+// {
+//     return (_n != 0 && ((_n & (_n - 1)) == 0));
+// }
+
+
+// static inline uint32_t roundup_pow_of_two(uint32_t _s)
+// {
+//     if (!is_pow_of_two(_s)) {
+//         int p = 0;
+//         for (int i = _s; i != 0; i >>= 1) {
+//             ++p;
+//         }
+//         return (1u << p);
+//     }
+//     return _s;
+// }
 
 
 
@@ -56,7 +58,7 @@ tcp_socket::~tcp_socket()
 }
 
 
-int8_t tcp_socket::tcp_init(uint32_t _fd, uint32_t _bufsz)
+int8_t tcp_socket::tcp_init(int32_t _fd, uint32_t _bufsz)
 {
     m_socketfd = _fd;
 
@@ -113,7 +115,8 @@ uint32_t tcp_socket::tcp_connect(const char* hostname, int16_t port)
 
 uint32_t tcp_socket::tcp_listen(const char* hostname, int16_t port)
 {
-    int listenfd, optval = 1;
+    int32_t listenfd = -1;
+    int32_t  optval = 1;
 
     if ((listenfd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
         TRACERERRNO("TcpSocket::OpenAsServer socket failed. %s:%d", __FILE__, __LINE__);
@@ -150,7 +153,7 @@ uint32_t tcp_socket::tcp_listen(const char* hostname, int16_t port)
     if (setnonblock(listenfd)) {
         return -1;
     }
-
+    
     m_socketfd = listenfd;
     return listenfd;
 }
@@ -205,7 +208,7 @@ uint32_t tcp_socket::recv(uint8_t *_usrbuf, uint32_t _len)
     while (_len) {
         cnt = read(m_socketfd, _usrbuf, _len);
         if (cnt <= 0) {
-            if (errno == EINTR | errno == EAGAIN) {
+            if (errno == EINTR || errno == EAGAIN) {
                 return 0;
             } else {
                 TRACERERRNO("tcpsocket::tcp_recv read failed. fd = %d. %s:%d", 
@@ -229,7 +232,6 @@ uint32_t tcp_socket::recv()
 
     uint32_t left = MIN(length, m_size - (m_in & (m_size - 1)));
     uint8_t *pbuf = m_buffer + (m_in & (m_size - 1));
-    int32_t cnt = 0;
     
     int8_t ret = 0;
     if ((ret = recv(pbuf, left)) < 0) {
@@ -247,13 +249,18 @@ uint32_t tcp_socket::recv()
 
 uint32_t tcp_socket::tcp_send(const uint8_t *_usrbuf, uint32_t _len)
 {
+    return tcp_send(m_socketfd, _usrbuf, _len);
+}
+
+uint32_t tcp_socket::tcp_send(uint32_t _fd, const uint8_t *_usrbuf, uint32_t _len)
+{
     uint32_t nleft = _len;
     int32_t nw = 0;
     char* pbuf = (char*)_usrbuf;
 
     // 写入 size 字节的数据
     while (nleft > 0) {
-        if ((nw = write(m_socketfd, pbuf, nleft)) <= 0) {
+        if ((nw = write(_fd, pbuf, nleft)) <= 0) {
             if (EINTR == errno || EAGAIN == errno) {
                 continue;
             } else {
@@ -268,7 +275,6 @@ uint32_t tcp_socket::tcp_send(const uint8_t *_usrbuf, uint32_t _len)
 
     return nleft;
 }
-
 
 
 

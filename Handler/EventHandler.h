@@ -7,16 +7,16 @@
 #include "../Common/basetype.h"
 
 
-enum EventType {
-    USERLOGIN = 0,
-    USEREXIT = 1,
-    USERALIVE = 2,
-    USERUP = 3,
-    USERSYNC = 4,
-    USERCHAT = 5,
+// enum MsgType {
+//     USERLOGIN = 0,
+//     USEREXIT = 1,
+//     USERALIVE = 2,
+//     USERUP = 3,
+//     USERSYNC = 4,
+//     USERCHAT = 5,
 
-    ITEMEVENT = 6    // 先用一个顶着
-};
+//     ITEMEVENT = 6    // 先用一个顶着
+// };
 
 class EventHandler {
 public:
@@ -26,14 +26,14 @@ public:
 
     int InitHandler();
 
-    int AddHandle(EventType, Handle*);
+    int AddHandle(MsgType, Handle*);
 
-    int DelHandle(EventType);
+    int DelHandle(MsgType);
     
-    Handle* Notify(EventType);
+    Handle* Notify(MsgType);
 
 protected:
-    std::unordered_map<EventType, Handle*> m_handleEvents;
+    std::unordered_map<MsgType, Handle*> m_handleEvents;
 
 };
 

@@ -4,13 +4,13 @@
 #include <map>
 #include <memory>
 
-#include "../Net/net.h"
+#include "../Net/Net.h"
 #include "../Proto/PlayerInfo.pb.h"
-#include "../SQL/tomysql.h"
+// #include "../SQL/tomysql.h"
 
 extern msg_queue g_recv_queue;
 extern msg_queue g_send_queue;
-extern std::map<uint32_t, std::shared_ptr<tcp_socket>> g_connections;
+extern std::map<uint32_t, uint32_t> g_connet_server;
 
 
 class login_server {
@@ -18,31 +18,33 @@ public:
     login_server();
     ~login_server();
 
-    int8_t init();
-
     int8_t run();
 
     int8_t login_request(message* _msg);
 
+    int8_t login_verify(message* _msg);
+
+    int8_t login_success(message* _msg);
+
+    int8_t login_failed(message* _msg);
+
 private:
 
-    ToMysql m_sql;
+    // ToMysql m_sql;
 
     message m_msg;
 
-
     Proto::Unity::Authentication m_au;
+
     Proto::Unity::PlayerInfo m_player;
     Proto::Unity::PlayerBag m_bag;
 
     Proto::Unity::PlayerAllFuckInfo m_playerinfo;
 
-
-
-    Epoll m_epoll;
-    tcp_socket m_listenfd;
-    tcp_socket m_connectfd;
-    std::map<uint32_t, std::shared_ptr<tcp_socket>> m_connections;
+    // 异步保留信息
+    std::map<uint32_t, uint32_t> m_usrfd;
+    
+    std::map<uint32_t, uint32_t> m_waitverify;
 };
 
 #endif

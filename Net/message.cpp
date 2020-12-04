@@ -21,7 +21,8 @@ uint8_t msg_head::decode(uint8_t *_data, uint32_t _len)
     m_from = ntoh_32(*(uint32_t*)(_data + 8));
     m_to = ntoh_32(*(uint32_t*)(_data + 12));
     m_usrID = ntoh_32(*(uint32_t*)(_data + 16));
-
+    m_errID = ntoh_32(*(uint32_t*)(_data + 20));
+    
     return 0;
 }
 
@@ -34,11 +35,12 @@ uint8_t msg_head::encode(uint8_t *_data, uint32_t _len)
     *(uint32_t*)(_data + 8) = hton_32(m_from);
     *(uint32_t*)(_data + 12) = hton_32(m_to);
     *(uint32_t*)(_data + 16) = hton_32(m_usrID);
+    *(uint32_t*)(_data + 20) = hton_32(m_errID);
 
     return 0;
 }
 
-message::message() : m_head(), m_data{0}, m_flag(0)
+message::message() : m_head(), m_data{0}, m_pdata(m_data + MSG_HEAD_SIZE), m_fd(-1), m_flag(0)
 {
 
 }

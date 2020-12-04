@@ -108,7 +108,7 @@ int32_t Server::GOGOGO()
         
         // if ((curTime.tv_sec - lastTime.tv_sec ) >= 10 && !m_players.empty()) { 
         //     // 每 2 秒 主动 同步所有玩家
-        //     if (DISPATCHER.Process(EventType::USERSYNC, &m_players) < 0) {
+        //     if (DISPATCHER.Process(MsgType::USERSYNC, &m_players) < 0) {
         //         // TODO
         //     }
         //     lastTime = curTime;

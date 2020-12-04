@@ -5,7 +5,7 @@
 
 
 #include "../Common/Epoll.h"
-#include "../Net/net.h"
+#include "../Net/Net.h"
 #include "../config/loadconfig.hpp"
 
 class gate_server
@@ -18,7 +18,7 @@ public:
     int8_t run();
 
 private:
-    net m_net;
+    Net m_net;
     msg_queue m_msgq;
 };
 

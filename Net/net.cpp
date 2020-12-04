@@ -1,39 +1,61 @@
-#include "net.h"
+#include "Net.h"
 #include "../Common/log.h"
 
-net::net()
+Net::Net()
 {
 
 }
 
-net::~net()
+Net::~Net()
 {
 
 }
 
-// int8_t net::init()
-// {
+int8_t Net::init(const char* _ip, uint32_t _port)
+{
+    int32_t fd = m_listenfd.tcp_listen(_ip, _port);
+    if (fd < 0) {
+        return -1;
+    }
+    TRACER("listenfd = %d", m_listenfd.getfd());
 
-// }
+    m_listenfd.tcp_init(fd);
 
-int8_t net::recvmsg()
+    TRACER("listenfd = %d", fd);
+    if (m_epoll.Add(fd) < 0) {
+        TRACER("epoll add failed");
+        sleep(2);
+        return -1;
+    }
+    TRACER("epoll add success");
+    sleep(2);
+    return 0;
+}
+
+
+int8_t Net::product_msg()
 {
     for (;;) {
         int32_t fn = m_epoll.Wait();
         for (int32_t i = 0; i < fn; ++i) {
             struct epoll_event* pEvent = m_epoll.GetEvent(i);
 
-            if (pEvent->data.fd == m_listenfd.getfd()) {
+            if (pEvent->data.fd == (int32_t)m_listenfd.getfd()) {
                 
-                uint32_t newclient = m_listenfd.tcp_accept(nullptr, nullptr);
+                int32_t newclient = m_listenfd.tcp_accept(nullptr, nullptr);
                 if (newclient > 0) {
-                    auto re = m_connections.insert(std::make_pair(newclient, std::make_shared<tcp_socket>(new tcp_socket())));
+                    auto socket = std::make_shared<tcp_socket>();
+                    socket->tcp_init(newclient);
+
+                    auto re = m_connections.insert(std::make_pair(newclient, socket));
                     if (re.second == false) {
                         TRACER("insert failed\n");
+
                     }
-                    m_connections[newclient]->tcp_init(newclient);
+
+                    m_epoll.Add(newclient);
+                    TRACER("new client\n");
                 }
-                TRACER("new client\n");
             } else {
                 uint32_t event = pEvent->events;
                 int32_t fd = pEvent->data.fd;
@@ -58,22 +80,24 @@ int8_t net::recvmsg()
                 int ret = 0;
                 message *msg = nullptr;
                 while ((msg = g_recv_queue.enqueue())) {
-                    ret = socket->tcp_recv(msg->m_data, MSG_HEAD_SIZE);
+                    ret = recvmsg(socket, *msg);
                     if (ret < 0) {
                         TRACER("connect failed");
                         m_connections.erase(fd);
                         break;
-                    } else if (ret == 0) {
-                        break;
                     }
-                    msg->decode();
-                    ret = socket->tcp_recv(msg->m_data + MSG_HEAD_SIZE, msg->m_head.m_len);
-                    if (ret < 0 ) {
-                        TRACER("connect failed");
-                        m_connections.erase(fd);
-                        break;
-                    }
-                    msg->setvalid();
+                    //  else if (ret == 0) {
+                    //     break;
+                    // }
+                    // msg->decode();
+                    // ret = socket->tcp_recv(msg->m_data + MSG_HEAD_SIZE, msg->m_head.m_len);
+                    // if (ret < 0 ) {
+                    //     TRACER("connect failed");
+                    //     m_connections.erase(fd);
+                    //     break;
+                    // }
+                    // msg->m_fd = fd;
+                    // msg->setvalid();
                 }
             }
         }
@@ -81,7 +105,7 @@ int8_t net::recvmsg()
 }
 
 
-int8_t net::sendmsg()
+int8_t Net::consume_msg()
 {
     message *msg = nullptr;
     for (;;) {
@@ -94,14 +118,15 @@ int8_t net::sendmsg()
         if (iter == m_connections.end()) {
             return -1;
         }
-
-        iter->second->tcp_send(msg->m_data, msg->m_head.m_len);
+        if (sendmsg(iter->second, *msg) < 0) {
+            m_connections.erase(iter);
+        }
         msg->setinvalid();
     }
 }
 
 
-int8_t net::recvmsg(std::shared_ptr<tcp_socket>& _socket, message& _msg)
+int8_t Net::recvmsg(std::shared_ptr<tcp_socket>& _socket, message& _msg)
 {
     int ret = 0;
     ret = _socket->tcp_recv(_msg.m_data, MSG_HEAD_SIZE);
@@ -119,12 +144,24 @@ int8_t net::recvmsg(std::shared_ptr<tcp_socket>& _socket, message& _msg)
         TRACER("connect failed");
         return -1;
     }
+    _msg.m_fd = _socket->getfd();
 
+    _msg.setvalid();
     return 0;
 }
 
-int8_t net::sendmsg(std::shared_ptr<tcp_socket>& _socket, message& _msg)
+int8_t Net::sendmsg(std::shared_ptr<tcp_socket>& _socket, message& _msg)
 {
     _msg.encode();
     return _socket->tcp_send(_msg.m_data, _msg.m_head.m_len);
+}
+
+
+int8_t Net::connect(const char* _ip, uint32_t _port)
+{
+    tcp_socket *socket = new tcp_socket;
+    int32_t fd = socket->tcp_connect(_ip, _port);
+    
+    socket->tcp_init(fd);
+    return fd;
 }

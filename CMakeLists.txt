@@ -29,10 +29,12 @@ ADD_SUBDIRECTORY(Common)
 ADD_SUBDIRECTORY(SQL)
 ADD_SUBDIRECTORY(Player)
 ADD_SUBDIRECTORY(Handler)
+ADD_SUBDIRECTORY(Config)
+ADD_SUBDIRECTORY(Net)
 
-LINK_DIRECTORIES(/usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64)
+LINK_DIRECTORIES(/usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64 ${CMAKE_SOURCE_DIR}/Config)
 
-SET(EXTRA_LIBS ${EXTRA_LIBS} proto common sql player handle -lprotobuf -lmysqlclient -lmysqlpp -lhiredis )
+SET(EXTRA_LIBS ${EXTRA_LIBS} proto common sql player handle net config tinyxml2 -lprotobuf -lmysqlclient -lmysqlpp -lhiredis -lpthread )
 
 
 include_directories(.)
@@ -47,11 +49,12 @@ include_directories(
 )
 
 
-AUX_SOURCE_DIRECTORY(./Server SRC_SERVER)
+#AUX_SOURCE_DIRECTORY(./Server SRC_SERVER)
+AUX_SOURCE_DIRECTORY(./ServerLogin SRC_LOGIN)
 
-add_executable(server ${SRC_SERVER})
-
-target_link_libraries(server -Wl,--start-group proto ${EXTRA_LIBS}  -Wl,--end-group)
+add_executable(login ${SRC_LOGIN})
+#add_executable(server ${SRC_SERVER})
+target_link_libraries(login -Wl,--start-group proto ${EXTRA_LIBS}  -Wl,--end-group)
 
 # set(CLIENT_LIB 
 # 	client/client.ccsudo
@@ -60,5 +63,5 @@ target_link_libraries(server -Wl,--start-group proto ${EXTRA_LIBS}  -Wl,--end-gr
 # add_executable(client client/main.cc ${CLIENT_LIB})
 # target_link_libraries(client demo_lib ${Protobuf_LIBRARIES})
 
-#SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
-#SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
+#SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/Bin)
+#SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/Lib)

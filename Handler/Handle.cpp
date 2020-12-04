@@ -16,13 +16,13 @@ int HandleUserLogin::operator()(void* _s)
         return -1;
     }
     
-    player->m_msgTrans->SetType(static_cast<unsigned char>(EventType::USERLOGIN));
+    player->m_msgTrans->SetType(static_cast<unsigned char>(MsgType::USERLOGIN));
 
     player->m_msgTrans->SetId(player->getId());
 
     player->m_msgTrans->sendmsg(player->getAllFuckInfo());
 
-    // player->m_msgTrans->SetType(static_cast<unsigned char>(EventType::USERSYNC));
+    // player->m_msgTrans->SetType(static_cast<unsigned char>(MsgType::USERSYNC));
 
     // player->m_msgTrans->Encode(player->GetPlayerInfo());
 
@@ -61,7 +61,7 @@ int HandleUpdateStatus::operator()(void * _p)
 
     Player* player = static_cast<Player*>(_p);
 
-    player->m_msgTrans->SetType(static_cast<unsigned char>(EventType::USERSYNC));
+    player->m_msgTrans->SetType(static_cast<unsigned char>(MsgType::USERSYNC));
 
     TRACER("Test HandleUPdate\n");
     player->m_msgTrans->Encode(player->GetPlayerInfo());
@@ -92,9 +92,9 @@ int HandleSyncClient::operator()(void * _s)
     for (auto& iter : *playersMap) {
         p = iter.second;
         if (p->isActivity() == 0) {
-            DISPATCHER.Process(EventType::USERUP, p);
+            DISPATCHER.Process(MsgType::USERUP, p);
         } else {
-            DISPATCHER.Process(EventType::USEREXIT, p);
+            DISPATCHER.Process(MsgType::USEREXIT, p);
         }
     }
 

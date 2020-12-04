@@ -72,27 +72,58 @@ typedef int SINT32;
 // };
 
 
-    enum MsgType {
-        USERLOGIN = 0,
-        USEREXIT = 1,
-        USERALIVE = 2,
-        USERUP = 3,
-        USERSYNC = 4,
-        USERCHAT = 5,
+enum MsgType {
+    USERLOGIN = 0,
+    USEREXIT = 1,
+    USERALIVE = 2,
+    USERUP = 3,
+    USERSYNC = 4,
+    USERCHAT = 5,
 
-        LOGIN_REQUEST = 6,
-        LOGIN_SUCCESS = 7,
-        LOGIN_FAILED = 8,
+    ITEMEVENT = 6,
 
-        GETPASS = 9,
-        SETPASS = 10,
-        
-        GETITEM = 11,
-        SETITEM = 12,
+    LOGIN_REQUEST = 7,
+    LOGIN_SUCCESS = 8,
+    LOGIN_FAILED = 9,
 
-        GETPLAYER = 13,
-        SETPLAYER = 14
-    }
+    GETPASS = 10,
+    SETPASS = 11,
+
+    GETITEM = 12,
+    SETITEM = 13,
+
+    GETPLAYER = 14,
+    SETPLAYER = 15,
+
+    GET_ALLINFO = 16
+};
+
+
+// struct Auth {
+//     uint32_t m_id;
+//     uint32_t m_key;
+//     Auth(uint32_t _i = 0, uint32_t _k = 0) : m_id(_i), m_key(_k) {}
+//     void decode(uint8_t *_buf)
+//     {
+//         m_id = ntoh_32(*(uint32_t*)_buf);
+//         m_key = ntoh_32(*(uint32_t*)(_buf + 4));
+//     }
+
+//     void encode(uint8_t *_buf)
+//     {
+//         *(uint32_t*)_buf = hton_32(m_id);
+//         *(uint32_t*)(_buf + 4) = hton_32(m_key);
+//     }
+// };
+
+
+enum ServerID {
+    LOGIN_SERVER = 1,
+    GATE_SERVER = 2,
+    DB_SERVER = 3,
+    GAME_SERVER
+};
+
 
 #endif
 

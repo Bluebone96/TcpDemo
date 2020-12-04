@@ -11,7 +11,7 @@
 
 
 struct Record {
-    // uint32_t m_tag;   // 第一个字节为 EventType m_tag & 0xFF; 第二个字节为 id m_tag & 0xFF00
+    // uint32_t m_tag;   // 第一个字节为 MsgType m_tag & 0xFF; 第二个字节为 id m_tag & 0xFF00
     unsigned char m_type;
     unsigned char m_id;
     unsigned char m_add1;

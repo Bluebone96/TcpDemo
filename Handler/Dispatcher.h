@@ -16,7 +16,7 @@ public:
 
     int Process();
 
-    int Process(EventType, void* = nullptr);
+    int Process(MsgType, void* = nullptr);
 
 };
 

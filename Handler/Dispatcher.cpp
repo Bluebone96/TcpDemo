@@ -2,7 +2,7 @@
 #include "../Player/Player.h"
 
 
-int Dispatcher::Process(EventType _type, void* _p)
+int Dispatcher::Process(MsgType _type, void* _p)
 {
     if (_p) {
         Handle* hand = nullptr;
@@ -30,7 +30,7 @@ int Dispatcher::Process(Player *_p)
         
         TRACER("msg head type is %d, id is %d, add1 is %d, add2 is %d", msg->GetId(), msg->GetType(), msg->m_pRecord->m_add1, msg->m_pRecord->m_add2);
         uint32_t tag = msg->GetType();
-        return Process(static_cast<EventType>(tag), _p);
+        return Process(static_cast<MsgType>(tag), _p);
     }
 
     return -1;
