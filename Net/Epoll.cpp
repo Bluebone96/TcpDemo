@@ -62,7 +62,8 @@ int32_t Epoll::Wait(int32_t timeout)
         // TRACER("Epoll::Wait epoll_wait timeout.\n");
         break;
     case -1:
-        TRACERERRNO("Epoll::Wait epoll_wait failed. %s:%d\n", __FILE__, __LINE__);    
+        TRACERERRNO("Epoll::Wait epoll_wait failed. %s:%d\n", __FILE__, __LINE__);
+        sleep(2);   
         break;
     default:
         break;

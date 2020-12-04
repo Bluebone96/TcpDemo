@@ -53,6 +53,7 @@ tcp_socket::tcp_socket()
 
 tcp_socket::~tcp_socket()
 {
+    TRACER("tcp_socket dtor!\n");
     delete[] m_buffer;
     close(m_socketfd);
 }
@@ -153,7 +154,7 @@ uint32_t tcp_socket::tcp_listen(const char* hostname, int16_t port)
     if (setnonblock(listenfd)) {
         return -1;
     }
-    
+
     m_socketfd = listenfd;
     return listenfd;
 }

@@ -24,12 +24,17 @@ int main()
 
     server_config cfg;
     load_config("login_server", cfg);
-    net.init(cfg.ip.c_str(), cfg.port);
+    if (net.init(cfg.ip.c_str(), cfg.port) < 0) {
+        TRACER("net init failed\n");
+        exit(1);
+    }
     load_config("db_server", cfg);
     int32_t fd = net.connect(cfg.ip.c_str(), cfg.port);
     if (fd < 0) {
         TRACER("connect dbserver faild. %s:%d\n", __POSITION__);
+        exit(2);
     }
+    
     g_connet_server[DB_SERVER] = fd;
 
 

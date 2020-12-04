@@ -22,8 +22,14 @@ int8_t Net::init(const char* _ip, uint32_t _port)
     m_listenfd.tcp_init(fd);
 
     TRACER("listenfd = %d", fd);
+
+    if (m_epoll.Init() < 0) {
+        TRACER("Server::Init Epoll::Init failed.\n");
+        return -1;
+    }
+    
     if (m_epoll.Add(fd) < 0) {
-        TRACER("epoll add failed");
+        TRACER("epoll add failed\n");
         sleep(2);
         return -1;
     }
