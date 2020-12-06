@@ -2,7 +2,7 @@
 #include <exception>
 #include <iostream>
 
-msg_head::msg_head() : m_len(0), m_type(0), m_from(0), m_to(0) 
+msg_head::msg_head() : m_len(0), m_type(0), m_errID(0), m_usrID(0)
 {
 
 }
@@ -18,10 +18,8 @@ uint8_t msg_head::decode(uint8_t *_data, uint32_t _len)
 
     m_len = ntoh_32(*(uint32_t*)_data);
     m_type = ntoh_32(*(uint32_t*)(_data + 4));
-    m_from = ntoh_32(*(uint32_t*)(_data + 8));
-    m_to = ntoh_32(*(uint32_t*)(_data + 12));
-    m_usrID = ntoh_32(*(uint32_t*)(_data + 16));
-    m_errID = ntoh_32(*(uint32_t*)(_data + 20));
+    m_usrID = ntoh_32(*(uint32_t*)(_data + 8));
+    m_errID = ntoh_32(*(uint32_t*)(_data + 12));
     
     return 0;
 }
@@ -32,15 +30,13 @@ uint8_t msg_head::encode(uint8_t *_data, uint32_t _len)
     
     *(uint32_t*)_data = hton_32(m_len);
     *(uint32_t*)(_data + 4) = hton_32(m_type);
-    *(uint32_t*)(_data + 8) = hton_32(m_from);
-    *(uint32_t*)(_data + 12) = hton_32(m_to);
-    *(uint32_t*)(_data + 16) = hton_32(m_usrID);
-    *(uint32_t*)(_data + 20) = hton_32(m_errID);
+    *(uint32_t*)(_data + 8) = hton_32(m_usrID);
+    *(uint32_t*)(_data + 12) = hton_32(m_errID);
 
     return 0;
 }
 
-message::message() : m_head(), m_data{0}, m_pdata(m_data + MSG_HEAD_SIZE), m_fd(-1), m_flag(0)
+message::message() : m_flag(0), m_from(0), m_to(0), m_head(), m_data{0}, m_pdata(m_data + MSG_HEAD_SIZE)
 {
 
 }
@@ -59,6 +55,24 @@ uint8_t message::encode()
 {
     return m_head.encode(m_data, 1024);
 }
+
+uint8_t message::decode_pb(google::protobuf::Message& _pb)
+{
+    m_head.decode(m_data, 1024);
+
+    _pb.ParseFromArray(m_pdata, m_head.m_len);
+    
+    return 0;
+}
+
+uint8_t message::encode_pb(const google::protobuf::Message& _pb) {
+    m_head.m_len = _pb.ByteSizeLong();
+    _pb.SerializeToArray(m_pdata, 1024);
+    m_head.encode(m_data, 1024);
+    return 0;
+}
+
+
 
 
 

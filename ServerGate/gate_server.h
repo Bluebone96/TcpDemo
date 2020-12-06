@@ -2,11 +2,15 @@
 #define _GATE_SERVER_H_
 
 #include <stdint.h>
+#include <map>
 
+#include "../Net/message.h"
 
-#include "../Common/Epoll.h"
-#include "../Net/Net.h"
-#include "../config/loadconfig.hpp"
+extern msg_queue g_recv_queue;
+// extern msg_queue g_send_queue;
+
+extern std::map<uint32_t, uint32_t> g_connet_server;
+
 
 class gate_server
 {
@@ -18,8 +22,9 @@ public:
     int8_t run();
 
 private:
-    Net m_net;
-    msg_queue m_msgq;
+    std::map<uint32_t, uint32_t> m_usrkey; // 验证令牌
+    std::map<uint32_t, uint32_t> m_usrfd;
+    std::map<uint32_t, uint32_t> m_usrserver; // usr所属的game服务器
 };
 
 

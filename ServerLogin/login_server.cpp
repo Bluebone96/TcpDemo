@@ -193,16 +193,16 @@ static unsigned int BKDRHash(const std::string& _str)
 //     // msg->m_head.m_len = MSG_HEAD_SIZE;
 // }
 
-static int sql2pb(ITEM& _itemsql, Proto::Unity::ItemInfo* _itempb)
-{
-    _itempb->set_m_uid(_itemsql.itemid);
-    _itempb->set_m_count(_itemsql.count);
-    _itempb->set_m_type(_itemsql.type);
-    _itempb->set_m_hp(_itemsql.hp);
-    _itempb->set_m_atk(_itemsql.atk);
+// static int sql2pb(ITEM& _itemsql, Proto::Unity::ItemInfo* _itempb)
+// {
+//     _itempb->set_m_uid(_itemsql.itemid);
+//     _itempb->set_m_count(_itemsql.count);
+//     _itempb->set_m_type(_itemsql.type);
+//     _itempb->set_m_hp(_itemsql.hp);
+//     _itempb->set_m_atk(_itemsql.atk);
 
-    return 0;
-}
+//     return 0;
+// }
 
 int8_t login_server::login_request(message* _msg)
 {
@@ -215,8 +215,8 @@ int8_t login_server::login_request(message* _msg)
 
     message *msg = g_send_queue.enqueue();
     msg->m_head.m_type = GETPASS;
-    msg->m_head.m_from = LOGIN_SERVER;
-    msg->m_head.m_to = DB_SERVER;
+    msg->m_from = LOGIN_SERVER;
+    msg->m_to = DB_SERVER;
     msg->m_head.m_usrID = id;
     msg->m_head.m_errID = 0;
     msg->m_head.m_len = MSG_HEAD_SIZE;
@@ -242,15 +242,15 @@ int8_t login_server::login_verify(message* _msg)
         return -1;
     }
 
-    m_usrfd[_msg->m_head.m_usrID] = _msg->m_fd;
+    m_usrfd[_msg->m_head.m_usrID] = _msg->m_from;
     
     message *msg = g_send_queue.enqueue();
     msg->m_head.m_type = GET_ALLINFO;
-    msg->m_head.m_from = LOGIN_SERVER;
-    msg->m_head.m_to = DB_SERVER;
+    msg->m_from = LOGIN_SERVER;
+    msg->m_to = DB_SERVER;
     msg->m_head.m_usrID = _msg->m_head.m_usrID;
     msg->m_head.m_errID = 0;
-    msg->m_head.m_len = MSG_HEAD_SIZE;
+    msg->m_head.m_len = 0;
     msg->decode();
     msg->setvalid();
 
@@ -263,11 +263,11 @@ int8_t login_server::login_failed(message* _msg)
     message* msg = g_send_queue.enqueue();
     
     msg->m_head.m_type = LOGIN_FAILED;
-    msg->m_head.m_from = LOGIN_SERVER;
+    msg->m_from = LOGIN_SERVER;
     msg->m_head.m_usrID = _msg->m_head.m_usrID;
-    msg->m_head.m_to = m_usrfd[_msg->m_head.m_usrID];
+    msg->m_to = m_usrfd[_msg->m_head.m_usrID];
     msg->m_head.m_errID = _msg->m_head.m_errID;
-    msg->m_head.m_len = MSG_HEAD_SIZE;
+    msg->m_head.m_len = 0;
     msg->decode();
     msg->setvalid();
 
@@ -281,5 +281,5 @@ int8_t login_server::login_success(message* _msg)
         return -1;
     }
 
-    return tcp_socket::tcp_send(m_usrfd[_msg->m_head.m_usrID], _msg->m_data, _msg->m_head.m_len);
+    return tcp_socket::tcp_send(m_usrfd[_msg->m_head.m_usrID], _msg->m_data, _msg->m_head.m_len + MSG_HEAD_SIZE);
 }

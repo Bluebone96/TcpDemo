@@ -1,9 +1,9 @@
 #ifndef _BASETYPE_H_
 #define _BASETYPE_H_
 
-// #define  EOK 0
-// #define  ERR -1
+#include "../Net/byte_swap.hpp"
 #include "../Proto/PlayerInfo.pb.h"
+#include "../SQL/tomysql.h"
 
 typedef  ::google::protobuf::Message PROTOBUF;
 
@@ -95,7 +95,11 @@ enum MsgType {
     GETPLAYER = 14,
     SETPLAYER = 15,
 
-    GET_ALLINFO = 16
+    GET_ALLINFO = 16,
+    SET_ALLINFO,
+    
+    DB_SUCCESS,  // 不需要返回内容
+    DB_FAILED,  // db 中失败
 };
 
 
@@ -117,12 +121,15 @@ enum MsgType {
 // };
 
 
+
 enum ServerID {
     LOGIN_SERVER = 1,
     GATE_SERVER = 2,
     DB_SERVER = 3,
-    GAME_SERVER
+    GAME_SERVER = 4
 };
+
+
 
 
 #endif

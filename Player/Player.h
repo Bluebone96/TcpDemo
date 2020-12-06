@@ -23,25 +23,17 @@
 
 class Player {
 public:
-    explicit Player(MsgTrans* msg = nullptr) :  m_msgTrans(msg) { }
+    explicit Player() { }
 
     ~Player() { 
         TRACER("player dctor delete msgtrans\n");
-        
-        saveAll();
-        delete m_msgTrans;
-        m_msgTrans = nullptr; 
+        // saveAll();交给 gameserver
     }
 
-    int InitPlayer();
+
+    int InitPlayer(Proto::Unity::PlayerAllFuckInfo&);
     
-    int Update();
-
- //   int setPlayerInfo();
-
-    int getPlayerStatus(char*, int);
-
-    int getId() { return m_Id; }
+    int getId() { return m_id; }
 
     int Activity() { return gettimeofday(&m_offline, nullptr); }
 
@@ -56,38 +48,37 @@ public:
         return -1;
     }
 
-    PROTOBUF& GetPlayerInfo();
+    const Proto::Unity::PlayerInfo* GetPlayerInfo();
     
     PROTOBUF& GetPlayerOp();
 
+    int update_status(Proto::Unity::Operation& op);
 
-    int updateInventroy( /* Message* */);
+    int update_Inventory(Proto::Unity::ItemUpdate& pb);
 
-    int savePlayer();
 
-    int saveAll();
+    int save_allinfo();
 
-    int getPlayer();
 
     Proto::Unity::PlayerAllFuckInfo&  getAllFuckInfo();
 
+
 private:
 
-    int32_t m_Id; 
+    int32_t m_id; 
 
-    char m_idstr[20];
     std::string m_name;
 
 #define MAXSTATUS 5
     // 定义一个环形结构
     // PlayerStatus m_pStatus[MAXSTATUS];
     
+    Proto::Unity::PlayerAllFuckInfo m_fuckAllPb;
 
-    Proto::Unity::PlayerInfo m_protoInfo;
+    Proto::Unity::PlayerInfo* m_protoInfo;
 
     Proto::Unity::Operation m_opNew;
 
-    Proto::Unity::PlayerAllFuckInfo m_fuckAllPb;
 
     struct  timeval  m_offline; // 5秒 无响应下线
 
@@ -95,8 +86,6 @@ private:
 
     Inventory m_inventory;
 
-public:
-    MsgTrans* m_msgTrans;
 };
 
 

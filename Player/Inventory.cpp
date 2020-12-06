@@ -1,8 +1,14 @@
-#include "Inventory.h"
-#include "../Server/Server.h"
-#include "Player.h"
 #include <vector>
 #include <iostream>
+
+#include "Player.h"
+#include "Inventory.h"
+#include "../Server/Server.h"
+#include "../Net/message.h"
+
+extern msg_queue g_send_queue;
+extern std::map<uint32_t, uint32_t> g_connet_server;
+
 
 Inventory::Inventory()
 {
@@ -14,53 +20,19 @@ Inventory::~Inventory()
     
 }
 
-int Inventory::InitInventory(uint32_t _id, Player* _player)
+int Inventory::InitInventory(Proto::Unity::PlayerBag* _bag, Player* _player)
 {
-    m_playerId = _id;
+    m_playerBagPb = _bag;
     m_player = _player;
-    
-    TRACER("inventory init start\n");
-    // 从redis 读取 物品
-    // std::vector<std::string> bufs;
-    // int count = 0;
-    // snprintf(m_bagkey, 30, "bag_%d", m_playerId);
 
-    // if (REDIS.HMGET(m_bagkey, bufs, &count) > 0) {
-    //     TRACER("get %d items\n", count);
-    //     for (int i = 0; i < count; ++i) {
-    //         // m_itempb.ParseFromString(buf[i]);
-    //         Proto::Unity::ItemInfo *pitem  =  m_bagPb.add_items();
-
-    //         pitem->ParseFromString(bufs[i]);
-
-    //         BaseItem* item = ITEMFACTORY.CreateItem(m_itempb.m_type(), m_itempb.m_uid());
-    //         pb2item(*pitem, item);
-
-    //         addItem(item);
-    //     }
-    // } else {
-        std::vector<ITEM> items;
-        char cmd[60];
-        snprintf(cmd, 60, "SELECT * FROM ITEM where userid = %d", m_playerId);
-        MYSQL.GetBySQL(items, cmd);
-        TRACER("get %ld items\n", items.size());
-        for (auto& x : items) {
-            BaseItem* item = ITEMFACTORY.CreateItem(x.type, x.itemid);
-            if (item == nullptr) {
-                continue;
-            }
-            Proto::Unity::ItemInfo *pitem  =  m_bagPb.add_items();
-            sql2item(x, item);
-            item2pb(item, *pitem);
-            addItem(item);
-
-            std::string str = pitem->SerializeAsString();
-
-            REDIS.HSetField("bag_%d", "%d", str.c_str(), m_playerId, item->getUID());
-
-            TRACER("add item id = %d, count is %d\n", x.itemid, x.count);
+    for (auto& x : m_playerBagPb->items()) {
+        BaseItem* item = ITEMFACTORY.CreateItem(x.m_type(), x.m_uid());
+        if (item == nullptr) {
+            continue;
         }
-    //}
+        addItem(item);
+        TRACER("add item id = %d, count is %d\n", x.m_uid(), x.m_count());
+    }
     TRACER("inventory init end\n");
 
     return 0;
@@ -194,8 +166,10 @@ int Inventory::tradeItem(uint _uid, int _n, int _playerid)
 
 int Inventory::saveAll()
 {
+    m_playerBagPb->clear_items();
     for (auto& iter : m_mItems) {
-        saveItem(iter.second);
+        Proto::Unity::ItemInfo* pb = m_playerBagPb->add_items();
+        item2pb(iter.second, *pb);
     }
     return 0;
 }
@@ -224,7 +198,6 @@ int Inventory::sql2item(ITEM& _itemsql, BaseItem* _baseitem)
     _baseitem->setCount(_itemsql.count);
     _baseitem->setAttribute(ItemAttributeType::ITEM_ATTRIBUTE_ATK, _itemsql.atk);
     _baseitem->setAttribute(ItemAttributeType::ITEM_ATTRIBUTE_HP, _itemsql.hp);
-
 
     return 0;
 }
@@ -260,28 +233,62 @@ int Inventory::pb2item(Proto::Unity::ItemInfo& _itempb, BaseItem* _baseitem)
 
 int Inventory::saveItem(BaseItem* _item)
 {
-    item2Sql(_item, m_itemsql);
-
-
-    TRACER("save item to sql\n");
-    MYSQL.SetBySQL(m_itemsql);
-
     item2pb(_item, m_itempb);
 
+    TRACER("save item to dbserver\n");
     std::cout << "item id = " << m_itempb.m_uid() << "type is " << m_itempb.m_type() << std::endl;
+    message* msg = g_send_queue.enqueue();
 
-    std::string str = m_itempb.SerializeAsString();
-
-
-    REDIS.HSetField("bag_%d", "%d", str.c_str(), m_playerId, _item->getUID());
-
-    TRACER("save item to redis\n");
+    if (msg) {
+        msg->m_head.m_type = SETITEM;
+        msg->m_head.m_usrID = m_player->getId();
+        msg->m_head.m_errID = 0;
+        msg->m_to = g_connet_server[DB_SERVER];
+        msg->decode_pb(m_itempb);
+        msg->setvalid();
+    }
 
     return 0;
 }
 
 
-Proto::Unity::PlayerBag& Inventory::getbagPb()
+int Inventory::update_item(Proto::Unity::ItemUpdate& pb)
 {
-    return m_bagPb;
+/*
+ * optype : value
+ *  0       basebag 增加物品，add1 为数量
+ *  1       basebag 减少物品，add1 为数量
+ *  2       basebag 使用物品，add1 为数量
+ *  3       money   增加， add1 为数量
+ *  4       money   减少   add1 为数量
+ *  5       equip   装备
+ *  6       unequip  卸下装备
+ *  7       trade   交易物品，add1 为数量， add2 为交易对象 id
+ *  8       
+ */
+    int rn = -1;   // 结果标记
+    Proto::Unity::ItemEvent itemEvent;
+    switch (itemEvent.optype())
+    {
+        case 0:
+            // TODO 装备工厂产生了一个装备后，写入数据库，然后这里去数据库找到了再加入
+            // m_inventory.addItem(nullptr);
+            rn = addItem(itemEvent.uid(), itemEvent.count());
+            break;
+        case 1:
+            rn = delItem(itemEvent.uid(), itemEvent.count());
+            break;
+        case 2:
+            rn = useItem(itemEvent.uid());
+            break;
+        case 3:
+            rn = equipItem(itemEvent.uid());
+            break;
+        case 4:
+            rn = unequipItem(itemEvent.uid());
+            break;
+        default:
+            break;
+    }
+    return rn;
 }

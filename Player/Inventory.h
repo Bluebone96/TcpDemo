@@ -31,7 +31,11 @@ public:
     Inventory(const Inventory&) = delete;
     Inventory& operator=(const Inventory&) =delete;
 
-    int InitInventory(uint32_t, Player*);
+    int InitInventory(Proto::Unity::PlayerBag*, Player*);
+
+
+    int update_item(Proto::Unity::ItemUpdate& pb);
+
 
     int addItem(BaseItem*);
     
@@ -57,7 +61,7 @@ public:
     int sql2item(ITEM&, BaseItem* _item);
     int pb2item(Proto::Unity::ItemInfo&, BaseItem* _item);
 
-    Proto::Unity::PlayerBag& getbagPb();
+    Proto::Unity::PlayerBag getbagPb();
 
 
 private:
@@ -75,7 +79,8 @@ private:
 
     ITEM m_itemsql;
     Proto::Unity::ItemInfo m_itempb;
-    Proto::Unity::PlayerBag m_bagPb;
+
+    Proto::Unity::PlayerBag* m_playerBagPb;
 
     char m_bagkey[30];
 };

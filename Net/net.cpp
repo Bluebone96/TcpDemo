@@ -92,18 +92,7 @@ int8_t Net::product_msg()
                         m_connections.erase(fd);
                         break;
                     }
-                    //  else if (ret == 0) {
-                    //     break;
-                    // }
-                    // msg->decode();
-                    // ret = socket->tcp_recv(msg->m_data + MSG_HEAD_SIZE, msg->m_head.m_len);
-                    // if (ret < 0 ) {
-                    //     TRACER("connect failed");
-                    //     m_connections.erase(fd);
-                    //     break;
-                    // }
-                    // msg->m_fd = fd;
-                    // msg->setvalid();
+                    msg->setvalid();
                 }
             }
         }
@@ -119,7 +108,7 @@ int8_t Net::consume_msg()
             sleep(2);
             continue;
         }
-        auto iter = m_connections.find(msg->m_head.m_to);
+        auto iter = m_connections.find(msg->m_to);
 
         if (iter == m_connections.end()) {
             return -1;
@@ -150,16 +139,15 @@ int8_t Net::recvmsg(std::shared_ptr<tcp_socket>& _socket, message& _msg)
         TRACER("connect failed");
         return -1;
     }
-    _msg.m_fd = _socket->getfd();
+    _msg.m_from = _socket->getfd();
 
-    _msg.setvalid();
     return 0;
 }
 
 int8_t Net::sendmsg(std::shared_ptr<tcp_socket>& _socket, message& _msg)
 {
     _msg.encode();
-    return _socket->tcp_send(_msg.m_data, _msg.m_head.m_len);
+    return _socket->tcp_send(_msg.m_data, _msg.m_head.m_len + MSG_HEAD_SIZE);
 }
 
 

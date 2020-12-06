@@ -9,9 +9,6 @@
 extern msg_queue g_recv_queue;
 extern msg_queue g_send_queue;
 
-static std::map<uint32_t, PASS> passdb;
-static std::map<uint32_t, std::map<uint32_t, ITEM>> itemdb;
-static std::map<uint32_t, PLAYER> playerdb;
 
 class db_server {
 public:
@@ -21,21 +18,50 @@ public:
     int8_t init();
     int8_t run();
 
-    template<typename T1>
-    int8_t set(T1 _map, message* _msg)
+    int8_t set_pass(message* _msg);
+    int8_t get_pass(message* _msg);
+
+    int8_t set_player(message* _msg);
+    int8_t get_player(message* _msg);
+    int8_t add_player(message* _msg);
+
+    int8_t set_item(message* _msg);
+    int8_t get_item(message* _msg);
+    int8_t add_item(message* _msg);
+
+    int8_t get_all(message* _msg);
+
+
+    void db_reply(message* _msg, int _type);
+
+    template<typename T>
+    int8_t save2sql(T& _old, T _new)
     {
-        T1
+        m_sql.ModBySQL(_old, _new);
     }
 
-    template<typename T1, typename T2>
-    int8_t get(T1, T2&);
-private:
+    int8_t saveall();
 
+private:
+    ToMysql m_sql;
+
+    Proto::Unity::Authentication m_authpb;
     Proto::Unity::ItemInfo m_itempb;
     Proto::Unity::PlayerInfo m_playerpb;
-    Proto::Unity::Authentication m_authpb;
+    
+    PASS m_passslq;
+    ITEM m_itemslq;
+    PLAYER m_playersql;
 
-    ToMysql m_sql;
+    std::map<uint32_t, PASS> m_passdb;
+    std::map<uint32_t, std::map<uint32_t, ITEM>> m_itemdb;
+    std::map<uint32_t, PLAYER> m_playerdb;
+
+    std::map<uint32_t, PASS> m_passdb_bak;
+    std::map<uint32_t, std::map<uint32_t, ITEM>> m_itemdb_bak;
+    std::map<uint32_t, PLAYER> m_playerdb_bak;
+
+    std::map<uint32_t, Proto::Unity::PlayerAllFuckInfo> m_allplayer_info;
 };
 
 #endif
