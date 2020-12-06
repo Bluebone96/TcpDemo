@@ -25,16 +25,14 @@ SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 # add_library(proto ${PROTO_SRCS})
 
 ADD_SUBDIRECTORY(Proto)
-ADD_SUBDIRECTORY(Common)
 ADD_SUBDIRECTORY(SQL)
 ADD_SUBDIRECTORY(Player)
-ADD_SUBDIRECTORY(Handler)
 ADD_SUBDIRECTORY(Config)
 ADD_SUBDIRECTORY(Net)
 
 LINK_DIRECTORIES(/usr/lib /usr/lib64 /usr/local/lib /usr/local/lib64 ${CMAKE_SOURCE_DIR}/Config)
 
-SET(EXTRA_LIBS ${EXTRA_LIBS} proto common sql player handle net config tinyxml2 -lprotobuf -lmysqlclient -lmysqlpp -lhiredis -lpthread )
+SET(EXTRA_LIBS ${EXTRA_LIBS} proto sql player net config tinyxml2 -lprotobuf -lmysqlclient -lmysqlpp -lhiredis -lpthread)
 
 
 include_directories(.)
@@ -49,12 +47,20 @@ include_directories(
 )
 
 
-#AUX_SOURCE_DIRECTORY(./Server SRC_SERVER)
 AUX_SOURCE_DIRECTORY(./ServerLogin SRC_LOGIN)
+AUX_SOURCE_DIRECTORY(./ServerGate SRC_GATE)
+AUX_SOURCE_DIRECTORY(./ServerGame SRC_GAME)
+AUX_SOURCE_DIRECTORY(./ServerDB SRC_DB)
 
-add_executable(login ${SRC_LOGIN})
-#add_executable(server ${SRC_SERVER})
-target_link_libraries(login -Wl,--start-group proto ${EXTRA_LIBS}  -Wl,--end-group)
+add_executable(login_server ${SRC_LOGIN})
+add_executable(db_server ${SRC_DB})
+add_executable(game_server ${SRC_GAME})
+add_executable(gate_server ${SRC_GATE})
+
+target_link_libraries(login_server -Wl,--start-group proto ${EXTRA_LIBS}  -Wl,--end-group)
+target_link_libraries(gate_server -Wl,--start-group proto ${EXTRA_LIBS}  -Wl,--end-group)
+target_link_libraries(game_server -Wl,--start-group proto ${EXTRA_LIBS}  -Wl,--end-group)
+target_link_libraries(db_server -Wl,--start-group proto ${EXTRA_LIBS}  -Wl,--end-group)
 
 # set(CLIENT_LIB 
 # 	client/client.ccsudo

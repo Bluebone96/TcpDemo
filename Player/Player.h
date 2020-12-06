@@ -9,9 +9,7 @@
 #include <sys/time.h>
 
 #include "../Common/basetype.h"
-#include "../Common/MsgTransmission.hpp"
-#include "../SQL/toredis.h"
-
+#include "../Common/log.h"
 
 #define MYSQLPP_SSQLS_NO_STATICS
 
@@ -50,7 +48,6 @@ public:
 
     const Proto::Unity::PlayerInfo* GetPlayerInfo();
     
-    PROTOBUF& GetPlayerOp();
 
     int update_status(Proto::Unity::Operation& op);
 

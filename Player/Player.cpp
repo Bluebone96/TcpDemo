@@ -2,9 +2,7 @@
 #include <vector>
 
 #include "Player.h"
-#include "../Common/MsgTransmission.hpp"
 #include "../Proto/PlayerInfo.pb.h"
-#include "../Server/Server.h"
 #include "../Net/message.h"
 
 
@@ -32,7 +30,7 @@ int Player::InitPlayer(Proto::Unity::PlayerAllFuckInfo& _allinfo)
 
     m_protoInfo = m_fuckAllPb.mutable_baseinfo();
 
-    TRACER("player name: %s, id: %d", m_name, m_id);
+    TRACER("player name: %s, id: %d", m_name.c_str(), m_id);
 
     m_inventory.InitInventory(m_fuckAllPb.mutable_baginfo(), this);
     
@@ -112,6 +110,7 @@ int Player::save_allinfo()
         // msg->m_head.m_errID = 0;
         // msg->m_to = 
     // }
+    return 0;
 }
 
 
@@ -122,7 +121,7 @@ Proto::Unity::PlayerAllFuckInfo&  Player::getAllFuckInfo()
 {
     // 先通知背包把所有物品信息保存到pb里
     m_inventory.saveAll();
-    
+
     return m_fuckAllPb;
 }
 

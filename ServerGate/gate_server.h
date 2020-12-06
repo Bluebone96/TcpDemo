@@ -7,7 +7,7 @@
 #include "../Net/message.h"
 
 extern msg_queue g_recv_queue;
-// extern msg_queue g_send_queue;
+extern msg_queue g_send_queue;
 
 extern std::map<uint32_t, uint32_t> g_connet_server;
 

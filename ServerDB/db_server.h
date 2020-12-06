@@ -2,9 +2,10 @@
 #define _DB_SERVER_H_
 
 #include "../Net/message.h"
-#include "../SQL/tomysql.h"
 #include "../Proto/PlayerInfo.pb.h"
 
+#define MYSQLPP_SSQLS_NO_STATICS
+#include "../SQL/tomysql.h"
 
 extern msg_queue g_recv_queue;
 extern msg_queue g_send_queue;
@@ -30,6 +31,7 @@ public:
     int8_t add_item(message* _msg);
 
     int8_t get_all(message* _msg);
+    int8_t set_all(message* _msg);
 
 
     void db_reply(message* _msg, int _type);
@@ -37,7 +39,7 @@ public:
     template<typename T>
     int8_t save2sql(T& _old, T _new)
     {
-        m_sql.ModBySQL(_old, _new);
+        return m_sql.ModBySQL(_old, _new);
     }
 
     int8_t saveall();
@@ -61,7 +63,7 @@ private:
     std::map<uint32_t, std::map<uint32_t, ITEM>> m_itemdb_bak;
     std::map<uint32_t, PLAYER> m_playerdb_bak;
 
-    std::map<uint32_t, Proto::Unity::PlayerAllFuckInfo> m_allplayer_info;
+    std::map<uint32_t, Proto::Unity::PlayerAllFuckInfo> m_allplayer_info; // 是否改为指针 map value 是栈 堆？
 };
 
 #endif

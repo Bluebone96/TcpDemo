@@ -7,7 +7,9 @@
 #include <exception>
 #include <iostream>
 
-#define MIN(A, B) (((A) < (B)) ? (A) : (B))
+#ifndef MIN
+    #define MIN(A, B) (((A) < (B)) ? (A) : (B))
+#endif
 
 static inline bool is_pow_of_two (uint32_t _n)
 {

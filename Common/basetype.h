@@ -1,12 +1,6 @@
 #ifndef _BASETYPE_H_
 #define _BASETYPE_H_
 
-#include "../Net/byte_swap.hpp"
-#include "../Proto/PlayerInfo.pb.h"
-#include "../SQL/tomysql.h"
-
-typedef  ::google::protobuf::Message PROTOBUF;
-
 enum _OK_ERR_ {
     ERR = -1,
     EOK = 0

@@ -7,9 +7,10 @@
 #include "../Common/basetype.h"
 
 msg_queue g_recv_queue;
-// msg_queue g_send_queue;
+msg_queue g_send_queue;
 
 std::map<uint32_t, uint32_t> g_connet_server;
+
 
 int main ()
 {

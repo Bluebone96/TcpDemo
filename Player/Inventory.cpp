@@ -3,8 +3,9 @@
 
 #include "Player.h"
 #include "Inventory.h"
-#include "../Server/Server.h"
 #include "../Net/message.h"
+#include "../SQL/tomysql.h"
+
 
 extern msg_queue g_send_queue;
 extern std::map<uint32_t, uint32_t> g_connet_server;
@@ -45,21 +46,10 @@ int Inventory::addItem(BaseItem* _item)
     if (_item) {
         // TODO bug 背包满不能放入可叠加物品
         if (m_baseBag.capacity > m_baseBag.items.size()) {
-            item2Sql(_item, m_itemsql);
-            ITEM itemcp = m_itemsql;
-
             if (m_mItems.count(_item->getUID())) {
                 if (_item->isStack()) {
                     m_mItems[_item->getUID()]->addItem(_item->getCount());
-                    itemcp.count = m_mItems[_item->getUID()]->getCount();
-                    MYSQL.ModBySQL(m_itemsql, itemcp);
-                    item2pb(m_mItems[_item->getUID()], m_itempb);
-                    
-                    int size = m_itempb.ByteSizeLong();
-                    char buf[200] = {0};
-                    m_itempb.SerializeToArray(buf, size);
-                    
-                    REDIS.HSetField("bag_%d", "%d", buf, m_playerId);
+                    saveItem(_item);
                 }
             } else {
                 m_mItems.insert(std::make_pair(_item->getUID(), _item));
@@ -88,16 +78,10 @@ int Inventory::delItem(uint _uid, int n)
 {
     auto iter = m_mItems.find(_uid);
     if (iter != m_mItems.end()) {
-        ITEM itemsql;
-        item2Sql(iter->second, itemsql);
-        ITEM bak = itemsql;
         int left = iter->second->getCount();
         if (n < left) {
             iter->second->delItem(n);
-            itemsql.count -= n;
-            MYSQL.ModBySQL(bak, itemsql);
             saveItem(iter->second);
-
             return 0;
         } else if (n == left) {
             delete iter->second;
@@ -175,60 +159,6 @@ int Inventory::saveAll()
 }
 
 
-int Inventory::item2Sql(BaseItem* _baseitem, ITEM& _itemsql)
-{
-    _itemsql.userid = m_playerId;
-    _itemsql.itemid = _baseitem->getUID();
-    _itemsql.hp = _baseitem->getAttribute(ItemAttributeType::ITEM_ATTRIBUTE_HP);
-    _itemsql.atk = _baseitem->getAttribute(ItemAttributeType::ITEM_ATTRIBUTE_ATK);
-    _itemsql.count = _baseitem->getCount();
-    _itemsql.name = _baseitem->toString();
-    _itemsql.type = _baseitem->getType();
-    std::cout << "userid is " << _itemsql.userid << std::endl
-              << "itemid is " << _itemsql.itemid << std::endl
-              << "count is " << _itemsql.count << std::endl;
-    return 0;
-}
-
-int Inventory::sql2item(ITEM& _itemsql, BaseItem* _baseitem)
-{
-
-    _baseitem->setUID(_itemsql.itemid);
-    _baseitem->setType(_itemsql.type);
-    _baseitem->setCount(_itemsql.count);
-    _baseitem->setAttribute(ItemAttributeType::ITEM_ATTRIBUTE_ATK, _itemsql.atk);
-    _baseitem->setAttribute(ItemAttributeType::ITEM_ATTRIBUTE_HP, _itemsql.hp);
-
-    return 0;
-}
-
-
-int Inventory::item2pb(BaseItem* _baseitem, Proto::Unity::ItemInfo& _itempb)
-{
-    _itempb.set_m_uid(_baseitem->getUID());
-    _itempb.set_m_count(_baseitem->getCount());
-    _itempb.set_m_type(_baseitem->getType());
-    _itempb.set_m_hp(_baseitem->getAttribute(ItemAttributeType::ITEM_ATTRIBUTE_HP));
-    _itempb.set_m_atk(_baseitem->getAttribute(ItemAttributeType::ITEM_ATTRIBUTE_ATK));
-
-    
-    std::cout << "id is " << _itempb.m_uid() << std::endl
-              << "count is " << _itempb.m_count() << std::endl;
-
-    return 0;
-}
-
-
-int Inventory::pb2item(Proto::Unity::ItemInfo& _itempb, BaseItem* _baseitem)
-{
-    _baseitem->setUID(_itempb.m_uid());
-    _baseitem->setType(_itempb.m_type());
-    _baseitem->setCount(_itempb.m_count());
-    _baseitem->setAttribute(ItemAttributeType::ITEM_ATTRIBUTE_HP, _itempb.m_hp());
-    _baseitem->setAttribute(ItemAttributeType::ITEM_ATTRIBUTE_ATK, _itempb.m_atk());
-
-    return 0;
-}
 
 
 int Inventory::saveItem(BaseItem* _item)
@@ -291,4 +221,61 @@ int Inventory::update_item(Proto::Unity::ItemUpdate& pb)
             break;
     }
     return rn;
+}
+
+
+
+int Inventory::item2Sql(BaseItem* _baseitem, ITEM& _itemsql)
+{
+    _itemsql.userid = m_playerId;
+    _itemsql.itemid = _baseitem->getUID();
+    _itemsql.hp = _baseitem->getAttribute(ItemAttributeType::ITEM_ATTRIBUTE_HP);
+    _itemsql.atk = _baseitem->getAttribute(ItemAttributeType::ITEM_ATTRIBUTE_ATK);
+    _itemsql.count = _baseitem->getCount();
+    _itemsql.name = _baseitem->toString();
+    _itemsql.type = _baseitem->getType();
+    std::cout << "userid is " << _itemsql.userid << std::endl
+              << "itemid is " << _itemsql.itemid << std::endl
+              << "count is " << _itemsql.count << std::endl;
+    return 0;
+}
+
+int Inventory::sql2item(ITEM& _itemsql, BaseItem* _baseitem)
+{
+
+    _baseitem->setUID(_itemsql.itemid);
+    _baseitem->setType(_itemsql.type);
+    _baseitem->setCount(_itemsql.count);
+    _baseitem->setAttribute(ItemAttributeType::ITEM_ATTRIBUTE_ATK, _itemsql.atk);
+    _baseitem->setAttribute(ItemAttributeType::ITEM_ATTRIBUTE_HP, _itemsql.hp);
+
+    return 0;
+}
+
+
+int Inventory::item2pb(BaseItem* _baseitem, Proto::Unity::ItemInfo& _itempb)
+{
+    _itempb.set_m_uid(_baseitem->getUID());
+    _itempb.set_m_count(_baseitem->getCount());
+    _itempb.set_m_type(_baseitem->getType());
+    _itempb.set_m_hp(_baseitem->getAttribute(ItemAttributeType::ITEM_ATTRIBUTE_HP));
+    _itempb.set_m_atk(_baseitem->getAttribute(ItemAttributeType::ITEM_ATTRIBUTE_ATK));
+
+    
+    std::cout << "id is " << _itempb.m_uid() << std::endl
+              << "count is " << _itempb.m_count() << std::endl;
+
+    return 0;
+}
+
+
+int Inventory::pb2item(Proto::Unity::ItemInfo& _itempb, BaseItem* _baseitem)
+{
+    _baseitem->setUID(_itempb.m_uid());
+    _baseitem->setType(_itempb.m_type());
+    _baseitem->setCount(_itempb.m_count());
+    _baseitem->setAttribute(ItemAttributeType::ITEM_ATTRIBUTE_HP, _itempb.m_hp());
+    _baseitem->setAttribute(ItemAttributeType::ITEM_ATTRIBUTE_ATK, _itempb.m_atk());
+
+    return 0;
 }

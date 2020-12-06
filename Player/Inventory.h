@@ -7,8 +7,6 @@
 #include "../Proto/PlayerInfo.pb.h"
 #include "Item.h"
 
-#include "../SQL/toredis.h"
-
 #define MYSQLPP_SSQLS_NO_STATICS
 #include "../SQL/tomysql.h"
 

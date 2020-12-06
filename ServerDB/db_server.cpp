@@ -26,6 +26,7 @@ int8_t db_server::init()
     if (m_sql.Init(sql_cfg.db, sql_cfg.ip, sql_cfg.usr, sql_cfg.pass) < 0) {
         return -1;
     }
+    return 0;
 }
 
 
@@ -58,6 +59,9 @@ int8_t db_server::run()
                 break;
             case GET_ALLINFO:
                 get_all(msg);
+                break;
+            case SET_ALLINFO:
+                set_all(msg);
                 break;
             default:
                 break;
@@ -102,7 +106,7 @@ int8_t db_server::get_pass(message *_msg)
         if (!ret.second) {
             // todo
         }
-        auto ret = m_passdb.insert(std::make_pair(usrid, pass[0]));
+        ret = m_passdb.insert(std::make_pair(usrid, pass[0]));
         if (!ret.second) {
             // todo
         }
@@ -174,6 +178,7 @@ int8_t db_server::get_item(message *_msg)
         return 0;
     }
 
+    return -1;
 }
 
 
@@ -251,6 +256,19 @@ int8_t db_server::get_player(message *_msg)
     return 0;
 }
 
+int8_t db_server::set_player(message *_msg)
+{
+    uint32_t usrid  = _msg->m_head.m_usrID;
+
+    Proto::Unity::PlayerInfo *info = m_allplayer_info[usrid].mutable_baseinfo();
+
+    _msg->decode_pb(*info);
+
+    db_reply(_msg, DB_SUCCESS);
+
+    return 0;
+}
+
 
 int8_t db_server::get_all(message *_msg)
 {
@@ -297,7 +315,20 @@ int8_t db_server::get_all(message *_msg)
     return 0;
 }
 
+int8_t db_server::set_all(message* _msg)
+{
+    uint32_t usrid = _msg->m_head.m_usrID;
+    
+    _msg->decode_pb(m_allplayer_info[usrid]);
+
+    db_reply(_msg, DB_SUCCESS);
+
+    return 0;
+}
+
+
 int8_t db_server::saveall()
 {
     //todo
+    return 0;
 }
