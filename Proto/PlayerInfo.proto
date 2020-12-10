@@ -9,16 +9,15 @@ message PlayerInfo {
     float posX = 3;
     float posZ = 4;
     float angle = 5;
-
-    // repeated float Position = 3;
-    // repeated float Rotation = 4;
-    uint32 Hp = 6;
-
-
+    float speed = 6;
     uint32 state = 7;   // 0 IDEL 1 WALK
-    float speed = 8;
-    
-    Operation op = 9;
+
+    int32 Hp = 8;
+    int32 Mp = 9;
+    int32 ATK = 10;
+    int32 DEF = 11;
+
+    Operation op = 12;
 }
 
 message Operation {
@@ -140,4 +139,11 @@ message PlayerBag {
 message PlayerAllFuckInfo {
     PlayerInfo baseinfo = 1;
     PlayerBag baginfo = 2;
+}
+
+
+message ServerInfo {
+    int32 m_type = 1; 
+    string m_ip = 2;
+    int32 m_port = 3;
 }

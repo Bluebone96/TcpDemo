@@ -8,6 +8,7 @@
 #include "../Net/byte_swap.hpp"
 #include "../SQL/sql_pb_swap.hpp"
 #include "../Common/basetype.h"
+#include "../Common/log.h"
 
 db_server::db_server() 
 {
@@ -20,12 +21,14 @@ db_server::~db_server()
 }
 
 int8_t db_server::init()
-{
+{   
+    TRACER("server init start connect sql\n");
     sql_config sql_cfg;
     load_config("sql", sql_cfg);
     if (m_sql.Init(sql_cfg.db, sql_cfg.ip, sql_cfg.usr, sql_cfg.pass) < 0) {
         return -1;
     }
+    TRACER("server init start connect sql success\n");
     return 0;
 }
 
@@ -35,9 +38,10 @@ int8_t db_server::run()
     message* msg;
     for (;;) {
         if ((msg = g_recv_queue.dequeue()) == nullptr) {
-            sleep(2);
+            usleep(100 * 1000);;
+            continue;
         }
-
+        TRACER_DEBUG("msg type is %d\n", msg->m_head.m_type);
         switch (msg->m_head.m_type) {
             case GETPASS:
                 get_pass(msg);
@@ -92,25 +96,31 @@ int8_t db_server::set_pass(message* _msg)
 
 int8_t db_server::get_pass(message *_msg)
 {
+    TRACER_DEBUG("try get pass start \n");
     uint32_t usrid = _msg->m_head.m_usrID;
     
     auto iter = m_passdb.find(usrid);
     if (iter == m_passdb.end()) {
+        TRACER_DEBUG("db server not find , try to sql find usrid is %d\n", usrid);
+
         char cmd[100] = {0};
         snprintf(cmd, 100, "select * from PASS where id = %d", usrid);
         std::vector<PASS> pass;
         if (m_sql.GetBySQL(pass, cmd) < 0) {
+            TRACER_ERROR("no pass for usrid %d\n", usrid);
             db_reply(_msg, DB_FAILED);
         }
+        TRACER_DEBUG("usrid is %d, pass is %d\n", pass[0].id, pass[0].pass);
         auto ret = m_passdb_bak.insert(std::make_pair(usrid, pass[0]));
         if (!ret.second) {
-            // todo
+            TRACER_ERROR("------BUG BUG BUG-----\n%s:%d\n", __POSITION__);
         }
+
         ret = m_passdb.insert(std::make_pair(usrid, pass[0]));
         if (!ret.second) {
-            // todo
+            TRACER_ERROR("------BUG BUG BUG-----\n%s:%d\n", __POSITION__);
         }
-    }
+    } 
 
     *(int32_t*)(_msg->m_pdata) = hton_32(m_passdb[usrid].pass);
 
@@ -120,7 +130,9 @@ int8_t db_server::get_pass(message *_msg)
 
     _msg->encode();
 
-    tcp_socket::tcp_send(_msg->m_from, _msg->m_data, 4);
+    tcp_socket::tcp_send(_msg->m_from, _msg->m_data, 4 + MSG_HEAD_SIZE);
+    
+    TRACER_DEBUG("try get pass end\n");
     
     return 0;
 }
@@ -283,7 +295,6 @@ int8_t db_server::get_all(message *_msg)
         snprintf(cmd, 100, "select * from PLAYER where id = %d", usrid);
         m_sql.GetBySQL(player, cmd);
         Proto::Unity::PlayerAllFuckInfo player_all_info;
-        fprintf(stderr, "get player info from sql start\n");
         sql2pb(player[0], *player_all_info.mutable_baseinfo());
 
         std::vector<ITEM> items;
@@ -299,7 +310,6 @@ int8_t db_server::get_all(message *_msg)
         }
 
         m_allplayer_info.insert(std::make_pair(usrid, std::move(player_all_info)));
-        fprintf(stderr, "get player info from sql end\n");
     }
 
     message *msg = g_send_queue.enqueue();
@@ -308,7 +318,7 @@ int8_t db_server::get_all(message *_msg)
         msg->m_head.m_type = GET_ALLINFO;
         msg->m_head.m_usrID = usrid;
         msg->m_head.m_errID = 0;
-        msg->m_to = msg->m_from;
+        msg->m_to = _msg->m_from;
         msg->encode_pb(m_allplayer_info[usrid]);
         msg->setvalid();
     }

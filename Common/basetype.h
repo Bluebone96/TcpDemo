@@ -90,10 +90,12 @@ enum MsgType {
     SETPLAYER = 15,
 
     GET_ALLINFO = 16,
-    SET_ALLINFO,
+    SET_ALLINFO = 17,
     
-    DB_SUCCESS,  // 不需要返回内容
-    DB_FAILED,  // db 中失败
+    DB_SUCCESS = 18,  // 不需要返回内容
+    DB_FAILED = 19,  // db 中失败
+
+    SERVER_INFO = 20 // 服务器信息
 };
 
 
@@ -117,10 +119,10 @@ enum MsgType {
 
 
 enum ServerID {
-    LOGIN_SERVER = 1,
-    GATE_SERVER = 2,
-    DB_SERVER = 3,
-    GAME_SERVER = 4
+    LOGIN_SERVER = 100,
+    GATE_SERVER = 102,
+    DB_SERVER = 103,
+    GAME_SERVER = 104
 };
 
 

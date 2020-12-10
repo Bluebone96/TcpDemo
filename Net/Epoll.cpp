@@ -21,19 +21,20 @@ int32_t Epoll::Init(int32_t size)
     m_size = size;
     bzero(&m_event, sizeof(m_event));
 
-    m_event.events = EPOLLIN | EPOLLERR | EPOLLHUP;
+    // EPOLLRDHUP 新增对于断开连接的判断，不用再去读socket判断
+    m_event.events = EPOLLIN | EPOLLERR | EPOLLHUP | EPOLLRDHUP;
     m_event.data.ptr = nullptr;
     m_event.data.fd = -1;
 
     m_pevents = (struct epoll_event*)malloc(m_size * sizeof(epoll_event));
     if (nullptr == m_pevents) {
-        TRACER("EpollInit failed! : %s:%d", __FILE__, __LINE__);
+        TRACER_ERROR("EpollInit failed! : %s:%d", __FILE__, __LINE__);
         return -1;
     }
 
     m_epoll_fd = ::epoll_create(EPOLL_CLOEXEC);
     if (m_epoll_fd < 0) {
-        TRACER("EpollInit failed! : %s:%d", __FILE__, __LINE__);
+        TRACER_ERROR("EpollInit failed! : %s:%d", __FILE__, __LINE__);
         return -1;
     }
     
@@ -50,23 +51,22 @@ int32_t Epoll::Add(int32_t fd)
         TRACERERRNO("Epoll::Add epoll_ctl failed, %s:%d\n", __FILE__, __LINE__);
         return -1;
     };
+    TRACER_DEBUG("epoll add new socket %d", fd);
     return 0;
 }
 
 int32_t Epoll::Wait(int32_t timeout)
 {
     int  rn = epoll_wait(m_epoll_fd, m_pevents, m_size, timeout);
-    switch (rn)
-    {
-    case 0:
-        // TRACER("Epoll::Wait epoll_wait timeout.\n");
-        break;
-    case -1:
-        TRACERERRNO("Epoll::Wait epoll_wait failed. %s:%d\n", __FILE__, __LINE__);
-        sleep(2);   
-        break;
-    default:
-        break;
+    switch (rn) {
+        case 0:
+            // TRACER("Epoll::Wait epoll_wait timeout.\n");
+            break;
+        case -1:
+            TRACERERRNO("Epoll::Wait epoll_wait failed. %s:%d\n", __FILE__, __LINE__);
+            break;
+        default:
+            break;
     }
     return rn;
 }

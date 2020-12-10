@@ -24,34 +24,36 @@ namespace Proto.Unity {
     static PlayerInfoReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChBQbGF5ZXJJbmZvLnByb3RvEgtQcm90by5Vbml0eSKfAQoKUGxheWVySW5m",
+            "ChBQbGF5ZXJJbmZvLnByb3RvEgtQcm90by5Vbml0eSLFAQoKUGxheWVySW5m",
             "bxIKCgJpZBgBIAEoDRIMCgRuYW1lGAIgASgJEgwKBHBvc1gYAyABKAISDAoE",
-            "cG9zWhgEIAEoAhINCgVhbmdsZRgFIAEoAhIKCgJIcBgGIAEoDRINCgVzdGF0",
-            "ZRgHIAEoDRINCgVzcGVlZBgIIAEoAhIiCgJvcBgJIAEoCzIWLlByb3RvLlVu",
-            "aXR5Lk9wZXJhdGlvbiIhCglPcGVyYXRpb24SCQoBaBgBIAEoAhIJCgF2GAIg",
-            "ASgCIi0KBENoYXQSCwoDaWRzGAEgASgNEgsKA2lkdBgCIAEoDRILCgNtc2cY",
-            "AyABKAkiMAoOQXV0aGVudGljYXRpb24SDAoEbmFtZRgBIAEoCRIQCghwYXNz",
-            "d29yZBgCIAEoCSJ2CghJdGVtSW5mbxINCgVtX3VpZBgBIAEoDRIOCgZtX3R5",
-            "cGUYAiABKA0SDAoEbV9ocBgDIAEoDRIMCgRtX21wGAQgASgNEg0KBW1fYXRr",
-            "GAUgASgNEg8KB21fcHJpY2UYBiABKA0SDwoHbV9jb3VudBgHIAEoDSJSCglJ",
-            "dGVtRXZlbnQSDgoGb3B0eXBlGAEgASgNEgsKA3VpZBgCIAEoDRINCgVjb3Vu",
-            "dBgDIAEoDRIMCgRhZGQxGAUgASgJEgsKA3RpZBgEIAEoDSI1CgdJdGVtQWRk",
-            "Eg4KBm9wdHlwZRgBIAEoDRILCgN1aWQYAiABKA0SDQoFY291bnQYAyABKA0i",
-            "NQoHSXRlbURlbBIOCgZvcHR5cGUYASABKA0SCwoDdWlkGAIgASgNEg0KBWNv",
-            "dW50GAMgASgNIkQKCUl0ZW1UcmFkZRIOCgZvcHR5cGUYASABKA0SCwoDdWlk",
-            "GAIgASgNEg0KBWNvdW50GAMgASgNEgsKA3RpZBgEIAEoDSIoCglJdGVtRXF1",
-            "aXASDgoGb3B0eXBlGAEgASgNEgsKA3VpZBgCIAEoDSIqCgtJdGVtVW5FcXVp",
-            "cBIOCgZvcHR5cGUYASABKA0SCwoDdWlkGAIgASgNIkUKCkl0ZW1VcGRhdGUS",
-            "EAoIbV9vcHR5cGUYASABKA0SJQoGbV9pdGVtGAIgASgLMhUuUHJvdG8uVW5p",
-            "dHkuSXRlbUluZm8iQgoJUGxheWVyQmFnEiQKBUl0ZW1zGAEgAygLMhUuUHJv",
-            "dG8uVW5pdHkuSXRlbUluZm8SDwoHZXF1aXBlZBgCIAMoDSJnChFQbGF5ZXJB",
-            "bGxGdWNrSW5mbxIpCghiYXNlaW5mbxgBIAEoCzIXLlByb3RvLlVuaXR5LlBs",
-            "YXllckluZm8SJwoHYmFnaW5mbxgCIAEoCzIWLlByb3RvLlVuaXR5LlBsYXll",
-            "ckJhZ2IGcHJvdG8z"));
+            "cG9zWhgEIAEoAhINCgVhbmdsZRgFIAEoAhINCgVzcGVlZBgGIAEoAhINCgVz",
+            "dGF0ZRgHIAEoDRIKCgJIcBgIIAEoBRIKCgJNcBgJIAEoBRILCgNBVEsYCiAB",
+            "KAUSCwoDREVGGAsgASgFEiIKAm9wGAwgASgLMhYuUHJvdG8uVW5pdHkuT3Bl",
+            "cmF0aW9uIiEKCU9wZXJhdGlvbhIJCgFoGAEgASgCEgkKAXYYAiABKAIiLQoE",
+            "Q2hhdBILCgNpZHMYASABKA0SCwoDaWR0GAIgASgNEgsKA21zZxgDIAEoCSIw",
+            "Cg5BdXRoZW50aWNhdGlvbhIMCgRuYW1lGAEgASgJEhAKCHBhc3N3b3JkGAIg",
+            "ASgJInYKCEl0ZW1JbmZvEg0KBW1fdWlkGAEgASgNEg4KBm1fdHlwZRgCIAEo",
+            "DRIMCgRtX2hwGAMgASgNEgwKBG1fbXAYBCABKA0SDQoFbV9hdGsYBSABKA0S",
+            "DwoHbV9wcmljZRgGIAEoDRIPCgdtX2NvdW50GAcgASgNIlIKCUl0ZW1FdmVu",
+            "dBIOCgZvcHR5cGUYASABKA0SCwoDdWlkGAIgASgNEg0KBWNvdW50GAMgASgN",
+            "EgwKBGFkZDEYBSABKAkSCwoDdGlkGAQgASgNIjUKB0l0ZW1BZGQSDgoGb3B0",
+            "eXBlGAEgASgNEgsKA3VpZBgCIAEoDRINCgVjb3VudBgDIAEoDSI1CgdJdGVt",
+            "RGVsEg4KBm9wdHlwZRgBIAEoDRILCgN1aWQYAiABKA0SDQoFY291bnQYAyAB",
+            "KA0iRAoJSXRlbVRyYWRlEg4KBm9wdHlwZRgBIAEoDRILCgN1aWQYAiABKA0S",
+            "DQoFY291bnQYAyABKA0SCwoDdGlkGAQgASgNIigKCUl0ZW1FcXVpcBIOCgZv",
+            "cHR5cGUYASABKA0SCwoDdWlkGAIgASgNIioKC0l0ZW1VbkVxdWlwEg4KBm9w",
+            "dHlwZRgBIAEoDRILCgN1aWQYAiABKA0iRQoKSXRlbVVwZGF0ZRIQCghtX29w",
+            "dHlwZRgBIAEoDRIlCgZtX2l0ZW0YAiABKAsyFS5Qcm90by5Vbml0eS5JdGVt",
+            "SW5mbyJCCglQbGF5ZXJCYWcSJAoFSXRlbXMYASADKAsyFS5Qcm90by5Vbml0",
+            "eS5JdGVtSW5mbxIPCgdlcXVpcGVkGAIgAygNImcKEVBsYXllckFsbEZ1Y2tJ",
+            "bmZvEikKCGJhc2VpbmZvGAEgASgLMhcuUHJvdG8uVW5pdHkuUGxheWVySW5m",
+            "bxInCgdiYWdpbmZvGAIgASgLMhYuUHJvdG8uVW5pdHkuUGxheWVyQmFnIjoK",
+            "ClNlcnZlckluZm8SDgoGbV90eXBlGAEgASgFEgwKBG1faXAYAiABKAkSDgoG",
+            "bV9wb3J0GAMgASgFYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.PlayerInfo), global::Proto.Unity.PlayerInfo.Parser, new[]{ "Id", "Name", "PosX", "PosZ", "Angle", "Hp", "State", "Speed", "Op" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.PlayerInfo), global::Proto.Unity.PlayerInfo.Parser, new[]{ "Id", "Name", "PosX", "PosZ", "Angle", "Speed", "State", "Hp", "Mp", "ATK", "DEF", "Op" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.Operation), global::Proto.Unity.Operation.Parser, new[]{ "H", "V" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.Chat), global::Proto.Unity.Chat.Parser, new[]{ "Ids", "Idt", "Msg" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.Authentication), global::Proto.Unity.Authentication.Parser, new[]{ "Name", "Password" }, null, null, null),
@@ -64,7 +66,8 @@ namespace Proto.Unity {
             new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.ItemUnEquip), global::Proto.Unity.ItemUnEquip.Parser, new[]{ "Optype", "Uid" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.ItemUpdate), global::Proto.Unity.ItemUpdate.Parser, new[]{ "MOptype", "MItem" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.PlayerBag), global::Proto.Unity.PlayerBag.Parser, new[]{ "Items", "Equiped" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.PlayerAllFuckInfo), global::Proto.Unity.PlayerAllFuckInfo.Parser, new[]{ "Baseinfo", "Baginfo" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.PlayerAllFuckInfo), global::Proto.Unity.PlayerAllFuckInfo.Parser, new[]{ "Baseinfo", "Baginfo" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.ServerInfo), global::Proto.Unity.ServerInfo.Parser, new[]{ "MType", "MIp", "MPort" }, null, null, null)
           }));
     }
     #endregion
@@ -101,9 +104,12 @@ namespace Proto.Unity {
       posX_ = other.posX_;
       posZ_ = other.posZ_;
       angle_ = other.angle_;
-      hp_ = other.hp_;
-      state_ = other.state_;
       speed_ = other.speed_;
+      state_ = other.state_;
+      hp_ = other.hp_;
+      mp_ = other.mp_;
+      aTK_ = other.aTK_;
+      dEF_ = other.dEF_;
       op_ = other.op_ != null ? other.op_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -168,18 +174,14 @@ namespace Proto.Unity {
       }
     }
 
-    /// <summary>Field number for the "Hp" field.</summary>
-    public const int HpFieldNumber = 6;
-    private uint hp_;
-    /// <summary>
-    /// repeated float Position = 3;
-    /// repeated float Rotation = 4;
-    /// </summary>
+    /// <summary>Field number for the "speed" field.</summary>
+    public const int SpeedFieldNumber = 6;
+    private float speed_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public uint Hp {
-      get { return hp_; }
+    public float Speed {
+      get { return speed_; }
       set {
-        hp_ = value;
+        speed_ = value;
       }
     }
 
@@ -197,19 +199,52 @@ namespace Proto.Unity {
       }
     }
 
-    /// <summary>Field number for the "speed" field.</summary>
-    public const int SpeedFieldNumber = 8;
-    private float speed_;
+    /// <summary>Field number for the "Hp" field.</summary>
+    public const int HpFieldNumber = 8;
+    private int hp_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public float Speed {
-      get { return speed_; }
+    public int Hp {
+      get { return hp_; }
       set {
-        speed_ = value;
+        hp_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "Mp" field.</summary>
+    public const int MpFieldNumber = 9;
+    private int mp_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int Mp {
+      get { return mp_; }
+      set {
+        mp_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "ATK" field.</summary>
+    public const int ATKFieldNumber = 10;
+    private int aTK_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int ATK {
+      get { return aTK_; }
+      set {
+        aTK_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "DEF" field.</summary>
+    public const int DEFFieldNumber = 11;
+    private int dEF_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int DEF {
+      get { return dEF_; }
+      set {
+        dEF_ = value;
       }
     }
 
     /// <summary>Field number for the "op" field.</summary>
-    public const int OpFieldNumber = 9;
+    public const int OpFieldNumber = 12;
     private global::Proto.Unity.Operation op_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::Proto.Unity.Operation Op {
@@ -237,9 +272,12 @@ namespace Proto.Unity {
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(PosX, other.PosX)) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(PosZ, other.PosZ)) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Angle, other.Angle)) return false;
-      if (Hp != other.Hp) return false;
-      if (State != other.State) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Speed, other.Speed)) return false;
+      if (State != other.State) return false;
+      if (Hp != other.Hp) return false;
+      if (Mp != other.Mp) return false;
+      if (ATK != other.ATK) return false;
+      if (DEF != other.DEF) return false;
       if (!object.Equals(Op, other.Op)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -252,9 +290,12 @@ namespace Proto.Unity {
       if (PosX != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(PosX);
       if (PosZ != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(PosZ);
       if (Angle != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Angle);
-      if (Hp != 0) hash ^= Hp.GetHashCode();
-      if (State != 0) hash ^= State.GetHashCode();
       if (Speed != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Speed);
+      if (State != 0) hash ^= State.GetHashCode();
+      if (Hp != 0) hash ^= Hp.GetHashCode();
+      if (Mp != 0) hash ^= Mp.GetHashCode();
+      if (ATK != 0) hash ^= ATK.GetHashCode();
+      if (DEF != 0) hash ^= DEF.GetHashCode();
       if (op_ != null) hash ^= Op.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -289,20 +330,32 @@ namespace Proto.Unity {
         output.WriteRawTag(45);
         output.WriteFloat(Angle);
       }
-      if (Hp != 0) {
-        output.WriteRawTag(48);
-        output.WriteUInt32(Hp);
+      if (Speed != 0F) {
+        output.WriteRawTag(53);
+        output.WriteFloat(Speed);
       }
       if (State != 0) {
         output.WriteRawTag(56);
         output.WriteUInt32(State);
       }
-      if (Speed != 0F) {
-        output.WriteRawTag(69);
-        output.WriteFloat(Speed);
+      if (Hp != 0) {
+        output.WriteRawTag(64);
+        output.WriteInt32(Hp);
+      }
+      if (Mp != 0) {
+        output.WriteRawTag(72);
+        output.WriteInt32(Mp);
+      }
+      if (ATK != 0) {
+        output.WriteRawTag(80);
+        output.WriteInt32(ATK);
+      }
+      if (DEF != 0) {
+        output.WriteRawTag(88);
+        output.WriteInt32(DEF);
       }
       if (op_ != null) {
-        output.WriteRawTag(74);
+        output.WriteRawTag(98);
         output.WriteMessage(Op);
       }
       if (_unknownFields != null) {
@@ -328,14 +381,23 @@ namespace Proto.Unity {
       if (Angle != 0F) {
         size += 1 + 4;
       }
-      if (Hp != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Hp);
+      if (Speed != 0F) {
+        size += 1 + 4;
       }
       if (State != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(State);
       }
-      if (Speed != 0F) {
-        size += 1 + 4;
+      if (Hp != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Hp);
+      }
+      if (Mp != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Mp);
+      }
+      if (ATK != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ATK);
+      }
+      if (DEF != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(DEF);
       }
       if (op_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Op);
@@ -366,14 +428,23 @@ namespace Proto.Unity {
       if (other.Angle != 0F) {
         Angle = other.Angle;
       }
-      if (other.Hp != 0) {
-        Hp = other.Hp;
+      if (other.Speed != 0F) {
+        Speed = other.Speed;
       }
       if (other.State != 0) {
         State = other.State;
       }
-      if (other.Speed != 0F) {
-        Speed = other.Speed;
+      if (other.Hp != 0) {
+        Hp = other.Hp;
+      }
+      if (other.Mp != 0) {
+        Mp = other.Mp;
+      }
+      if (other.ATK != 0) {
+        ATK = other.ATK;
+      }
+      if (other.DEF != 0) {
+        DEF = other.DEF;
       }
       if (other.op_ != null) {
         if (op_ == null) {
@@ -412,19 +483,31 @@ namespace Proto.Unity {
             Angle = input.ReadFloat();
             break;
           }
-          case 48: {
-            Hp = input.ReadUInt32();
+          case 53: {
+            Speed = input.ReadFloat();
             break;
           }
           case 56: {
             State = input.ReadUInt32();
             break;
           }
-          case 69: {
-            Speed = input.ReadFloat();
+          case 64: {
+            Hp = input.ReadInt32();
             break;
           }
-          case 74: {
+          case 72: {
+            Mp = input.ReadInt32();
+            break;
+          }
+          case 80: {
+            ATK = input.ReadInt32();
+            break;
+          }
+          case 88: {
+            DEF = input.ReadInt32();
+            break;
+          }
+          case 98: {
             if (op_ == null) {
               Op = new global::Proto.Unity.Operation();
             }
@@ -2875,6 +2958,191 @@ namespace Proto.Unity {
               Baginfo = new global::Proto.Unity.PlayerBag();
             }
             input.ReadMessage(Baginfo);
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class ServerInfo : pb::IMessage<ServerInfo> {
+    private static readonly pb::MessageParser<ServerInfo> _parser = new pb::MessageParser<ServerInfo>(() => new ServerInfo());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<ServerInfo> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Proto.Unity.PlayerInfoReflection.Descriptor.MessageTypes[14]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ServerInfo() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ServerInfo(ServerInfo other) : this() {
+      mType_ = other.mType_;
+      mIp_ = other.mIp_;
+      mPort_ = other.mPort_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ServerInfo Clone() {
+      return new ServerInfo(this);
+    }
+
+    /// <summary>Field number for the "m_type" field.</summary>
+    public const int MTypeFieldNumber = 1;
+    private int mType_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int MType {
+      get { return mType_; }
+      set {
+        mType_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "m_ip" field.</summary>
+    public const int MIpFieldNumber = 2;
+    private string mIp_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string MIp {
+      get { return mIp_; }
+      set {
+        mIp_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "m_port" field.</summary>
+    public const int MPortFieldNumber = 3;
+    private int mPort_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int MPort {
+      get { return mPort_; }
+      set {
+        mPort_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as ServerInfo);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(ServerInfo other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (MType != other.MType) return false;
+      if (MIp != other.MIp) return false;
+      if (MPort != other.MPort) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (MType != 0) hash ^= MType.GetHashCode();
+      if (MIp.Length != 0) hash ^= MIp.GetHashCode();
+      if (MPort != 0) hash ^= MPort.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (MType != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(MType);
+      }
+      if (MIp.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(MIp);
+      }
+      if (MPort != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(MPort);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (MType != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(MType);
+      }
+      if (MIp.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(MIp);
+      }
+      if (MPort != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(MPort);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(ServerInfo other) {
+      if (other == null) {
+        return;
+      }
+      if (other.MType != 0) {
+        MType = other.MType;
+      }
+      if (other.MIp.Length != 0) {
+        MIp = other.MIp;
+      }
+      if (other.MPort != 0) {
+        MPort = other.MPort;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            MType = input.ReadInt32();
+            break;
+          }
+          case 18: {
+            MIp = input.ReadString();
+            break;
+          }
+          case 24: {
+            MPort = input.ReadInt32();
             break;
           }
         }

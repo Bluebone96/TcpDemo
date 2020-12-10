@@ -37,7 +37,7 @@ inline static int32_t setnonblock(int32_t fd)
     if (ioctl(fd, FIONBIO, &mode)) {
         int flag;
         if (((flag = fcntl(fd, F_GETFL, 0)) < 0) && (fcntl(fd, F_SETFL, flag | O_NONBLOCK) < 0)) {
-            TRACER("set sock nonblock faild\n");
+            TRACER_ERROR("set sock nonblock faild\n");
         //     close(fd); // 析构管理
             return -1;
         }
@@ -53,7 +53,7 @@ tcp_socket::tcp_socket()
 
 tcp_socket::~tcp_socket()
 {
-    TRACER("tcp_socket dtor!\n");
+    TRACER_DEBUG("tcp_socket dtor!\n");
     delete[] m_buffer;
     close(m_socketfd);
 }
@@ -76,7 +76,7 @@ int8_t tcp_socket::tcp_init(int32_t _fd, uint32_t _bufsz)
 }
 
 
-uint32_t tcp_socket::tcp_connect(const char* hostname, int16_t port)
+int32_t tcp_socket::tcp_connect(const char* hostname, int16_t port)
 {
     int clientfd = -1;
 
@@ -85,36 +85,35 @@ uint32_t tcp_socket::tcp_connect(const char* hostname, int16_t port)
         return -1;
     }
 
-    socklen_t len = sizeof(m_sockaddr);
-    if (getsockname(clientfd, (sockaddr*)&m_sockaddr, &len) < 0) {
-        TRACER("getsockname failed\n");
-    }
-
-    TRACER("client addr is %d : %d\n", m_sockaddr.sin_addr.s_addr, (int)(m_sockaddr.sin_port));
 
     sockaddr_in serveraddr;
     bzero(&serveraddr, sizeof(serveraddr));
 
     serveraddr.sin_family = AF_INET;
     if (inet_pton(AF_INET, hostname, &serveraddr.sin_addr) < 0) {
-        TRACER("inet_pton failed addr = %s", hostname);
+        TRACER_ERROR("inet_pton failed addr = %s", hostname);
         return -1;
     }
     
     serveraddr.sin_port = hton_16(port);
 
     if (connect(clientfd, (sockaddr*)&serveraddr, sizeof(serveraddr)) < 0) {
-        TRACER("connect failed test\n");
+        TRACER_ERROR("connect failed ip is %s, port is %d\n", hostname, port);
         return -1;
     }
     
+    socklen_t len = sizeof(m_sockaddr);
+    if (getsockname(clientfd, (sockaddr*)&m_sockaddr, &len) < 0) {
+        TRACER_ERROR("getsockname failed\n");
+    }
+    TRACER_DEBUG("client addr is %d : %d\n", m_sockaddr.sin_addr.s_addr, (int)(m_sockaddr.sin_port));
     setnonblock(clientfd);
     
     m_socketfd = clientfd;
     return clientfd;
 }
 
-uint32_t tcp_socket::tcp_listen(const char* hostname, int16_t port)
+int32_t tcp_socket::tcp_listen(const char* hostname, int16_t port)
 {
     int32_t listenfd = -1;
     int32_t  optval = 1;
@@ -132,12 +131,13 @@ uint32_t tcp_socket::tcp_listen(const char* hostname, int16_t port)
     bzero(&m_sockaddr, sizeof(m_sockaddr));
     if (hostname) {
         if (inet_pton(AF_INET, hostname, (sockaddr*)&m_sockaddr.sin_addr) < 0) {
-            TRACER("TcpSocket::OpenAsServer inet_pton failed. try INADDR_ANY. %s:%d", __FILE__, __LINE__);
+            TRACER_ERROR("TcpSocket::OpenAsServer inet_pton failed. try INADDR_ANY. %s:%d", __FILE__, __LINE__);
             m_sockaddr.sin_addr.s_addr = hton_32(INADDR_ANY);
         } 
     } else {
         m_sockaddr.sin_addr.s_addr = hton_32(INADDR_ANY);
     }
+
     m_sockaddr.sin_family = AF_INET;
     m_sockaddr.sin_port = hton_16(port);
 
@@ -160,7 +160,7 @@ uint32_t tcp_socket::tcp_listen(const char* hostname, int16_t port)
 }
 
 
-uint32_t tcp_socket::tcp_accept(sockaddr_in* ps, socklen_t* len)
+int32_t tcp_socket::tcp_accept(sockaddr_in* ps, socklen_t* len)
 {
     int32_t acceptfd = accept(m_socketfd, (struct sockaddr*)ps, len);
     
@@ -180,15 +180,21 @@ uint32_t tcp_socket::tcp_accept(sockaddr_in* ps, socklen_t* len)
 }
 
 
-uint32_t tcp_socket::tcp_recv(uint8_t *_usrbuf, uint32_t _length)
+int32_t tcp_socket::tcp_recv(uint8_t *_usrbuf, uint32_t _length)
 {
 
+    if (_length > 1024) {
+        TRACER_ERROR("fd = %d, bug bug bug m_in = %d, m_out = %d, _length = %d\n", m_socketfd, m_in, m_out, _length);
+        sleep(50);
+    }
     while (m_in - m_out < _length) {
-        if (recv() < 0) {
+        if (recv_full() < 0) {
             return -1;
         }
+        TRACER_DEBUG("bug bug bug fd = %d, m_in = %d, m_out = %d, _length = %d\n", m_socketfd, m_in, m_out, _length);
     }
-    _length = MIN(_length, m_in - m_out);
+
+    // _length = MIN(_length, m_in - m_out);
     
 
     uint32_t len = MIN(_length, m_size -(m_out & (m_size - 1)));
@@ -198,63 +204,75 @@ uint32_t tcp_socket::tcp_recv(uint8_t *_usrbuf, uint32_t _length)
 
     m_out += _length;
 
+    TRACER_DEBUG("recv %d byte data\n", _length);
     return _length;
 }
 
 
-uint32_t tcp_socket::recv(uint8_t *_usrbuf, uint32_t _len)
+int32_t tcp_socket::recv_by_len(uint8_t *_usrbuf, uint32_t _len)
 {
     int32_t cnt = 0;
-
-    while (_len) {
-        cnt = read(m_socketfd, _usrbuf, _len);
+    int32_t left = _len;
+    while (left) {
+        cnt = read(m_socketfd, _usrbuf, left);
         if (cnt <= 0) {
-            if (errno == EINTR || errno == EAGAIN) {
-                return 0;
+            if (cnt < 0 && (errno == EINTR || errno == EAGAIN)) {
+                break;
             } else {
-                TRACERERRNO("tcpsocket::tcp_recv read failed. fd = %d. %s:%d", 
+                TRACERERRNO("tcpsocket::tcp_recv read failed. fd = %d.\n %s:%d", 
                             m_socketfd, __POSITION__);
+                m_in += (_len - left);
                 return -1;
-            } 
+            }
         }
-        _len -= cnt;
+        left -= cnt;
         _usrbuf += cnt;
-        m_in += cnt;
     }
 
-    return 0;
+    m_in += (_len - left);
+    return _len - left;
 }
 
 
 
-uint32_t tcp_socket::recv()
+int32_t tcp_socket::recv_full()
 {
     uint32_t length = m_size - m_in + m_out;
-
+    if (length == 0) {
+        // should not be here
+        TRACER_ERROR("bug buff is full!!\n");
+        return -1;
+    }
     uint32_t left = MIN(length, m_size - (m_in & (m_size - 1)));
     uint8_t *pbuf = m_buffer + (m_in & (m_size - 1));
     
-    int8_t ret = 0;
-    if ((ret = recv(pbuf, left)) < 0) {
+    int32_t ret = recv_by_len(pbuf, left);
+    if (ret < 0) {
+        // should not be here
         return ret;
+    } else if (ret == static_cast<int32_t>(left)) {
+        return recv_full();
     }
-    
-    left = m_size - m_in + m_out;
-    pbuf = m_buffer;
 
-    if ((ret = recv(pbuf, left)) < 0) {
-        return ret;
-    }
+    // bug 
+    // left -= ret;
+    // pbuf = m_buffer;
+
+    // if ((ret = recv_by_len(pbuf, left)) < 0) {
+    //     return ret;
+    // }
     return 0;
 }
 
-uint32_t tcp_socket::tcp_send(const uint8_t *_usrbuf, uint32_t _len)
+int32_t tcp_socket::tcp_send(const uint8_t *_usrbuf, uint32_t _len)
 {
     return tcp_send(m_socketfd, _usrbuf, _len);
 }
 
-uint32_t tcp_socket::tcp_send(uint32_t _fd, const uint8_t *_usrbuf, uint32_t _len)
+int32_t tcp_socket::tcp_send(uint32_t _fd, const uint8_t *_usrbuf, uint32_t _len)
 {
+    TRACER_DEBUG("send data to fd %d, len is %d\n", _fd, _len);
+
     uint32_t nleft = _len;
     int32_t nw = 0;
     char* pbuf = (char*)_usrbuf;
@@ -266,14 +284,14 @@ uint32_t tcp_socket::tcp_send(uint32_t _fd, const uint8_t *_usrbuf, uint32_t _le
                 continue;
             } else {
                 TRACERERRNO("TcpSocket::SendData failed! %s:%d", __FILE__, __LINE__);
-                break;
+                return -1;
             }
         }
 
         pbuf += nw;
         nleft -= nw;
     }
-
+    TRACER_DEBUG("send data success left should be 0: %d\n", nleft);
     return nleft;
 }
 

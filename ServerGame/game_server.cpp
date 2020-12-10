@@ -21,12 +21,13 @@ void game_server::run()
     for(;;) {
         msg = g_recv_queue.dequeue();
         if (msg == nullptr) {
-            sleep(1);
+            usleep(100 * 1000);;
+            continue;
         }
         
         switch (msg->m_head.m_type)
         {
-            case USERLOGIN:
+            case GET_ALLINFO:
                 usr_login(msg);
                 break;
             case USERUP:
@@ -35,9 +36,6 @@ void game_server::run()
             case USEREXIT:
                 usr_update_item(msg);
                 break;
-            // case USERSYNC:
-            //     usr_sync(msg);
-                // break;
             case USERCHAT:
                 usr_chat(msg);
                 break;
@@ -122,9 +120,11 @@ int8_t game_server::usr_update_status(message *_msg)
 
     m_players[usrid]->update_status(op);
 
+    usr_sync(usrid, _msg->m_from);
     return 0;
 }
-int8_t game_server::usr_sync(uint32_t _usrid)
+
+int8_t game_server::usr_sync(uint32_t _usrid, uint32_t _fd)
 {
     
     message *msg = g_send_queue.enqueue();
@@ -133,7 +133,7 @@ int8_t game_server::usr_sync(uint32_t _usrid)
         msg->m_head.m_type = USERSYNC;
         msg->m_head.m_usrID = _usrid;
         msg->m_head.m_errID = 0;
-        msg->m_to = msg->m_from;
+        msg->m_to = _fd;
 
         msg->encode_pb(*info);
 

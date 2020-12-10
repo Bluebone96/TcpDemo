@@ -1,4 +1,6 @@
 #include "message.h"
+#include "../Common/log.h"
+
 #include <exception>
 #include <iostream>
 
@@ -16,8 +18,8 @@ uint8_t msg_head::decode(uint8_t *_data, uint32_t _len)
 {
     if (_len < MSG_HEAD_SIZE) { return -1; }
 
-    m_len = ntoh_32(*(uint32_t*)_data);
-    m_type = ntoh_32(*(uint32_t*)(_data + 4));
+    m_type = ntoh_32(*(uint32_t*)_data);
+    m_len = ntoh_32(*(uint32_t*)(_data + 4));
     m_usrID = ntoh_32(*(uint32_t*)(_data + 8));
     m_errID = ntoh_32(*(uint32_t*)(_data + 12));
     
@@ -28,8 +30,8 @@ uint8_t msg_head::encode(uint8_t *_data, uint32_t _len)
 {
     if (_len < MSG_HEAD_SIZE) { return -1; }
     
-    *(uint32_t*)_data = hton_32(m_len);
-    *(uint32_t*)(_data + 4) = hton_32(m_type);
+    *(uint32_t*)_data = hton_32(m_type);
+    *(uint32_t*)(_data + 4) = hton_32(m_len);
     *(uint32_t*)(_data + 8) = hton_32(m_usrID);
     *(uint32_t*)(_data + 12) = hton_32(m_errID);
 
@@ -47,12 +49,16 @@ message::~message()
 }
 
 uint8_t message::decode()
-{
-    return m_head.decode(m_data, 1024);
+{   
+    TRACER_DEBUG("msg decode head\n");
+    m_head.decode(m_data, 1024);
+    TRACER_DEBUG("msg decode head end\n");
+    return 0;
 }
 
 uint8_t message::encode()
 {
+    TRACER_DEBUG("msg encode head\n");
     return m_head.encode(m_data, 1024);
 }
 
@@ -60,12 +66,14 @@ uint8_t message::decode_pb(google::protobuf::Message& _pb)
 {
     m_head.decode(m_data, 1024);
 
+    TRACER_DEBUG("msg decode pb\n");
     _pb.ParseFromArray(m_pdata, m_head.m_len);
     
     return 0;
 }
 
 uint8_t message::encode_pb(const google::protobuf::Message& _pb) {
+    TRACER_DEBUG("msg encode head\n");
     m_head.m_len = _pb.ByteSizeLong();
     _pb.SerializeToArray(m_pdata, 1024);
     m_head.encode(m_data, 1024);
@@ -98,9 +106,9 @@ static inline uint32_t roundup_pow_of_two(uint32_t _s)
 
 
 
-msg_queue::msg_queue() : m_in(0), m_out(0), m_size(0), m_pmsg(0)
+msg_queue::msg_queue() : m_in(0), m_out(0), m_size(0), m_pmsg(nullptr)
 {
-
+    TRACER_DEBUG("msg_queue ctor\n");
 }
 
 msg_queue::~msg_queue()
@@ -125,11 +133,12 @@ int8_t msg_queue::init_queue(uint32_t _s)
 
 message* msg_queue::enqueue()
 {
+
     uint32_t pos = (m_in & (m_size - 1));
-    
     if ((m_pmsg + pos)->m_flag) { // 无效返回
         return nullptr;
     }
+    TRACER_DEBUG("message enqueue, pos = %d, flag is %d\n", pos, (m_pmsg + pos)->m_flag);
     ++m_in;
     return (m_pmsg + pos);
 }
@@ -137,8 +146,8 @@ message* msg_queue::enqueue()
 message* msg_queue::dequeue()
 {
     uint32_t pos = (m_out & (m_size - 1));
-
     if ((m_pmsg + pos)->m_flag) { // 有效返回
+        TRACER_DEBUG("message dequeue, pos = %d, flag is %d\n", pos, (m_pmsg + pos)->m_flag);
         ++m_out;
         return m_pmsg + pos;
     }

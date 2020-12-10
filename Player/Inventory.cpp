@@ -32,9 +32,9 @@ int Inventory::InitInventory(Proto::Unity::PlayerBag* _bag, Player* _player)
             continue;
         }
         addItem(item);
-        TRACER("add item id = %d, count is %d\n", x.m_uid(), x.m_count());
+        TRACER_DEBUG("add item id = %d, count is %d\n", x.m_uid(), x.m_count());
     }
-    TRACER("inventory init end\n");
+    TRACER_DEBUG("inventory init end\n");
 
     return 0;
 }
@@ -174,7 +174,7 @@ int Inventory::saveItem(BaseItem* _item)
         msg->m_head.m_usrID = m_player->getId();
         msg->m_head.m_errID = 0;
         msg->m_to = g_connet_server[DB_SERVER];
-        msg->decode_pb(m_itempb);
+        msg->encode_pb(m_itempb);
         msg->setvalid();
     }
 

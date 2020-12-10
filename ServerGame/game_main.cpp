@@ -15,22 +15,24 @@ std::map<uint32_t, uint32_t> g_connet_server;
 
 int main ()
 {
+    g_recv_queue.init_queue(1024);
+    g_send_queue.init_queue(1024);
+
     game_server server;
     Net net;
 
     server_config cfg;
     load_config("game_server", cfg);
 
-    load_config("game_server", cfg);
     if (net.init(cfg.ip.c_str(), cfg.port) < 0) {
-        TRACER("net init failed\n");
+        TRACER_ERROR("net init failed\n");
         exit(1);
     }
 
     load_config("db_server", cfg);
     int32_t fd = net.connect(cfg.ip.c_str(), cfg.port);
     if (fd < 0) {
-        TRACER("connect dbserver faild. %s:%d\n", __POSITION__);
+        TRACER_ERROR("connect dbserver faild. %s:%d\n", __POSITION__);
         exit(2);
     }
     g_connet_server[DB_SERVER] = fd;

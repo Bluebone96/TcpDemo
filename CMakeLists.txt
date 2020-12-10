@@ -7,8 +7,9 @@ add_definitions(-std=c++11)
 
 
 set(CMAKE_VERBOSE_MAKEFILE ON)
-set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -rdynamic -O3 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -fno-strict-aliasing")
-set(CMAKE_C_FLAGS "$ENV{CXXFLAGS} -rdynamic -O3 -fPIC -ggdb -std=c11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -fno-strict-aliasing")
+set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -rdynamic -O2 -fPIC -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -fno-strict-aliasing -fprofile-arcs -ftest-coverage")
+set(CMAKE_C_FLAGS "$ENV{CXXFLAGS} -rdynamic -O2 -fPIC -ggdb -std=c11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated-declarations -fno-strict-aliasing  -fprofile-arcs -ftest-coverage")
+SET(CMAKE_EXE_LINKER_FLAGS "-fprofile-arcs -ftest-coverage -lgcov")
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 
@@ -52,15 +53,15 @@ AUX_SOURCE_DIRECTORY(./ServerGate SRC_GATE)
 AUX_SOURCE_DIRECTORY(./ServerGame SRC_GAME)
 AUX_SOURCE_DIRECTORY(./ServerDB SRC_DB)
 
-add_executable(login_server ${SRC_LOGIN})
 add_executable(db_server ${SRC_DB})
+add_executable(login_server ${SRC_LOGIN})
 add_executable(game_server ${SRC_GAME})
 add_executable(gate_server ${SRC_GATE})
 
-target_link_libraries(login_server -Wl,--start-group proto ${EXTRA_LIBS}  -Wl,--end-group)
-target_link_libraries(gate_server -Wl,--start-group proto ${EXTRA_LIBS}  -Wl,--end-group)
-target_link_libraries(game_server -Wl,--start-group proto ${EXTRA_LIBS}  -Wl,--end-group)
-target_link_libraries(db_server -Wl,--start-group proto ${EXTRA_LIBS}  -Wl,--end-group)
+target_link_libraries(db_server -Wl,--start-group  ${EXTRA_LIBS}  -Wl,--end-group ${CMAKE_EXE_LINKER_FLAGS})
+target_link_libraries(login_server -Wl,--start-group  ${EXTRA_LIBS}  -Wl,--end-group ${CMAKE_EXE_LINKER_FLAGS})
+target_link_libraries(gate_server -Wl,--start-group  ${EXTRA_LIBS}  -Wl,--end-group ${CMAKE_EXE_LINKER_FLAGS})
+target_link_libraries(game_server -Wl,--start-group  ${EXTRA_LIBS}  -Wl,--end-group ${CMAKE_EXE_LINKER_FLAGS})
 
 # set(CLIENT_LIB 
 # 	client/client.ccsudo

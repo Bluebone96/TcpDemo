@@ -12,6 +12,8 @@ extern msg_queue g_recv_queue;
 extern msg_queue g_send_queue;
 extern std::map<uint32_t, uint32_t> g_connet_server;
 
+extern std::map<int32_t, Proto::Unity::ServerInfo> g_serverinfo;
+
 
 class login_server {
 public:
@@ -28,9 +30,8 @@ public:
 
     int8_t login_failed(message* _msg);
 
+    
 private:
-
-    // ToMysql m_sql;
 
     message m_msg;
 
@@ -41,8 +42,10 @@ private:
 
     Proto::Unity::PlayerAllFuckInfo m_playerinfo;
 
+
+
     // 异步保留信息
-    std::map<uint32_t, uint32_t> m_usrfd;
+    std::map<uint32_t, uint32_t> m_usrfd; 
     
     std::map<uint32_t, uint32_t> m_waitverify;
 };

@@ -2,33 +2,33 @@
 
 
     <login_server id = "1">
-        <ip>127.0.0.1</ip>
+        <ip>192.168.80.3</ip>
         <port>2222</port>
     </login_server>
 
     <gate_server id = "2">
-        <ip>127.0.0.1</ip>
+        <ip>192.168.80.3</ip> 
         <port>3333</port>
     </gate_server>
 
 
     <game_server id = "3">
-        <ip>127.0.0.1</ip>
+        <ip>192.168.80.3</ip>
         <port>4444</port>
     </game_server>
 
 
     <db_server id = "4">
-        <ip>127.0.0.1</ip>
+        <ip>192.168.80.3</ip>
         <port>5555</port>
     </db_server>
 
 
     <sql id = "5">
         <db>ProjectA</db>
-        <ip>127.0.0.1:3306</ip>
+        <ip>192.168.80.3:3306</ip>
         <usr>blue</usr>
-        <pass>1234</pass>
+        <pass>1024</pass>
     </sql>
 
 </server_config>

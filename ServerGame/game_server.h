@@ -25,7 +25,7 @@ private:
 
     int8_t usr_alive(message *msg);
 
-    int8_t usr_sync(uint32_t _usrid);
+    int8_t usr_sync(uint32_t _usrid, uint32_t _fd);
 
     int8_t usr_update_item(message *msg);
 

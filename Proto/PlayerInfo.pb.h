@@ -41,7 +41,7 @@ struct TableStruct_PlayerInfo_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::google::protobuf::internal::ParseTable schema[14]
+  static const ::google::protobuf::internal::ParseTable schema[15]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
@@ -92,6 +92,9 @@ extern PlayerBagDefaultTypeInternal _PlayerBag_default_instance_;
 class PlayerInfo;
 class PlayerInfoDefaultTypeInternal;
 extern PlayerInfoDefaultTypeInternal _PlayerInfo_default_instance_;
+class ServerInfo;
+class ServerInfoDefaultTypeInternal;
+extern ServerInfoDefaultTypeInternal _ServerInfo_default_instance_;
 }  // namespace Unity
 }  // namespace Proto
 namespace google {
@@ -110,6 +113,7 @@ template<> ::Proto::Unity::Operation* Arena::CreateMaybeMessage<::Proto::Unity::
 template<> ::Proto::Unity::PlayerAllFuckInfo* Arena::CreateMaybeMessage<::Proto::Unity::PlayerAllFuckInfo>(Arena*);
 template<> ::Proto::Unity::PlayerBag* Arena::CreateMaybeMessage<::Proto::Unity::PlayerBag>(Arena*);
 template<> ::Proto::Unity::PlayerInfo* Arena::CreateMaybeMessage<::Proto::Unity::PlayerInfo>(Arena*);
+template<> ::Proto::Unity::ServerInfo* Arena::CreateMaybeMessage<::Proto::Unity::ServerInfo>(Arena*);
 }  // namespace protobuf
 }  // namespace google
 namespace Proto {
@@ -226,10 +230,10 @@ class PlayerInfo final :
   ::std::string* release_name();
   void set_allocated_name(::std::string* name);
 
-  // .Proto.Unity.Operation op = 9;
+  // .Proto.Unity.Operation op = 12;
   bool has_op() const;
   void clear_op();
-  static const int kOpFieldNumber = 9;
+  static const int kOpFieldNumber = 12;
   const ::Proto::Unity::Operation& op() const;
   ::Proto::Unity::Operation* release_op();
   ::Proto::Unity::Operation* mutable_op();
@@ -259,11 +263,11 @@ class PlayerInfo final :
   float angle() const;
   void set_angle(float value);
 
-  // uint32 Hp = 6;
-  void clear_hp();
-  static const int kHpFieldNumber = 6;
-  ::google::protobuf::uint32 hp() const;
-  void set_hp(::google::protobuf::uint32 value);
+  // float speed = 6;
+  void clear_speed();
+  static const int kSpeedFieldNumber = 6;
+  float speed() const;
+  void set_speed(float value);
 
   // uint32 state = 7;
   void clear_state();
@@ -271,11 +275,29 @@ class PlayerInfo final :
   ::google::protobuf::uint32 state() const;
   void set_state(::google::protobuf::uint32 value);
 
-  // float speed = 8;
-  void clear_speed();
-  static const int kSpeedFieldNumber = 8;
-  float speed() const;
-  void set_speed(float value);
+  // int32 Hp = 8;
+  void clear_hp();
+  static const int kHpFieldNumber = 8;
+  ::google::protobuf::int32 hp() const;
+  void set_hp(::google::protobuf::int32 value);
+
+  // int32 Mp = 9;
+  void clear_mp();
+  static const int kMpFieldNumber = 9;
+  ::google::protobuf::int32 mp() const;
+  void set_mp(::google::protobuf::int32 value);
+
+  // int32 ATK = 10;
+  void clear_atk();
+  static const int kATKFieldNumber = 10;
+  ::google::protobuf::int32 atk() const;
+  void set_atk(::google::protobuf::int32 value);
+
+  // int32 DEF = 11;
+  void clear_def();
+  static const int kDEFFieldNumber = 11;
+  ::google::protobuf::int32 def() const;
+  void set_def(::google::protobuf::int32 value);
 
   // @@protoc_insertion_point(class_scope:Proto.Unity.PlayerInfo)
  private:
@@ -288,9 +310,12 @@ class PlayerInfo final :
   float posx_;
   float posz_;
   float angle_;
-  ::google::protobuf::uint32 hp_;
-  ::google::protobuf::uint32 state_;
   float speed_;
+  ::google::protobuf::uint32 state_;
+  ::google::protobuf::int32 hp_;
+  ::google::protobuf::int32 mp_;
+  ::google::protobuf::int32 atk_;
+  ::google::protobuf::int32 def_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_PlayerInfo_2eproto;
 };
@@ -1986,6 +2011,140 @@ class PlayerAllFuckInfo final :
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_PlayerInfo_2eproto;
 };
+// -------------------------------------------------------------------
+
+class ServerInfo final :
+    public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Proto.Unity.ServerInfo) */ {
+ public:
+  ServerInfo();
+  virtual ~ServerInfo();
+
+  ServerInfo(const ServerInfo& from);
+
+  inline ServerInfo& operator=(const ServerInfo& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  ServerInfo(ServerInfo&& from) noexcept
+    : ServerInfo() {
+    *this = ::std::move(from);
+  }
+
+  inline ServerInfo& operator=(ServerInfo&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return default_instance().GetDescriptor();
+  }
+  static const ServerInfo& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const ServerInfo* internal_default_instance() {
+    return reinterpret_cast<const ServerInfo*>(
+               &_ServerInfo_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    14;
+
+  void Swap(ServerInfo* other);
+  friend void swap(ServerInfo& a, ServerInfo& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ServerInfo* New() const final {
+    return CreateMaybeMessage<ServerInfo>(nullptr);
+  }
+
+  ServerInfo* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<ServerInfo>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const ServerInfo& from);
+  void MergeFrom(const ServerInfo& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  static const char* _InternalParse(const char* begin, const char* end, void* object, ::google::protobuf::internal::ParseContext* ctx);
+  ::google::protobuf::internal::ParseFunc _ParseFunc() const final { return _InternalParse; }
+  #else
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ServerInfo* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // string m_ip = 2;
+  void clear_m_ip();
+  static const int kMIpFieldNumber = 2;
+  const ::std::string& m_ip() const;
+  void set_m_ip(const ::std::string& value);
+  #if LANG_CXX11
+  void set_m_ip(::std::string&& value);
+  #endif
+  void set_m_ip(const char* value);
+  void set_m_ip(const char* value, size_t size);
+  ::std::string* mutable_m_ip();
+  ::std::string* release_m_ip();
+  void set_allocated_m_ip(::std::string* m_ip);
+
+  // int32 m_type = 1;
+  void clear_m_type();
+  static const int kMTypeFieldNumber = 1;
+  ::google::protobuf::int32 m_type() const;
+  void set_m_type(::google::protobuf::int32 value);
+
+  // int32 m_port = 3;
+  void clear_m_port();
+  static const int kMPortFieldNumber = 3;
+  ::google::protobuf::int32 m_port() const;
+  void set_m_port(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:Proto.Unity.ServerInfo)
+ private:
+  class HasBitSetters;
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr m_ip_;
+  ::google::protobuf::int32 m_type_;
+  ::google::protobuf::int32 m_port_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_PlayerInfo_2eproto;
+};
 // ===================================================================
 
 
@@ -2106,18 +2265,18 @@ inline void PlayerInfo::set_angle(float value) {
   // @@protoc_insertion_point(field_set:Proto.Unity.PlayerInfo.angle)
 }
 
-// uint32 Hp = 6;
-inline void PlayerInfo::clear_hp() {
-  hp_ = 0u;
+// float speed = 6;
+inline void PlayerInfo::clear_speed() {
+  speed_ = 0;
 }
-inline ::google::protobuf::uint32 PlayerInfo::hp() const {
-  // @@protoc_insertion_point(field_get:Proto.Unity.PlayerInfo.Hp)
-  return hp_;
+inline float PlayerInfo::speed() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.PlayerInfo.speed)
+  return speed_;
 }
-inline void PlayerInfo::set_hp(::google::protobuf::uint32 value) {
+inline void PlayerInfo::set_speed(float value) {
   
-  hp_ = value;
-  // @@protoc_insertion_point(field_set:Proto.Unity.PlayerInfo.Hp)
+  speed_ = value;
+  // @@protoc_insertion_point(field_set:Proto.Unity.PlayerInfo.speed)
 }
 
 // uint32 state = 7;
@@ -2134,21 +2293,63 @@ inline void PlayerInfo::set_state(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:Proto.Unity.PlayerInfo.state)
 }
 
-// float speed = 8;
-inline void PlayerInfo::clear_speed() {
-  speed_ = 0;
+// int32 Hp = 8;
+inline void PlayerInfo::clear_hp() {
+  hp_ = 0;
 }
-inline float PlayerInfo::speed() const {
-  // @@protoc_insertion_point(field_get:Proto.Unity.PlayerInfo.speed)
-  return speed_;
+inline ::google::protobuf::int32 PlayerInfo::hp() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.PlayerInfo.Hp)
+  return hp_;
 }
-inline void PlayerInfo::set_speed(float value) {
+inline void PlayerInfo::set_hp(::google::protobuf::int32 value) {
   
-  speed_ = value;
-  // @@protoc_insertion_point(field_set:Proto.Unity.PlayerInfo.speed)
+  hp_ = value;
+  // @@protoc_insertion_point(field_set:Proto.Unity.PlayerInfo.Hp)
 }
 
-// .Proto.Unity.Operation op = 9;
+// int32 Mp = 9;
+inline void PlayerInfo::clear_mp() {
+  mp_ = 0;
+}
+inline ::google::protobuf::int32 PlayerInfo::mp() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.PlayerInfo.Mp)
+  return mp_;
+}
+inline void PlayerInfo::set_mp(::google::protobuf::int32 value) {
+  
+  mp_ = value;
+  // @@protoc_insertion_point(field_set:Proto.Unity.PlayerInfo.Mp)
+}
+
+// int32 ATK = 10;
+inline void PlayerInfo::clear_atk() {
+  atk_ = 0;
+}
+inline ::google::protobuf::int32 PlayerInfo::atk() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.PlayerInfo.ATK)
+  return atk_;
+}
+inline void PlayerInfo::set_atk(::google::protobuf::int32 value) {
+  
+  atk_ = value;
+  // @@protoc_insertion_point(field_set:Proto.Unity.PlayerInfo.ATK)
+}
+
+// int32 DEF = 11;
+inline void PlayerInfo::clear_def() {
+  def_ = 0;
+}
+inline ::google::protobuf::int32 PlayerInfo::def() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.PlayerInfo.DEF)
+  return def_;
+}
+inline void PlayerInfo::set_def(::google::protobuf::int32 value) {
+  
+  def_ = value;
+  // @@protoc_insertion_point(field_set:Proto.Unity.PlayerInfo.DEF)
+}
+
+// .Proto.Unity.Operation op = 12;
 inline bool PlayerInfo::has_op() const {
   return this != internal_default_instance() && op_ != nullptr;
 }
@@ -3096,9 +3297,96 @@ inline void PlayerAllFuckInfo::set_allocated_baginfo(::Proto::Unity::PlayerBag* 
   // @@protoc_insertion_point(field_set_allocated:Proto.Unity.PlayerAllFuckInfo.baginfo)
 }
 
+// -------------------------------------------------------------------
+
+// ServerInfo
+
+// int32 m_type = 1;
+inline void ServerInfo::clear_m_type() {
+  m_type_ = 0;
+}
+inline ::google::protobuf::int32 ServerInfo::m_type() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.ServerInfo.m_type)
+  return m_type_;
+}
+inline void ServerInfo::set_m_type(::google::protobuf::int32 value) {
+  
+  m_type_ = value;
+  // @@protoc_insertion_point(field_set:Proto.Unity.ServerInfo.m_type)
+}
+
+// string m_ip = 2;
+inline void ServerInfo::clear_m_ip() {
+  m_ip_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& ServerInfo::m_ip() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.ServerInfo.m_ip)
+  return m_ip_.GetNoArena();
+}
+inline void ServerInfo::set_m_ip(const ::std::string& value) {
+  
+  m_ip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:Proto.Unity.ServerInfo.m_ip)
+}
+#if LANG_CXX11
+inline void ServerInfo::set_m_ip(::std::string&& value) {
+  
+  m_ip_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:Proto.Unity.ServerInfo.m_ip)
+}
+#endif
+inline void ServerInfo::set_m_ip(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  m_ip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:Proto.Unity.ServerInfo.m_ip)
+}
+inline void ServerInfo::set_m_ip(const char* value, size_t size) {
+  
+  m_ip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:Proto.Unity.ServerInfo.m_ip)
+}
+inline ::std::string* ServerInfo::mutable_m_ip() {
+  
+  // @@protoc_insertion_point(field_mutable:Proto.Unity.ServerInfo.m_ip)
+  return m_ip_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* ServerInfo::release_m_ip() {
+  // @@protoc_insertion_point(field_release:Proto.Unity.ServerInfo.m_ip)
+  
+  return m_ip_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void ServerInfo::set_allocated_m_ip(::std::string* m_ip) {
+  if (m_ip != nullptr) {
+    
+  } else {
+    
+  }
+  m_ip_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), m_ip);
+  // @@protoc_insertion_point(field_set_allocated:Proto.Unity.ServerInfo.m_ip)
+}
+
+// int32 m_port = 3;
+inline void ServerInfo::clear_m_port() {
+  m_port_ = 0;
+}
+inline ::google::protobuf::int32 ServerInfo::m_port() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.ServerInfo.m_port)
+  return m_port_;
+}
+inline void ServerInfo::set_m_port(::google::protobuf::int32 value) {
+  
+  m_port_ = value;
+  // @@protoc_insertion_point(field_set:Proto.Unity.ServerInfo.m_port)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

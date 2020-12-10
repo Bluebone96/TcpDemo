@@ -23,7 +23,7 @@ public:
 
 private:
     std::map<uint32_t, uint32_t> m_usrkey; // 验证令牌
-    std::map<uint32_t, uint32_t> m_usrfd;
+    std::map<uint32_t, uint32_t> m_usrfd;   // bug  客户端断开后无法进行有效清除
     std::map<uint32_t, uint32_t> m_usrserver; // usr所属的game服务器
 };
 

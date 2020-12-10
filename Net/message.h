@@ -55,10 +55,16 @@ public:
 
     message* enqueue();
     message* dequeue();
+    
+    // 如果处理失败， 提供方法将 in 和 out 返回
+
+    
 
 private:
-    volatile uint32_t m_in;
-    volatile uint32_t m_out;
+    // volatile uint32_t m_in;
+    // volatile uint32_t m_out;
+    uint32_t m_in;
+    uint32_t m_out;
     uint32_t m_size;
     message *m_pmsg;
 };

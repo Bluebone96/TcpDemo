@@ -30,7 +30,7 @@ int Player::InitPlayer(Proto::Unity::PlayerAllFuckInfo& _allinfo)
 
     m_protoInfo = m_fuckAllPb.mutable_baseinfo();
 
-    TRACER("player name: %s, id: %d", m_name.c_str(), m_id);
+    TRACER("player name: %s, id: %d\n", m_name.c_str(), m_id);
 
     m_inventory.InitInventory(m_fuckAllPb.mutable_baginfo(), this);
     
@@ -40,10 +40,9 @@ int Player::InitPlayer(Proto::Unity::PlayerAllFuckInfo& _allinfo)
 
 int Player::update_status(Proto::Unity::Operation& op)
 {
-    TRACER("test Player UpDate\n");
     struct timeval  curTime;
     m_opNew = op;
-    TRACER("new op h = %f, v = %f\n", m_opNew.h(), m_opNew.v());
+    TRACER_DEBUG("new op h = %f, v = %f\n", m_opNew.h(), m_opNew.v());
 
     gettimeofday(&curTime, nullptr);
     
@@ -56,17 +55,17 @@ int Player::update_status(Proto::Unity::Operation& op)
 
     float passtime = (curTime.tv_sec  - lastTimeUp.tv_sec) * 1000 + (curTime.tv_usec - lastTimeUp.tv_usec) / 1000;
 
-    TRACER("passtime is %f\n", passtime);
+    TRACER_DEBUG("passtime is %f\n", passtime);
     // PlayerStatus nextStatus = m_pStatus[(m_pos + 1) % MAXSTATUS];
 
     // nextStatus = m_pStatus[m_pos];
+    TRACER_DEBUG("speed is %f, old op h = %f, v = %f\n", m_protoInfo->speed(), m_protoInfo->op().h(), m_protoInfo->op().v());
 
     m_protoInfo->set_posx(m_protoInfo->posx() + (passtime * m_protoInfo->speed() * m_protoInfo->op().h()) / 1000);
     m_protoInfo->set_posz(m_protoInfo->posz() + (passtime * m_protoInfo->speed() * m_protoInfo->op().v()) / 1000);
-    m_protoInfo->mutable_op()->CopyFrom(m_opNew);
+    m_protoInfo->mutable_op()->operator=(m_opNew);
 
-    TRACER("player posx = %f, posz = %f\n", m_protoInfo->posx(), m_protoInfo->posz());
-    TRACER("test Player UpDate end\n");
+    TRACER_DEBUG("player posx = %f, posz = %f\n", m_protoInfo->posx(), m_protoInfo->posz());
     lastTimeUp = curTime;
     return 0;
 }
@@ -88,11 +87,9 @@ int Player::update_status(Proto::Unity::Operation& op)
 const Proto::Unity::PlayerInfo* Player::GetPlayerInfo()
 {
 
-    TRACER("test PlayerGetPlayerInfo\n");
-
+    TRACER_DEBUG("test PlayerGetPlayerInfo\n");
     update_status(m_opNew);
 
-    TRACER("test PlayerGetPlayerInfo end\n");
     return m_protoInfo;
 }
 

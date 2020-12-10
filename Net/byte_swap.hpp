@@ -40,7 +40,7 @@ inline uint32_t hton_32 (uint32_t _x)
 
 inline uint32_t ntoh_32(uint32_t _x)
 {
-    return ntoh_32(_x);
+    return hton_32(_x);
 }
 
 

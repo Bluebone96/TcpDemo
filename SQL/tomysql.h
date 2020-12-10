@@ -54,10 +54,6 @@ public:
     int Connect();
     int DisConnect();
 
-    // TODO 自定义结构 提供模板方法
-    int GetByString(const std::string& _table, mysqlpp::StoreQueryResult&);
-    int GetByString(const std::string& _table, const std::string& _what, mysqlpp::StoreQueryResult&);
-    int GetByString(const std::string& _table, const std::string& _what, const std::string& _where, mysqlpp::StoreQueryResult&);
 
     template<typename T>
     int SetBySQL(const T& t)
@@ -67,6 +63,19 @@ public:
         return 0;
     }
 
+    // template<typename T>
+    // int SetBySQLList(const T& t)
+    // {
+    //     try {
+    //         m_query.insert(t.begin(), t.end()).execute();
+    //     } catch (...) {
+    //         std::cout << "sql insert error" << std::endl;
+    //         return -1;
+    //     }
+    //     std::cout << "set_by_sql_list\n";
+    //     return 0;
+    // }
+
     int SetByString(const char* cmd)
     {
         m_query << cmd;
@@ -74,18 +83,7 @@ public:
         return 0;
     }
 
-    // _argv 顺序 _tabel, _what, _where, 参考 GetByString
-    template<typename T>
-    int GetBySQL( T& t, int _argc, const char* const _argv[]) 
-    {
-        FormatCmd(_argc, _argv);
 
-        m_query << m_cmd;
-
-        m_query.storein(t);
-
-        return 0;
-    }
 
     // select * from _where = what 
     template<typename T>
@@ -102,13 +100,15 @@ public:
         return 0;
     }
 
+
     
     template<typename T>
     int GetBySQL(T& t, const char* _cmd)
     {   
+        //std::cout << "try get by sql cmd is " << _cmd << std::endl;
+        
         m_query << _cmd;
         m_query.storein(t);
-        std::cout << "try get by sql cmd is " << _cmd << std::endl;
         return 0;
     }
 
@@ -130,19 +130,9 @@ public:
         return 0;
     }
 
-    // void testgetsql(std::vector<PLAYER>& _player)
-    // {
-    //     m_query << "SELECT * FROM PLAYER";
-    //     m_query.storein(_player);
-    // }
 
-    // mysqlpp::Query& operator<<(const std::string&);
-    
-    // mysqlpp::Query& operator>>(std::string&);
-    // mysqlpp::Query& operator>>(std::vecotr<string>&);
 private:
-    int Query(const std::string&, mysqlpp::StoreQueryResult&);
-    int FormatCmd(int _argc, const char * const _argv[]);
+
     char m_cmd[50];
     std::string m_dbname;
     std::string m_server;
@@ -150,8 +140,6 @@ private:
     std::string m_pass;
     mysqlpp::Connection m_connect;
     mysqlpp::Query m_query;
-    // mysqlpp::StoreQueryResult m_result;
-    // // std::vector<mysqlpp::Row> m_row;
 };
 
 #endif
