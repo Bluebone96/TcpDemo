@@ -38,7 +38,7 @@ uint8_t msg_head::encode(uint8_t *_data, uint32_t _len)
     return 0;
 }
 
-message::message() : m_flag(0), m_from(0), m_to(0), m_head(), m_data{0}, m_pdata(m_data + MSG_HEAD_SIZE)
+message::message() : m_flag(msg_flags::INACTIVE), m_from(0), m_to(0), m_head(), m_data{0}, m_pdata(m_data + MSG_HEAD_SIZE)
 {
 
 }
@@ -135,19 +135,25 @@ message* msg_queue::enqueue()
 {
 
     uint32_t pos = (m_in & (m_size - 1));
-    if ((m_pmsg + pos)->m_flag) { // 无效返回
-        return nullptr;
+    if ((m_pmsg + pos)->m_flag != msg_flags::ACTIVE) { // 无效返回
+        TRACER_DEBUG("message enqueue, pos = %d, flag is %d\n", pos, static_cast<int>((m_pmsg + pos)->m_flag));
+        ++m_in;
+        return (m_pmsg + pos);
     }
-    TRACER_DEBUG("message enqueue, pos = %d, flag is %d\n", pos, (m_pmsg + pos)->m_flag);
-    ++m_in;
-    return (m_pmsg + pos);
+    return nullptr;
 }
 
 message* msg_queue::dequeue()
 {
     uint32_t pos = (m_out & (m_size - 1));
-    if ((m_pmsg + pos)->m_flag) { // 有效返回
-        TRACER_DEBUG("message dequeue, pos = %d, flag is %d\n", pos, (m_pmsg + pos)->m_flag);
+    while ((m_pmsg + pos)->m_flag == msg_flags::INVALID)
+    {
+        ++m_out;
+        ++pos;
+    }
+    
+    if ((m_pmsg + pos)->m_flag == msg_flags::ACTIVE) { // 有效返回
+        TRACER_DEBUG("message dequeue, pos = %d, flag is %d\n", pos,  static_cast<int>((m_pmsg + pos)->m_flag));
         ++m_out;
         return m_pmsg + pos;
     }

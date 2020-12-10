@@ -175,7 +175,7 @@ int Inventory::saveItem(BaseItem* _item)
         msg->m_head.m_errID = 0;
         msg->m_to = g_connet_server[DB_SERVER];
         msg->encode_pb(m_itempb);
-        msg->setvalid();
+        msg->m_flag = msg_flags::ACTIVE;
     }
 
     return 0;

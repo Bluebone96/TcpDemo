@@ -67,6 +67,6 @@ int8_t gate_server::run()
                 break;
         }
 
-        msg->setinvalid();
+        msg->m_flag = msg_flags::INACTIVE;
     }
 }

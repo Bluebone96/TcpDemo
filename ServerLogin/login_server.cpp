@@ -48,7 +48,7 @@ int8_t login_server::run()
                 break;
         }
 
-        msg->setinvalid();
+        msg->m_flag = msg_flags::INACTIVE;
     }
 }
 
@@ -89,7 +89,7 @@ int8_t login_server::login_request(message* _msg)
     msg->m_head.m_len = 0;
     msg->encode();
 
-    msg->setvalid();
+    msg->m_flag = msg_flags::ACTIVE;
 
     return 0;
 }
@@ -118,7 +118,7 @@ int8_t login_server::login_verify(message* _msg)
     msg->m_head.m_errID = 0;
     msg->m_head.m_len = 0;
     msg->encode();
-    msg->setvalid();
+    msg->m_flag = msg_flags::ACTIVE;
 
     return 0;
 
@@ -136,7 +136,7 @@ int8_t login_server::login_failed(message* _msg)
     msg->m_head.m_errID = _msg->m_head.m_errID;
     msg->m_head.m_len = 0;
     msg->encode();
-    msg->setvalid();
+    msg->m_flag = msg_flags::ACTIVE;
 
     return 0;
 }

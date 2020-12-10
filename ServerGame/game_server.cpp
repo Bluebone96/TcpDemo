@@ -50,7 +50,7 @@ void game_server::run()
                 break;
         }
 
-        msg->setinvalid();
+        msg->m_flag = msg_flags::INACTIVE;
     }
 }
 
@@ -88,7 +88,7 @@ int8_t game_server::usr_exit(message *_msg)
             msg->m_head.m_errID = 0;
             msg->m_to = g_connet_server[DB_SERVER];
             msg->encode_pb(iter->second->getAllFuckInfo());
-            msg->setvalid();
+            msg->m_flag = msg_flags::ACTIVE;
         
             // todo 是否等待数据库返回确认消息后再释放内存
             m_players.erase(iter);
@@ -137,7 +137,8 @@ int8_t game_server::usr_sync(uint32_t _usrid, uint32_t _fd)
 
         msg->encode_pb(*info);
 
-        msg->setvalid();
+        msg->m_flag = msg_flags::ACTIVE;
+        TRACER_DEBUG("USR_SYNC END, usrid is %d\n", _usrid);
         return 0;
     }
     return -1;

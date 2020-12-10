@@ -130,8 +130,8 @@ static void test_sendmsg(robot_range* _range)
 
     for (int i = 0; i < 10000; ++i) {
         for (int j = _range->m_start; j < _range->m_end; ++j) {
-            op.set_h(random() % 2 - 1);
-            op.set_v(random() % 2 - 1);
+            op.set_h(random() % 3 - 1);
+            op.set_v(random() % 3 - 1);
             msgs[j].encode_pb(op);
             if (robots[j]->tcp_send(msgs[j].m_data, msgs[j].m_head.m_len + MSG_HEAD_SIZE) < 0) {
                 std::cout << "send msg  failed" << std::endl;
@@ -161,20 +161,20 @@ static void test_recvmsg(robot_range* _range)
 int main()
 {
 
-    robot_range range_0{0, 400, true};
+    robot_range range_0{0, 20, true};
 
     robots_init(&range_0);
 
     std::cout << "robots init complete" << std::endl;
 
 
-    // robot_range range_1{0, 50, true};
+    robot_range range_1{0, 20, true};
     // robot_range range_2{50, 100, true};
     // robot_range range_3{100, 150, true};
     // robot_range range_4{150, 200, true};
 
-    // std::thread t1(test_sendmsg, &range_1);
-    // std::thread t2(test_recvmsg, &range_1);
+    std::thread t1(test_sendmsg, &range_1);
+    std::thread t2(test_recvmsg, &range_1);
 
     // std::thread t3(test_sendmsg, &range_2);
     // std::thread t4(test_recvmsg, &range_2);
@@ -185,8 +185,8 @@ int main()
     // std::thread t7(test_sendmsg, &range_4);
     // std::thread t8(test_recvmsg, &range_4);
 
-    // t1.join();
-    // t2.join();
+    t1.join();
+    t2.join();
 
     // t3.join();
     // t4.join();

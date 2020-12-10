@@ -15,8 +15,8 @@ std::map<uint32_t, uint32_t> g_connet_server;
 
 int main ()
 {
-    g_recv_queue.init_queue(1024);
-    g_send_queue.init_queue(1024);
+    g_recv_queue.init_queue(8192);
+    g_send_queue.init_queue(8192);
 
     game_server server;
     Net net;

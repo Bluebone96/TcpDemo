@@ -71,7 +71,7 @@ int8_t db_server::run()
                 break;
         }
 
-        msg->setinvalid();
+        msg->m_flag = msg_flags::INACTIVE;
     }
 }
 
@@ -159,7 +159,7 @@ int8_t db_server::get_item(message *_msg)
                 
                 msg->encode_pb(m_itempb);
 
-                msg->setvalid();
+                msg->m_flag = msg_flags::ACTIVE;
                 return 0;
             }
         }
@@ -186,7 +186,7 @@ int8_t db_server::get_item(message *_msg)
         msg->m_to = _msg->m_from;
         
         msg->encode_pb(m_itempb);
-        msg->setvalid();
+        msg->m_flag = msg_flags::ACTIVE;
         return 0;
     }
 
@@ -263,7 +263,7 @@ int8_t db_server::get_player(message *_msg)
         msg->m_head.m_errID = 0;
         msg->m_to = _msg->m_from;
         msg->encode_pb(m_playerpb);
-        msg->setvalid();
+        msg->m_flag = msg_flags::ACTIVE;
     }
     return 0;
 }
@@ -320,7 +320,7 @@ int8_t db_server::get_all(message *_msg)
         msg->m_head.m_errID = 0;
         msg->m_to = _msg->m_from;
         msg->encode_pb(m_allplayer_info[usrid]);
-        msg->setvalid();
+        msg->m_flag = msg_flags::ACTIVE;
     }
     return 0;
 }

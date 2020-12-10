@@ -1,5 +1,5 @@
 build/*
-perf.data
-perf.data.old
-perf.folded
-perf.perf
+*.data
+*.data.old
+*.folded
+*.perf

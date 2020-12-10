@@ -22,8 +22,17 @@ struct msg_head {
 
 };
 
+enum class msg_flags {
+    INVALID = -1,  // 消息队列中当入队和出队失败时设置， 写入时直接覆盖，读取时跳过
+    INACTIVE = 0,
+    ACTIVE = 1
+};
+
+
 struct message {
-    uint8_t m_flag;  // 是否过期 0 过期， 1 有效
+// #define MSG_ACTIVE  1
+// #define MSG_INACTIVE  0
+    msg_flags m_flag;  // 是否过期 0 过期， 1 有效
     uint32_t m_from;
     uint32_t m_to;
     msg_head m_head;
@@ -41,8 +50,6 @@ struct message {
 
     uint8_t encode_pb(const google::protobuf::Message& _pb);
 
-    void setvalid() { m_flag = 1; }
-    void setinvalid() { m_flag = 0; }
 };
 
 
@@ -58,7 +65,7 @@ public:
     
     // 如果处理失败， 提供方法将 in 和 out 返回
 
-    
+    // message* 
 
 private:
     // volatile uint32_t m_in;

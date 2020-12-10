@@ -17,8 +17,8 @@ int main()
 {
     printf("db main start\n");
     TRACER("db main start\n");
-    g_recv_queue.init_queue(1024);
-    g_send_queue.init_queue(1024);
+    g_recv_queue.init_queue(4096);
+    g_send_queue.init_queue(4096);
     
     db_server server;
     Net net;

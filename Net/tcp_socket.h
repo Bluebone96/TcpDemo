@@ -4,8 +4,14 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 
-#include "kbuffer.hpp"
+// #include "kbuffer.hpp"
 #include "message.h"
+
+#define SOCKET_ERROR_CLOSE -1
+#define SOCKET_ERROR_EAGAIN  -2
+#define SOCKET_ERROR_BUFF_FULL -3
+
+#define SOCKET_ERROR_UNKNOWN -10
 
 class tcp_socket {
 public:

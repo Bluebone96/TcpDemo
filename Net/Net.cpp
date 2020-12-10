@@ -77,28 +77,35 @@ int8_t Net::product_msg()
                         m_connections.erase(fd);
                         continue;
                     default:
-                        TRACER_ERROR("Epoll unknowen, fd = %d, delete ptr\n", fd);
+                        TRACER_ERROR("Epoll unknowen events %d, fd = %d, delete ptr\n", event, fd);
                         m_connections.erase(fd);
                         continue;
                 }
+
                 TRACER_DEBUG("new message, fd is %d\n", fd);
                 auto socket = m_connections[fd];
                 int ret = 0;
                 message *msg = nullptr;
-                // todo while 循环 如果无数据可读，消息队列中会有一个无效的包，无法被初始化，读取卡住
-                if ((msg = g_recv_queue.enqueue())) {
-                    TRACER_DEBUG("recv msg start bug\n");
+
+                while ((msg = g_recv_queue.enqueue())) {
                     ret = recvmsg(socket, *msg);
                     if (ret < 0) {
-                        TRACER_DEBUG("connect failed");
-                        m_connections.erase(fd);
+                        // 读取失败将 msg->m_flag  设置为 invalied
+                        // 如果不是 eagain 则 erase fd
+                        msg->m_flag = msg_flags::INVALID;
+                        if (ret != SOCKET_ERROR_EAGAIN) {
+                            TRACER_ERROR("socket recv msg failed errorid: %d\n", ret);
+                            m_connections.erase(fd);
+                        }
                         break;
                     }
-                    msg->setvalid();
-                    TRACER_DEBUG("recv msg end bug\n");
-                } else {
-                    // 队列满了
-                    usleep(100 * 1000);
+
+                    msg->m_flag = msg_flags::ACTIVE;
+                } 
+                if (msg == nullptr) {
+                    // 队列满了, 因为 dequeue 后 需要占有内存进行计算，有一定数据失效时间， 所以 enqueue 始终快于 dequeue
+                    TRACER_ERROR("g_recv_queue is full, fd is %d\n", fd);
+                    usleep(200 * 1000);
                 }
             }
             TRACER_DEBUG("go next epoll\n");
@@ -117,15 +124,17 @@ int8_t Net::consume_msg()
             // TRACER("Net::consume_msg() : g_send_queue msg is empty\n");
             continue;
         }
+
         auto iter = m_connections.find(msg->m_to);
 
         if (iter == m_connections.end()) {
             return -1;
         }
+
         if (sendmsg(iter->second, *msg) < 0) {
             m_connections.erase(iter);
         }
-        msg->setinvalid();
+        msg->m_flag = msg_flags::INACTIVE;
     }
 }
 
@@ -135,19 +144,17 @@ int8_t Net::recvmsg(std::shared_ptr<tcp_socket>& _socket, message& _msg)
     TRACER_DEBUG("start recv msg data head\n");
     int ret = 0;
     ret = _socket->tcp_recv(_msg.m_data, MSG_HEAD_SIZE);
+    
     if (ret < 0) {
-        TRACER_ERROR("connect failed\n");
-        return -1;
-    } 
-    // else if (ret == 0) {
-        // return 0;
-    // }
+        TRACER_DEBUG("Net::recvmsg errorid = %d\n, %s:%d\n", ret, __POSITION__);
+        return ret;
+    }
 
     _msg.decode();
     TRACER_DEBUG("msg data body len is %d\n", _msg.m_head.m_len);
     ret = _socket->tcp_recv(_msg.m_data + MSG_HEAD_SIZE, _msg.m_head.m_len);
     if (ret < 0 ) {
-        TRACER_ERROR("connect failed\n");
+        TRACER_DEBUG("Net::recvmsg errorid = %d\n %s:%d\n", ret, __POSITION__);
         return -1;
     }
 

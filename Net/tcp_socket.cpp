@@ -11,23 +11,23 @@
 #endif
 
 
-// static inline bool is_pow_of_two (uint32_t _n)
-// {
-//     return (_n != 0 && ((_n & (_n - 1)) == 0));
-// }
+static inline bool is_pow_of_two (uint32_t _n)
+{
+    return (_n != 0 && ((_n & (_n - 1)) == 0));
+}
 
 
-// static inline uint32_t roundup_pow_of_two(uint32_t _s)
-// {
-//     if (!is_pow_of_two(_s)) {
-//         int p = 0;
-//         for (int i = _s; i != 0; i >>= 1) {
-//             ++p;
-//         }
-//         return (1u << p);
-//     }
-//     return _s;
-// }
+static inline uint32_t roundup_pow_of_two(uint32_t _s)
+{
+    if (!is_pow_of_two(_s)) {
+        int p = 0;
+        for (int i = _s; i != 0; i >>= 1) {
+            ++p;
+        }
+        return (1u << p);
+    }
+    return _s;
+}
 
 
 
@@ -183,19 +183,23 @@ int32_t tcp_socket::tcp_accept(sockaddr_in* ps, socklen_t* len)
 int32_t tcp_socket::tcp_recv(uint8_t *_usrbuf, uint32_t _length)
 {
 
-    if (_length > 1024) {
-        TRACER_ERROR("fd = %d, bug bug bug m_in = %d, m_out = %d, _length = %d\n", m_socketfd, m_in, m_out, _length);
-        sleep(50);
-    }
-    while (m_in - m_out < _length) {
-        if (recv_full() < 0) {
-            return -1;
+    // if (_length > 1024) {
+    //     TRACER_ERROR("fd = %d, bug bug bug m_in = %d, m_out = %d, _length = %d\n", m_socketfd, m_in, m_out, _length);
+    //     sleep(50);
+    // }
+
+    int ret = 0;
+    if (m_in - m_out < _length) {
+        if ((ret = recv_full()) < 0) {
+            return ret;
         }
         TRACER_DEBUG("bug bug bug fd = %d, m_in = %d, m_out = %d, _length = %d\n", m_socketfd, m_in, m_out, _length);
     }
+    // 将 while 改为 2次if, 如果还是小于则说明展时没有数据可读
 
-    // _length = MIN(_length, m_in - m_out);
-    
+    if (m_in - m_out < _length) {
+        return SOCKET_ERROR_EAGAIN;
+    }
 
     uint32_t len = MIN(_length, m_size -(m_out & (m_size - 1)));
     memcpy(_usrbuf, m_buffer + (m_out & (m_size - 1)), len);
@@ -215,21 +219,25 @@ int32_t tcp_socket::recv_by_len(uint8_t *_usrbuf, uint32_t _len)
     int32_t left = _len;
     while (left) {
         cnt = read(m_socketfd, _usrbuf, left);
-        if (cnt <= 0) {
-            if (cnt < 0 && (errno == EINTR || errno == EAGAIN)) {
+        if (cnt < 0) {
+            if (errno == EINTR) {
+                continue;
+            } else if (errno == EAGAIN) {
+                // return SOCKET_ERROR_EAGAIN; // 非阻塞永远返回的都是这个
                 break;
-            } else {
+            }
+            return SOCKET_ERROR_UNKNOWN;
+        } else if (cnt == 0) {
                 TRACERERRNO("tcpsocket::tcp_recv read failed. fd = %d.\n %s:%d", 
                             m_socketfd, __POSITION__);
-                m_in += (_len - left);
-                return -1;
-            }
+                return SOCKET_ERROR_CLOSE;
         }
+
+        m_in += cnt;
         left -= cnt;
         _usrbuf += cnt;
     }
 
-    m_in += (_len - left);
     return _len - left;
 }
 
@@ -241,26 +249,18 @@ int32_t tcp_socket::recv_full()
     if (length == 0) {
         // should not be here
         TRACER_ERROR("bug buff is full!!\n");
-        return -1;
+        return SOCKET_ERROR_BUFF_FULL;
     }
     uint32_t left = MIN(length, m_size - (m_in & (m_size - 1)));
     uint8_t *pbuf = m_buffer + (m_in & (m_size - 1));
     
     int32_t ret = recv_by_len(pbuf, left);
-    if (ret < 0) {
-        // should not be here
-        return ret;
-    } else if (ret == static_cast<int32_t>(left)) {
+    if (ret == static_cast<int32_t>(left)) {
         return recv_full();
+    } else {
+        return ret;
     }
 
-    // bug 
-    // left -= ret;
-    // pbuf = m_buffer;
-
-    // if ((ret = recv_by_len(pbuf, left)) < 0) {
-    //     return ret;
-    // }
     return 0;
 }
 

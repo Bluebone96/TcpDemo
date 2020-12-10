@@ -21,9 +21,15 @@
 
 class Player {
 public:
-    explicit Player() { }
+    Player() : m_id(0), m_name(), m_fuckAllPb(), m_protoInfo(nullptr), m_opNew(), m_inventory()
+    { 
+        gettimeofday(&m_lastTimeUp, nullptr); 
+        gettimeofday(&m_offline, nullptr); 
 
-    ~Player() { 
+    }
+
+    ~Player() 
+    { 
         TRACER("player dctor delete msgtrans\n");
         // saveAll();交给 gameserver
     }
@@ -62,7 +68,7 @@ public:
 
 private:
 
-    int32_t m_id; 
+    uint32_t m_id; 
 
     std::string m_name;
 
@@ -79,7 +85,7 @@ private:
 
     struct  timeval  m_offline; // 5秒 无响应下线
 
-    struct  timeval  lastTimeUp;
+    struct  timeval  m_lastTimeUp;
 
     Inventory m_inventory;
 

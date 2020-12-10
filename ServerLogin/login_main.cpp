@@ -18,8 +18,8 @@ std::map<int32_t, Proto::Unity::ServerInfo> g_serverinfo;
 
 int main()
 {
-    g_recv_queue.init_queue(1024);
-    g_send_queue.init_queue(1024);
+    g_recv_queue.init_queue(4096);
+    g_send_queue.init_queue(4096);
 
     Net net;
     login_server server;

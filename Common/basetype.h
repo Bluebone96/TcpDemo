@@ -95,7 +95,8 @@ enum MsgType {
     DB_SUCCESS = 18,  // 不需要返回内容
     DB_FAILED = 19,  // db 中失败
 
-    SERVER_INFO = 20 // 服务器信息
+    SERVER_INFO = 20, // 服务器信息
+
 };
 
 

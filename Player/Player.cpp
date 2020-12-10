@@ -53,7 +53,7 @@ int Player::update_status(Proto::Unity::Operation& op)
     m_offline = curTime;
 
 
-    float passtime = (curTime.tv_sec  - lastTimeUp.tv_sec) * 1000 + (curTime.tv_usec - lastTimeUp.tv_usec) / 1000;
+    float passtime = (curTime.tv_sec  - m_lastTimeUp.tv_sec) * 1000 + (curTime.tv_usec - m_lastTimeUp.tv_usec) / 1000;
 
     TRACER_DEBUG("passtime is %f\n", passtime);
     // PlayerStatus nextStatus = m_pStatus[(m_pos + 1) % MAXSTATUS];
@@ -66,7 +66,7 @@ int Player::update_status(Proto::Unity::Operation& op)
     m_protoInfo->mutable_op()->operator=(m_opNew);
 
     TRACER_DEBUG("player posx = %f, posz = %f\n", m_protoInfo->posx(), m_protoInfo->posz());
-    lastTimeUp = curTime;
+    m_lastTimeUp = curTime;
     return 0;
 }
 
@@ -90,6 +90,7 @@ const Proto::Unity::PlayerInfo* Player::GetPlayerInfo()
     TRACER_DEBUG("test PlayerGetPlayerInfo\n");
     update_status(m_opNew);
 
+    TRACER_DEBUG("PlayerGetPlayerInfo end\n");
     return m_protoInfo;
 }
 
