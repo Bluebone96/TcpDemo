@@ -35,7 +35,7 @@ public:
     int8_t run();
 
 
-    // 广播专用
+    // 广播专用，急需优化
     void broadcaster(message* _msg);
 private:
     std::map<uint32_t, uint32_t> m_usrkey; // 验证令牌
@@ -44,8 +44,7 @@ private:
     
     std::map<uint32_t, uint32_t> m_usrserver; // usr所属的game服务器
 
-    // 广播用的，暂时顶一下
-    // std::vector<client_info> m_clients;
+    // 广播用的，暂时顶一下, 急需优化
     std::vector<client_info> m_clientsfd;
 
     class safevector{

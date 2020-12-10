@@ -143,21 +143,6 @@ void gate_server::broadcaster(message* _msg)
         m_usrfd.erase(m_errorfd[i].usrid);
         m_clientsfd.erase(std::remove(m_clientsfd.begin(), m_clientsfd.end(), m_errorfd[i]), m_clientsfd.end());
     }
-
-    // 需优化，safevector 加 erase 等
-    // auto iter = std::remove(m_clientsfd.begin(), m_clientsfd.end(), 
-                    // [this](client_info& _rhs) {
-                        // for (int i = 0, j = m_errorfd.size(); i < j; ++i) {
-                            // if (m_errorfd[i] == _rhs) {
-                                // return true;
-                            // }
-                        // }
-                        // return false;
-                    // });
-    
-    
-
-    // m_clientsfd.erase(iter, m_clientsfd.end());
     
     m_errorfd.clear();
 
