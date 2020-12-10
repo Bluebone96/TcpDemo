@@ -63,10 +63,12 @@ public:
     message* enqueue();
     message* dequeue();
     
-    // 如果处理失败， 提供方法将 in 和 out 返回
-
-    // message* 
-
+    // for debug
+    void debug_info() {
+        uint32_t pos = (m_in & (m_size - 1));
+        printf("m_in = %d, m_out = %d, pos = %d, flag is %d\n", m_in, m_out, pos, static_cast<int>((m_pmsg + pos)->m_flag));
+    }
+    
 private:
     // volatile uint32_t m_in;
     // volatile uint32_t m_out;

@@ -80,7 +80,16 @@ int8_t login_server::login_request(message* _msg)
     m_waitverify.insert(std::make_pair(id, pass));
 
 
-    message *msg = g_send_queue.enqueue();
+    message *msg = nullptr;
+    while ((msg = g_send_queue.enqueue()) == nullptr)
+    {
+        // 队列满了, 因为 dequeue 后 需要占有内存进行计算，有一定数据失效时间， 所以 enqueue 始终快于 dequeue
+        TRACER_ERROR("sleep 50ms, g_recv_queue is full, usrid is %d\n", id);
+        g_send_queue.debug_info();
+        usleep(50 * 1000);
+    }
+
+
     msg->m_head.m_type = GETPASS;
     // msg->m_from = LOGIN_SERVER;
     msg->m_to = g_connet_server[DB_SERVER];
@@ -97,24 +106,33 @@ int8_t login_server::login_request(message* _msg)
 
 int8_t login_server::login_verify(message* _msg)
 {
+    uint32_t usrid = _msg->m_head.m_usrID;
     if (_msg->m_head.m_errID) {
         // login_failed(_msg); 客户端还没加这个登录失败消息
-        m_waitverify.erase(_msg->m_head.m_usrID);
+        m_waitverify.erase(usrid);
         return -1;
     } 
     uint32_t key = ntoh_32(*(uint32_t*)(_msg->m_pdata));
 
-    if (m_waitverify[_msg->m_head.m_usrID] != key) {
+    if (m_waitverify[usrid] != key) {
         // login_failed(_msg);
-        m_waitverify.erase(_msg->m_head.m_usrID);
+        m_waitverify.erase(usrid);
         return -1;
     }
     
-    message *msg = g_send_queue.enqueue();
+    message *msg = nullptr;
+    while ((msg = g_send_queue.enqueue()) == nullptr)
+    {
+        // 队列满了, 因为 dequeue 后 需要占有内存进行计算，有一定数据失效时间， 所以 enqueue 始终快于 dequeue
+        TRACER_ERROR("sleep 50ms, g_recv_queue is full, usrid is %d\n", usrid);
+        g_send_queue.debug_info();
+        usleep(50 * 1000);
+    }
+
     msg->m_head.m_type = GET_ALLINFO;
     // msg->m_from = LOGIN_SERVER;
     msg->m_to = g_connet_server[DB_SERVER];
-    msg->m_head.m_usrID = _msg->m_head.m_usrID;
+    msg->m_head.m_usrID = usrid;
     msg->m_head.m_errID = 0;
     msg->m_head.m_len = 0;
     msg->encode();
@@ -126,13 +144,22 @@ int8_t login_server::login_verify(message* _msg)
 
 int8_t login_server::login_failed(message* _msg)
 {
-    message* msg = g_send_queue.enqueue();
+    uint32_t usrid = _msg->m_head.m_usrID;
+
+    message *msg = nullptr;
+    while ((msg = g_send_queue.enqueue()) == nullptr)
+    {
+        // 队列满了, 因为 dequeue 后 需要占有内存进行计算，有一定数据失效时间， 所以 enqueue 始终快于 dequeue
+        TRACER_ERROR("sleep 50ms, g_recv_queue is full, usrid is %d\n", usrid);
+        g_send_queue.debug_info();
+        usleep(50 * 1000);
+    }
     
-    TRACER_ERROR("usrid %d login failed fd is %d\n", _msg->m_head.m_usrID, m_usrfd[_msg->m_head.m_usrID]);
+    TRACER_ERROR("usrid %d login failed fd is %d\n", usrid, m_usrfd[usrid]);
     msg->m_head.m_type = LOGIN_FAILED;
     // msg->m_from = LOGIN_SERVER;
-    msg->m_head.m_usrID = _msg->m_head.m_usrID;
-    msg->m_to = m_usrfd[_msg->m_head.m_usrID];
+    msg->m_head.m_usrID = usrid;
+    msg->m_to = m_usrfd[usrid];
     msg->m_head.m_errID = _msg->m_head.m_errID;
     msg->m_head.m_len = 0;
     msg->encode();

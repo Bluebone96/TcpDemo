@@ -87,7 +87,15 @@ int8_t Net::product_msg()
                 int ret = 0;
                 message *msg = nullptr;
 
-                while ((msg = g_recv_queue.enqueue())) {
+                while ((msg = g_recv_queue.enqueue()) == nullptr)
+                {
+                    // 队列满了, 因为 dequeue 后 需要占有内存进行计算，有一定数据失效时间， 所以 enqueue 始终快于 dequeue
+                    TRACER_ERROR("sleep 50ms, g_recv_queue is full, fd is %d\n", fd);
+                    g_recv_queue.debug_info();
+                    usleep(50 * 1000);
+                }
+
+                do  {
                     ret = recvmsg(socket, *msg);
                     if (ret < 0) {
                         // 读取失败将 msg->m_flag  设置为 invalied
@@ -101,14 +109,17 @@ int8_t Net::product_msg()
                     }
 
                     msg->m_flag = msg_flags::ACTIVE;
-                } 
-                if (msg == nullptr) {
-                    // 队列满了, 因为 dequeue 后 需要占有内存进行计算，有一定数据失效时间， 所以 enqueue 始终快于 dequeue
-                    TRACER_ERROR("g_recv_queue is full, fd is %d\n", fd);
-                    usleep(200 * 1000);
-                }
+                } while ((msg = g_recv_queue.enqueue()));
+
+                // if (msg == nullptr) {
+                //     // 队列满了, 因为 dequeue 后 需要占有内存进行计算，有一定数据失效时间， 所以 enqueue 始终快于 dequeue
+                //     TRACER_ERROR("g_recv_queue is full, fd is %d\n", fd);
+                //     g_recv_queue.debug_info();
+                //     usleep(100 * 1000);
+                // }
             }
             TRACER_DEBUG("go next epoll\n");
+            usleep(10 * 1000);
         }
         
     }

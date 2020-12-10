@@ -149,19 +149,26 @@ int8_t db_server::get_item(message *_msg)
         auto iter_item = iter_usr->second.find(itemid);
         if (iter_item != iter_usr->second.end()) {
             sql2pb(iter_item->second, &m_itempb);
-            message *msg = g_send_queue.enqueue();
-            if (msg) {
-                msg->m_head.m_type = GETITEM;  // 如果用 db_success 请求方需保存上一次的请求类型，暂时用 errid==0 表示成功
-                msg->m_head.m_errID = 0;
-                msg->m_head.m_usrID = usrid;
-                msg->m_head.m_len = m_itempb.ByteSizeLong();
-                msg->m_to = _msg->m_from;
-                
-                msg->encode_pb(m_itempb);
+            message *msg = nullptr;
 
-                msg->m_flag = msg_flags::ACTIVE;
-                return 0;
+            while ((msg = g_send_queue.enqueue()) == nullptr)
+            {
+                // 队列满了, 因为 dequeue 后 需要占有内存进行计算，有一定数据失效时间， 所以 enqueue 始终快于 dequeue
+                TRACER_ERROR("sleep 50ms, g_recv_queue is full, usrid is %d\n", usrid);
+                g_send_queue.debug_info();
+                usleep(50 * 1000);
             }
+
+            msg->m_head.m_type = GETITEM;  // 如果用 db_success 请求方需保存上一次的请求类型，暂时用 errid==0 表示成功
+            msg->m_head.m_errID = 0;
+            msg->m_head.m_usrID = usrid;
+            msg->m_head.m_len = m_itempb.ByteSizeLong();
+            msg->m_to = _msg->m_from;
+            
+            msg->encode_pb(m_itempb);
+
+            msg->m_flag = msg_flags::ACTIVE;
+            return 0;
         }
     } 
 
@@ -177,20 +184,27 @@ int8_t db_server::get_item(message *_msg)
     m_itemdb_bak[usrid][itemid] = items[0];
 
     sql2pb(items[0], &m_itempb);
-    message *msg = g_send_queue.enqueue();
-    if (msg) {
-        msg->m_head.m_type = GETITEM;  // 如果用 db_success 请求方需保存上一次的请求类型，暂时用 errid==0 表示成功
-        msg->m_head.m_errID = 0;
-        msg->m_head.m_usrID = usrid;
-        msg->m_head.m_len = m_itempb.ByteSizeLong();
-        msg->m_to = _msg->m_from;
-        
-        msg->encode_pb(m_itempb);
-        msg->m_flag = msg_flags::ACTIVE;
-        return 0;
-    }
+    message *msg = nullptr;
 
-    return -1;
+    while ((msg = g_send_queue.enqueue()) == nullptr)
+    {
+        // 队列满了, 因为 dequeue 后 需要占有内存进行计算，有一定数据失效时间， 所以 enqueue 始终快于 dequeue
+        TRACER_ERROR("sleep 50ms, g_recv_queue is full, usrid is %d\n", usrid);
+        g_send_queue.debug_info();
+        usleep(50 * 1000);
+    }
+    
+
+    msg->m_head.m_type = GETITEM;  // 如果用 db_success 请求方需保存上一次的请求类型，暂时用 errid==0 表示成功
+    msg->m_head.m_errID = 0;
+    msg->m_head.m_usrID = usrid;
+    msg->m_head.m_len = m_itempb.ByteSizeLong();
+    msg->m_to = _msg->m_from;
+    
+    msg->encode_pb(m_itempb);
+    msg->m_flag = msg_flags::ACTIVE;
+
+    return 0;
 }
 
 
@@ -256,15 +270,25 @@ int8_t db_server::get_player(message *_msg)
 
     sql2pb(m_playerdb[usrid], m_playerpb);
 
-    message *msg = g_send_queue.enqueue();
-    if (msg) {
-        msg->m_head.m_usrID = usrid;
-        msg->m_head.m_type = GETPLAYER;
-        msg->m_head.m_errID = 0;
-        msg->m_to = _msg->m_from;
-        msg->encode_pb(m_playerpb);
-        msg->m_flag = msg_flags::ACTIVE;
+    message *msg = nullptr;
+
+    while ((msg = g_send_queue.enqueue()) == nullptr)
+    {
+        // 队列满了, 因为 dequeue 后 需要占有内存进行计算，有一定数据失效时间， 所以 enqueue 始终快于 dequeue
+        TRACER_ERROR("sleep 50ms, g_recv_queue is full, usrid is %d\n", usrid);
+        g_send_queue.debug_info();
+        usleep(50 * 1000);
     }
+
+
+
+    msg->m_head.m_usrID = usrid;
+    msg->m_head.m_type = GETPLAYER;
+    msg->m_head.m_errID = 0;
+    msg->m_to = _msg->m_from;
+    msg->encode_pb(m_playerpb);
+    msg->m_flag = msg_flags::ACTIVE;
+
     return 0;
 }
 
@@ -312,16 +336,23 @@ int8_t db_server::get_all(message *_msg)
         m_allplayer_info.insert(std::make_pair(usrid, std::move(player_all_info)));
     }
 
-    message *msg = g_send_queue.enqueue();
+    message *msg = nullptr;
 
-    if (msg) {
-        msg->m_head.m_type = GET_ALLINFO;
-        msg->m_head.m_usrID = usrid;
-        msg->m_head.m_errID = 0;
-        msg->m_to = _msg->m_from;
-        msg->encode_pb(m_allplayer_info[usrid]);
-        msg->m_flag = msg_flags::ACTIVE;
+    while ((msg = g_send_queue.enqueue()) == nullptr)
+    {
+        // 队列满了, 因为 dequeue 后 需要占有内存进行计算，有一定数据失效时间， 所以 enqueue 始终快于 dequeue
+        TRACER_ERROR("sleep 50ms, g_recv_queue is full, usrid is %d\n", usrid);
+        g_send_queue.debug_info();
+        usleep(50 * 1000);
     }
+
+    msg->m_head.m_type = GET_ALLINFO;
+    msg->m_head.m_usrID = usrid;
+    msg->m_head.m_errID = 0;
+    msg->m_to = _msg->m_from;
+    msg->encode_pb(m_allplayer_info[usrid]);
+    msg->m_flag = msg_flags::ACTIVE;
+
     return 0;
 }
 

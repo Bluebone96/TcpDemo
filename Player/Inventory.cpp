@@ -1,10 +1,13 @@
 #include <vector>
 #include <iostream>
+#include <unistd.h>
 
 #include "Player.h"
 #include "Inventory.h"
 #include "../Net/message.h"
 #include "../SQL/tomysql.h"
+#include "../Common/log.h"
+
 
 
 extern msg_queue g_send_queue;
@@ -168,15 +171,22 @@ int Inventory::saveItem(BaseItem* _item)
     TRACER("save item to dbserver\n");
     std::cout << "item id = " << m_itempb.m_uid() << "type is " << m_itempb.m_type() << std::endl;
     message* msg = g_send_queue.enqueue();
-
-    if (msg) {
-        msg->m_head.m_type = SETITEM;
-        msg->m_head.m_usrID = m_player->getId();
-        msg->m_head.m_errID = 0;
-        msg->m_to = g_connet_server[DB_SERVER];
-        msg->encode_pb(m_itempb);
-        msg->m_flag = msg_flags::ACTIVE;
+    
+    while ((msg = g_send_queue.enqueue()) == nullptr)
+    {
+        // 队列满了, 因为 dequeue 后 需要占有内存进行计算，有一定数据失效时间， 所以 enqueue 始终快于 dequeue
+        TRACER_ERROR("sleep 50ms, g_recv_queue is full, usrid is %d\n", m_playerId);
+        g_send_queue.debug_info();
+        usleep(50 * 1000);
     }
+
+    
+    msg->m_head.m_type = SETITEM;
+    msg->m_head.m_usrID = m_player->getId();
+    msg->m_head.m_errID = 0;
+    msg->m_to = g_connet_server[DB_SERVER];
+    msg->encode_pb(m_itempb);
+    msg->m_flag = msg_flags::ACTIVE;
 
     return 0;
 }

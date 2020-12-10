@@ -283,7 +283,7 @@ int32_t tcp_socket::tcp_send(uint32_t _fd, const uint8_t *_usrbuf, uint32_t _len
             if (EINTR == errno || EAGAIN == errno) {
                 continue;
             } else {
-                TRACERERRNO("TcpSocket::SendData failed! %s:%d", __FILE__, __LINE__);
+                TRACERERRNO("tcp_socket::tcp_send failed! %s:%d\n", __FILE__, __LINE__); // 可能是客户端直接断开连接
                 return -1;
             }
         }

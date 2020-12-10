@@ -145,12 +145,11 @@ message* msg_queue::enqueue()
 
 message* msg_queue::dequeue()
 {
-    uint32_t pos = (m_out & (m_size - 1));
-    while ((m_pmsg + pos)->m_flag == msg_flags::INVALID)
-    {
+    while ((m_pmsg + (m_out & (m_size - 1)))->m_flag == msg_flags::INVALID) {
         ++m_out;
-        ++pos;
     }
+
+    uint32_t pos = (m_out & (m_size - 1));
     
     if ((m_pmsg + pos)->m_flag == msg_flags::ACTIVE) { // 有效返回
         TRACER_DEBUG("message dequeue, pos = %d, flag is %d\n", pos,  static_cast<int>((m_pmsg + pos)->m_flag));
