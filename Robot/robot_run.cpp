@@ -8,9 +8,6 @@
 #include "../Net/message.h"
 #include "../Proto/PlayerInfo.pb.h"
 
-#define CLEAN_LOG
-
-
 static unsigned int BKDRHash(const std::string& _str)
 {
     unsigned int seed = 1313;
@@ -169,33 +166,19 @@ int main()
 
 
     robot_range range_1{0, 20, true};
-    // robot_range range_2{50, 100, true};
-    // robot_range range_3{100, 150, true};
-    // robot_range range_4{150, 200, true};
+    // robot_range range_2{100, 200, true};
+    // robot_range range_3{200, 300, true};
+    // robot_range range_4{300, 400, true};
 
     std::thread t1(test_sendmsg, &range_1);
     std::thread t2(test_recvmsg, &range_1);
 
-    // std::thread t3(test_sendmsg, &range_2);
-    // std::thread t4(test_recvmsg, &range_2);
 
-    // std::thread t5(test_sendmsg, &range_3);
-    // std::thread t6(test_recvmsg, &range_3);
-
-    // std::thread t7(test_sendmsg, &range_4);
-    // std::thread t8(test_recvmsg, &range_4);
 
     t1.join();
     t2.join();
 
-    // t3.join();
-    // t4.join();
 
-    // t5.join();
-    // t6.join();
-
-    // t7.join();
-    // t8.join();
 
 }
 

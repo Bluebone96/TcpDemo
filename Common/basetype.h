@@ -97,6 +97,8 @@ enum MsgType {
 
     SERVER_INFO = 20, // 服务器信息
 
+    INIT_PLAYER,    // todo
+    INIT_BAG,
 };
 
 

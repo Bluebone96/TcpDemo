@@ -22,21 +22,22 @@ struct msg_head {
 
 };
 
-enum class msg_flags {
-    INVALID = -1,  // 消息队列中当入队和出队失败时设置， 写入时直接覆盖，读取时跳过
+enum msg_flags {
     INACTIVE = 0,
-    ACTIVE = 1
+    ACTIVE = 1,
+    INVALID = 2  // 消息队列中当入队和出队失败时设置， 写入时直接覆盖，读取时跳过
 };
 
 
 struct message {
 // #define MSG_ACTIVE  1
 // #define MSG_INACTIVE  0
+#define MSG_BUF_SIZE 256    // 现在一条消息很小
     msg_flags m_flag;  // 是否过期 0 过期， 1 有效
     uint32_t m_from;
     uint32_t m_to;
     msg_head m_head;
-    uint8_t m_data[1024];
+    uint8_t m_data[MSG_BUF_SIZE];
     uint8_t *m_pdata;
 
     message();

@@ -28,7 +28,7 @@ sql_create_9 (PLAYER, 2, 9,
 )
 
 
-sql_create_9 (ITEM, 2, 9,
+sql_create_10 (ITEM, 2, 10,
     mysqlpp::sql_int, userid,
     mysqlpp::sql_int, itemid,
     mysqlpp::sql_int, type,
@@ -37,7 +37,8 @@ sql_create_9 (ITEM, 2, 9,
     mysqlpp::sql_int, hp,
     mysqlpp::sql_int, mp,
     mysqlpp::sql_int, atk,
-    mysqlpp::sql_int, def
+    mysqlpp::sql_int, def,
+    mysqlpp::sql_int, price
 )
 
 

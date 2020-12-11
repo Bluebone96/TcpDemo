@@ -32,24 +32,25 @@ namespace Proto.Unity {
             "cmF0aW9uIiEKCU9wZXJhdGlvbhIJCgFoGAEgASgCEgkKAXYYAiABKAIiLQoE",
             "Q2hhdBILCgNpZHMYASABKA0SCwoDaWR0GAIgASgNEgsKA21zZxgDIAEoCSIw",
             "Cg5BdXRoZW50aWNhdGlvbhIMCgRuYW1lGAEgASgJEhAKCHBhc3N3b3JkGAIg",
-            "ASgJInYKCEl0ZW1JbmZvEg0KBW1fdWlkGAEgASgNEg4KBm1fdHlwZRgCIAEo",
-            "DRIMCgRtX2hwGAMgASgNEgwKBG1fbXAYBCABKA0SDQoFbV9hdGsYBSABKA0S",
-            "DwoHbV9wcmljZRgGIAEoDRIPCgdtX2NvdW50GAcgASgNIlIKCUl0ZW1FdmVu",
-            "dBIOCgZvcHR5cGUYASABKA0SCwoDdWlkGAIgASgNEg0KBWNvdW50GAMgASgN",
-            "EgwKBGFkZDEYBSABKAkSCwoDdGlkGAQgASgNIjUKB0l0ZW1BZGQSDgoGb3B0",
-            "eXBlGAEgASgNEgsKA3VpZBgCIAEoDRINCgVjb3VudBgDIAEoDSI1CgdJdGVt",
-            "RGVsEg4KBm9wdHlwZRgBIAEoDRILCgN1aWQYAiABKA0SDQoFY291bnQYAyAB",
-            "KA0iRAoJSXRlbVRyYWRlEg4KBm9wdHlwZRgBIAEoDRILCgN1aWQYAiABKA0S",
-            "DQoFY291bnQYAyABKA0SCwoDdGlkGAQgASgNIigKCUl0ZW1FcXVpcBIOCgZv",
-            "cHR5cGUYASABKA0SCwoDdWlkGAIgASgNIioKC0l0ZW1VbkVxdWlwEg4KBm9w",
-            "dHlwZRgBIAEoDRILCgN1aWQYAiABKA0iRQoKSXRlbVVwZGF0ZRIQCghtX29w",
-            "dHlwZRgBIAEoDRIlCgZtX2l0ZW0YAiABKAsyFS5Qcm90by5Vbml0eS5JdGVt",
-            "SW5mbyJCCglQbGF5ZXJCYWcSJAoFSXRlbXMYASADKAsyFS5Qcm90by5Vbml0",
-            "eS5JdGVtSW5mbxIPCgdlcXVpcGVkGAIgAygNImcKEVBsYXllckFsbEZ1Y2tJ",
-            "bmZvEikKCGJhc2VpbmZvGAEgASgLMhcuUHJvdG8uVW5pdHkuUGxheWVySW5m",
-            "bxInCgdiYWdpbmZvGAIgASgLMhYuUHJvdG8uVW5pdHkuUGxheWVyQmFnIjoK",
-            "ClNlcnZlckluZm8SDgoGbV90eXBlGAEgASgFEgwKBG1faXAYAiABKAkSDgoG",
-            "bV9wb3J0GAMgASgFYgZwcm90bzM="));
+            "ASgJIqkBCghJdGVtSW5mbxIPCgdtX3VzcmlkGAEgASgNEhAKCG1faXRlbWlk",
+            "GAIgASgNEg4KBm1fdHlwZRgDIAEoDRIPCgdtX2NvdW50GAQgASgNEg4KBm1f",
+            "bmFtZRgFIAEoCRIMCgRtX2hwGAYgASgNEgwKBG1fbXAYByABKA0SDQoFbV9h",
+            "dGsYCCABKA0SDQoFbV9kZWYYCSABKA0SDwoHbV9wcmljZRgKIAEoDSJSCglJ",
+            "dGVtRXZlbnQSDgoGb3B0eXBlGAEgASgNEgsKA3VpZBgCIAEoDRINCgVjb3Vu",
+            "dBgDIAEoDRIMCgRhZGQxGAUgASgJEgsKA3RpZBgEIAEoDSI1CgdJdGVtQWRk",
+            "Eg4KBm9wdHlwZRgBIAEoDRILCgN1aWQYAiABKA0SDQoFY291bnQYAyABKA0i",
+            "NQoHSXRlbURlbBIOCgZvcHR5cGUYASABKA0SCwoDdWlkGAIgASgNEg0KBWNv",
+            "dW50GAMgASgNIkQKCUl0ZW1UcmFkZRIOCgZvcHR5cGUYASABKA0SCwoDdWlk",
+            "GAIgASgNEg0KBWNvdW50GAMgASgNEgsKA3RpZBgEIAEoDSIoCglJdGVtRXF1",
+            "aXASDgoGb3B0eXBlGAEgASgNEgsKA3VpZBgCIAEoDSIqCgtJdGVtVW5FcXVp",
+            "cBIOCgZvcHR5cGUYASABKA0SCwoDdWlkGAIgASgNIkUKCkl0ZW1VcGRhdGUS",
+            "EAoIbV9vcHR5cGUYASABKA0SJQoGbV9pdGVtGAIgASgLMhUuUHJvdG8uVW5p",
+            "dHkuSXRlbUluZm8iQgoJUGxheWVyQmFnEiQKBUl0ZW1zGAEgAygLMhUuUHJv",
+            "dG8uVW5pdHkuSXRlbUluZm8SDwoHZXF1aXBlZBgCIAMoDSJnChFQbGF5ZXJB",
+            "bGxGdWNrSW5mbxIpCghiYXNlaW5mbxgBIAEoCzIXLlByb3RvLlVuaXR5LlBs",
+            "YXllckluZm8SJwoHYmFnaW5mbxgCIAEoCzIWLlByb3RvLlVuaXR5LlBsYXll",
+            "ckJhZyI6CgpTZXJ2ZXJJbmZvEg4KBm1fdHlwZRgBIAEoBRIMCgRtX2lwGAIg",
+            "ASgJEg4KBm1fcG9ydBgDIAEoBWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -57,7 +58,7 @@ namespace Proto.Unity {
             new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.Operation), global::Proto.Unity.Operation.Parser, new[]{ "H", "V" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.Chat), global::Proto.Unity.Chat.Parser, new[]{ "Ids", "Idt", "Msg" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.Authentication), global::Proto.Unity.Authentication.Parser, new[]{ "Name", "Password" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.ItemInfo), global::Proto.Unity.ItemInfo.Parser, new[]{ "MUid", "MType", "MHp", "MMp", "MAtk", "MPrice", "MCount" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.ItemInfo), global::Proto.Unity.ItemInfo.Parser, new[]{ "MUsrid", "MItemid", "MType", "MCount", "MName", "MHp", "MMp", "MAtk", "MDef", "MPrice" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.ItemEvent), global::Proto.Unity.ItemEvent.Parser, new[]{ "Optype", "Uid", "Count", "Add1", "Tid" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.ItemAdd), global::Proto.Unity.ItemAdd.Parser, new[]{ "Optype", "Uid", "Count" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Proto.Unity.ItemDel), global::Proto.Unity.ItemDel.Parser, new[]{ "Optype", "Uid", "Count" }, null, null, null),
@@ -1050,13 +1051,16 @@ namespace Proto.Unity {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public ItemInfo(ItemInfo other) : this() {
-      mUid_ = other.mUid_;
+      mUsrid_ = other.mUsrid_;
+      mItemid_ = other.mItemid_;
       mType_ = other.mType_;
+      mCount_ = other.mCount_;
+      mName_ = other.mName_;
       mHp_ = other.mHp_;
       mMp_ = other.mMp_;
       mAtk_ = other.mAtk_;
+      mDef_ = other.mDef_;
       mPrice_ = other.mPrice_;
-      mCount_ = other.mCount_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1065,19 +1069,30 @@ namespace Proto.Unity {
       return new ItemInfo(this);
     }
 
-    /// <summary>Field number for the "m_uid" field.</summary>
-    public const int MUidFieldNumber = 1;
-    private uint mUid_;
+    /// <summary>Field number for the "m_usrid" field.</summary>
+    public const int MUsridFieldNumber = 1;
+    private uint mUsrid_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public uint MUid {
-      get { return mUid_; }
+    public uint MUsrid {
+      get { return mUsrid_; }
       set {
-        mUid_ = value;
+        mUsrid_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "m_itemid" field.</summary>
+    public const int MItemidFieldNumber = 2;
+    private uint mItemid_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint MItemid {
+      get { return mItemid_; }
+      set {
+        mItemid_ = value;
       }
     }
 
     /// <summary>Field number for the "m_type" field.</summary>
-    public const int MTypeFieldNumber = 2;
+    public const int MTypeFieldNumber = 3;
     private uint mType_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public uint MType {
@@ -1087,8 +1102,30 @@ namespace Proto.Unity {
       }
     }
 
+    /// <summary>Field number for the "m_count" field.</summary>
+    public const int MCountFieldNumber = 4;
+    private uint mCount_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint MCount {
+      get { return mCount_; }
+      set {
+        mCount_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "m_name" field.</summary>
+    public const int MNameFieldNumber = 5;
+    private string mName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string MName {
+      get { return mName_; }
+      set {
+        mName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
     /// <summary>Field number for the "m_hp" field.</summary>
-    public const int MHpFieldNumber = 3;
+    public const int MHpFieldNumber = 6;
     private uint mHp_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public uint MHp {
@@ -1099,7 +1136,7 @@ namespace Proto.Unity {
     }
 
     /// <summary>Field number for the "m_mp" field.</summary>
-    public const int MMpFieldNumber = 4;
+    public const int MMpFieldNumber = 7;
     private uint mMp_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public uint MMp {
@@ -1110,7 +1147,7 @@ namespace Proto.Unity {
     }
 
     /// <summary>Field number for the "m_atk" field.</summary>
-    public const int MAtkFieldNumber = 5;
+    public const int MAtkFieldNumber = 8;
     private uint mAtk_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public uint MAtk {
@@ -1120,25 +1157,25 @@ namespace Proto.Unity {
       }
     }
 
+    /// <summary>Field number for the "m_def" field.</summary>
+    public const int MDefFieldNumber = 9;
+    private uint mDef_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint MDef {
+      get { return mDef_; }
+      set {
+        mDef_ = value;
+      }
+    }
+
     /// <summary>Field number for the "m_price" field.</summary>
-    public const int MPriceFieldNumber = 6;
+    public const int MPriceFieldNumber = 10;
     private uint mPrice_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public uint MPrice {
       get { return mPrice_; }
       set {
         mPrice_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "m_count" field.</summary>
-    public const int MCountFieldNumber = 7;
-    private uint mCount_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public uint MCount {
-      get { return mCount_; }
-      set {
-        mCount_ = value;
       }
     }
 
@@ -1155,26 +1192,32 @@ namespace Proto.Unity {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (MUid != other.MUid) return false;
+      if (MUsrid != other.MUsrid) return false;
+      if (MItemid != other.MItemid) return false;
       if (MType != other.MType) return false;
+      if (MCount != other.MCount) return false;
+      if (MName != other.MName) return false;
       if (MHp != other.MHp) return false;
       if (MMp != other.MMp) return false;
       if (MAtk != other.MAtk) return false;
+      if (MDef != other.MDef) return false;
       if (MPrice != other.MPrice) return false;
-      if (MCount != other.MCount) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (MUid != 0) hash ^= MUid.GetHashCode();
+      if (MUsrid != 0) hash ^= MUsrid.GetHashCode();
+      if (MItemid != 0) hash ^= MItemid.GetHashCode();
       if (MType != 0) hash ^= MType.GetHashCode();
+      if (MCount != 0) hash ^= MCount.GetHashCode();
+      if (MName.Length != 0) hash ^= MName.GetHashCode();
       if (MHp != 0) hash ^= MHp.GetHashCode();
       if (MMp != 0) hash ^= MMp.GetHashCode();
       if (MAtk != 0) hash ^= MAtk.GetHashCode();
+      if (MDef != 0) hash ^= MDef.GetHashCode();
       if (MPrice != 0) hash ^= MPrice.GetHashCode();
-      if (MCount != 0) hash ^= MCount.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1188,33 +1231,45 @@ namespace Proto.Unity {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      if (MUid != 0) {
+      if (MUsrid != 0) {
         output.WriteRawTag(8);
-        output.WriteUInt32(MUid);
+        output.WriteUInt32(MUsrid);
+      }
+      if (MItemid != 0) {
+        output.WriteRawTag(16);
+        output.WriteUInt32(MItemid);
       }
       if (MType != 0) {
-        output.WriteRawTag(16);
+        output.WriteRawTag(24);
         output.WriteUInt32(MType);
       }
+      if (MCount != 0) {
+        output.WriteRawTag(32);
+        output.WriteUInt32(MCount);
+      }
+      if (MName.Length != 0) {
+        output.WriteRawTag(42);
+        output.WriteString(MName);
+      }
       if (MHp != 0) {
-        output.WriteRawTag(24);
+        output.WriteRawTag(48);
         output.WriteUInt32(MHp);
       }
       if (MMp != 0) {
-        output.WriteRawTag(32);
+        output.WriteRawTag(56);
         output.WriteUInt32(MMp);
       }
       if (MAtk != 0) {
-        output.WriteRawTag(40);
+        output.WriteRawTag(64);
         output.WriteUInt32(MAtk);
       }
-      if (MPrice != 0) {
-        output.WriteRawTag(48);
-        output.WriteUInt32(MPrice);
+      if (MDef != 0) {
+        output.WriteRawTag(72);
+        output.WriteUInt32(MDef);
       }
-      if (MCount != 0) {
-        output.WriteRawTag(56);
-        output.WriteUInt32(MCount);
+      if (MPrice != 0) {
+        output.WriteRawTag(80);
+        output.WriteUInt32(MPrice);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -1224,11 +1279,20 @@ namespace Proto.Unity {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (MUid != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(MUid);
+      if (MUsrid != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(MUsrid);
+      }
+      if (MItemid != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(MItemid);
       }
       if (MType != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(MType);
+      }
+      if (MCount != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(MCount);
+      }
+      if (MName.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(MName);
       }
       if (MHp != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(MHp);
@@ -1239,11 +1303,11 @@ namespace Proto.Unity {
       if (MAtk != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(MAtk);
       }
+      if (MDef != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(MDef);
+      }
       if (MPrice != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(MPrice);
-      }
-      if (MCount != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(MCount);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1256,11 +1320,20 @@ namespace Proto.Unity {
       if (other == null) {
         return;
       }
-      if (other.MUid != 0) {
-        MUid = other.MUid;
+      if (other.MUsrid != 0) {
+        MUsrid = other.MUsrid;
+      }
+      if (other.MItemid != 0) {
+        MItemid = other.MItemid;
       }
       if (other.MType != 0) {
         MType = other.MType;
+      }
+      if (other.MCount != 0) {
+        MCount = other.MCount;
+      }
+      if (other.MName.Length != 0) {
+        MName = other.MName;
       }
       if (other.MHp != 0) {
         MHp = other.MHp;
@@ -1271,11 +1344,11 @@ namespace Proto.Unity {
       if (other.MAtk != 0) {
         MAtk = other.MAtk;
       }
+      if (other.MDef != 0) {
+        MDef = other.MDef;
+      }
       if (other.MPrice != 0) {
         MPrice = other.MPrice;
-      }
-      if (other.MCount != 0) {
-        MCount = other.MCount;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1289,31 +1362,43 @@ namespace Proto.Unity {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            MUid = input.ReadUInt32();
+            MUsrid = input.ReadUInt32();
             break;
           }
           case 16: {
-            MType = input.ReadUInt32();
+            MItemid = input.ReadUInt32();
             break;
           }
           case 24: {
-            MHp = input.ReadUInt32();
+            MType = input.ReadUInt32();
             break;
           }
           case 32: {
-            MMp = input.ReadUInt32();
+            MCount = input.ReadUInt32();
             break;
           }
-          case 40: {
-            MAtk = input.ReadUInt32();
+          case 42: {
+            MName = input.ReadString();
             break;
           }
           case 48: {
-            MPrice = input.ReadUInt32();
+            MHp = input.ReadUInt32();
             break;
           }
           case 56: {
-            MCount = input.ReadUInt32();
+            MMp = input.ReadUInt32();
+            break;
+          }
+          case 64: {
+            MAtk = input.ReadUInt32();
+            break;
+          }
+          case 72: {
+            MDef = input.ReadUInt32();
+            break;
+          }
+          case 80: {
+            MPrice = input.ReadUInt32();
             break;
           }
         }

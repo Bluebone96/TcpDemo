@@ -35,17 +35,16 @@ public:
     int8_t run();
 
 
-    // 广播专用，急需优化
+    // TODO 广播专用，急需优化
     void broadcaster(message* _msg);
 private:
-    std::map<uint32_t, uint32_t> m_usrkey; // 验证令牌
+    // 暂未使用
+    // std::map<uint32_t, uint32_t> m_usrkey; // 验证令牌  
+    // std::map<uint32_t, uint32_t> m_usrserver; // usr所属的game服务器
 
-    std::map<uint32_t, uint32_t> m_usrfd;   // bug  客户端断开后无法进行有效清除
+    // todo 客户端断开后如何进行有效清除 , 方案一 直接 erase, 方案二 将 fd 设置为 -1，每次发送前判断
+    std::map<uint32_t, int32_t> m_usrfd;   
     
-    std::map<uint32_t, uint32_t> m_usrserver; // usr所属的game服务器
-
-    // 广播用的，暂时顶一下, 急需优化
-    std::vector<client_info> m_clientsfd;
 
     class safevector{
     public:
@@ -86,6 +85,9 @@ private:
     };
 
     safevector m_errorfd; // 无效fd, 删除掉
+    
+    // 广播用的，暂时顶一下, 急需优化
+    std::vector<client_info> m_clientsfd;
 };
 
 

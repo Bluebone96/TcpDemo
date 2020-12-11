@@ -804,60 +804,89 @@ class ItemInfo final :
 
   // accessors -------------------------------------------------------
 
-  // uint32 m_uid = 1;
-  void clear_m_uid();
-  static const int kMUidFieldNumber = 1;
-  ::google::protobuf::uint32 m_uid() const;
-  void set_m_uid(::google::protobuf::uint32 value);
+  // string m_name = 5;
+  void clear_m_name();
+  static const int kMNameFieldNumber = 5;
+  const ::std::string& m_name() const;
+  void set_m_name(const ::std::string& value);
+  #if LANG_CXX11
+  void set_m_name(::std::string&& value);
+  #endif
+  void set_m_name(const char* value);
+  void set_m_name(const char* value, size_t size);
+  ::std::string* mutable_m_name();
+  ::std::string* release_m_name();
+  void set_allocated_m_name(::std::string* m_name);
 
-  // uint32 m_type = 2;
+  // uint32 m_usrid = 1;
+  void clear_m_usrid();
+  static const int kMUsridFieldNumber = 1;
+  ::google::protobuf::uint32 m_usrid() const;
+  void set_m_usrid(::google::protobuf::uint32 value);
+
+  // uint32 m_itemid = 2;
+  void clear_m_itemid();
+  static const int kMItemidFieldNumber = 2;
+  ::google::protobuf::uint32 m_itemid() const;
+  void set_m_itemid(::google::protobuf::uint32 value);
+
+  // uint32 m_type = 3;
   void clear_m_type();
-  static const int kMTypeFieldNumber = 2;
+  static const int kMTypeFieldNumber = 3;
   ::google::protobuf::uint32 m_type() const;
   void set_m_type(::google::protobuf::uint32 value);
 
-  // uint32 m_hp = 3;
+  // uint32 m_count = 4;
+  void clear_m_count();
+  static const int kMCountFieldNumber = 4;
+  ::google::protobuf::uint32 m_count() const;
+  void set_m_count(::google::protobuf::uint32 value);
+
+  // uint32 m_hp = 6;
   void clear_m_hp();
-  static const int kMHpFieldNumber = 3;
+  static const int kMHpFieldNumber = 6;
   ::google::protobuf::uint32 m_hp() const;
   void set_m_hp(::google::protobuf::uint32 value);
 
-  // uint32 m_mp = 4;
+  // uint32 m_mp = 7;
   void clear_m_mp();
-  static const int kMMpFieldNumber = 4;
+  static const int kMMpFieldNumber = 7;
   ::google::protobuf::uint32 m_mp() const;
   void set_m_mp(::google::protobuf::uint32 value);
 
-  // uint32 m_atk = 5;
+  // uint32 m_atk = 8;
   void clear_m_atk();
-  static const int kMAtkFieldNumber = 5;
+  static const int kMAtkFieldNumber = 8;
   ::google::protobuf::uint32 m_atk() const;
   void set_m_atk(::google::protobuf::uint32 value);
 
-  // uint32 m_price = 6;
+  // uint32 m_def = 9;
+  void clear_m_def();
+  static const int kMDefFieldNumber = 9;
+  ::google::protobuf::uint32 m_def() const;
+  void set_m_def(::google::protobuf::uint32 value);
+
+  // uint32 m_price = 10;
   void clear_m_price();
-  static const int kMPriceFieldNumber = 6;
+  static const int kMPriceFieldNumber = 10;
   ::google::protobuf::uint32 m_price() const;
   void set_m_price(::google::protobuf::uint32 value);
-
-  // uint32 m_count = 7;
-  void clear_m_count();
-  static const int kMCountFieldNumber = 7;
-  ::google::protobuf::uint32 m_count() const;
-  void set_m_count(::google::protobuf::uint32 value);
 
   // @@protoc_insertion_point(class_scope:Proto.Unity.ItemInfo)
  private:
   class HasBitSetters;
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::uint32 m_uid_;
+  ::google::protobuf::internal::ArenaStringPtr m_name_;
+  ::google::protobuf::uint32 m_usrid_;
+  ::google::protobuf::uint32 m_itemid_;
   ::google::protobuf::uint32 m_type_;
+  ::google::protobuf::uint32 m_count_;
   ::google::protobuf::uint32 m_hp_;
   ::google::protobuf::uint32 m_mp_;
   ::google::protobuf::uint32 m_atk_;
+  ::google::protobuf::uint32 m_def_;
   ::google::protobuf::uint32 m_price_;
-  ::google::protobuf::uint32 m_count_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_PlayerInfo_2eproto;
 };
@@ -2631,21 +2660,35 @@ inline void Authentication::set_allocated_password(::std::string* password) {
 
 // ItemInfo
 
-// uint32 m_uid = 1;
-inline void ItemInfo::clear_m_uid() {
-  m_uid_ = 0u;
+// uint32 m_usrid = 1;
+inline void ItemInfo::clear_m_usrid() {
+  m_usrid_ = 0u;
 }
-inline ::google::protobuf::uint32 ItemInfo::m_uid() const {
-  // @@protoc_insertion_point(field_get:Proto.Unity.ItemInfo.m_uid)
-  return m_uid_;
+inline ::google::protobuf::uint32 ItemInfo::m_usrid() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.ItemInfo.m_usrid)
+  return m_usrid_;
 }
-inline void ItemInfo::set_m_uid(::google::protobuf::uint32 value) {
+inline void ItemInfo::set_m_usrid(::google::protobuf::uint32 value) {
   
-  m_uid_ = value;
-  // @@protoc_insertion_point(field_set:Proto.Unity.ItemInfo.m_uid)
+  m_usrid_ = value;
+  // @@protoc_insertion_point(field_set:Proto.Unity.ItemInfo.m_usrid)
 }
 
-// uint32 m_type = 2;
+// uint32 m_itemid = 2;
+inline void ItemInfo::clear_m_itemid() {
+  m_itemid_ = 0u;
+}
+inline ::google::protobuf::uint32 ItemInfo::m_itemid() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.ItemInfo.m_itemid)
+  return m_itemid_;
+}
+inline void ItemInfo::set_m_itemid(::google::protobuf::uint32 value) {
+  
+  m_itemid_ = value;
+  // @@protoc_insertion_point(field_set:Proto.Unity.ItemInfo.m_itemid)
+}
+
+// uint32 m_type = 3;
 inline void ItemInfo::clear_m_type() {
   m_type_ = 0u;
 }
@@ -2659,7 +2702,74 @@ inline void ItemInfo::set_m_type(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:Proto.Unity.ItemInfo.m_type)
 }
 
-// uint32 m_hp = 3;
+// uint32 m_count = 4;
+inline void ItemInfo::clear_m_count() {
+  m_count_ = 0u;
+}
+inline ::google::protobuf::uint32 ItemInfo::m_count() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.ItemInfo.m_count)
+  return m_count_;
+}
+inline void ItemInfo::set_m_count(::google::protobuf::uint32 value) {
+  
+  m_count_ = value;
+  // @@protoc_insertion_point(field_set:Proto.Unity.ItemInfo.m_count)
+}
+
+// string m_name = 5;
+inline void ItemInfo::clear_m_name() {
+  m_name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& ItemInfo::m_name() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.ItemInfo.m_name)
+  return m_name_.GetNoArena();
+}
+inline void ItemInfo::set_m_name(const ::std::string& value) {
+  
+  m_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:Proto.Unity.ItemInfo.m_name)
+}
+#if LANG_CXX11
+inline void ItemInfo::set_m_name(::std::string&& value) {
+  
+  m_name_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:Proto.Unity.ItemInfo.m_name)
+}
+#endif
+inline void ItemInfo::set_m_name(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  m_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:Proto.Unity.ItemInfo.m_name)
+}
+inline void ItemInfo::set_m_name(const char* value, size_t size) {
+  
+  m_name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:Proto.Unity.ItemInfo.m_name)
+}
+inline ::std::string* ItemInfo::mutable_m_name() {
+  
+  // @@protoc_insertion_point(field_mutable:Proto.Unity.ItemInfo.m_name)
+  return m_name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* ItemInfo::release_m_name() {
+  // @@protoc_insertion_point(field_release:Proto.Unity.ItemInfo.m_name)
+  
+  return m_name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void ItemInfo::set_allocated_m_name(::std::string* m_name) {
+  if (m_name != nullptr) {
+    
+  } else {
+    
+  }
+  m_name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), m_name);
+  // @@protoc_insertion_point(field_set_allocated:Proto.Unity.ItemInfo.m_name)
+}
+
+// uint32 m_hp = 6;
 inline void ItemInfo::clear_m_hp() {
   m_hp_ = 0u;
 }
@@ -2673,7 +2783,7 @@ inline void ItemInfo::set_m_hp(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:Proto.Unity.ItemInfo.m_hp)
 }
 
-// uint32 m_mp = 4;
+// uint32 m_mp = 7;
 inline void ItemInfo::clear_m_mp() {
   m_mp_ = 0u;
 }
@@ -2687,7 +2797,7 @@ inline void ItemInfo::set_m_mp(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:Proto.Unity.ItemInfo.m_mp)
 }
 
-// uint32 m_atk = 5;
+// uint32 m_atk = 8;
 inline void ItemInfo::clear_m_atk() {
   m_atk_ = 0u;
 }
@@ -2701,7 +2811,21 @@ inline void ItemInfo::set_m_atk(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:Proto.Unity.ItemInfo.m_atk)
 }
 
-// uint32 m_price = 6;
+// uint32 m_def = 9;
+inline void ItemInfo::clear_m_def() {
+  m_def_ = 0u;
+}
+inline ::google::protobuf::uint32 ItemInfo::m_def() const {
+  // @@protoc_insertion_point(field_get:Proto.Unity.ItemInfo.m_def)
+  return m_def_;
+}
+inline void ItemInfo::set_m_def(::google::protobuf::uint32 value) {
+  
+  m_def_ = value;
+  // @@protoc_insertion_point(field_set:Proto.Unity.ItemInfo.m_def)
+}
+
+// uint32 m_price = 10;
 inline void ItemInfo::clear_m_price() {
   m_price_ = 0u;
 }
@@ -2713,20 +2837,6 @@ inline void ItemInfo::set_m_price(::google::protobuf::uint32 value) {
   
   m_price_ = value;
   // @@protoc_insertion_point(field_set:Proto.Unity.ItemInfo.m_price)
-}
-
-// uint32 m_count = 7;
-inline void ItemInfo::clear_m_count() {
-  m_count_ = 0u;
-}
-inline ::google::protobuf::uint32 ItemInfo::m_count() const {
-  // @@protoc_insertion_point(field_get:Proto.Unity.ItemInfo.m_count)
-  return m_count_;
-}
-inline void ItemInfo::set_m_count(::google::protobuf::uint32 value) {
-  
-  m_count_ = value;
-  // @@protoc_insertion_point(field_set:Proto.Unity.ItemInfo.m_count)
 }
 
 // -------------------------------------------------------------------

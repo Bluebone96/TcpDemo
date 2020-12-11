@@ -36,7 +36,7 @@ int8_t gate_server::run()
             case USERLOGIN:
                 TRACER("new player login usrid is %d, fd is %d\n", msg->m_head.m_usrID, msg->m_from);
                 m_usrfd[msg->m_head.m_usrID] = msg->m_from;    // 第一次登录
-                m_clientsfd.emplace_back(client_info(msg->m_head.m_usrID, msg->m_from));
+                // m_clientsfd.emplace_back(client_info(msg->m_head.m_usrID, msg->m_from));
                 break;
             case SERVER_INFO:
                 {
@@ -50,7 +50,7 @@ int8_t gate_server::run()
 
                     switch (msg->m_head.m_type)
                     {
-                        case USEREXIT:
+                        case USEREXIT: // 服务器主动退出
                             for (auto iter = m_clientsfd.begin(), end = m_clientsfd.end(); iter != end; ++iter) {
                                 if (iter->usrid == msg->m_head.m_usrID) {
                                     m_clientsfd.erase(iter);
@@ -75,7 +75,16 @@ int8_t gate_server::run()
                     }
 
                 } else {
-                    
+                    if (msg->m_head.m_type == USEREXIT) {
+                        m_usrfd.erase(msg->m_head.m_usrID);
+                        for (auto iter = m_clientsfd.begin(), end = m_clientsfd.end(); iter != end; ++iter) {
+                            if (iter->usrid == msg->m_head.m_type) {
+                                m_clientsfd.erase(iter);
+                                break;
+                            }
+                        }
+                    }
+
                     tcp_socket::tcp_send(g_connet_server[GAME_SERVER], msg->m_data, msg->m_head.m_len + MSG_HEAD_SIZE);
                 }
                 break;
@@ -139,14 +148,25 @@ void gate_server::broadcaster(message* _msg)
         t4.join();
     }
 
-    for (int i = 0, j = m_errorfd.size(); i < j; ++i) {
-        m_usrfd.erase(m_errorfd[i].usrid);
-        m_clientsfd.erase(std::remove(m_clientsfd.begin(), m_clientsfd.end(), m_errorfd[i]), m_clientsfd.end());
+
+    // todo 优化
+    if (m_errorfd.size() > 0) {
+        for (int i = 0, j = m_errorfd.size(); i < j; ++i) {
+            m_usrfd.erase(m_errorfd[i].usrid);
+            // m_clientsfd.erase(std::remove(m_clientsfd.begin(), m_clientsfd.end(), m_errorfd[i]), m_clientsfd.end());
+        }
+        int end = m_clientsfd.size();
+        for (int i = 0; i < end; ++i) {
+            for (int n = 0, m = m_errorfd.size(); n < m; ++n) {
+                if (m_errorfd[n] == m_clientsfd[i]) {
+                    m_clientsfd[i] = m_clientsfd[--end];
+                }
+            }
+        }
+        m_clientsfd.erase(m_clientsfd.begin() + end, m_clientsfd.end());
+        m_errorfd.clear();
     }
-    
-    m_errorfd.clear();
+
 
     return;
 }
-
-#include <byteswap.h>

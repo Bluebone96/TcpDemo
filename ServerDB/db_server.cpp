@@ -87,9 +87,44 @@ void db_server::db_reply(message* _msg, int _type)
 int8_t db_server::set_pass(message* _msg)
 {
     uint32_t usrid = _msg->m_head.m_usrID;
-    m_passdb[usrid].pass = ntoh_32(*(int32_t*)(_msg->m_pdata));
+    m_passdb[usrid]->pass = ntoh_32(*(int32_t*)(_msg->m_pdata));
 
     db_reply(_msg, DB_SUCCESS);
+    return 0;
+}
+
+
+int8_t db_server::get_player_from_sql(uint32_t _usrid)
+{
+    std::vector<PLAYER> player;
+    char cmd[100];
+    snprintf(cmd, 100, "select * PLAYER where id = %d", _usrid);
+
+    if (m_sql.GetBySQL(player, cmd) < 0) {
+        return -1;
+    }
+
+    m_playerdb.insert(std::make_pair(_usrid, new PLAYER(player[0])));
+    
+    return 0;
+}
+
+int8_t db_server::get_player_allitems_from_sql(uint32_t _usrid)
+{
+    std::vector<ITEM> vitems;
+    char cmd[100];
+    snprintf(cmd, 100, "select * from ITEM where userid = %d", _usrid);
+    if (m_sql.GetBySQL(vitems, cmd) < 0) {
+        TRACER_ERROR("no items info for player id =  %d", _usrid);
+        return -1;
+    }
+
+    auto mitems = new std::map<uint32_t, ITEM>();
+    for (auto&x : vitems) {
+        // If I moved the ith element out, then ith slot goes into an undefined but valid state, 未定义但有效
+        mitems->insert(std::make_pair(x.itemid, std::move(x)));
+    }
+
     return 0;
 }
 
@@ -111,18 +146,14 @@ int8_t db_server::get_pass(message *_msg)
             db_reply(_msg, DB_FAILED);
         }
         TRACER_DEBUG("usrid is %d, pass is %d\n", pass[0].id, pass[0].pass);
-        auto ret = m_passdb_bak.insert(std::make_pair(usrid, pass[0]));
-        if (!ret.second) {
-            TRACER_ERROR("------BUG BUG BUG-----\n%s:%d\n", __POSITION__);
-        }
 
-        ret = m_passdb.insert(std::make_pair(usrid, pass[0]));
+        auto ret = m_passdb.insert(std::make_pair(usrid, new PASS(pass[0])));
         if (!ret.second) {
             TRACER_ERROR("------BUG BUG BUG-----\n%s:%d\n", __POSITION__);
         }
     } 
 
-    *(int32_t*)(_msg->m_pdata) = hton_32(m_passdb[usrid].pass);
+    *(int32_t*)(_msg->m_pdata) = hton_32(m_passdb[usrid]->pass);
 
     _msg->m_head.m_type = GETPASS;
 
@@ -145,45 +176,24 @@ int8_t db_server::get_item(message *_msg)
     uint32_t itemid = ntoh_32(*(uint32_t*)(_msg->m_pdata));
 
     auto iter_usr = m_itemdb.find(usrid);
-    if (iter_usr != m_itemdb.end()) {
-        auto iter_item = iter_usr->second.find(itemid);
-        if (iter_item != iter_usr->second.end()) {
-            sql2pb(iter_item->second, &m_itempb);
-            message *msg = nullptr;
 
-            while ((msg = g_send_queue.enqueue()) == nullptr)
-            {
-                // 队列满了, 因为 dequeue 后 需要占有内存进行计算，有一定数据失效时间， 所以 enqueue 始终快于 dequeue
-                TRACER_ERROR("sleep 50ms, g_recv_queue is full, usrid is %d\n", usrid);
-                g_send_queue.debug_info();
-                usleep(50 * 1000);
-            }
-
-            msg->m_head.m_type = GETITEM;  // 如果用 db_success 请求方需保存上一次的请求类型，暂时用 errid==0 表示成功
-            msg->m_head.m_errID = 0;
-            msg->m_head.m_usrID = usrid;
-            msg->m_head.m_len = m_itempb.ByteSizeLong();
-            msg->m_to = _msg->m_from;
-            
-            msg->encode_pb(m_itempb);
-
-            msg->m_flag = msg_flags::ACTIVE;
-            return 0;
+    if (iter_usr == m_itemdb.end()) {
+        if (get_player_allitems_from_sql(usrid) < 0) {
+            TRACER_ERROR("no item for player id = %d\n", usrid);
+            db_reply(_msg, DB_FAILED);
+            return -1;
         }
-    } 
+    }
 
-    std::vector<ITEM> items;
-    char cmd[100] = {0};
-    snprintf(cmd, 100, "SELECT * FROM ITEM where userid = %d, itemid = %d", usrid, itemid);
-    if (m_sql.GetBySQL(items, cmd) < 0) {
+
+    auto item = m_itemdb[usrid]->find(itemid);
+
+    if (item == m_itemdb[usrid]->end()) {
+        TRACER_ERROR("no item for player id = %d\n", usrid);
         db_reply(_msg, DB_FAILED);
         return -1;
     }
 
-    m_itemdb[usrid][itemid] = items[0];
-    m_itemdb_bak[usrid][itemid] = items[0];
-
-    sql2pb(items[0], &m_itempb);
     message *msg = nullptr;
 
     while ((msg = g_send_queue.enqueue()) == nullptr)
@@ -194,7 +204,7 @@ int8_t db_server::get_item(message *_msg)
         usleep(50 * 1000);
     }
     
-
+    
     msg->m_head.m_type = GETITEM;  // 如果用 db_success 请求方需保存上一次的请求类型，暂时用 errid==0 表示成功
     msg->m_head.m_errID = 0;
     msg->m_head.m_usrID = usrid;
@@ -208,25 +218,37 @@ int8_t db_server::get_item(message *_msg)
 }
 
 
+int8_t db_server::set_item(uint32_t _usrid, const ITEM& _itemsql)
+{
+    auto iter_usr = m_itemdb.find(_usrid);
+    if (iter_usr != m_itemdb.end()) {
+        auto iter_item = iter_usr->second->find(_itemsql.itemid);
+        if (iter_item != iter_usr->second->end()) {
+            m_sql.ModBySQL(iter_item->second, m_itemsql);
+            
+            iter_item->second = m_itemsql;
+            return 0;
+        }
+    }
+
+    return -1;
+}
+
+
 int8_t db_server::set_item(message *_msg)
 {
     uint32_t usrid = _msg->m_head.m_usrID;
 
     _msg->decode_pb(m_itempb);
     
-    pb2sql(&m_itempb, m_itemslq);
+    pb2sql(&m_itempb, &m_itemsql);
 
-    auto iter_usr = m_itemdb.find(usrid);
-    if (iter_usr != m_itemdb.end()) {
-        auto iter_item = iter_usr->second.find(m_itemslq.itemid);
-        if (iter_item != iter_usr->second.end()) {
-            iter_item->second = m_itemslq;
-            db_reply(_msg, DB_SUCCESS);
-            return 0;
-        }
+    if (set_item(usrid, m_itemsql) < 0) {
+        db_reply(_msg, DB_FAILED); // 失败才返回消息
+        return -1;
     }
-    db_reply(_msg, DB_FAILED);
-    return -1;
+
+    return 0;
 }
 
 int8_t db_server::add_item(message *_msg)
@@ -235,18 +257,19 @@ int8_t db_server::add_item(message *_msg)
 
     _msg->decode_pb(m_itempb);
 
-    pb2sql(&m_itempb, m_itemslq);
-    m_itemslq.userid = usrid;
+    pb2sql(&m_itempb, &m_itemsql);
 
-    m_itemdb[usrid].insert(std::make_pair(m_itemslq.itemid, m_itemslq));
-    m_itemdb_bak[usrid].insert(std::make_pair(m_itemslq.itemid, m_itemslq));
-
-    m_sql.SetBySQL(m_itemslq);
+    auto items = m_itemdb.find(usrid);
+    if (items != m_itemdb.end()) {
+        m_itemdb[usrid]->insert(std::make_pair(m_itemsql.itemid, m_itemsql));
+        m_sql.SetBySQL(m_itemsql);
+    }
 
     db_reply(_msg, DB_SUCCESS);
 
     return 0;
 }
+
 
 
 int8_t db_server::get_player(message *_msg)
@@ -255,20 +278,13 @@ int8_t db_server::get_player(message *_msg)
 
     auto iter = m_playerdb.find(usrid);
     if (iter == m_playerdb.end()) {
-        std::vector<PLAYER> player;
-        char cmd[100];
-        snprintf(cmd, 100, "select * PLAYER where id = %d", usrid);
-
-        if (m_sql.GetBySQL(player, cmd) < 0) {
-            db_reply(_msg, DB_FAILED);
+        if (get_player_from_sql(usrid) < 0) {
+            TRACER_ERROR("can't find player from db & sql, player id = %d\n", usrid);
             return -1;
         }
-
-        m_playerdb[usrid] = player[0];
-        m_playerdb_bak[usrid] = player[0];
     }
 
-    sql2pb(m_playerdb[usrid], m_playerpb);
+    sql2pb(iter->second, &m_playerpb);
 
     message *msg = nullptr;
 
@@ -280,8 +296,6 @@ int8_t db_server::get_player(message *_msg)
         usleep(50 * 1000);
     }
 
-
-
     msg->m_head.m_usrID = usrid;
     msg->m_head.m_type = GETPLAYER;
     msg->m_head.m_errID = 0;
@@ -292,48 +306,71 @@ int8_t db_server::get_player(message *_msg)
     return 0;
 }
 
+int8_t db_server::set_player(uint32_t _usrid, const PLAYER& _playerslq)
+{
+    auto player = m_playerdb.find(_usrid);
+    if (player != m_playerdb.end()) {
+        m_sql.ModBySQL(*(player->second), _playerslq);
+        *(player->second) = m_playersql;
+        return 0;
+    }
+    return -1;
+}
+
+
+
 int8_t db_server::set_player(message *_msg)
 {
     uint32_t usrid  = _msg->m_head.m_usrID;
+    
+    _msg->decode_pb(m_playerpb);
+    pb2sql(&m_playerpb, &m_playersql);
 
-    Proto::Unity::PlayerInfo *info = m_allplayer_info[usrid].mutable_baseinfo();
+    if (set_player(usrid, m_playersql) < 0) {
+        db_reply(_msg, DB_FAILED);
+        return 0;
+    }
 
-    _msg->decode_pb(*info);
-
-    db_reply(_msg, DB_SUCCESS);
-
-    return 0;
+    return -1;
 }
+
+
+
 
 
 int8_t db_server::get_all(message *_msg)
 {
 
+    Proto::Unity::PlayerAllFuckInfo player_all_info;
+    
     uint32_t usrid = _msg->m_head.m_usrID;
 
-    auto iter = m_allplayer_info.find(usrid);
-    
-    if (iter == m_allplayer_info.end()) {
-        std::vector<PLAYER> player;
-        char cmd[100] = {0};
-        snprintf(cmd, 100, "select * from PLAYER where id = %d", usrid);
-        m_sql.GetBySQL(player, cmd);
-        Proto::Unity::PlayerAllFuckInfo player_all_info;
-        sql2pb(player[0], *player_all_info.mutable_baseinfo());
-
-        std::vector<ITEM> items;
-
-        snprintf(cmd, 100, "select * from ITEM where userid = %d", usrid);
-
-        m_sql.GetBySQL(items, cmd);
-
-        for (auto& x : items) {
-            Proto::Unity::ItemInfo *item = player_all_info.mutable_baginfo()->add_items();
-
-            sql2pb(x, item);
+    auto player_iter = m_playerdb.find(usrid);
+    if (player_iter == m_playerdb.end()) {
+        if (get_player_from_sql(usrid) < 0) {
+            TRACER_ERROR("can't find player id: %d\n", usrid);
+            return -1;
         }
+    }
 
-        m_allplayer_info.insert(std::make_pair(usrid, std::move(player_all_info)));
+    sql2pb(&m_playersql, player_all_info.mutable_baseinfo());
+
+
+    auto items_iter = m_itemdb.find(usrid);
+    if (items_iter == m_itemdb.end()) {
+        if (get_player_allitems_from_sql(usrid) < 0) {
+            TRACER_ERROR("can't find player items from db & sql, inventory is empty! player id = %d\n", usrid);
+            // return -1;
+        } else {
+            items_iter = m_itemdb.find(usrid);
+        }
+    } 
+
+    if (items_iter != m_itemdb.end()) {
+        for (auto item = items_iter->second->cbegin(), end = items_iter->second->cend(); item != end; ++item) {
+            auto *pb = player_all_info.mutable_baginfo()->add_items();
+            sql2pb(&item->second, pb);
+        }
     }
 
     message *msg = nullptr;
@@ -350,19 +387,34 @@ int8_t db_server::get_all(message *_msg)
     msg->m_head.m_usrID = usrid;
     msg->m_head.m_errID = 0;
     msg->m_to = _msg->m_from;
-    msg->encode_pb(m_allplayer_info[usrid]);
+    msg->encode_pb(player_all_info);
     msg->m_flag = msg_flags::ACTIVE;
 
     return 0;
 }
 
 int8_t db_server::set_all(message* _msg)
-{
+{   
+    Proto::Unity::PlayerAllFuckInfo player_all_info;
+
     uint32_t usrid = _msg->m_head.m_usrID;
     
-    _msg->decode_pb(m_allplayer_info[usrid]);
+    TRACER("usrid %d save allinfo\n", usrid);
 
-    db_reply(_msg, DB_SUCCESS);
+    _msg->decode_pb(player_all_info);
+
+
+    pb2sql(&player_all_info.baseinfo(), &m_playersql);
+
+    set_player(usrid, m_playersql);
+
+    // todo 待优化
+    for (const Proto::Unity::ItemInfo& x : player_all_info.baginfo().items()) {
+        pb2sql(&x, &m_itemsql);
+        set_item(usrid, m_itemsql);
+    }
+
+    // db_reply(_msg, DB_SUCCESS);
 
     return 0;
 }
@@ -370,6 +422,6 @@ int8_t db_server::set_all(message* _msg)
 
 int8_t db_server::saveall()
 {
-    //todo
+    //todo 把所有信息写回数据库
     return 0;
 }

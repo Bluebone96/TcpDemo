@@ -30,12 +30,12 @@ int Inventory::InitInventory(Proto::Unity::PlayerBag* _bag, Player* _player)
     m_player = _player;
 
     for (auto& x : m_playerBagPb->items()) {
-        BaseItem* item = ITEMFACTORY.CreateItem(x.m_type(), x.m_uid());
+        BaseItem* item = ITEMFACTORY.CreateItem(x.m_type(), x.m_itemid());
         if (item == nullptr) {
             continue;
         }
         addItem(item);
-        TRACER_DEBUG("add item id = %d, count is %d\n", x.m_uid(), x.m_count());
+        TRACER_DEBUG("add item id = %d, count is %d\n", x.m_itemid(), x.m_count());
     }
     TRACER_DEBUG("inventory init end\n");
 
@@ -85,12 +85,11 @@ int Inventory::delItem(uint _uid, int n)
         if (n < left) {
             iter->second->delItem(n);
             saveItem(iter->second);
-            return 0;
         } else if (n == left) {
             delete iter->second;
             m_mItems.erase(iter);
             m_baseBag.del(iter->first);
-            return 0;
+            
         }
     }
     return -1;
@@ -169,7 +168,7 @@ int Inventory::saveItem(BaseItem* _item)
     item2pb(_item, m_itempb);
 
     TRACER("save item to dbserver\n");
-    std::cout << "item id = " << m_itempb.m_uid() << "type is " << m_itempb.m_type() << std::endl;
+    std::cout << "item id = " << m_itempb.m_itemid() << "type is " << m_itempb.m_type() << std::endl;
     message* msg = g_send_queue.enqueue();
     
     while ((msg = g_send_queue.enqueue()) == nullptr)
@@ -180,7 +179,6 @@ int Inventory::saveItem(BaseItem* _item)
         usleep(50 * 1000);
     }
 
-    
     msg->m_head.m_type = SETITEM;
     msg->m_head.m_usrID = m_player->getId();
     msg->m_head.m_errID = 0;
@@ -265,14 +263,14 @@ int Inventory::sql2item(ITEM& _itemsql, BaseItem* _baseitem)
 
 int Inventory::item2pb(BaseItem* _baseitem, Proto::Unity::ItemInfo& _itempb)
 {
-    _itempb.set_m_uid(_baseitem->getUID());
+    _itempb.set_m_itemid(_baseitem->getUID());
     _itempb.set_m_count(_baseitem->getCount());
     _itempb.set_m_type(_baseitem->getType());
     _itempb.set_m_hp(_baseitem->getAttribute(ItemAttributeType::ITEM_ATTRIBUTE_HP));
     _itempb.set_m_atk(_baseitem->getAttribute(ItemAttributeType::ITEM_ATTRIBUTE_ATK));
 
     
-    std::cout << "id is " << _itempb.m_uid() << std::endl
+    std::cout << "id is " << _itempb.m_itemid() << std::endl
               << "count is " << _itempb.m_count() << std::endl;
 
     return 0;
@@ -281,7 +279,7 @@ int Inventory::item2pb(BaseItem* _baseitem, Proto::Unity::ItemInfo& _itempb)
 
 int Inventory::pb2item(Proto::Unity::ItemInfo& _itempb, BaseItem* _baseitem)
 {
-    _baseitem->setUID(_itempb.m_uid());
+    _baseitem->setUID(_itempb.m_itemid());
     _baseitem->setType(_itempb.m_type());
     _baseitem->setCount(_itempb.m_count());
     _baseitem->setAttribute(ItemAttributeType::ITEM_ATTRIBUTE_HP, _itempb.m_hp());

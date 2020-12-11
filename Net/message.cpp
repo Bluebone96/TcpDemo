@@ -51,7 +51,7 @@ message::~message()
 uint8_t message::decode()
 {   
     TRACER_DEBUG("msg decode head\n");
-    m_head.decode(m_data, 1024);
+    m_head.decode(m_data, MSG_BUF_SIZE);
     TRACER_DEBUG("msg decode head end\n");
     return 0;
 }
@@ -59,12 +59,12 @@ uint8_t message::decode()
 uint8_t message::encode()
 {
     TRACER_DEBUG("msg encode head\n");
-    return m_head.encode(m_data, 1024);
+    return m_head.encode(m_data, MSG_BUF_SIZE);
 }
 
 uint8_t message::decode_pb(google::protobuf::Message& _pb)
 {
-    m_head.decode(m_data, 1024);
+    m_head.decode(m_data, MSG_BUF_SIZE);
 
     TRACER_DEBUG("msg decode pb\n");
     _pb.ParseFromArray(m_pdata, m_head.m_len);
@@ -75,8 +75,8 @@ uint8_t message::decode_pb(google::protobuf::Message& _pb)
 uint8_t message::encode_pb(const google::protobuf::Message& _pb) {
     TRACER_DEBUG("msg encode head\n");
     m_head.m_len = _pb.ByteSizeLong();
-    _pb.SerializeToArray(m_pdata, 1024);
-    m_head.encode(m_data, 1024);
+    _pb.SerializeToArray(m_pdata, MSG_BUF_SIZE);
+    m_head.encode(m_data, MSG_BUF_SIZE);
     return 0;
 }
 
@@ -121,12 +121,13 @@ int8_t msg_queue::init_queue(uint32_t _s)
     m_size = roundup_pow_of_two(_s);
     try
     {
-        m_pmsg = new message[m_size];
+        m_pmsg = new message[m_size]();
     } catch (const std::exception& e) {
         std::cerr << e.what() << '\n';
         return -1;
     }
 
+    TRACER_DEBUG("messages flag %d, %d, %d, %d", m_pmsg[0].m_flag, m_pmsg[1].m_flag, m_pmsg[2].m_flag, m_pmsg[3].m_flag);
     return 0;
 }
 
@@ -136,7 +137,7 @@ message* msg_queue::enqueue()
 
     uint32_t pos = (m_in & (m_size - 1));
     if ((m_pmsg + pos)->m_flag != msg_flags::ACTIVE) { // 无效返回
-        TRACER_DEBUG("message enqueue, pos = %d, flag is %d\n", pos, static_cast<int>((m_pmsg + pos)->m_flag));
+        TRACER_DEBUG("message enqueue, pos = %d, flag is %d\n", pos, (m_pmsg + pos)->m_flag);
         ++m_in;
         return (m_pmsg + pos);
     }

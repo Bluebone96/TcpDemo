@@ -111,6 +111,7 @@ int8_t game_server::usr_exit(message *_msg)
             usleep(50 * 1000);
         }
 
+        TRACER("usrid %d exit", usrid);
         msg->m_head.m_type = USEREXIT;
         msg->m_head.m_usrID = usrid;
         msg->m_head.m_len = 0;
@@ -186,7 +187,8 @@ int8_t game_server::usr_update_item(message *_msg)
     if ((m_players[usrid]->update_Inventory(pb)) < 0) {
         return -1;
     }
-    
+
+    TRACER("test item msg, send msg to usrid %d\n", usrid);
     tcp_socket::tcp_send(_msg->m_from, _msg->m_data, _msg->m_head.m_len + MSG_HEAD_SIZE);
 
     return -1;
