@@ -32,8 +32,8 @@ public:
     ~gate_server();
 
     int8_t init_gate();
-    int8_t run();
-
+    int8_t run_client();
+    int8_t run_server();
 
     // TODO 广播专用，急需优化
     void broadcaster(message* _msg);

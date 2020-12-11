@@ -59,10 +59,8 @@ tcp_socket::~tcp_socket()
 }
 
 
-int8_t tcp_socket::tcp_init(int32_t _fd, uint32_t _bufsz)
+int8_t tcp_socket::tcp_init_buf(uint32_t _bufsz)
 {
-    m_socketfd = _fd;
-
     m_size = roundup_pow_of_two(_bufsz);
     try
     {
@@ -160,9 +158,10 @@ int32_t tcp_socket::tcp_listen(const char* hostname, int16_t port)
 }
 
 
-int32_t tcp_socket::tcp_accept(sockaddr_in* ps, socklen_t* len)
+int32_t tcp_socket::tcp_accept(int32_t _listenfd)
 {
-    int32_t acceptfd = accept(m_socketfd, (struct sockaddr*)ps, len);
+    socklen_t len;
+    int32_t acceptfd = accept(m_socketfd, (struct sockaddr*)&m_sockaddr, &len);
     
     if (acceptfd <= 0) {
         TRACERERRNO("accept client failed.");
@@ -175,7 +174,8 @@ int32_t tcp_socket::tcp_accept(sockaddr_in* ps, socklen_t* len)
 
     int on = 1;
     setsockopt(acceptfd, IPPROTO_TCP, TCP_NODELAY, (const void*)&on, sizeof(on));
-    
+
+    m_socketfd = acceptfd;
     return acceptfd;
 }
 

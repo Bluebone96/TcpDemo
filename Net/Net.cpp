@@ -11,53 +11,89 @@ Net::~Net()
 
 }
 
-int8_t Net::init(const char* _ip, uint32_t _port)
+int8_t Net::net_init(msg_queue* _recvq, msg_queue* _sendq)
 {
     TRACER("init network start\n");
-    int32_t fd = m_listenfd.tcp_listen(_ip, _port);
-    if (fd < 0) {
-        return -1;
-    }
-    TRACER("listenfd = %d\n", m_listenfd.getfd());
 
-    m_listenfd.tcp_init(fd);
+
+    g_recv_queue = _recvq;
+
 
     if (m_epoll.Init() < 0) {
         TRACER_ERROR("Server::Init Epoll::Init failed.\n");
         return -1;
     }
-    
+
+    return 0;
+}
+
+int8_t Net::net_listen(const char* _ip, uint32_t _port)
+{
+    TRACER("init network start\n");
+    int32_t fd = m_listen_socket.tcp_listen(_ip, _port);
+    if (fd < 0) {
+        TRACER_ERROR("net_listen failed , fd = %d\n", fd);
+        return -1;
+    }
+
+    // listen 不需要缓冲区
+    // m_listen_socket.tcp_init_buf(fd);
+
     if (m_epoll.Add(fd) < 0) {
         TRACER_ERROR("epoll add failed\n");
         return -1;
     }
-    TRACER("epoll add success\n");
+    m_listenfd = fd;
+
     return 0;
 }
 
+int8_t Net::net_connect(const char* _ip, uint32_t _port)
+{
+    auto socket = std::make_shared<tcp_socket>();
+    int32_t fd = socket->tcp_connect(_ip, _port);
+    socket->tcp_init_buf();
+    auto re = m_connections.insert(std::make_pair(fd, socket));
+    if (re.second == false) {
+        return -1;
+    }
+    if (m_epoll.Add(fd) < 0) {
+        TRACER_ERROR("epoll add failed\n");
+        return -1;
+    }
+    
+    return fd;
+}
 
 int8_t Net::product_msg()
 {
+    if (g_recv_queue == nullptr) {
+        TRACER_ERROR("g_recv_queue is nullptr\n");
+        return -1;
+    }
+
     for (;;) {
         int32_t fn = m_epoll.Wait();
         for (int32_t i = 0; i < fn; ++i) {
             struct epoll_event* pEvent = m_epoll.GetEvent(i);
 
-            if (pEvent->data.fd == (int32_t)m_listenfd.getfd()) {
+            if (pEvent->data.fd == m_listenfd) {
                 
-                int32_t newclient = m_listenfd.tcp_accept(nullptr, nullptr);
-                if (newclient > 0) {
-                    auto socket = std::make_shared<tcp_socket>();
-                    socket->tcp_init(newclient);
-
-                    auto re = m_connections.insert(std::make_pair(newclient, socket));
-                    if (re.second == false) {
-                        TRACER_ERROR("insert failed\n");
-                    }
-
-                    m_epoll.Add(newclient);
-                    TRACER_DEBUG("new client fd is %d\n", newclient);
+                auto socket = std::make_shared<tcp_socket>();
+                int32_t newclient = socket->tcp_accept(m_listenfd);
+                if (newclient < 0) {
+                    TRACER_ERROR("net::product_msg tcp_accept failed, fd = %d", newclient);
+                    continue;
                 }
+                socket->tcp_init_buf();
+
+                auto re = m_connections.insert(std::make_pair(newclient, socket));
+                if (re.second == false) {
+                    TRACER_ERROR("insert failed\n");
+                }
+
+                m_epoll.Add(newclient);
+
             } else {
                 uint32_t event = pEvent->events;
                 int32_t fd = pEvent->data.fd;
@@ -83,15 +119,15 @@ int8_t Net::product_msg()
                 }
 
                 TRACER_DEBUG("new message, fd is %d\n", fd);
-                auto socket = m_connections[fd];
+                auto& socket = m_connections[fd];
                 int ret = 0;
                 message *msg = nullptr;
 
-                while ((msg = g_recv_queue.enqueue()) == nullptr)
+                while ((msg = g_recv_queue->enqueue()) == nullptr)
                 {
                     // 队列满了, 因为 dequeue 后 需要占有内存进行计算，有一定数据失效时间， 所以 enqueue 始终快于 dequeue
                     TRACER_ERROR("sleep 50ms, g_recv_queue is full, fd is %d\n", fd);
-                    g_recv_queue.debug_info();
+                    g_recv_queue->debug_info();
                     usleep(50 * 1000);
                 }
 
@@ -109,12 +145,12 @@ int8_t Net::product_msg()
                     }
 
                     msg->m_flag = msg_flags::ACTIVE;
-                } while ((msg = g_recv_queue.enqueue()));
+                } while ((msg = g_recv_queue->enqueue()));
 
                 // if (msg == nullptr) {
                 //     // 队列满了, 因为 dequeue 后 需要占有内存进行计算，有一定数据失效时间， 所以 enqueue 始终快于 dequeue
                 //     TRACER_ERROR("g_recv_queue is full, fd is %d\n", fd);
-                //     g_recv_queue.debug_info();
+                //     g_recv_queue->debug_info();
                 //     usleep(100 * 1000);
                 // }
             }
@@ -128,9 +164,14 @@ int8_t Net::product_msg()
 
 int8_t Net::consume_msg()
 {
+    if (g_recv_queue == nullptr) {
+        TRACER_ERROR("g_recv_queue is nullptr\n");
+        return -1;
+    }
+
     message *msg = nullptr;
     for (;;) {
-        if ((msg = g_send_queue.dequeue()) == nullptr) {
+        if ((msg = g_send_queue->dequeue()) == nullptr) {
             usleep(100 * 1000);;
             // TRACER("Net::consume_msg() : g_send_queue msg is empty\n");
             continue;
@@ -182,16 +223,3 @@ int8_t Net::sendmsg(std::shared_ptr<tcp_socket>& _socket, message& _msg)
 }
 
 
-int8_t Net::connect(const char* _ip, uint32_t _port)
-{
-    auto socket = std::make_shared<tcp_socket>();
-    int32_t fd = socket->tcp_connect(_ip, _port);
-    socket->tcp_init(fd);
-    auto re = m_connections.insert(std::make_pair(fd, socket));
-    if (re.second == false) {
-        return -1;
-    }
-    m_epoll.Add(fd);
-
-    return fd;
-}

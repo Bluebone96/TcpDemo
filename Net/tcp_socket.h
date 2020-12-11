@@ -22,25 +22,25 @@ public:
 
     tcp_socket& operator=(const tcp_socket&) = delete;
 
-    int8_t tcp_init(int32_t fd, uint32_t _bufsz = (1024 * 512));
+    int8_t tcp_init_buf(uint32_t _bufsz = (1024 * 16));
 
-
+    // 创建一个socket 3种方式， connect listen accept
     int32_t tcp_connect(const char* hostname, int16_t port);
 
     int32_t tcp_listen(const char* hostname, int16_t port);
 
-    int32_t tcp_accept(sockaddr_in* ps = nullptr, socklen_t* len = nullptr);
+    int32_t tcp_accept(int32_t _listenfd);
+
 
     int32_t tcp_recv(uint8_t *_usrbuf, uint32_t _len);
 
     int32_t tcp_send(const uint8_t *_usrbuf, uint32_t _len);
-
+    
+    // 写无缓冲，提供静态方法接口
     static int32_t tcp_send(uint32_t fd, const uint8_t *_usrbuf, uint32_t _len);
 
     int32_t getfd() { return m_socketfd; }
     
-    // // 不要使用, 测试机器人用的
-    // int32_t tcp_close() { return close(m_socketfd); }
 private:
     int32_t recv_by_len(uint8_t *_usrbuf, uint32_t _len);
     int32_t recv_full();
