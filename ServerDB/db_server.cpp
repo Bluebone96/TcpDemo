@@ -24,7 +24,10 @@ int8_t db_server::init()
 {   
     TRACER("server init start connect sql\n");
     sql_config sql_cfg;
-    load_config("sql", sql_cfg);
+    if (load_config("sql", sql_cfg)) {
+        TRACER_ERROR("load sql config failed");
+        return -1;
+    }
     if (m_sql.Init(sql_cfg.db, sql_cfg.ip, sql_cfg.usr, sql_cfg.pass) < 0) {
         return -1;
     }
@@ -35,13 +38,14 @@ int8_t db_server::init()
 
 int8_t db_server::run()
 {
-    message* msg;
+    message *msg = nullptr;
     for (;;) {
         if ((msg = g_recv_queue.dequeue()) == nullptr) {
             usleep(100 * 1000);;
             continue;
         }
         TRACER_DEBUG("msg type is %d\n", msg->m_head.m_type);
+
         switch (msg->m_head.m_type) {
             case GETPASS:
                 get_pass(msg);
@@ -62,6 +66,7 @@ int8_t db_server::run()
                 set_player(msg);
                 break;
             case GET_ALLINFO:
+                TRACER_DEBUG("just for Debug !! %s:%d\n", __POSITION__);
                 get_all(msg);
                 break;
             case SET_ALLINFO:
@@ -98,14 +103,19 @@ int8_t db_server::get_player_from_sql(uint32_t _usrid)
 {
     std::vector<PLAYER> player;
     char cmd[100];
-    snprintf(cmd, 100, "select * PLAYER where id = %d", _usrid);
+    snprintf(cmd, 100, "SELECT * FROM PLAYER where id = %d", _usrid);
 
-    if (m_sql.GetBySQL(player, cmd) < 0) {
+
+    m_sql.GetBySQL(player, cmd);
+    if (player.size() == 0) {
+        TRACER_ERROR("can't find player from sql, usrid: %d\n", _usrid);
         return -1;
     }
-
+    
+    TRACER_DEBUG("player name: %s, id: %d\nposx: %f, posz: %f, speed: %d\n", player[0].name.c_str(), player[0].id, player[0].posx, player[0].posz, player[0].speed);
     m_playerdb.insert(std::make_pair(_usrid, new PLAYER(player[0])));
     
+
     return 0;
 }
 
@@ -113,8 +123,10 @@ int8_t db_server::get_player_allitems_from_sql(uint32_t _usrid)
 {
     std::vector<ITEM> vitems;
     char cmd[100];
-    snprintf(cmd, 100, "select * from ITEM where userid = %d", _usrid);
-    if (m_sql.GetBySQL(vitems, cmd) < 0) {
+    snprintf(cmd, 100, "SELECT * FROM ITEM where usrid = %d", _usrid);
+    
+    m_sql.GetBySQL(vitems, cmd);
+    if (vitems.size() == 0) {
         TRACER_ERROR("no items info for player id =  %d", _usrid);
         return -1;
     }
@@ -124,6 +136,8 @@ int8_t db_server::get_player_allitems_from_sql(uint32_t _usrid)
         // If I moved the ith element out, then ith slot goes into an undefined but valid state, 未定义但有效
         mitems->insert(std::make_pair(x.itemid, std::move(x)));
     }
+
+    m_itemdb.insert(std::make_pair(_usrid, mitems));
 
     return 0;
 }
@@ -139,9 +153,11 @@ int8_t db_server::get_pass(message *_msg)
         TRACER_DEBUG("db server not find , try to sql find usrid is %d\n", usrid);
 
         char cmd[100] = {0};
-        snprintf(cmd, 100, "select * from PASS where id = %d", usrid);
+        snprintf(cmd, 100, "SELECT * FROM PASS where id = %d", usrid);
         std::vector<PASS> pass;
-        if (m_sql.GetBySQL(pass, cmd) < 0) {
+        m_sql.GetBySQL(pass, cmd);
+
+        if (pass.size() == 0) {
             TRACER_ERROR("no pass for usrid %d\n", usrid);
             db_reply(_msg, DB_FAILED);
         }
@@ -224,7 +240,10 @@ int8_t db_server::set_item(uint32_t _usrid, const ITEM& _itemsql)
     if (iter_usr != m_itemdb.end()) {
         auto iter_item = iter_usr->second->find(_itemsql.itemid);
         if (iter_item != iter_usr->second->end()) {
-            m_sql.ModBySQL(iter_item->second, m_itemsql);
+            if (!m_sql.ModBySQL(iter_item->second, m_itemsql)) {
+                TRACER_ERROR("modbysql failed, try again. %s:%d\n", __POSITION__);
+                m_sql.ModBySQL(iter_item->second, m_itemsql);
+            }
             
             iter_item->second = m_itemsql;
             return 0;
@@ -262,7 +281,10 @@ int8_t db_server::add_item(message *_msg)
     auto items = m_itemdb.find(usrid);
     if (items != m_itemdb.end()) {
         m_itemdb[usrid]->insert(std::make_pair(m_itemsql.itemid, m_itemsql));
-        m_sql.SetBySQL(m_itemsql);
+        if (!m_sql.SetBySQL(m_itemsql)) {
+            TRACER_ERROR("sql.setbtsql failed! try again. %s:%d\n", __POSITION__);
+            m_sql.SetBySQL(m_itemsql);
+        }
     }
 
     db_reply(_msg, DB_SUCCESS);
@@ -310,7 +332,11 @@ int8_t db_server::set_player(uint32_t _usrid, const PLAYER& _playerslq)
 {
     auto player = m_playerdb.find(_usrid);
     if (player != m_playerdb.end()) {
-        m_sql.ModBySQL(*(player->second), _playerslq);
+        if (!m_sql.ModBySQL(*(player->second), _playerslq)) {
+            TRACER_ERROR("db_server::set_player, modbysql failed, try again. %s:%d\n", __POSITION__);
+            m_sql.ModBySQL(*(player->second), _playerslq);
+        };
+
         *(player->second) = m_playersql;
         return 0;
     }
@@ -346,15 +372,24 @@ int8_t db_server::get_all(message *_msg)
     uint32_t usrid = _msg->m_head.m_usrID;
 
     auto player_iter = m_playerdb.find(usrid);
+
     if (player_iter == m_playerdb.end()) {
         if (get_player_from_sql(usrid) < 0) {
             TRACER_ERROR("can't find player id: %d\n", usrid);
             return -1;
+        } else {
+            player_iter = m_playerdb.find(usrid);
         }
     }
 
-    sql2pb(&m_playersql, player_all_info.mutable_baseinfo());
+    if (player_iter != m_playerdb.end()) {
+        sql2pb(player_iter->second, player_all_info.mutable_baseinfo());
+    } else {
+        TRACER_ERROR("no player info. player id is %d", usrid);
+        return -1;
+    }
 
+    TRACER_DEBUG("just for Debug !! %s:%d\n", __POSITION__);
 
     auto items_iter = m_itemdb.find(usrid);
     if (items_iter == m_itemdb.end()) {
@@ -365,13 +400,17 @@ int8_t db_server::get_all(message *_msg)
             items_iter = m_itemdb.find(usrid);
         }
     } 
+    TRACER_DEBUG("just for Debug !! %s:%d\n", __POSITION__);
 
     if (items_iter != m_itemdb.end()) {
         for (auto item = items_iter->second->cbegin(), end = items_iter->second->cend(); item != end; ++item) {
             auto *pb = player_all_info.mutable_baginfo()->add_items();
             sql2pb(&item->second, pb);
         }
+    } else {
+        TRACER_DEBUG("no items for player id: %d\n", usrid);
     }
+    TRACER_DEBUG("just for Debug !! %s:%d\n", __POSITION__);
 
     message *msg = nullptr;
 
@@ -382,6 +421,7 @@ int8_t db_server::get_all(message *_msg)
         g_send_queue.debug_info();
         usleep(50 * 1000);
     }
+    TRACER_DEBUG("just for Debug !! %s:%d\n", __POSITION__);
 
     msg->m_head.m_type = GET_ALLINFO;
     msg->m_head.m_usrID = usrid;
@@ -389,6 +429,8 @@ int8_t db_server::get_all(message *_msg)
     msg->m_to = _msg->m_from;
     msg->encode_pb(player_all_info);
     msg->m_flag = msg_flags::ACTIVE;
+
+    TRACER_DEBUG("just for Debug !! %s:%d\n", __POSITION__);
 
     return 0;
 }

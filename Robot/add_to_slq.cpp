@@ -42,12 +42,12 @@ int main()
     std::random_device rd;
     std::mt19937 eng(rd());
     std::uniform_int_distribution<int32_t> rand_att(50, 100);
-    std::uniform_int_distribution<int32_t> rand_speed(5, 20);
+    std::uniform_int_distribution<int32_t> rand_speed(2, 7);
     std::uniform_int_distribution<int32_t> rand_pos(-20, 20);
     
     uint32_t hkey;
     std::vector<PLAYER> robots(500);
-    std::vector<PASS> pass(500);
+    // std::vector<PASS> pass(500);
 
     ToMysql tosql;
     tosql.Init("ProjectA", "127.0.0.1:3306", "blue", "1024");
@@ -70,20 +70,24 @@ int main()
         // std::cout << "test hash" << std::endl;
 
         robots[i].id = hkey;
-        pass[i].id = hkey;
-        pass[i].pass = hkey;
+        // pass[i].id = hkey;
+        // pass[i].pass = hkey;
        
-        if (!(i & 0xf)) {
-            std::cout << robots[i].name << '\t';
-        }
+        // if (!(i & 0xf)) {
+        //     std::cout << robots[i].name << std::endl;
+        // }
     }
 
     // if (tosql.SetBySQLList(robots) < 0) {
     //     return 1;
     // }
     for (int i = 0; i < 500; ++i) {
-        tosql.SetBySQL(robots[i]);
-        // usleep(10 * 1000);
+        tosql.SetBySQL(robots[i]);        
+        // usleep(20 * 1000);
+        if (!(i & 0xf)) {
+            std::cout << robots[i].name << std::endl;
+        }
+
         // tosql.SetBySQL(pass[i]);
     }
 

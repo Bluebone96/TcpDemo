@@ -8,8 +8,8 @@
 
 #include "../Net/message.h"
 
-extern msg_queue g_recv_queue;
-extern msg_queue g_send_queue;
+extern msg_queue g_server_queue;
+extern msg_queue g_client_queue;
 
 extern std::map<uint32_t, uint32_t> g_connet_server;
 
@@ -32,6 +32,7 @@ public:
     ~gate_server();
 
     int8_t init_gate();
+
     int8_t run_client();
     int8_t run_server();
 

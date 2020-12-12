@@ -22,7 +22,7 @@ struct msg_head {
 
 };
 
-enum msg_flags {
+enum class msg_flags {
     INACTIVE = 0,
     ACTIVE = 1,
     INVALID = 2  // 消息队列中当入队和出队失败时设置， 写入时直接覆盖，读取时跳过

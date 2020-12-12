@@ -6,6 +6,7 @@
 #include <map>
 
 #include "../Common/Singleton.h"
+#include "../Proto/PlayerInfo.pb.h"
 
 // 道具类型
 enum class ItemType {
@@ -16,9 +17,12 @@ enum class ItemType {
 
 // 道具属性类型
 enum class ItemAttributeType {
-    ITEM_ATTRIBUTE_ATK,         // 攻击力
     ITEM_ATTRIBUTE_HP,           // 加血
-    ITEM_ATTRIBUTE_SPEED        // 移速
+    ITEM_ATTRIBUTE_MP, 
+    ITEM_ATTRIBUTE_ATK,         // 攻击力
+    ITEM_ATTRIBUTE_DEF,         // 攻击力
+    ITEM_ATTRIBUTE_PRICE,       // 价值
+    // ITEM_ATTRIBUTE_SPEED        // 移速
 };
 
 
@@ -45,10 +49,13 @@ public:
     explicit BaseItem(int n = 1);
     virtual ~BaseItem();
     BaseItem(const BaseItem&, int n = 1);
-    virtual void initItem(int) =0;
+    virtual void initItem(const Proto::Unity::ItemInfo&) =0;
 
-    void setUID(uint);
-    uint getUID() const;
+    void setUsrID(uint32_t _id) { m_nItemID = _id; }
+    uint32_t getUsrID() { return m_nUsrID; }
+
+    void setItemID(uint);
+    uint getItemID() const;
     void setType(int);
     int getType() const;
     int getConfID() const;
@@ -59,11 +66,12 @@ public:
     bool isStack() const;
     bool isBind() const;
     bool setBind();
+    std::string getName() { return m_sName; }
+    void setName(const std::string& str) { m_sName = str; }
 
     virtual void setAttribute(ItemAttributeType key, int value) { /* none */ }
     virtual int getAttribute(ItemAttributeType key) const { /* none */ return 0; }
 
-    virtual std::string toString() const =0;
 
     // 返回： 成功当前数量，失败 -1
     virtual int addItem(const int n);
@@ -77,11 +85,13 @@ public:
 
 
 protected:
-    uint m_nUID;                // UID  低 16 位 是 物品配置id, 高 16位是该类型物品唯一id
+    uint32_t m_nUsrID;   // 所属玩家id
+    uint m_nItemID;                // 低 16 位 是 物品配置id, 高 16位是该类型物品唯一id
     int m_nFlagBit;             // 标记 是否可叠加 0x1,是否绑定0x2, 是否已装备0x4
     int m_nType;                // 类型  装备需要标记部位
     int m_nCount;               // 数量
     bool m_bSaveNow;            // 立即存档
+    std::string m_sName;        // 名称
 };
 
 
@@ -91,9 +101,8 @@ class EquipItem : public BaseItem {
 public:
     EquipItem();
     ~EquipItem();
-    void initItem(int) override;
+    void initItem(const Proto::Unity::ItemInfo&) override;
     int addItem(const int) override { return -1; /* 装备不可加 */};
-    std::string toString() const override;
     BaseItem* getBak(int n) const override;
     bool isEquip();
     int equip();
@@ -113,9 +122,8 @@ public:
     explicit MoneyItem(int n = 1);
     ~MoneyItem();
     MoneyItem(const MoneyItem&, int);
-    void initItem(int) override;
+    void initItem(const Proto::Unity::ItemInfo&) override;
 
-    std::string toString() const override;
     BaseItem* getBak(int n)  const override;
 };
 
@@ -129,8 +137,7 @@ public:
     int getAttribute(ItemAttributeType key) const override;
     void setAttribute(ItemAttributeType key, int value) override;
     
-    void initItem(int) override;
-    std::string toString() const override;
+    void initItem(const Proto::Unity::ItemInfo&) override;
     BaseItem* getBak(int) const override;
 
 private:
@@ -139,7 +146,7 @@ private:
 
 class ItemFactory {
 public:
-    BaseItem* CreateItem(int type, int n);
+    BaseItem* CreateItem(int type);
 };
 
 #define ITEMFACTORY Singleton<ItemFactory>::GetInstance()

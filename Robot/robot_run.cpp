@@ -1,12 +1,18 @@
 #include <iostream>
 #include <unistd.h>
 #include <thread>
+#include <sys/wait.h>
+#include <sys/types.h>
 
 
 #include "../Common/basetype.h"
 #include "../Net/tcp_socket.h"
 #include "../Net/message.h"
 #include "../Proto/PlayerInfo.pb.h"
+
+
+
+
 
 static unsigned int BKDRHash(const std::string& _str)
 {
@@ -45,6 +51,10 @@ struct robot_range
     bool m_flag;
 };
 
+robot_range g_range;
+
+
+
 
 
 static int robots_init(robot_range* _range)
@@ -52,7 +62,7 @@ static int robots_init(robot_range* _range)
     const char* p = nullptr;
     for (int i = _range->m_start; i < _range->m_end; ++i) {
         robots[i] = new tcp_socket;
-        robots[i]->tcp_init(-1, 1024);
+        robots[i]->tcp_init_buf();
         p = get_name(i);
         g_robots_auth[i].set_name(p);
         g_robots_auth[i].set_password(p);
@@ -74,19 +84,15 @@ static int robots_init(robot_range* _range)
         usleep(100 * 1000);
     }
 
+    sleep(3);
+
     for (int i = _range->m_start; i < _range->m_end; ++i) {
-        if (robots[i]->tcp_recv(msgs[i].m_data, MSG_HEAD_SIZE) < MSG_HEAD_SIZE) {
-            std::cout << "robot_" << i << " login failed, try again\n" << std::endl;
-            msgs[i].m_head.m_type = LOGIN_REQUEST;
-            msgs[i].m_head.m_errID = 0;
-            msgs[i].encode_pb(g_robots_auth[i]);
-            if (robots[i]->tcp_send(msgs[i].m_data, msgs[i].m_head.m_len + MSG_HEAD_SIZE) < 0) {
-                std::cout << "robot_" << i << " send login request message failed\n" << std::endl;
-            }
+        while (robots[i]->tcp_recv(msgs[i].m_data, MSG_HEAD_SIZE) < MSG_HEAD_SIZE) {
+               std::cout << "\nrobot_" << i << " login failed, try again" << std::endl;
+                usleep(10 * 1000);
         }
 
         msgs[i].decode();
-        // robots[i]->tcp_recv(msgs[i].m_pdata, msgs[i].m_head.m_len);
 
         if (msgs[i].m_head.m_type == GET_ALLINFO) {
             std::cout << "robot_" << i  << " login success\n";
@@ -101,7 +107,8 @@ static int robots_init(robot_range* _range)
 
     for (int i = _range->m_start; i < _range->m_end; ++i) {
         close(robots[i]->getfd());
-        if ( (robots_fd[i] = robots[i]->tcp_connect("192.168.80.3", 3333)) < 0) {
+        
+        if ( (robots_fd[i] = robots[i]->tcp_connect("192.168.80.3", 4445)) < 0) {
             std::cout << "connect gate server failed" << std::endl;
             return 3;
         }
@@ -124,22 +131,22 @@ static void test_sendmsg(robot_range* _range)
         msgs[i].m_head.m_type = USERUP;
         msgs[i].m_head.m_errID = 0;
     }
-
-    for (int i = 0; i < 10000; ++i) {
-        for (int j = _range->m_start; j < _range->m_end; ++j) {
-            op.set_h(random() % 3 - 1);
-            op.set_v(random() % 3 - 1);
-            msgs[j].encode_pb(op);
-            if (robots[j]->tcp_send(msgs[j].m_data, msgs[j].m_head.m_len + MSG_HEAD_SIZE) < 0) {
-                std::cout << "send msg  failed" << std::endl;
+    while (_range->m_flag) {
+        for (int i = 0; i < 10000; ++i) {
+            for (int j = _range->m_start; j < _range->m_end; ++j) {
+                op.set_h(random() % 3 - 1);
+                op.set_v(random() % 3 - 1);
+                msgs[j].encode_pb(op);
+                if (robots[j]->tcp_send(msgs[j].m_data, msgs[j].m_head.m_len + MSG_HEAD_SIZE) < 0) {
+                    std::cout << "send msg  failed" << std::endl;
+                }
+                usleep(50 * 1000);
             }
-            usleep(10 * 1000);
-        }
-        if (!(i & 0xff)) {
-            std::cout << "send msg num is " << i << std::endl;
+            if (!(i & 0xff)) {
+                printf("\n==================== %d message send ===============\n", i);
+            }
         }
     }
-    
     _range->m_flag = false;
     std::cout << "send end\n";
 }
@@ -155,23 +162,44 @@ static void test_recvmsg(robot_range* _range)
     }
 }
 
-int main()
+
+static void exit_all_robots(int signo)
+{   
+    std::cout << "\n===============start exit all robots=========================" << std::endl;
+    g_range.m_flag = false;
+    for (int i = g_range.m_start, j = g_range.m_end; i < j; ++i) {
+        msgs[i].m_head.m_type = USEREXIT;
+        msgs[i].m_head.m_len = 0;
+        msgs->encode();
+        robots[i]->tcp_send(msgs->m_data, MSG_HEAD_SIZE);
+        usleep(50 * 1000);
+        delete robots[i];
+    }
+    std::cout << "\n===============all robots exit success=======================" << std::endl;
+    exit(0);
+}
+
+int main(int argc, char** argv)
 {
+    if (argc < 3) {
+        std::cout << "./robot_run range[start, end)" << std::endl;
+        exit(1);
+    }
+    
+    g_range.m_start = atoi(argv[1]);
+    g_range.m_end  = atoi(argv[2]);
+    g_range.m_flag = true;
+    printf("\n=========================test range[%d, %d), %d robots run start!=======================\n",  g_range.m_start, g_range.m_end, g_range.m_end - g_range.m_start);
 
-    robot_range range_0{0, 20, true};
-
-    robots_init(&range_0);
-
-    std::cout << "robots init complete" << std::endl;
+    signal(SIGINT, exit_all_robots);
 
 
-    robot_range range_1{0, 20, true};
-    // robot_range range_2{100, 200, true};
-    // robot_range range_3{200, 300, true};
-    // robot_range range_4{300, 400, true};
+    robots_init(&g_range);
 
-    std::thread t1(test_sendmsg, &range_1);
-    std::thread t2(test_recvmsg, &range_1);
+    std::cout << "\n=============robots init complete======================" << std::endl;
+
+    std::thread t1(test_sendmsg, &g_range);
+    std::thread t2(test_recvmsg, &g_range);
 
 
 

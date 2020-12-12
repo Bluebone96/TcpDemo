@@ -33,7 +33,7 @@ Robot::~Robot()
 bool Robot::login(std::string& _ip, uint32_t _port)
 {
     m_socket = new tcp_socket();
-    m_socket->tcp_init(-1, 4096);
+    m_socket->tcp_init_buf();
 
     if (m_socket->tcp_connect(_ip.c_str(), _port) < 0) {
         TRACER_ERROR("connect filed! name: %s\n", m_name.c_str());
@@ -51,10 +51,10 @@ bool Robot::login(std::string& _ip, uint32_t _port)
     if (m_socket->tcp_recv(m_msg.m_data, MSG_HEAD_SIZE) > 0) {
         m_msg.decode();
         if (m_msg.m_head.m_type == GET_ALLINFO) {
-            TRACER_DEBUG("login success! %s\n", m_name);
+            TRACER_DEBUG("login success! %s\n", m_name.c_str());
             close(m_socket->getfd());
     
-            if ((m_socket->tcp_connect("192.168.80.3", 3333)) > 0) {
+            if ((m_socket->tcp_connect("192.168.80.3", 4445)) > 0) {
                 TRACER_DEBUG("connect gate server success %s", m_name.c_str());
 
                 m_msg.m_head.m_type = 0;

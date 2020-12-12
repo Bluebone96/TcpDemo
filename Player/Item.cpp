@@ -9,9 +9,9 @@
 // }
 
 
-BaseItem* ItemFactory::CreateItem(int _type, int _configId)
+BaseItem* ItemFactory::CreateItem(int _type)
 {
-    std::cout << "ItemFactory createItem type is " << _type << "id is " << _configId << std::endl; 
+    std::cout << "ItemFactory createItem type is " << _type << std::endl; 
     BaseItem* item = nullptr;
     switch (_type)
     {
@@ -29,13 +29,11 @@ BaseItem* ItemFactory::CreateItem(int _type, int _configId)
             return nullptr;
     }
 
-    item->initItem(_configId);
-
     std::cout << "createItem end\n";
     return item;
 }
 
-BaseItem::BaseItem(int _n) : m_nUID(0), m_nFlagBit(0), m_nType(0), m_nCount((_n > 0) ? _n : 1), m_bSaveNow(false)
+BaseItem::BaseItem(int _n) : m_nItemID(0), m_nFlagBit(0), m_nType(0), m_nCount((_n > 0) ? _n : 1), m_bSaveNow(false)
 {
 }
 
@@ -46,7 +44,7 @@ BaseItem::~BaseItem()
 
 BaseItem::BaseItem(const BaseItem& _bi, int _n)
 {
-    m_nUID = _bi.m_nUID;
+    m_nItemID = _bi.m_nItemID;
     m_nFlagBit = _bi.m_nFlagBit;
     m_nType = _bi.m_nType;
     m_bSaveNow = _bi.m_bSaveNow;
@@ -54,19 +52,19 @@ BaseItem::BaseItem(const BaseItem& _bi, int _n)
 }
 
 
-uint BaseItem::getUID() const
+uint BaseItem::getItemID() const
 {
-    return m_nUID;
+    return m_nItemID;
 }
 
-void BaseItem::setUID(uint _uid)
+void BaseItem::setItemID(uint _uid)
 {
-    m_nUID = _uid;
+    m_nItemID = _uid;
 }
 
 int BaseItem::getConfID() const
 {
-    return (m_nUID & 0xffff);
+    return (m_nItemID & 0xffff);
 }
 
 int BaseItem::getCount() const
@@ -109,7 +107,7 @@ int BaseItem::addItem(int _n)
 
 int BaseItem::addItem(const BaseItem* _item)
 {
-    if (_item->getUID() == m_nUID) {
+    if (_item->getItemID() == m_nItemID) {
         m_nCount += _item->getCount();
     }
     return m_nCount;
@@ -141,21 +139,28 @@ MoneyItem::MoneyItem(const MoneyItem& _m, int _n) : BaseItem(_m, _n)
 }
 
 
-std::string MoneyItem::toString() const
-{
-    return "money";
-}
+// void MoneyItem::initItem(int _confd)
+// {
+//     std::cout << "money init start" << std::endl;
+//     m_nType = 0;
+//     m_nItemID = _confd;
+//     m_nFlagBit = 0x1;   // 可叠加 不绑定
+//     m_bSaveNow = true;
+//     m_nCount = 1;
+// }
 
-void MoneyItem::initItem(int _confd)
+void MoneyItem::initItem(const Proto::Unity::ItemInfo& _pb)
 {
-    std::cout << "money init start" << std::endl;
-    m_nType = 0;
-    m_nUID = _confd;
     m_nFlagBit = 0x1;   // 可叠加 不绑定
     m_bSaveNow = true;
-    m_nCount = 1;
-}
 
+    m_nUsrID = _pb.m_usrid();
+    m_nItemID = _pb.m_itemid();
+    m_nType = _pb.m_type();
+    m_nCount = _pb.m_count();
+    m_sName = _pb.m_name();
+    
+}
 
 BaseItem* MoneyItem::getBak(int _n) const
 {
@@ -179,23 +184,38 @@ ConsumItem::ConsumItem(const ConsumItem& _ci, int _n) : BaseItem(_ci, _n)
     m_attribute = _ci.m_attribute;
 }
 
-void ConsumItem::initItem(int _confd)
+
+// void ConsumItem::initItem(int _confd)
+// {
+//     std::cout << "consumitem start" << std::endl;
+//     m_nType = 1;
+//     m_nItemID = _confd;
+//     m_nFlagBit = 0x1; // 可叠加 不绑定
+//     m_bSaveNow = true;
+//     m_nCount = 1;
+//     m_attribute.insert(std::make_pair(ItemAttributeType::ITEM_ATTRIBUTE_HP, 100));
+// }
+
+void ConsumItem::initItem(const Proto::Unity::ItemInfo& _pb)
 {
-    std::cout << "consumitem start" << std::endl;
-    m_nType = 1;
-    m_nUID = _confd;
     m_nFlagBit = 0x1; // 可叠加 不绑定
     m_bSaveNow = true;
-    m_nCount = 1;
-    m_attribute.insert(std::make_pair(ItemAttributeType::ITEM_ATTRIBUTE_HP, 100));
+
+    m_nUsrID = _pb.m_usrid();
+    m_nItemID = _pb.m_itemid();
+    m_nType = _pb.m_type();
+    m_nCount = _pb.m_count();
+    m_sName = _pb.m_name();
+
+    m_attribute.insert(std::make_pair(ItemAttributeType::ITEM_ATTRIBUTE_HP, _pb.m_hp()));
+    m_attribute.insert(std::make_pair(ItemAttributeType::ITEM_ATTRIBUTE_MP, _pb.m_mp()));
+    m_attribute.insert(std::make_pair(ItemAttributeType::ITEM_ATTRIBUTE_ATK, _pb.m_atk()));
+    m_attribute.insert(std::make_pair(ItemAttributeType::ITEM_ATTRIBUTE_DEF, _pb.m_def()));
+    m_attribute.insert(std::make_pair(ItemAttributeType::ITEM_ATTRIBUTE_PRICE, _pb.m_price()));
+
 }
 
 
-
-std::string ConsumItem::toString() const
-{
-    return "consumitem";
-}
 
 BaseItem* ConsumItem::getBak(int _n) const
 {
@@ -233,17 +253,25 @@ EquipItem::~EquipItem()
 
 int EquipItem::uniqueID = 0;    // 唯一ID, 每初始化一次加一
 
-void EquipItem::initItem(int _n)
+void EquipItem::initItem(const Proto::Unity::ItemInfo& _pb)
 {
-    std::cout << "Equip init start" << std::endl;
-    m_nType = 2;
-    m_nUID = _n + ((++uniqueID) << 16);
+
+    // std::cout << "Equip init start" << std::endl;
+    // m_nItemID =  config ((++uniqueID) << 16); // 暂时都是手动添加的
     m_nFlagBit = 0x0;   // 初始为非绑定，不可叠加，未装备
-    m_bSaveNow = true;
-    m_nCount = 1;
-    m_attribute.insert(std::make_pair(ItemAttributeType::ITEM_ATTRIBUTE_ATK, 100));
-    m_attribute.insert(std::make_pair(ItemAttributeType::ITEM_ATTRIBUTE_HP, 100));
-    m_attribute.insert(std::make_pair(ItemAttributeType::ITEM_ATTRIBUTE_SPEED, 10));
+    m_bSaveNow = true;  // 暂时未实现
+
+    m_nUsrID = _pb.m_usrid();
+    m_nItemID = _pb.m_itemid();
+    m_nType = _pb.m_type();
+    m_nCount = _pb.m_count();
+    m_sName = _pb.m_name();
+
+    m_attribute.insert(std::make_pair(ItemAttributeType::ITEM_ATTRIBUTE_HP, _pb.m_hp()));
+    m_attribute.insert(std::make_pair(ItemAttributeType::ITEM_ATTRIBUTE_MP, _pb.m_mp()));
+    m_attribute.insert(std::make_pair(ItemAttributeType::ITEM_ATTRIBUTE_ATK, _pb.m_atk()));
+    m_attribute.insert(std::make_pair(ItemAttributeType::ITEM_ATTRIBUTE_DEF, _pb.m_def()));
+    m_attribute.insert(std::make_pair(ItemAttributeType::ITEM_ATTRIBUTE_PRICE, _pb.m_price()));
 }
 
 bool EquipItem::isEquip()
@@ -277,11 +305,6 @@ void EquipItem::setAttribute(ItemAttributeType _key, int _val)
 int EquipItem::getAttribute(ItemAttributeType _key) const
 {
     return m_attribute.at(_key);
-}
-
-std::string EquipItem::toString() const
-{
-    return "equip";
 }
 
 BaseItem* EquipItem::getBak(int) const

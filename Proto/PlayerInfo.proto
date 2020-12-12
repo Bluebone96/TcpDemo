@@ -9,7 +9,7 @@ message PlayerInfo {
     float posX = 3;
     float posZ = 4;
     float angle = 5;
-    float speed = 6;
+    int32 speed = 6;
     uint32 state = 7;   // 0 IDEL 1 WALK
 
     int32 Hp = 8;
@@ -70,11 +70,11 @@ message ItemInfo {
     uint32 m_type = 3;
     uint32 m_count = 4;
     string m_name = 5;
-    uint32 m_hp = 6;
-    uint32 m_mp = 7;
-    uint32 m_atk = 8;
-    uint32 m_def = 9;
-    uint32 m_price = 10;
+    int32 m_hp = 6;
+    int32 m_mp = 7;
+    int32 m_atk = 8;
+    int32 m_def = 9;
+    int32 m_price = 10;
 }
 
 

@@ -14,13 +14,13 @@
 // // {
 // //     if (_baseitem) {
 // //         if (m_nCapacity >= m_mItems.size()) {
-// //             if (m_mItems.count(_baseitem->getUID())) {
+// //             if (m_mItems.count(_baseitem->getItemID())) {
 // //                 if (_baseitem->isStack()) {
-// //                     m_mItems[_baseitem->getUID()]->addItem(n);
+// //                     m_mItems[_baseitem->getItemID()]->addItem(n);
 // //                     return true;
 // //                 }
 // //             }
-// //             m_mItems.insert(std::make_pair(_baseitem->getUID(), _baseitem->getBak()));  // 获取备份
+// //             m_mItems.insert(std::make_pair(_baseitem->getItemID(), _baseitem->getBak()));  // 获取备份
 // //             return true;
 // //         } 
 // //     }
@@ -93,7 +93,7 @@
 // //         }
 // //     }
 
-// //     m_mItems.insert(std::make_pair(_item->getUID(), _item));
+// //     m_mItems.insert(std::make_pair(_item->getItemID(), _item));
 // //     return 0;
 // // }
 
@@ -125,13 +125,13 @@
 // {
 //       if (_item) {
 //         if (m_nCapacity >= m_mItems.size()) {
-//             if (m_mItems.count(_baseitem->getUID())) {
+//             if (m_mItems.count(_baseitem->getItemID())) {
 //                 if (_baseitem->isStack()) {
-//                     m_mItems[_baseitem->getUID()]->addItem(n);
+//                     m_mItems[_baseitem->getItemID()]->addItem(n);
 //                     return true;
 //                 }
 //             }
-//             m_mItems.insert(std::make_pair(_baseitem->getUID(), _baseitem->getBak()));  // 获取备份
+//             m_mItems.insert(std::make_pair(_baseitem->getItemID(), _baseitem->getBak()));  // 获取备份
 //             return true;
 //         } 
 //     }

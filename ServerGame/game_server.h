@@ -31,6 +31,7 @@ private:
 
     int8_t usr_chat(message *msg);
 
+
     std::map<uint32_t, Player*> m_players;
 };
 

@@ -14,7 +14,9 @@ extern std::map<uint32_t, uint32_t> g_connet_server;
 
 extern std::map<int32_t, Proto::Unity::ServerInfo> g_serverinfo;
 
-
+// todo 待优化，新增center服务器，负责通知gameserver, gateserver, 
+// loginserver只负责验证密码，通过后生成唯一 key, 发给 centerserver， centerserver 下发 gateserver 信息，并将 key 发给该gateserver
+// 最后login server 下发key 和 gateserver 给 client
 class login_server {
 public:
     login_server();

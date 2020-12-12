@@ -161,7 +161,7 @@ int32_t tcp_socket::tcp_listen(const char* hostname, int16_t port)
 int32_t tcp_socket::tcp_accept(int32_t _listenfd)
 {
     socklen_t len;
-    int32_t acceptfd = accept(m_socketfd, (struct sockaddr*)&m_sockaddr, &len);
+    int32_t acceptfd = accept(_listenfd, (struct sockaddr*)&m_sockaddr, &len);
     
     if (acceptfd <= 0) {
         TRACERERRNO("accept client failed.");
@@ -195,8 +195,8 @@ int32_t tcp_socket::tcp_recv(uint8_t *_usrbuf, uint32_t _length)
         }
         TRACER_DEBUG("bug bug bug fd = %d, m_in = %d, m_out = %d, _length = %d\n", m_socketfd, m_in, m_out, _length);
     }
-    // 将 while 改为 2次if, 如果还是小于则说明展时没有数据可读
 
+    // 将 while 改为 2次if, 如果还是小于则说明展时没有数据可读
     if (m_in - m_out < _length) {
         return SOCKET_ERROR_EAGAIN;
     }

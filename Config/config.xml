@@ -6,25 +6,31 @@
         <port>2222</port>
     </login_server>
 
-    <gate_server id = "2">
+    <game_server id = "2">
         <ip>192.168.80.3</ip> 
         <port>3333</port>
-    </gate_server>
-
-
-    <game_server id = "3">
-        <ip>192.168.80.3</ip>
-        <port>4444</port>
     </game_server>
 
+    <!--服务器连接专用-->
+    <gate_server_for_server id = "3">
+        <ip>192.168.80.3</ip>
+        <port>4444</port>
+    </gate_server_for_server>
 
-    <db_server id = "4">
+    <!--客户端连接专用-->
+    <gate_server_for_client id = "4">
+        <ip>192.168.80.3</ip>
+        <port>4445</port>
+    </gate_server_for_client>
+
+
+    <db_server id = "5">
         <ip>192.168.80.3</ip>
         <port>5555</port>
     </db_server>
 
 
-    <sql id = "5">
+    <sql id = "6">
         <db>ProjectA</db>
         <ip>192.168.80.3:3306</ip>
         <usr>blue</usr>

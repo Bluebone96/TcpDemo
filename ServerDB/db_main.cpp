@@ -21,17 +21,25 @@ int main()
     g_send_queue.init_queue(4096);
     
     db_server server;
-    Net net;
-    
-
     server.init();
 
-    server_config cfg;
-    load_config("db_server", cfg);
-    if (net.init(cfg.ip.c_str(), cfg.port) < 0) {
-        TRACER("db server init failed\n");
+    Net net;
+    
+    if (net.net_init(&g_recv_queue, &g_send_queue)) {
+        TRACER_ERROR("net init failed");
+        exit(1);
     }
-    TRACER("db server init success\n");
+    
+
+    server_config cfg;
+    if (load_config("db_server", cfg)) {
+        TRACER_ERROR("load db_server config failed");
+        exit(1);
+    }
+    if (net.net_listen(cfg.ip.c_str(), cfg.port) < 0) {
+        TRACER_ERROR("net listen failed addr: %s:%d\n", cfg.ip.c_str(), cfg.port);
+        exit(1);
+    }
 
 
     std::thread t1(&Net::product_msg, &net);

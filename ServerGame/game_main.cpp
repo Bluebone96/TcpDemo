@@ -20,17 +20,26 @@ int main ()
 
     game_server server;
     Net net;
-
-    server_config cfg;
-    load_config("game_server", cfg);
-
-    if (net.init(cfg.ip.c_str(), cfg.port) < 0) {
-        TRACER_ERROR("net init failed\n");
+    if (net.net_init(&g_recv_queue, &g_send_queue)) {
+        TRACER_ERROR("net init failed");
         exit(1);
     }
 
-    load_config("db_server", cfg);
-    int32_t fd = net.connect(cfg.ip.c_str(), cfg.port);
+    server_config cfg;
+    if (load_config("game_server", cfg) < 0) {
+        TRACER_ERROR("load game_server config failed");
+        exit(1);
+    }
+    if (net.net_listen(cfg.ip.c_str(), cfg.port) < 0) {
+        TRACER_ERROR("net listen failed addr: %s:%d\n", cfg.ip.c_str(), cfg.port);
+        exit(1);
+    }
+
+    if (load_config("db_server", cfg)) {
+        TRACER_ERROR("load game_server config failed");
+        exit(1);
+    }
+    int32_t fd = net.net_connect(cfg.ip.c_str(), cfg.port);
     if (fd < 0) {
         TRACER_ERROR("connect dbserver faild. %s:%d\n", __POSITION__);
         exit(2);

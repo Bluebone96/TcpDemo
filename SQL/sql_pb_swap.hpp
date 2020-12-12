@@ -8,7 +8,7 @@
 
 int sql2pb(const ITEM* _itemsql, Proto::Unity::ItemInfo* _itempb)
 {
-    _itempb->set_m_usrid(_itemsql->userid);
+    _itempb->set_m_usrid(_itemsql->usrid);
     _itempb->set_m_itemid(_itemsql->itemid);
     _itempb->set_m_type(_itemsql->type);
     _itempb->set_m_count(_itemsql->count);
@@ -23,7 +23,7 @@ int sql2pb(const ITEM* _itemsql, Proto::Unity::ItemInfo* _itempb)
 
 int pb2sql(const Proto::Unity::ItemInfo* _itempb, ITEM* _itemsql)
 {
-    _itemsql->userid = _itempb->m_usrid();
+    _itemsql->usrid = _itempb->m_usrid();
     _itemsql->itemid = _itempb->m_itemid();
     _itemsql->count = _itempb->m_count();
     _itemsql->type = _itempb->m_type();

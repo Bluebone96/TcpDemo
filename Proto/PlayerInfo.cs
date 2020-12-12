@@ -26,7 +26,7 @@ namespace Proto.Unity {
           string.Concat(
             "ChBQbGF5ZXJJbmZvLnByb3RvEgtQcm90by5Vbml0eSLFAQoKUGxheWVySW5m",
             "bxIKCgJpZBgBIAEoDRIMCgRuYW1lGAIgASgJEgwKBHBvc1gYAyABKAISDAoE",
-            "cG9zWhgEIAEoAhINCgVhbmdsZRgFIAEoAhINCgVzcGVlZBgGIAEoAhINCgVz",
+            "cG9zWhgEIAEoAhINCgVhbmdsZRgFIAEoAhINCgVzcGVlZBgGIAEoBRINCgVz",
             "dGF0ZRgHIAEoDRIKCgJIcBgIIAEoBRIKCgJNcBgJIAEoBRILCgNBVEsYCiAB",
             "KAUSCwoDREVGGAsgASgFEiIKAm9wGAwgASgLMhYuUHJvdG8uVW5pdHkuT3Bl",
             "cmF0aW9uIiEKCU9wZXJhdGlvbhIJCgFoGAEgASgCEgkKAXYYAiABKAIiLQoE",
@@ -177,9 +177,9 @@ namespace Proto.Unity {
 
     /// <summary>Field number for the "speed" field.</summary>
     public const int SpeedFieldNumber = 6;
-    private float speed_;
+    private int speed_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public float Speed {
+    public int Speed {
       get { return speed_; }
       set {
         speed_ = value;
@@ -273,7 +273,7 @@ namespace Proto.Unity {
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(PosX, other.PosX)) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(PosZ, other.PosZ)) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Angle, other.Angle)) return false;
-      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Speed, other.Speed)) return false;
+      if (Speed != other.Speed) return false;
       if (State != other.State) return false;
       if (Hp != other.Hp) return false;
       if (Mp != other.Mp) return false;
@@ -291,7 +291,7 @@ namespace Proto.Unity {
       if (PosX != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(PosX);
       if (PosZ != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(PosZ);
       if (Angle != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Angle);
-      if (Speed != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Speed);
+      if (Speed != 0) hash ^= Speed.GetHashCode();
       if (State != 0) hash ^= State.GetHashCode();
       if (Hp != 0) hash ^= Hp.GetHashCode();
       if (Mp != 0) hash ^= Mp.GetHashCode();
@@ -331,9 +331,9 @@ namespace Proto.Unity {
         output.WriteRawTag(45);
         output.WriteFloat(Angle);
       }
-      if (Speed != 0F) {
-        output.WriteRawTag(53);
-        output.WriteFloat(Speed);
+      if (Speed != 0) {
+        output.WriteRawTag(48);
+        output.WriteInt32(Speed);
       }
       if (State != 0) {
         output.WriteRawTag(56);
@@ -382,8 +382,8 @@ namespace Proto.Unity {
       if (Angle != 0F) {
         size += 1 + 4;
       }
-      if (Speed != 0F) {
-        size += 1 + 4;
+      if (Speed != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Speed);
       }
       if (State != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(State);
@@ -429,7 +429,7 @@ namespace Proto.Unity {
       if (other.Angle != 0F) {
         Angle = other.Angle;
       }
-      if (other.Speed != 0F) {
+      if (other.Speed != 0) {
         Speed = other.Speed;
       }
       if (other.State != 0) {
@@ -484,8 +484,8 @@ namespace Proto.Unity {
             Angle = input.ReadFloat();
             break;
           }
-          case 53: {
-            Speed = input.ReadFloat();
+          case 48: {
+            Speed = input.ReadInt32();
             break;
           }
           case 56: {

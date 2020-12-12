@@ -6,7 +6,7 @@
 #include "../Proto/PlayerInfo.pb.h"
 #include "../Common/basetype.h"
 #include "../SQL/tomysql.h"
-
+#include "../Config/loadconfig.h"
 
 login_server::login_server()
 {
@@ -22,11 +22,10 @@ login_server::~login_server()
 
 int8_t login_server::run()
 {
-    message* msg = nullptr;
+    message *msg = nullptr;
     for (;;) {
-        if ((msg = g_recv_queue.dequeue()) == nullptr) {
-            usleep(100 * 1000);;
-            continue;
+        while ((msg = g_recv_queue.dequeue()) == nullptr) {
+            usleep(100 * 1000);
         }
 
         switch (msg->m_head.m_type)
@@ -169,6 +168,7 @@ int8_t login_server::login_failed(message* _msg)
 }
 
 
+
 int8_t login_server::login_success(message* _msg)
 {
 
@@ -198,7 +198,18 @@ int8_t login_server::login_success(message* _msg)
     msg.m_head.m_usrID = usrid;
     msg.m_head.m_errID = 0;
     
-    msg.encode_pb(g_serverinfo[GATE_SERVER]);
+    Proto::Unity::ServerInfo serverpb;
+
+    server_config cfg;
+    if (load_config("gate_server_for_client", cfg) < 0) {
+        TRACER_ERROR("load gate_server_for_client config failed");
+        return -1;
+    }
+
+    serverpb.set_m_type(GATE_SERVER);
+    serverpb.set_m_ip(cfg.ip);
+    serverpb.set_m_port(cfg.port);
+    msg.encode_pb(serverpb);
 
     return tcp_socket::tcp_send(m_usrfd[usrid], msg.m_data, msg.m_head.m_len + MSG_HEAD_SIZE);
     

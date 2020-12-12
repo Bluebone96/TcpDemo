@@ -24,7 +24,7 @@ void game_server::run()
             usleep(50 * 1000);;
             continue;
         }
-        
+        TRACER_DEBUG("msg type is %d\n", msg->m_head.m_type);
         switch (msg->m_head.m_type)
         {
             case GET_ALLINFO:
@@ -34,7 +34,7 @@ void game_server::run()
                 usr_update_status(msg);
                 break;
             case USEREXIT:
-                usr_update_item(msg);
+                usr_exit(msg);
                 break;
             case USERCHAT:
                 usr_chat(msg);
@@ -59,6 +59,7 @@ void game_server::run()
 int8_t game_server::usr_login(message *_msg)
 {
     uint32_t usrid = _msg->m_head.m_usrID;
+    TRACER("player login, id = %d\n", usrid);
     
     Player *p = new Player;
 
@@ -81,6 +82,9 @@ int8_t game_server::usr_exit(message *_msg)
 
     auto iter = m_players.find(usrid);
     if (iter != m_players.end()) {
+
+        TRACER("player exit ! id = %d\n", usrid);
+
         message *msg = nullptr;
 
         while ((msg = g_send_queue.enqueue()) == nullptr)
@@ -90,12 +94,14 @@ int8_t game_server::usr_exit(message *_msg)
             g_send_queue.debug_info();
             usleep(50 * 1000);
         }
-
-        msg->m_head.m_type = SET_ALLINFO;
+        // 暂时所有的物品都是立即存档，所以只保存玩家信息即可
+        // msg->m_head.m_type = SET_ALLINFO;
+        msg->m_head.m_type = SETPLAYER;
         msg->m_head.m_usrID = usrid;
         msg->m_head.m_errID = 0;
         msg->m_to = g_connet_server[DB_SERVER];
-        msg->encode_pb(iter->second->getAllFuckInfo());
+        // msg->encode_pb(iter->second->getAllFuckInfo());
+        msg->encode_pb(*(iter->second->GetPlayerInfo()));
         msg->m_flag = msg_flags::ACTIVE;
     
         // todo 是否等待数据库返回确认消息后再释放内存
@@ -180,15 +186,20 @@ int8_t game_server::usr_sync(uint32_t _usrid, uint32_t _fd)
 
 int8_t game_server::usr_update_item(message *_msg)
 {
-    uint32_t usrid = _msg->m_head.m_usrID;
 
-    Proto::Unity::ItemUpdate pb;
+    uint32_t usrid = _msg->m_head.m_usrID;
+    
+    TRACER_DEBUG("just for Debug !! %s:%d\n", __POSITION__);
+
+    Proto::Unity::ItemEvent pb;
     _msg->decode_pb(pb);
     if ((m_players[usrid]->update_Inventory(pb)) < 0) {
+        TRACER_DEBUG("just for Debug !! %s:%d\n", __POSITION__);
         return -1;
     }
 
-    TRACER("test item msg, send msg to usrid %d\n", usrid);
+
+    TRACER("item op success, send msg to usrid %d\n", usrid);
     tcp_socket::tcp_send(_msg->m_from, _msg->m_data, _msg->m_head.m_len + MSG_HEAD_SIZE);
 
     return -1;

@@ -127,7 +127,6 @@ int8_t msg_queue::init_queue(uint32_t _s)
         return -1;
     }
 
-    TRACER_DEBUG("messages flag %d, %d, %d, %d", m_pmsg[0].m_flag, m_pmsg[1].m_flag, m_pmsg[2].m_flag, m_pmsg[3].m_flag);
     return 0;
 }
 
@@ -137,7 +136,7 @@ message* msg_queue::enqueue()
 
     uint32_t pos = (m_in & (m_size - 1));
     if ((m_pmsg + pos)->m_flag != msg_flags::ACTIVE) { // 无效返回
-        TRACER_DEBUG("message enqueue, pos = %d, flag is %d\n", pos, (m_pmsg + pos)->m_flag);
+        TRACER_DEBUG("message enqueue, pos = %d, flag is %d\n", pos, static_cast<int>((m_pmsg + pos)->m_flag));
         ++m_in;
         return (m_pmsg + pos);
     }

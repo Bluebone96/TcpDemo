@@ -32,7 +32,7 @@ public:
     int InitInventory(Proto::Unity::PlayerBag*, Player*);
 
 
-    int update_item(Proto::Unity::ItemUpdate& pb);
+    int update_item(Proto::Unity::ItemEvent& pb);
 
 
     int addItem(BaseItem*);

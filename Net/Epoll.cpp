@@ -51,7 +51,7 @@ int32_t Epoll::Add(int32_t fd)
         TRACERERRNO("Epoll::Add epoll_ctl failed, %s:%d\n", __FILE__, __LINE__);
         return -1;
     };
-    TRACER_DEBUG("epoll add new socket %d", fd);
+    TRACER_DEBUG("epoll add new socket %d\n", fd);
     return 0;
 }
 

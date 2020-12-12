@@ -30,7 +30,8 @@ int Player::InitPlayer(Proto::Unity::PlayerAllFuckInfo& _allinfo)
 
     m_protoInfo = m_fuckAllPb.mutable_baseinfo();
 
-    TRACER("player name: %s, id: %d\n", m_name.c_str(), m_id);
+    TRACER_DEBUG("player name: %s, id: %d\n", m_name.c_str(), m_id);
+    TRACER_DEBUG("player posx: %f, posz: %f, speed %d\n", m_protoInfo->posx(), m_protoInfo->posz(), m_protoInfo->speed());
 
     m_inventory.InitInventory(m_fuckAllPb.mutable_baginfo(), this);
     
@@ -59,7 +60,7 @@ int Player::update_status(Proto::Unity::Operation& op)
     // PlayerStatus nextStatus = m_pStatus[(m_pos + 1) % MAXSTATUS];
 
     // nextStatus = m_pStatus[m_pos];
-    TRACER_DEBUG("speed is %f, old op h = %f, v = %f\n", m_protoInfo->speed(), m_protoInfo->op().h(), m_protoInfo->op().v());
+    TRACER_DEBUG("speed is %d, old op h = %f, v = %f\n", m_protoInfo->speed(), m_protoInfo->op().h(), m_protoInfo->op().v());
 
     m_protoInfo->set_posx(m_protoInfo->posx() + (passtime * m_protoInfo->speed() * m_protoInfo->op().h()) / 1000);
     m_protoInfo->set_posz(m_protoInfo->posz() + (passtime * m_protoInfo->speed() * m_protoInfo->op().v()) / 1000);
@@ -124,7 +125,7 @@ Proto::Unity::PlayerAllFuckInfo&  Player::getAllFuckInfo()
 }
 
 
-int Player::update_Inventory(Proto::Unity::ItemUpdate& pb)
+int Player::update_Inventory(Proto::Unity::ItemEvent& pb)
 {
     return m_inventory.update_item(pb);
 }

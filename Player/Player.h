@@ -57,7 +57,7 @@ public:
 
     int update_status(Proto::Unity::Operation& op);
 
-    int update_Inventory(Proto::Unity::ItemUpdate& pb);
+    int update_Inventory(Proto::Unity::ItemEvent& pb);
 
 
     int save_allinfo();

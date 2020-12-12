@@ -1,7 +1,7 @@
 #include "Net.h"
 #include "../Common/log.h"
 
-Net::Net()
+Net::Net() : m_listenfd(-1), g_recv_queue(nullptr), g_send_queue(nullptr)
 {
 
 }
@@ -17,7 +17,7 @@ int8_t Net::net_init(msg_queue* _recvq, msg_queue* _sendq)
 
 
     g_recv_queue = _recvq;
-
+    g_send_queue = _sendq;
 
     if (m_epoll.Init() < 0) {
         TRACER_ERROR("Server::Init Epoll::Init failed.\n");
@@ -71,12 +71,12 @@ int8_t Net::product_msg()
         TRACER_ERROR("g_recv_queue is nullptr\n");
         return -1;
     }
-
+    TRACER_DEBUG("debug: m_listenfd is %d\n", m_listenfd);
     for (;;) {
         int32_t fn = m_epoll.Wait();
         for (int32_t i = 0; i < fn; ++i) {
             struct epoll_event* pEvent = m_epoll.GetEvent(i);
-
+            
             if (pEvent->data.fd == m_listenfd) {
                 
                 auto socket = std::make_shared<tcp_socket>();
@@ -172,8 +172,9 @@ int8_t Net::consume_msg()
     message *msg = nullptr;
     for (;;) {
         if ((msg = g_send_queue->dequeue()) == nullptr) {
-            usleep(100 * 1000);;
+            usleep(100 * 10000);
             // TRACER("Net::consume_msg() : g_send_queue msg is empty\n");
+            // g_send_queue->debug_info();
             continue;
         }
 

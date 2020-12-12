@@ -263,11 +263,11 @@ class PlayerInfo final :
   float angle() const;
   void set_angle(float value);
 
-  // float speed = 6;
+  // int32 speed = 6;
   void clear_speed();
   static const int kSpeedFieldNumber = 6;
-  float speed() const;
-  void set_speed(float value);
+  ::google::protobuf::int32 speed() const;
+  void set_speed(::google::protobuf::int32 value);
 
   // uint32 state = 7;
   void clear_state();
@@ -310,7 +310,7 @@ class PlayerInfo final :
   float posx_;
   float posz_;
   float angle_;
-  float speed_;
+  ::google::protobuf::int32 speed_;
   ::google::protobuf::uint32 state_;
   ::google::protobuf::int32 hp_;
   ::google::protobuf::int32 mp_;
@@ -2294,15 +2294,15 @@ inline void PlayerInfo::set_angle(float value) {
   // @@protoc_insertion_point(field_set:Proto.Unity.PlayerInfo.angle)
 }
 
-// float speed = 6;
+// int32 speed = 6;
 inline void PlayerInfo::clear_speed() {
   speed_ = 0;
 }
-inline float PlayerInfo::speed() const {
+inline ::google::protobuf::int32 PlayerInfo::speed() const {
   // @@protoc_insertion_point(field_get:Proto.Unity.PlayerInfo.speed)
   return speed_;
 }
-inline void PlayerInfo::set_speed(float value) {
+inline void PlayerInfo::set_speed(::google::protobuf::int32 value) {
   
   speed_ = value;
   // @@protoc_insertion_point(field_set:Proto.Unity.PlayerInfo.speed)

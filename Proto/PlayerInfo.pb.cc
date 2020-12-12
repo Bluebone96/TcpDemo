@@ -501,7 +501,7 @@ const char descriptor_table_protodef_PlayerInfo_2eproto[] =
   "\n\020PlayerInfo.proto\022\013Proto.Unity\"\305\001\n\nPlay"
   "erInfo\022\n\n\002id\030\001 \001(\r\022\014\n\004name\030\002 \001(\t\022\014\n\004posX"
   "\030\003 \001(\002\022\014\n\004posZ\030\004 \001(\002\022\r\n\005angle\030\005 \001(\002\022\r\n\005s"
-  "peed\030\006 \001(\002\022\r\n\005state\030\007 \001(\r\022\n\n\002Hp\030\010 \001(\005\022\n\n"
+  "peed\030\006 \001(\005\022\r\n\005state\030\007 \001(\r\022\n\n\002Hp\030\010 \001(\005\022\n\n"
   "\002Mp\030\t \001(\005\022\013\n\003ATK\030\n \001(\005\022\013\n\003DEF\030\013 \001(\005\022\"\n\002o"
   "p\030\014 \001(\0132\026.Proto.Unity.Operation\"!\n\tOpera"
   "tion\022\t\n\001h\030\001 \001(\002\022\t\n\001v\030\002 \001(\002\"-\n\004Chat\022\013\n\003id"
@@ -703,11 +703,11 @@ const char* PlayerInfo::_InternalParse(const char* begin, const char* end, void*
         ptr += sizeof(float);
         break;
       }
-      // float speed = 6;
+      // int32 speed = 6;
       case 6: {
-        if (static_cast<::google::protobuf::uint8>(tag) != 53) goto handle_unusual;
-        msg->set_speed(::google::protobuf::io::UnalignedLoad<float>(ptr));
-        ptr += sizeof(float);
+        if (static_cast<::google::protobuf::uint8>(tag) != 48) goto handle_unusual;
+        msg->set_speed(::google::protobuf::internal::ReadVarint(&ptr));
+        GOOGLE_PROTOBUF_PARSER_ASSERT(ptr);
         break;
       }
       // uint32 state = 7;
@@ -859,12 +859,12 @@ bool PlayerInfo::MergePartialFromCodedStream(
         break;
       }
 
-      // float speed = 6;
+      // int32 speed = 6;
       case 6: {
-        if (static_cast< ::google::protobuf::uint8>(tag) == (53 & 0xFF)) {
+        if (static_cast< ::google::protobuf::uint8>(tag) == (48 & 0xFF)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &speed_)));
         } else {
           goto handle_unusual;
@@ -1005,9 +1005,9 @@ void PlayerInfo::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteFloat(5, this->angle(), output);
   }
 
-  // float speed = 6;
+  // int32 speed = 6;
   if (this->speed() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(6, this->speed(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(6, this->speed(), output);
   }
 
   // uint32 state = 7;
@@ -1085,9 +1085,9 @@ void PlayerInfo::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(5, this->angle(), target);
   }
 
-  // float speed = 6;
+  // int32 speed = 6;
   if (this->speed() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(6, this->speed(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(6, this->speed(), target);
   }
 
   // uint32 state = 7;
@@ -1179,9 +1179,11 @@ size_t PlayerInfo::ByteSizeLong() const {
     total_size += 1 + 4;
   }
 
-  // float speed = 6;
+  // int32 speed = 6;
   if (this->speed() != 0) {
-    total_size += 1 + 4;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->speed());
   }
 
   // uint32 state = 7;
