@@ -41,8 +41,8 @@ int main()
 
     std::random_device rd;
     std::mt19937 eng(rd());
-    std::uniform_int_distribution<int32_t> rand_att(50, 100);
     std::uniform_int_distribution<int32_t> rand_speed(2, 7);
+    std::uniform_int_distribution<int32_t> rand_att(50, 100);
     std::uniform_int_distribution<int32_t> rand_pos(-20, 20);
     
     uint32_t hkey;

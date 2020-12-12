@@ -107,7 +107,7 @@ static int robots_init(robot_range* _range)
 
     for (int i = _range->m_start; i < _range->m_end; ++i) {
         close(robots[i]->getfd());
-        
+
         if ( (robots_fd[i] = robots[i]->tcp_connect("192.168.80.3", 4445)) < 0) {
             std::cout << "connect gate server failed" << std::endl;
             return 3;
@@ -140,9 +140,9 @@ static void test_sendmsg(robot_range* _range)
                 if (robots[j]->tcp_send(msgs[j].m_data, msgs[j].m_head.m_len + MSG_HEAD_SIZE) < 0) {
                     std::cout << "send msg  failed" << std::endl;
                 }
-                usleep(50 * 1000);
+                usleep(10 * 1000);
             }
-            if (!(i & 0xff)) {
+            if (!(i & 0x7f)) {
                 printf("\n==================== %d message send ===============\n", i);
             }
         }
@@ -158,7 +158,7 @@ static void test_recvmsg(robot_range* _range)
         for (int i = _range->m_start; i < _range->m_end; ++i) {
             read(robots_fd[i], g_buff_null, 4096);
         }
-        usleep(100 * 1000);
+        usleep(50 * 1000);
     }
 }
 
@@ -172,7 +172,7 @@ static void exit_all_robots(int signo)
         msgs[i].m_head.m_len = 0;
         msgs->encode();
         robots[i]->tcp_send(msgs->m_data, MSG_HEAD_SIZE);
-        usleep(50 * 1000);
+        usleep(100 * 1000);
         delete robots[i];
     }
     std::cout << "\n===============all robots exit success=======================" << std::endl;

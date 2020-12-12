@@ -72,6 +72,7 @@ int8_t gate_server::run_client()
 
 int8_t gate_server::run_server()
 {
+
     message *msg = nullptr;
     for (;;) {
         msg = g_server_queue.dequeue();
@@ -143,6 +144,7 @@ void gate_server::broadcaster(message* _msg)
 
     TRACER("connect clients size  = %d\n", size);
     if (size < 10) {
+        TRACER("normal broad start\n");
         for (auto i = m_clientsfd.begin() /*, j = m_clientsfd.end()*/; i != m_clientsfd.end();) {
             if (tcp_socket::tcp_send(i->fd, _msg->m_data, _msg->m_head.m_len + MSG_HEAD_SIZE)) {
                 m_usrfd.erase(i->usrid);
@@ -153,6 +155,7 @@ void gate_server::broadcaster(message* _msg)
         }
         TRACER("normal broad end\n");
     } else if (size < 100) {
+        TRACER_DEBUG("2 thread broad start\n");
         auto iter0 = m_clientsfd.begin();
         auto iter1 = iter0 +  m_clientsfd.size() / 2;
         auto iter2 = m_clientsfd.end();
@@ -163,6 +166,7 @@ void gate_server::broadcaster(message* _msg)
         t2.join();
         TRACER("2 thread broad end\n");
     } else {
+        TRACER("4 thread broad start\n");
         auto iter0 = m_clientsfd.begin();
         auto iter1 = iter0 +  m_clientsfd.size() / 4;
         auto iter2 = iter1 +  m_clientsfd.size() / 4;
@@ -184,6 +188,7 @@ void gate_server::broadcaster(message* _msg)
 
     // todo 优化
     if (m_errorfd.size() > 0) {
+        TRACER("start erase %d bad file descriptor\n", m_errorfd.size());
         for (int i = 0, j = m_errorfd.size(); i < j; ++i) {
             m_usrfd.erase(m_errorfd[i].usrid);
             // m_clientsfd.erase(std::remove(m_clientsfd.begin(), m_clientsfd.end(), m_errorfd[i]), m_clientsfd.end());
@@ -215,6 +220,7 @@ void gate_server::broadcaster(message* _msg)
         // }
 
         m_errorfd.clear();
+        TRACER("end erase bad file descriptor\n");
     }
 
     TRACER("gate_server::broadcaster end\n");
