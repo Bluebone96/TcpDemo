@@ -140,7 +140,7 @@ static void test_sendmsg(robot_range* _range)
                 if (robots[j]->tcp_send(msgs[j].m_data, msgs[j].m_head.m_len + MSG_HEAD_SIZE) < 0) {
                     std::cout << "send msg  failed" << std::endl;
                 }
-                usleep(10 * 1000);
+                usleep(20 * 1000);
             }
             if (!(i & 0x7f)) {
                 printf("\n==================== %d message send ===============\n", i);
@@ -212,4 +212,4 @@ int main(int argc, char** argv)
 
 
 
-//g++ -std=c++11 -O2  -fprofile-arcs -ftest-coverage robot_run.cpp ./libnet.a ./libproto.a -lgcov -lpthread -lprotobuf -o test_robot_run
+//g++ -std=c++11 -O2  -fprofile-arcs -ftest-coverage robot_run.cpp ./libnet.a ./libproto.a -lgcov -lpthread -lprotobuf -o robot_run

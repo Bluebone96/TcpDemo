@@ -5,6 +5,7 @@
 #include <map>
 #include <vector>
 #include <mutex>
+#include <functional>
 
 #include "../Net/message.h"
 
@@ -24,6 +25,9 @@ struct client_info {
        return this->usrid == _rhs.usrid && this->fd == _rhs.fd;
     }
 };
+
+
+
 
 class gate_server
 {
@@ -89,6 +93,9 @@ private:
     
     // 广播用的，暂时顶一下, 急需优化
     std::vector<client_info> m_clientsfd;
+
+    friend class Broadcast;
+
 };
 
 

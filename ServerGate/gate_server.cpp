@@ -128,7 +128,7 @@ int8_t gate_server::run_server()
 void gate_server::broadcaster(message* _msg)
 {
 
-    TRACER("\ngate_server::broadcaster start\n");
+    TRACER_DEBUG("\ngate_server::broadcaster start\n");
 
     int size = m_usrfd.size();
 
@@ -143,8 +143,8 @@ void gate_server::broadcaster(message* _msg)
     };
 
     TRACER("connect clients size  = %d\n", size);
-    if (size < 10) {
-        TRACER("normal broad start\n");
+    if (size < 50) {
+        TRACER_DEBUG("normal broad start\n");
         for (auto i = m_clientsfd.begin() /*, j = m_clientsfd.end()*/; i != m_clientsfd.end();) {
             if (tcp_socket::tcp_send(i->fd, _msg->m_data, _msg->m_head.m_len + MSG_HEAD_SIZE)) {
                 m_usrfd.erase(i->usrid);
@@ -153,36 +153,36 @@ void gate_server::broadcaster(message* _msg)
                 ++i;
             }
         }
-        TRACER("normal broad end\n");
+        TRACER_DEBUG("normal broad end\n");
     } else if (size < 100) {
         TRACER_DEBUG("2 thread broad start\n");
         auto iter0 = m_clientsfd.begin();
         auto iter1 = iter0 +  m_clientsfd.size() / 2;
         auto iter2 = m_clientsfd.end();
 
-        std::thread t1(foo, std::ref(iter0), std::ref(iter1));
-        std::thread t2(foo, std::ref(iter1), std::ref(iter2));
+        std::thread t1(foo, iter0, iter1);
+        std::thread t2(foo, iter1, iter2);
         t1.join();
         t2.join();
-        TRACER("2 thread broad end\n");
+        TRACER_DEBUG("2 thread broad end\n");
     } else {
-        TRACER("4 thread broad start\n");
+        TRACER_DEBUG("4 thread broad start\n");
         auto iter0 = m_clientsfd.begin();
         auto iter1 = iter0 +  m_clientsfd.size() / 4;
         auto iter2 = iter1 +  m_clientsfd.size() / 4;
         auto iter3 = iter2 +  m_clientsfd.size() / 4;
         auto iter4 = m_clientsfd.end();
 
-        std::thread t1(foo, std::ref(iter0), std::ref(iter1));
-        std::thread t2(foo, std::ref(iter1), std::ref(iter2));
-        std::thread t3(foo, std::ref(iter2), std::ref(iter3));
-        std::thread t4(foo, std::ref(iter3), std::ref(iter4));
+        std::thread t1(foo, iter0, iter1);
+        std::thread t2(foo, iter1, iter2);
+        std::thread t3(foo, iter2, iter3);
+        std::thread t4(foo, iter3, iter4);
 
         t1.join();
         t2.join();
         t3.join();
         t4.join();
-        TRACER("4 thread broad end\n");
+        TRACER_DEBUG("4 thread broad end\n");
     }
 
 
@@ -223,7 +223,7 @@ void gate_server::broadcaster(message* _msg)
         TRACER("end erase bad file descriptor\n");
     }
 
-    TRACER("gate_server::broadcaster end\n");
+    TRACER_DEBUG("gate_server::broadcaster end\n");
 
     return;
 }
