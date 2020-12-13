@@ -65,17 +65,7 @@ public:
     message* dequeue();
     
     // for debug
-    void debug_info() {
-        // uint32_t pos = (m_in & (m_size - 1));
-        printf("m_in = %d, m_out = %d\n", m_in, m_out);
-        printf("m_in-1 pos = %d, flag = %d\n", ((m_in - 1) & (m_size - 1) ), static_cast<int>((m_pmsg + ((m_in - 1) & (m_size - 1)))->m_flag));
-        printf("m_in pos = %d, flag = %d\n", (m_in & (m_size - 1)), static_cast<int>((m_pmsg + (m_in & (m_size - 1)))->m_flag));
-        printf("m_in+1 pos = %d, flag = %d\n", ((m_in +1)& (m_size - 1)), static_cast<int>((m_pmsg + ((m_in +1) & (m_size - 1)))->m_flag));
-
-        printf("m_out-1 pos = %d, flag = %d\n", ((m_out - 1) & (m_size - 1) ), static_cast<int>((m_pmsg + ((m_out - 1) & (m_size - 1)))->m_flag));
-        printf("m_out pos = %d, flag = %d\n", (m_out & (m_size - 1)), static_cast<int>((m_pmsg + (m_out & (m_size - 1)))->m_flag));
-        printf("m_out+1 pos = %d, flag = %d\n", ((m_out+1) & (m_size - 1)), static_cast<int>((m_pmsg + ((m_out +1) & (m_size - 1)))->m_flag));
-    }
+    void debug_info();
     
 private:
     // volatile uint32_t m_in;

@@ -159,3 +159,17 @@ message* msg_queue::dequeue()
 
     return nullptr;
 }
+
+
+// for debug
+void msg_queue::debug_info() {
+    // uint32_t pos = (m_in & (m_size - 1));
+    TRACER_DEBUG("m_in = %d, m_out = %d\n", m_in, m_out);
+    TRACER_DEBUG("m_in-1 pos = %d, flag = %d\n", ((m_in - 1) & (m_size - 1) ), static_cast<int>((m_pmsg + ((m_in - 1) & (m_size - 1)))->m_flag));
+    TRACER_DEBUG("m_in pos = %d, flag = %d\n", (m_in & (m_size - 1)), static_cast<int>((m_pmsg + (m_in & (m_size - 1)))->m_flag));
+    TRACER_DEBUG("m_in+1 pos = %d, flag = %d\n", ((m_in +1)& (m_size - 1)), static_cast<int>((m_pmsg + ((m_in +1) & (m_size - 1)))->m_flag));
+
+    TRACER_DEBUG("m_out-1 pos = %d, flag = %d\n", ((m_out - 1) & (m_size - 1) ), static_cast<int>((m_pmsg + ((m_out - 1) & (m_size - 1)))->m_flag));
+    TRACER_DEBUG("m_out pos = %d, flag = %d\n", (m_out & (m_size - 1)), static_cast<int>((m_pmsg + (m_out & (m_size - 1)))->m_flag));
+    TRACER_DEBUG("m_out+1 pos = %d, flag = %d\n", ((m_out+1) & (m_size - 1)), static_cast<int>((m_pmsg + ((m_out +1) & (m_size - 1)))->m_flag));
+}

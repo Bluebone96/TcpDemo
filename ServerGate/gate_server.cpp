@@ -36,7 +36,9 @@ int8_t gate_server::run_client()
             usleep(50 * 1000);
             continue;
         }
-        
+        TRACER_DEBUG("gate_server::run_client ---- check the g_client_queue\n");
+        g_client_queue.debug_info();
+
         TRACER_DEBUG("msg type is %d\n", msg->m_head.m_type);
         switch (msg->m_head.m_type) {
             case USERLOGIN:
@@ -81,7 +83,8 @@ int8_t gate_server::run_server()
             // g_server_queue.debug_info();
             continue;
         }
-
+        TRACER_DEBUG("gate_server::run_server ---- check the g_server_queue\n");
+        g_server_queue.debug_info();
         switch (msg->m_head.m_type) {
             case SERVER_INFO:
                 {

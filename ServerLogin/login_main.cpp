@@ -63,8 +63,8 @@ int main()
     // todo 发送一条serverinfo 信息给连接的服务器，告知对方自己是什么服务器
     serverinfo.set_m_ip(cfg.ip);
     serverinfo.set_m_port(cfg.port);
-    serverinfo.set_m_type(DB_SERVER);
-    g_serverinfo.insert(std::make_pair(DB_SERVER, serverinfo));
+    serverinfo.set_m_type(LOGIN_SERVER);
+    g_serverinfo.insert(std::make_pair(LOGIN_SERVER, serverinfo));
 
 
     tcp_socket::tcp_send(fd, msg.m_data, msg.m_head.m_len + MSG_HEAD_SIZE);

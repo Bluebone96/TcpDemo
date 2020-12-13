@@ -50,7 +50,7 @@ public:
     bool runtask(uint8_t* _data, uint32_t _len);
 
 
-#define MAX_THREAD_COUNT 10
+#define MAX_THREAD_COUNT 30
 private:
     bool iscomplete();
     void Foo(Task& _task);
@@ -77,8 +77,10 @@ Broadcast::~Broadcast()
     }
 }
 
-int8_t Broadcast::init(gate_server*)
-{
+int8_t Broadcast::init(gate_server* _gate)
+{   
+    pgate = _gate;
+
     TRACER("bBroadcast ctor start!\n");
     auto func = [this](Task& _task) {
         static uint8_t  t = 0;
@@ -113,6 +115,7 @@ int8_t Broadcast::init(gate_server*)
         TRACER_ERROR("broadcast init failed what: %s\n", e.what());
         return -1;
     }
+
     TRACER("bBroadcast ctor end!\n");
 
     return 0;
@@ -138,51 +141,51 @@ bool Broadcast::runtask(uint8_t* _data, uint32_t _len)
         TRACER("broadcast::runtask start! num = %d\n", count);
     }
 
-    // uint32_t size = pgate->m_clientsfd.size();
-    // uint32_t tc = std::min((size / 0x10), (MAX_THREAD_COUNT - 1u)); // 每个线程最少负责广播16个, 最后一个线程负责剩余的 
-    // if (tc == 0) {
-    //     TRACER_DEBUG("tc == 0 signal thread start\n");
-    //     std::vector<uint32_t> errorfd;
-    //     auto i = pgate->m_clientsfd.begin();
-    //     auto j = pgate->m_clientsfd.end();
+    uint32_t size = pgate->m_clientsfd.size();
+    uint32_t tc = std::min((size / 0x10), (MAX_THREAD_COUNT - 1u)); // 每个线程最少负责广播16个, 最后一个线程负责剩余的 
+    if (tc == 0) {
+        TRACER_DEBUG("tc == 0 signal thread start\n");
+        std::vector<uint32_t> errorfd;
+        auto i = pgate->m_clientsfd.begin();
+        auto j = pgate->m_clientsfd.end();
 
-    //     for (; i != j; ) {
-    //         if (tcp_socket::tcp_send(i->fd, _data, _len)) {
-    //             *i = *(j-1);
-    //             --j;
-    //         } else {
-    //             ++i;
-    //         }
-    //     }
+        for (; i != j; ) {
+            if (tcp_socket::tcp_send(i->fd, _data, _len)) {
+                *i = *(j-1);
+                --j;
+            } else {
+                ++i;
+            }
+        }
 
-    //     pgate->m_clientsfd.erase(j, pgate->m_clientsfd.end());
+        pgate->m_clientsfd.erase(j, pgate->m_clientsfd.end());
 
-    //     TRACER_DEBUG("tc == 0 signal thread end\n");
-    // } else {
-    //     TRACER_DEBUG("tc == %d multi-thread start\n", tc);
-    //     uint8_t scale = size / tc;
-    //     auto start = pgate->m_clientsfd.begin();
-    //     for (uint i = 0; i < tc; ++i) {
-    //         m_tasks[i].data = _data;
-    //         m_tasks[i].len = _len;
-    //         m_tasks[i].start = start + scale * i;
-    //         m_tasks[i].end = m_tasks[i].start + scale;
-    //         m_tasks[i].isvalied = true;
-    //     }
-    //     // 剩下的
-    //     if (size & tc) {
-    //         m_tasks[tc].data = _data;
-    //         m_tasks[tc].len = _len;
-    //         m_tasks[tc].start = start + scale * tc;
-    //         m_tasks[tc].end = pgate->m_clientsfd.end();
-    //         m_tasks[tc].isvalied = true;
-    //     }
+        TRACER_DEBUG("tc == 0 signal thread end\n");
+    } else {
+        TRACER_DEBUG("tc == %d multi-thread start\n", tc);
+        uint8_t scale = size / tc;
+        auto start = pgate->m_clientsfd.begin();
+        for (uint i = 0; i < tc; ++i) {
+            m_tasks[i].data = _data;
+            m_tasks[i].len = _len;
+            m_tasks[i].start = start + scale * i;
+            m_tasks[i].end = m_tasks[i].start + scale;
+            m_tasks[i].isvalied = true;
+        }
+        // 剩下的
+        if (size & tc) {
+            m_tasks[tc].data = _data;
+            m_tasks[tc].len = _len;
+            m_tasks[tc].start = start + scale * tc;
+            m_tasks[tc].end = pgate->m_clientsfd.end();
+            m_tasks[tc].isvalied = true;
+        }
 
-    //     while (!iscomplete()) {
-    //         usleep(20 * 1000);
-    //     }
-    //     TRACER_DEBUG("tc == %d multi-thread end\n", tc);
-    // }
+        while (!iscomplete()) {
+            usleep(20 * 1000);
+        }
+        TRACER_DEBUG("tc == %d multi-thread end\n", tc);
+    }
     if (!(count & 0xff)) {
         TRACER("broadcast::runtask start! num = %d\n", count);
     }

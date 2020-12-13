@@ -133,6 +133,9 @@ int8_t Net::product_msg()
                 }
 
                 do  {
+                    TRACER_DEBUG("net::product ---- check the g_recv_queue\n");
+                    g_recv_queue->debug_info();
+                    
                     ret = recvmsg(socket, *msg);
                     if (ret < 0) {
                         // 读取失败将 msg->m_flag  设置为 invalied

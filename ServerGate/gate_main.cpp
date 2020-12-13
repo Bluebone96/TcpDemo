@@ -16,8 +16,8 @@ std::map<uint32_t, uint32_t> g_connet_server;
 
 int main ()
 {
-    g_server_queue.init_queue(1024 * 16);
-    g_client_queue.init_queue(1024 * 16);
+    g_server_queue.init_queue(1024 * 32);
+    g_client_queue.init_queue(1024 * 32);
 
     gate_server server;
     if (server.init_gate() < 0) {
@@ -66,6 +66,15 @@ int main ()
         TRACER_ERROR("net_server connect game_server failed addr: %s:%d\n", cfg.ip.c_str(), cfg.port);
         exit(1);
     }
+
+    // // todo 发送一条serverinfo 信息给连接的服务器，告知对方~自己是什么服务器
+    // Proto::Unity::ServerInfo serverinfo;
+    // serverinfo.set_m_ip(cfg.ip);
+    // serverinfo.set_m_port(cfg.port);
+    // serverinfo.set_m_type(GATE_SERVER);
+    // message msg;
+    // msg.encode_pb(serverinfo);
+    // tcp_socket::tcp_send(fd, msg.m_data, msg.m_head.m_len + MSG_HEAD_SIZE);
 
     g_connet_server[GAME_SERVER] = fd;
 

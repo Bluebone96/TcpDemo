@@ -29,7 +29,14 @@ int8_t login_server::run()
         }
 
         switch (msg->m_head.m_type)
-        {
+        {   
+            case SERVER_INFO:
+                {
+                    Proto::Unity::ServerInfo server;
+                    msg->decode_pb(server);
+                    g_connet_server[server.m_type()] = msg->m_from;
+                }
+                break;
             case LOGIN_REQUEST:
                 TRACER_DEBUG("login server msg type is LOGIN_REQUEST\n");
                 login_request(msg);

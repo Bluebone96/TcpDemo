@@ -26,6 +26,8 @@ void game_server::run()
             usleep(50 * 1000);
             continue;
         }
+        TRACER_DEBUG("game_server::run ---- check the g_server_queue\n");
+        g_recv_queue.debug_info();
         TRACER_DEBUG("msg type is %d\n", msg->m_head.m_type);
         switch (msg->m_head.m_type)
         {
@@ -153,8 +155,11 @@ int8_t game_server::usr_update_status(message *_msg)
 
     Proto::Unity::Operation op;
     _msg->decode_pb(op);
+    TRACER_DEBUG("just for Debug !! %s:%d\n", __POSITION__);
 
     m_players[usrid]->update_status(op);
+
+    TRACER_DEBUG("just for Debug !! %s:%d\n", __POSITION__);
 
     usr_sync(usrid, _msg->m_from);
     return 0;
