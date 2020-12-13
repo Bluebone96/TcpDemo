@@ -131,6 +131,7 @@ void gate_server::erasefd(uint32_t _usrid)
 {
     for (auto iter = m_clientsfd.begin(), end = m_clientsfd.end(); iter != end; ++iter) {
         if (iter->usrid == _usrid) {
+            TRACER_DEBUG("erase errorfd usrid = %d\n", _usrid);
             m_clientsfd.erase(iter);
             break;
         }
@@ -146,7 +147,6 @@ void gate_server::clear_up()
         TRACER("start erase %d bad file descriptor\n", m_errorfd.size());
         for (int i = 0, j = m_errorfd.size(); i < j; ++i) {
             m_usrfd.erase(m_errorfd[i].usrid);
-            // m_clientsfd.erase(std::remove(m_clientsfd.begin(), m_clientsfd.end(), m_errorfd[i]), m_clientsfd.end());
         }
         int end = m_clientsfd.size();
         for (int i = 0; i < end; ++i) {

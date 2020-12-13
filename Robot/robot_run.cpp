@@ -12,27 +12,7 @@
 
 
 
-
-
-static unsigned int BKDRHash(const std::string& _str)
-{
-    unsigned int seed = 1313;
-    unsigned int hash = 0;
-    for (auto& c : _str) {
-        hash = hash * seed + c;
-    }
-    return (hash & 0x7FFFFFFF);
-}
-
-
-inline const char* get_name(int x)
-{
-    static char name[20];
-    snprintf(name, 30, "robot_%d", x);
-    return name;
-}
-
-
+std::vector<std::thread> g_thread;
 
 bool g_flag = true;
 
@@ -54,13 +34,29 @@ struct robot_range
 robot_range g_range;
 
 
+static unsigned int BKDRHash(const std::string& _str)
+{
+    unsigned int seed = 1313;
+    unsigned int hash = 0;
+    for (auto& c : _str) {
+        hash = hash * seed + c;
+    }
+    return (hash & 0x7FFFFFFF);
+}
 
 
+inline const char* get_name(int x)
+{
+    static char name[20];
+    snprintf(name, 30, "robot_%d", x);
+    return name;
+}
 
-static int robots_init(robot_range* _range)
+
+static int robots_init()
 {
     const char* p = nullptr;
-    for (int i = _range->m_start; i < _range->m_end; ++i) {
+    for (int i = g_range.m_start; i < g_range.m_end; ++i) {
         robots[i] = new tcp_socket;
         robots[i]->tcp_init_buf();
         p = get_name(i);
@@ -70,7 +66,7 @@ static int robots_init(robot_range* _range)
     }
     
 
-    for (int i = _range->m_start; i < _range->m_end; ++i) {
+    for (int i = g_range.m_start; i < g_range.m_end; ++i) {
         if (robots[i]->tcp_connect("192.168.80.3", 2222) < 0) {
             exit(1);
         } 
@@ -86,7 +82,7 @@ static int robots_init(robot_range* _range)
 
     sleep(3);
 
-    for (int i = _range->m_start; i < _range->m_end; ++i) {
+    for (int i = g_range.m_start; i < g_range.m_end; ++i) {
         while (robots[i]->tcp_recv(msgs[i].m_data, MSG_HEAD_SIZE) < MSG_HEAD_SIZE) {
                std::cout << "\nrobot_" << i << " login failed, try again" << std::endl;
                 usleep(10 * 1000);
@@ -105,7 +101,7 @@ static int robots_init(robot_range* _range)
         }
     }
 
-    for (int i = _range->m_start; i < _range->m_end; ++i) {
+    for (int i = g_range.m_start; i < g_range.m_end; ++i) {
         close(robots[i]->getfd());
 
         if ( (robots_fd[i] = robots[i]->tcp_connect("192.168.80.3", 4445)) < 0) {
@@ -113,7 +109,7 @@ static int robots_init(robot_range* _range)
             return 3;
         }
 
-        usleep(10 * 1000);
+        usleep(50 * 1000);
         msgs[i].m_head.m_type = 0;
         msgs[i].m_head.m_len = 0;
         msgs[i].encode();
@@ -123,39 +119,38 @@ static int robots_init(robot_range* _range)
     return 0;
 }
 
-static void test_sendmsg(robot_range* _range)
+static void test_sendmsg()
 {
     Proto::Unity::Operation op;
     
-    for (int i = _range->m_start; i < _range->m_end; ++i) {
+    for (int i = g_range.m_start; i < g_range.m_end; ++i) {
         msgs[i].m_head.m_type = USERUP;
         msgs[i].m_head.m_errID = 0;
     }
-    while (_range->m_flag) {
-        for (int i = 0; i < 10000; ++i) {
-            for (int j = _range->m_start; j < _range->m_end; ++j) {
+    while (g_range.m_flag) {
+        for (int i = 0;( i < 10000) && g_range.m_flag; ++i) {
+            for (int j = g_range.m_start; (j < g_range.m_end) && g_range.m_flag; ++j) {
                 op.set_h(random() % 3 - 1);
                 op.set_v(random() % 3 - 1);
                 msgs[j].encode_pb(op);
                 if (robots[j]->tcp_send(msgs[j].m_data, msgs[j].m_head.m_len + MSG_HEAD_SIZE) < 0) {
                     std::cout << "send msg  failed" << std::endl;
                 }
-                usleep(20 * 1000);
+                usleep(50 * 1000);
             }
             if (!(i & 0x7f)) {
                 printf("\n==================== %d message send ===============\n", i);
             }
         }
     }
-    _range->m_flag = false;
-    std::cout << "send end\n";
+    g_range.m_flag = false;
 }
 
-static void test_recvmsg(robot_range* _range)
+static void test_recvmsg()
 {
 
-    while (_range->m_flag) {
-        for (int i = _range->m_start; i < _range->m_end; ++i) {
+    while (g_range.m_flag) {
+        for (int i = g_range.m_start; i < g_range.m_end && g_range.m_flag; ++i) {
             read(robots_fd[i], g_buff_null, 4096);
         }
         usleep(50 * 1000);
@@ -167,20 +162,40 @@ static void exit_all_robots(int signo)
 {   
     std::cout << "\n===============start exit all robots=========================" << std::endl;
     g_range.m_flag = false;
-    sleep(1);
+
+    if (g_thread[0].joinable()) {
+        g_thread[0].join();
+        std::cout << "send thread joined" << std::endl;
+    } 
+    if (g_thread[1].joinable()) 
+    {
+        g_thread[1].join();
+        std::cout << "recv thread joined" << std::endl;
+    }
+
+
+    std::cout << "\n===============send exit message=========================" << std::endl;
     for (int i = g_range.m_start, j = g_range.m_end; i < j; ++i) {
         msgs[i].m_head.m_type = USEREXIT;
         msgs[i].m_head.m_len = 0;
-        msgs->encode();
-        robots[i]->tcp_send(msgs->m_data, MSG_HEAD_SIZE);
+        msgs[i].encode();
+        robots[i]->tcp_send(msgs[i].m_data, MSG_HEAD_SIZE);
+        usleep(50 * 1000);
     }
-    sleep(2);
+
+    std::cout << "\n=============== free memory =========================" << std::endl;
+
     for (int i = g_range.m_start, j= g_range.m_end; i < j; ++i) {
         delete robots[i];
+        usleep(50 * 1000);
     }
+
     std::cout << "\n===============all robots exit success=======================" << std::endl;
+
     exit(0);
 }
+
+
 
 int main(int argc, char** argv)
 {
@@ -197,22 +212,27 @@ int main(int argc, char** argv)
     signal(SIGINT, exit_all_robots);
 
 
-    robots_init(&g_range);
+    robots_init();
 
     std::cout << "\n=============robots init complete======================" << std::endl;
 
-    std::thread t1(test_sendmsg, &g_range);
-    std::thread t2(test_recvmsg, &g_range);
+    g_thread.emplace_back(std::thread(test_sendmsg));
+    g_thread.emplace_back(std::thread(test_recvmsg));
 
 
 
-    t1.join();
-    t2.join();
+    if (g_thread[0].joinable()) {
+        g_thread[0].join();
+    } 
+    if (g_thread[1].joinable()) 
+    {
+        g_thread[1].join();
+    }
 
-
-
+    std::cout << "\n=============all message send======================" << std::endl;
 }
 
 
 
 //g++ -std=c++11 -O2  -fprofile-arcs -ftest-coverage robot_run.cpp ./libnet.a ./libproto.a -lgcov -lpthread -lprotobuf -o robot_run
+//g++ -std=c++11 -O2  robot_run.cpp ./libnet.a ./libproto.a -lpthread -lprotobuf -o robot_run

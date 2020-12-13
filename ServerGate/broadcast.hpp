@@ -50,7 +50,7 @@ public:
     bool runtask(uint8_t* _data, uint32_t _len);
 
 
-#define MAX_THREAD_COUNT 30
+#define MAX_THREAD_COUNT 50
 private:
     bool iscomplete();
     void Foo(Task& _task);
@@ -92,12 +92,13 @@ int8_t Broadcast::init(gate_server* _gate)
                 for (auto i = _task.start, j = _task.end; i != j; ++i) {
                     if (tcp_socket::tcp_send(i->fd, _task.data, _task.len)) {
                         pgate->m_errorfd.add(*i);
+                        TRACER("errorfd add fd = %d\n", i->fd);
                     }
                 }
                 _task.isvalied = false;
                 TRACER_DEBUG("==================broadcast func debug=========================\n");
             }
-            sleep(5);
+            usleep(10 * 1000);
         }
         TRACER("by thread! id = %d\n", id);
     };
@@ -137,12 +138,12 @@ bool Broadcast::runtask(uint8_t* _data, uint32_t _len)
 {
     TRACER_DEBUG("Broadcast::runtask start, data len = %d\n", _len);
     static uint32_t count = 0;
-    if (!(count & 0xff)) {
-        TRACER("broadcast::runtask start! num = %d\n", count);
-    }
+    // if (!(count & 0xf)) {
+    //     TRACER("broadcast::runtask start! num = %d\n", count);
+    // }
 
     uint32_t size = pgate->m_clientsfd.size();
-    uint32_t tc = std::min((size / 0x10), (MAX_THREAD_COUNT - 1u)); // 每个线程最少负责广播16个, 最后一个线程负责剩余的 
+    uint32_t tc = std::min((size / 0x0A), (MAX_THREAD_COUNT - 1u)); // 每个线程最少负责广播16个, 最后一个线程负责剩余的 
     if (tc == 0) {
         TRACER_DEBUG("tc == 0 signal thread start\n");
         std::vector<uint32_t> errorfd;
@@ -162,7 +163,9 @@ bool Broadcast::runtask(uint8_t* _data, uint32_t _len)
 
         TRACER_DEBUG("tc == 0 signal thread end\n");
     } else {
-        TRACER_DEBUG("tc == %d multi-thread start\n", tc);
+        if (!(count & 0xff)) {
+            TRACER("clients = %d, tc == %d multi-thread start, call num = %d\n", size, tc, count);
+        }
         uint8_t scale = size / tc;
         auto start = pgate->m_clientsfd.begin();
         for (uint i = 0; i < tc; ++i) {
@@ -182,16 +185,18 @@ bool Broadcast::runtask(uint8_t* _data, uint32_t _len)
         }
 
         while (!iscomplete()) {
-            usleep(20 * 1000);
+            usleep(10 * 1000);
         }
-        TRACER_DEBUG("tc == %d multi-thread end\n", tc);
+        if (!(count & 0xff)) {
+            TRACER("clients = %d, tc == %d multi-thread end, call num = %d\n", size, tc, count);
+        }
     }
-    if (!(count & 0xff)) {
-        TRACER("broadcast::runtask start! num = %d\n", count);
-    }
+    // if (!(count & 0xf)) {
+    //     TRACER("broadcast::runtask end! num = %d\n", count);
+    // }
     ++count;
 
-    TRACER_DEBUG("Broadcast::runtask start, data len = %d\n", _len);
+    TRACER_DEBUG("Broadcast::runtask end, data len = %d\n", _len);
     return true;
 }
 
@@ -211,7 +216,7 @@ void Broadcast::Foo(Task& _task)
             }
             _task.isvalied = false;
         }
-        usleep(50 * 1000);
+        usleep(5 * 1000);
     }
 
     TRACER("by thread! id = %d\n", id);

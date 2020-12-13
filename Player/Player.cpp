@@ -65,8 +65,11 @@ int Player::update_status(Proto::Unity::Operation& op)
     m_protoInfo->set_posx(m_protoInfo->posx() + (passtime * m_protoInfo->speed() * m_protoInfo->op().h()) / 1000);
     m_protoInfo->set_posz(m_protoInfo->posz() + (passtime * m_protoInfo->speed() * m_protoInfo->op().v()) / 1000);
     m_protoInfo->mutable_op()->operator=(m_opNew);
-
-    TRACER("player %s: posx = %f, posz = %f\n", m_name.c_str(), m_protoInfo->posx(), m_protoInfo->posz());
+    
+    // 只显示一个玩家
+    if (m_id == 172542746u) { 
+        TRACER("player %s: posx = %f, posz = %f\n", m_name.c_str(), m_protoInfo->posx(), m_protoInfo->posz());
+    }
     m_lastTimeUp = curTime;
     return 0;
 }
