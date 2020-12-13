@@ -14,6 +14,9 @@ extern msg_queue g_client_queue;
 
 extern std::map<uint32_t, uint32_t> g_connet_server;
 
+class Broadcast;
+
+
 struct client_info {
     uint32_t usrid;
     uint32_t fd;
@@ -25,7 +28,6 @@ struct client_info {
        return this->usrid == _rhs.usrid && this->fd == _rhs.fd;
     }
 };
-
 
 
 
@@ -41,7 +43,9 @@ public:
     int8_t run_server();
 
     // TODO 广播专用，急需优化
-    void broadcaster(message* _msg);
+    // void broadcaster(message* _msg);
+
+    
 private:
     // 暂未使用
     // std::map<uint32_t, uint32_t> m_usrkey; // 验证令牌  
@@ -50,7 +54,8 @@ private:
     // todo 客户端断开后如何进行有效清除 , 方案一 直接 erase, 方案二 将 fd 设置为 -1，每次发送前判断
     std::map<uint32_t, int32_t> m_usrfd;   
     
-
+private:
+    void clear_up();
     class safevector{
     public:
         safevector() {}
@@ -89,13 +94,15 @@ private:
         std::vector<client_info> _errorfd;
     };
 
+
     safevector m_errorfd; // 无效fd, 删除掉
     
     // 广播用的，暂时顶一下, 急需优化
     std::vector<client_info> m_clientsfd;
 
-    friend class Broadcast;
+    Broadcast* m_broadcast;
 
+    friend class Broadcast;
 };
 
 

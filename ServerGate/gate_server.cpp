@@ -6,19 +6,21 @@
 #include "../Common/log.h"
 #include "../Net/tcp_socket.h"
 #include "gate_server.h"
+#include "broadcast.hpp"
 
-gate_server::gate_server()
+gate_server::gate_server() : m_broadcast(nullptr)
 {
 
 }
 
 gate_server::~gate_server()
 {
-
+    delete m_broadcast;
 }
 
 int8_t gate_server::init_gate()
 {
+    m_broadcast = new Broadcast(this);
     return 0;
 }
 
@@ -103,15 +105,24 @@ int8_t gate_server::run_server()
                     }
                 }
                 m_usrfd.erase(msg->m_head.m_usrID);
-                broadcaster(msg);
+                m_broadcast->runtask(msg->m_data, msg->m_head.m_len + MSG_HEAD_SIZE);
+                clear_up();
                 break;
             case USERSYNC:
-                broadcaster(msg);
+                m_broadcast->runtask(msg->m_data, msg->m_head.m_len + MSG_HEAD_SIZE);
+                clear_up();
                 break;
             case ITEMEVENT:
                 // item operation
                 if (tcp_socket::tcp_send(m_usrfd[msg->m_head.m_usrID], msg->m_data, msg->m_head.m_len + MSG_HEAD_SIZE) < 0) {
                     TRACER_ERROR("send msg to usrid %d fd %d failed\n", msg->m_head.m_usrID, m_usrfd[msg->m_head.m_usrID]);
+                    for (auto iter = m_clientsfd.begin(), end = m_clientsfd.end(); iter != end; ++iter) {
+                        if (iter->usrid == msg->m_head.m_usrID) {
+                            m_clientsfd.erase(iter);
+                            break;
+                        }
+                    }
+                    m_usrfd.erase(msg->m_head.m_usrID);
                 }
                 break;
             default:
@@ -125,68 +136,9 @@ int8_t gate_server::run_server()
 
 
 
-void gate_server::broadcaster(message* _msg)
+void gate_server::clear_up()
 {
-
-    TRACER_DEBUG("\ngate_server::broadcaster start\n");
-
-    int size = m_usrfd.size();
-
-    // 保证生命周期，不会出现悬挂指针
-    auto foo = [this, &_msg](std::vector<client_info>::iterator& start, std::vector<client_info>::iterator& end)
-    {
-        for (; start != end; ++start) {
-            if (tcp_socket::tcp_send(start->fd, _msg->m_data, _msg->m_head.m_len + MSG_HEAD_SIZE)) {
-                this->m_errorfd.add(*start);
-            }
-        }
-    };
-
-    TRACER("connect clients size  = %d\n", size);
-    if (size < 50) {
-        TRACER_DEBUG("normal broad start\n");
-        for (auto i = m_clientsfd.begin() /*, j = m_clientsfd.end()*/; i != m_clientsfd.end();) {
-            if (tcp_socket::tcp_send(i->fd, _msg->m_data, _msg->m_head.m_len + MSG_HEAD_SIZE)) {
-                m_usrfd.erase(i->usrid);
-                i = m_clientsfd.erase(i);
-            } else {
-                ++i;
-            }
-        }
-        TRACER_DEBUG("normal broad end\n");
-    } else if (size < 100) {
-        TRACER_DEBUG("2 thread broad start\n");
-        auto iter0 = m_clientsfd.begin();
-        auto iter1 = iter0 +  m_clientsfd.size() / 2;
-        auto iter2 = m_clientsfd.end();
-
-        std::thread t1(foo, iter0, iter1);
-        std::thread t2(foo, iter1, iter2);
-        t1.join();
-        t2.join();
-        TRACER_DEBUG("2 thread broad end\n");
-    } else {
-        TRACER_DEBUG("4 thread broad start\n");
-        auto iter0 = m_clientsfd.begin();
-        auto iter1 = iter0 +  m_clientsfd.size() / 4;
-        auto iter2 = iter1 +  m_clientsfd.size() / 4;
-        auto iter3 = iter2 +  m_clientsfd.size() / 4;
-        auto iter4 = m_clientsfd.end();
-
-        std::thread t1(foo, iter0, iter1);
-        std::thread t2(foo, iter1, iter2);
-        std::thread t3(foo, iter2, iter3);
-        std::thread t4(foo, iter3, iter4);
-
-        t1.join();
-        t2.join();
-        t3.join();
-        t4.join();
-        TRACER_DEBUG("4 thread broad end\n");
-    }
-
-
-    // todo 优化
+     // todo 优化
     if (m_errorfd.size() > 0) {
         TRACER("start erase %d bad file descriptor\n", m_errorfd.size());
         for (int i = 0, j = m_errorfd.size(); i < j; ++i) {
@@ -201,29 +153,134 @@ void gate_server::broadcaster(message* _msg)
                 }
             }
         }
+
         m_clientsfd.erase(m_clientsfd.begin() + end, m_clientsfd.end());
 
-        // TODO 客户端突然掉线未发送登出包， gate_server 主动通知game_server 
-        // 或者 让game_server 根据心跳包来主动踢掉不活跃的客户端
+        // TODO 客户端突然掉线未发送离线包, 或者包还在队列中
+        // 1. gate_server 主动通知game_server 
+        // 2. 不处理 让game_server 根据心跳包来主动踢掉不活跃的客户端
+        // 发送方式 
+        // 1.放入队列.
+        // 2.直接发送,  
         // message* msg = nullptr;
         // for (int i = 0; i < end; ++i) {
-        //     while ((msg = g_client_queue.enqueue()) == nullptr) {
-        //         usleep(10 * 1000);
-        //     }
-        //     msg->m_head.m_type = USEREXIT;
-        //     msg->m_head.m_len = 0;
-        //     msg->m_head.m_usrID = m_errorfd[i].usrid;
-        //     msg->m_head.m_errID = 0;
-        //     msg->m_to = g_connet_server[GAME_SERVER];
-        //     msg->encode();
-        //     msg->m_flag = msg_flags::ACTIVE;
+            // while ((msg = g_client_queue.enqueue()) == nullptr) {
+                // usleep(10 * 1000);
+            // }
+            // msg->m_head.m_type = USEREXIT;
+            // msg->m_head.m_len = 0;
+            // msg->m_head.m_usrID = m_errorfd[i].usrid;
+            // msg->m_head.m_errID = 0;
+            // msg->m_to = g_connet_server[GAME_SERVER];
+            // msg->encode();
+            // msg->m_flag = msg_flags::ACTIVE;
         // }
 
         m_errorfd.clear();
         TRACER("end erase bad file descriptor\n");
     }
-
-    TRACER_DEBUG("gate_server::broadcaster end\n");
-
-    return;
 }
+
+
+// void gate_server::broadcaster(message* _msg)
+// {
+
+//     TRACER_DEBUG("\ngate_server::broadcaster start\n");
+
+//     int size = m_usrfd.size();
+
+//     // 保证生命周期，不会出现悬挂指针
+//     auto foo = [this, &_msg](std::vector<client_info>::iterator& start, std::vector<client_info>::iterator& end)
+//     {
+//         for (; start != end; ++start) {
+//             if (tcp_socket::tcp_send(start->fd, _msg->m_data, _msg->m_head.m_len + MSG_HEAD_SIZE) != 0) {
+//                 this->m_errorfd.add(*start);
+//             }
+//         }
+//     };
+
+//     TRACER("connect clients size  = %d\n", size);
+//     if (size < 50) {
+//         TRACER_DEBUG("normal broad start\n");
+//         for (auto i = m_clientsfd.begin() /*, j = m_clientsfd.end()*/; i != m_clientsfd.end();) {
+//             if (tcp_socket::tcp_send(i->fd, _msg->m_data, _msg->m_head.m_len + MSG_HEAD_SIZE) != 0) {
+//                 m_usrfd.erase(i->usrid);
+//                 i = m_clientsfd.erase(i);
+//             } else {
+//                 ++i;
+//             }
+//         }
+//         TRACER_DEBUG("normal broad end\n");
+//     } else if (size < 100) {
+//         TRACER_DEBUG("2 thread broad start\n");
+//         auto iter0 = m_clientsfd.begin();
+//         auto iter1 = iter0 +  m_clientsfd.size() / 2;
+//         auto iter2 = m_clientsfd.end();
+
+//         std::thread t1(foo, iter0, iter1);
+//         std::thread t2(foo, iter1, iter2);
+//         t1.join();
+//         t2.join();
+//         TRACER_DEBUG("2 thread broad end\n");
+//     } else {
+//         TRACER_DEBUG("4 thread broad start\n");
+//         auto iter0 = m_clientsfd.begin();
+//         auto iter1 = iter0 +  m_clientsfd.size() / 4;
+//         auto iter2 = iter1 +  m_clientsfd.size() / 4;
+//         auto iter3 = iter2 +  m_clientsfd.size() / 4;
+//         auto iter4 = m_clientsfd.end();
+
+//         std::thread t1(foo, iter0, iter1);
+//         std::thread t2(foo, iter1, iter2);
+//         std::thread t3(foo, iter2, iter3);
+//         std::thread t4(foo, iter3, iter4);
+
+//         t1.join();
+//         t2.join();
+//         t3.join();
+//         t4.join();
+//         TRACER_DEBUG("4 thread broad end\n");
+//     }
+
+
+//     // todo 优化
+//     if (m_errorfd.size() > 0) {
+//         TRACER("start erase %d bad file descriptor\n", m_errorfd.size());
+//         for (int i = 0, j = m_errorfd.size(); i < j; ++i) {
+//             m_usrfd.erase(m_errorfd[i].usrid);
+//             // m_clientsfd.erase(std::remove(m_clientsfd.begin(), m_clientsfd.end(), m_errorfd[i]), m_clientsfd.end());
+//         }
+//         int end = m_clientsfd.size();
+//         for (int i = 0; i < end; ++i) {
+//             for (int n = 0, m = m_errorfd.size(); n < m; ++n) {
+//                 if (m_errorfd[n] == m_clientsfd[i]) {
+//                     m_clientsfd[i] = m_clientsfd[--end];
+//                 }
+//             }
+//         }
+//         m_clientsfd.erase(m_clientsfd.begin() + end, m_clientsfd.end());
+
+//         // TODO 客户端突然掉线未发送登出包， gate_server 主动通知game_server 
+//         // 或者 让game_server 根据心跳包来主动踢掉不活跃的客户端
+//         // message* msg = nullptr;
+//         // for (int i = 0; i < end; ++i) {
+//         //     while ((msg = g_client_queue.enqueue()) == nullptr) {
+//         //         usleep(10 * 1000);
+//         //     }
+//         //     msg->m_head.m_type = USEREXIT;
+//         //     msg->m_head.m_len = 0;
+//         //     msg->m_head.m_usrID = m_errorfd[i].usrid;
+//         //     msg->m_head.m_errID = 0;
+//         //     msg->m_to = g_connet_server[GAME_SERVER];
+//         //     msg->encode();
+//         //     msg->m_flag = msg_flags::ACTIVE;
+//         // }
+
+//         m_errorfd.clear();
+//         TRACER("end erase bad file descriptor\n");
+//     }
+
+//     TRACER_DEBUG("gate_server::broadcaster end\n");
+
+//     return;
+// }

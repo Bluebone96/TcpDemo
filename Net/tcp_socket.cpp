@@ -292,7 +292,7 @@ int32_t tcp_socket::tcp_send(uint32_t _fd, const uint8_t *_usrbuf, uint32_t _len
         nleft -= nw;
     }
     TRACER_DEBUG("send data success left should be 0: %d\n", nleft);
-    return nleft;
+    return 0; // always 0
 }
 
 
