@@ -55,6 +55,8 @@ private:
     std::map<uint32_t, int32_t> m_usrfd;   
     
 private:
+    void erasefd(uint32_t _usrid);
+
     void clear_up();
     class safevector{
     public:

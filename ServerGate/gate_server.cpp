@@ -40,25 +40,19 @@ int8_t gate_server::run_client()
         TRACER_DEBUG("msg type is %d\n", msg->m_head.m_type);
         switch (msg->m_head.m_type) {
             case USERLOGIN:
-                TRACER("new player login usrid is %d, fd is %d\n", msg->m_head.m_usrID, msg->m_from);
+                TRACER("gate_server::run_client -- new player login usrid is %d, fd is %d\n", msg->m_head.m_usrID, msg->m_from);
                 m_usrfd[msg->m_head.m_usrID] = msg->m_from;    // 第一次登录
                 m_clientsfd.emplace_back(client_info(msg->m_head.m_usrID, msg->m_from));
                 break;
             case USEREXIT:
-                TRACER("client exit usrid = %d\n", msg->m_head.m_usrID);
-                for (auto iter = m_clientsfd.begin(), end = m_clientsfd.end(); iter != end; ++iter) {
-                    if (iter->usrid == msg->m_head.m_usrID) {
-                        m_clientsfd.erase(iter);
-                        break;
-                    }
-                }
-                m_usrfd.erase(msg->m_head.m_usrID);
+                TRACER("gate_server::run_client -- client exit usrid = %d\n", msg->m_head.m_usrID);
+                erasefd(msg->m_head.m_usrID);
 
             case USERUP:
-                if (tcp_socket::tcp_send(g_connet_server[GAME_SERVER], msg->m_data, msg->m_head.m_len + MSG_HEAD_SIZE) < 0) {
-                    TRACER_ERROR("send  update msg to game_server failed, gameserver fd %d, usrid %d\n", g_connet_server[GAME_SERVER], msg->m_head.m_usrID);
-                }
-                break;
+                // if (tcp_socket::tcp_send(g_connet_server[GAME_SERVER], msg->m_data, msg->m_head.m_len + MSG_HEAD_SIZE) < 0) {
+                //     TRACER_ERROR("send  update msg to game_server failed, gameserver fd %d, usrid %d\n", g_connet_server[GAME_SERVER], msg->m_head.m_usrID);
+                // }
+                // break;
             case ITEMEVENT:
                 // item operation
                 if (tcp_socket::tcp_send(g_connet_server[GAME_SERVER], msg->m_data, msg->m_head.m_len + MSG_HEAD_SIZE) < 0) {
@@ -102,34 +96,22 @@ int8_t gate_server::run_server()
                     TRACER_ERROR("send msg to game_server fd %d failed\n", g_connet_server[GAME_SERVER]);
                 }
                 break;
-            case USEREXIT: // 服务器主动退出
-                for (auto iter = m_clientsfd.begin(), end = m_clientsfd.end(); iter != end; ++iter) {
-                    if (iter->usrid == msg->m_head.m_usrID) {
-                        m_clientsfd.erase(iter);
-                        break;
-                    }
-                }
-                m_usrfd.erase(msg->m_head.m_usrID);
+            case USEREXIT:
                 TRACER_DEBUG("gate_server::run_server msg type is userexit.\n");
-                m_broadcast->runtask(msg->m_data, msg->m_head.m_len + MSG_HEAD_SIZE);
-                clear_up();
-                break;
-            case USERSYNC:
-                TRACER_DEBUG("gate_server::run_server msg type is usrsync.\n");
+                erasefd(msg->m_head.m_usrID);
                 // m_broadcast->runtask(msg->m_data, msg->m_head.m_len + MSG_HEAD_SIZE);
                 // clear_up();
+                // break;
+            case USERSYNC:
+                TRACER_DEBUG("gate_server::run_server msg type is usrsync.\n");
+                m_broadcast->runtask(msg->m_data, msg->m_head.m_len + MSG_HEAD_SIZE);
+                clear_up();
                 break;
             case ITEMEVENT:
                 // item operation
                 if (tcp_socket::tcp_send(m_usrfd[msg->m_head.m_usrID], msg->m_data, msg->m_head.m_len + MSG_HEAD_SIZE) < 0) {
                     TRACER_ERROR("send msg to usrid %d fd %d failed\n", msg->m_head.m_usrID, m_usrfd[msg->m_head.m_usrID]);
-                    for (auto iter = m_clientsfd.begin(), end = m_clientsfd.end(); iter != end; ++iter) {
-                        if (iter->usrid == msg->m_head.m_usrID) {
-                            m_clientsfd.erase(iter);
-                            break;
-                        }
-                    }
-                    m_usrfd.erase(msg->m_head.m_usrID);
+                    erasefd(msg->m_head.m_usrID);
                 }
                 break;
             default:
@@ -141,6 +123,17 @@ int8_t gate_server::run_server()
     }
 }
 
+
+void gate_server::erasefd(uint32_t _usrid)
+{
+    for (auto iter = m_clientsfd.begin(), end = m_clientsfd.end(); iter != end; ++iter) {
+        if (iter->usrid == _usrid) {
+            m_clientsfd.erase(iter);
+            break;
+        }
+    }
+    m_usrfd.erase(_usrid);
+}
 
 
 void gate_server::clear_up()

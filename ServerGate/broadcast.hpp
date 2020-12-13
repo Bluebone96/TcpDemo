@@ -1,3 +1,5 @@
+#ifndef _BROADCAST_HPP_
+
 #include <functional>
 #include <stdint.h>
 #include <map>
@@ -211,3 +213,5 @@ void Broadcast::Foo(Task& _task)
 
     TRACER("by thread! id = %d\n", id);
 }
+
+#endif
