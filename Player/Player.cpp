@@ -99,16 +99,7 @@ const Proto::Unity::PlayerInfo* Player::GetPlayerInfo()
 
 int Player::save_allinfo()
 {
-    // m_inventory.saveAll();
-    // 
-    // message *msg = g_send_queue.dequeue();
-// 
-    // if (msg) {
-        // msg->m_head.m_type = SET_ALLINFO;
-        // msg->m_head.m_usrID = m_id;
-        // msg->m_head.m_errID = 0;
-        // msg->m_to = 
-    // }
+
     return 0;
 }
 

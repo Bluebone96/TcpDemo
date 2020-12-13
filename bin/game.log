@@ -1,411 +1,604 @@
+msg_queue ctor
+msg_queue ctor
 init network start
+load game_server config, ip:192.168.80.3, port:3333
 init network start
-player login, id = 1492358134
-player login, id = 1495806072
-player login, id = 629072917
-player login, id = 1497530041
-player login, id = 1494082103
-player login, id = 1492358135
-player login, id = 1495806073
-player login, id = 629072918
-player login, id = 1494082104
-player login, id = 1497530042
-player login, id = 629072919
-player login, id = 1495806074
-player login, id = 1492358136
-player login, id = 1497530043
-player login, id = 1494082105
-player login, id = 1492358137
-player login, id = 1495806075
-player login, id = 629072920
-player login, id = 1494082106
-player login, id = 1497530044
-player login, id = 629072921
-player login, id = 1492358138
-player login, id = 1495806076
-player login, id = 1497530045
-player login, id = 1494082107
-player login, id = 629072922
-player login, id = 1492358139
-player login, id = 1495806077
-player login, id = 1494082108
-player login, id = 1497530046
-player login, id = 629072923
-player login, id = 1492358140
-player login, id = 1495806078
-player login, id = 1497530047
-player login, id = 1494082109
-player login, id = 629072924
-player login, id = 1492358141
-player login, id = 1495806079
-player login, id = 1497530048
-player login, id = 1494082110
-player login, id = 629072925
-player login, id = 1492358142
-player login, id = 1495806080
-player login, id = 1497530049
-player login, id = 1494082111
-player login, id = 1492358143
-player login, id = 1495806081
-player login, id = 629072926
-player login, id = 1497530050
-player login, id = 1494082112
-player login, id = 1339020550
-player login, id = 1492359447
-player login, id = 1495807385
-player login, id = 1494083416
-player login, id = 1497531354
-player login, id = 1495807386
-player login, id = 1492359448
-player login, id = 1339020551
-player login, id = 1497531355
-player login, id = 1494083417
-player login, id = 1339020552
-player login, id = 1495807387
-player login, id = 1492359449
-player login, id = 1494083418
-player login, id = 1497531356
-player login, id = 1492359450
-player login, id = 1339020553
-player login, id = 1495807388
-player login, id = 1497531357
-player login, id = 1494083419
-player login, id = 1495807389
-player login, id = 1339020554
-player login, id = 1492359451
-player login, id = 1494083420
-player login, id = 1497531358
-player login, id = 1495807390
-player login, id = 1492359452
-player login, id = 1339020555
-player login, id = 1497531359
-player login, id = 1494083421
-player login, id = 1339020556
-player login, id = 1492359453
-player login, id = 1495807391
-player login, id = 1494083422
-player login, id = 1497531360
-player login, id = 1339020557
-player login, id = 1492359454
-player login, id = 1495807392
-player login, id = 1497531361
-player login, id = 1494083423
-player login, id = 1339020558
-player login, id = 1495807393
-player login, id = 1492359455
-player login, id = 1494083424
-player login, id = 1497531362
-player login, id = 1339020559
-player login, id = 1495807394
-player login, id = 1492359456
-player login, id = 1494083425
-player login, id = 1497531363
-player login, id = 1339021863
-player login, id = 1492360760
-player login, id = 1495808698
-player login, id = 1494084729
-player login, id = 1497532667
-player login, id = 1492360761
-player login, id = 1495808699
-player login, id = 1339021864
-player login, id = 1494084730
-player login, id = 1497532668
-player login, id = 1495808700
-player login, id = 1492360762
-player login, id = 1339021865
-player login, id = 1494084731
-player login, id = 1497532669
-player login, id = 1495808701
-player login, id = 1492360763
-player login, id = 1339021866
-player login, id = 1494084732
-player login, id = 1497532670
-player login, id = 1492360764
-player login, id = 1495808702
-player login, id = 1497532671
-player login, id = 1339021867
-player login, id = 1494084733
-player login, id = 1492360765
-player login, id = 1495808703
-player login, id = 1339021868
-player login, id = 1497532672
-player login, id = 1494084734
-player login, id = 1492360766
-player login, id = 1495808704
-player login, id = 1339021869
-player login, id = 1494084735
-player login, id = 1497532673
-player login, id = 1492360767
-player login, id = 1495808705
-player login, id = 1339021870
-player login, id = 1494084736
-player login, id = 1497532674
-player login, id = 1492360768
-player login, id = 1495808706
-player login, id = 1339021871
-player login, id = 1494084737
-player login, id = 1497532675
-player login, id = 1495808707
-player login, id = 1339021872
-player login, id = 1492360769
-player login, id = 1494084738
-player login, id = 1497532676
-player login, id = 1497533980
-player login, id = 1495810011
-player login, id = 1492362073
-player login, id = 1494086042
-player login, id = 1339023176
-player login, id = 1492362074
-player login, id = 1339023177
-player login, id = 1494086043
-player login, id = 1497533981
-player login, id = 1495810012
-player login, id = 1339023178
-player login, id = 1494086044
-player login, id = 1492362075
-player login, id = 1495810013
-player login, id = 1497533982
-player login, id = 1339023179
-player login, id = 1494086045
-player login, id = 1495810014
-player login, id = 1492362076
-player login, id = 1497533983
-player login, id = 1339023180
-player login, id = 1492362077
-player login, id = 1494086046
-player login, id = 1495810015
-player login, id = 1497533984
-player login, id = 1339023181
-player login, id = 1492362078
-player login, id = 1494086047
-player login, id = 1495810016
-player login, id = 1497533985
-player login, id = 1497533986
-player login, id = 1495810017
-player login, id = 1494086048
-player login, id = 1492362079
-player login, id = 1339023182
-player login, id = 1495810018
-player login, id = 1339023183
-player login, id = 1494086049
-player login, id = 1492362080
-player login, id = 1497533987
-player login, id = 1497533988
-player login, id = 1494086050
-player login, id = 1492362081
-player login, id = 1339023184
-player login, id = 1495810019
-player login, id = 1495810020
-player login, id = 1492362082
-player login, id = 1339023185
-player login, id = 1494086051
-player login, id = 1497533989
-player login, id = 1495811324
-player login, id = 1492363386
-player login, id = 1339024489
-player login, id = 1497535293
-player login, id = 1494087355
-player login, id = 1492363387
-player login, id = 1495811325
-player login, id = 1339024490
-player login, id = 1497535294
-player login, id = 1494087356
-player login, id = 1495811326
-player login, id = 1497535295
-player login, id = 1492363388
-player login, id = 1494087357
-player login, id = 1339024491
-player login, id = 1497535296
-player login, id = 1495811327
-player login, id = 1494087358
-player login, id = 1492363389
-player login, id = 1339024492
-player login, id = 1492363390
-player login, id = 1497535297
-player login, id = 1494087359
-player login, id = 1495811328
-player login, id = 1339024493
-player login, id = 1494087360
-player login, id = 1495811329
-player login, id = 1497535298
-player login, id = 1492363391
-player login, id = 1339024494
-player login, id = 1497535299
-player login, id = 1492363392
-player login, id = 1494087361
-player login, id = 1495811330
-player login, id = 1339024495
-player login, id = 1339024496
-player login, id = 1492363393
-player login, id = 1497535300
-player login, id = 1494087362
-player login, id = 1495811331
-player login, id = 1495811332
-player login, id = 1497535301
-player login, id = 1339024497
-player login, id = 1492363394
-player login, id = 1494087363
-player login, id = 1339024498
-player login, id = 1495811333
-player login, id = 1497535302
-player login, id = 1494087364
-player login, id = 1492363395
-player login, id = 1497536606
-player login, id = 1495812637
-player login, id = 1494088668
-player login, id = 1339025802
-player login, id = 1492364699
-player login, id = 1497536607
-player login, id = 1494088669
-player login, id = 1495812638
-player login, id = 1492364700
-player login, id = 1339025803
-player login, id = 1494088670
-player login, id = 1495812639
-player login, id = 1497536608
-player login, id = 1492364701
-player login, id = 1339025804
-player login, id = 1495812640
-player login, id = 1492364702
-player login, id = 1494088671
-player login, id = 1497536609
-player login, id = 1339025805
-player login, id = 1492364703
-player login, id = 1339025806
-player login, id = 1495812641
-player login, id = 1494088672
-player login, id = 1497536610
-player login, id = 1497536611
-player login, id = 1492364704
-player login, id = 1339025807
-player login, id = 1494088673
-player login, id = 1495812642
-player login, id = 1492364705
-player login, id = 1339025808
-player login, id = 1494088674
-player login, id = 1497536612
-player login, id = 1495812643
-player login, id = 1494088675
-player login, id = 1492364706
-player login, id = 1497536613
-player login, id = 1339025809
-player login, id = 1495812644
-player login, id = 1497536614
-player login, id = 1494088676
-player login, id = 1492364707
-player login, id = 1339025810
-player login, id = 1495812645
-player login, id = 1497536615
-player login, id = 1494088677
-player login, id = 1492364708
-player login, id = 1339025811
-player login, id = 1495812646
-player login, id = 1492366012
-player login, id = 1497537919
-player login, id = 1339027115
-player login, id = 1495813950
-player login, id = 1494089981
-player login, id = 1497537920
-player login, id = 1495813951
-player login, id = 1494089982
-player login, id = 1492366013
-player login, id = 1339027116
-player login, id = 1494089983
-player login, id = 1497537921
-player login, id = 1339027117
-player login, id = 1495813952
-player login, id = 1492366014
-player login, id = 1494089984
-player login, id = 1339027118
-player login, id = 1497537922
-player login, id = 1495813953
-player login, id = 1492366015
-player login, id = 1339027119
-player login, id = 1494089985
-player login, id = 1495813954
-player login, id = 1497537923
-player login, id = 1492366016
-player login, id = 1339027120
-player login, id = 1494089986
-player login, id = 1495813955
-player login, id = 1497537924
-player login, id = 1492366017
-player login, id = 1339027121
-player login, id = 1494089987
-player login, id = 1495813956
-player login, id = 1492366018
-player login, id = 1497537925
-player login, id = 1492366019
-player login, id = 1494089988
-player login, id = 1495813957
-player login, id = 1339027122
-player login, id = 1497537926
-player login, id = 1495813958
-player login, id = 1339027123
-player login, id = 1492366020
-player login, id = 1494089989
-player login, id = 1497537927
-player login, id = 1495813959
-player login, id = 1494089990
-player login, id = 1339027124
-player login, id = 1492366021
-player login, id = 1497537928
-player login, id = 1495815263
-player login, id = 1494091294
-player login, id = 1492367325
-player login, id = 1339028428
-player login, id = 1497539232
-player login, id = 1492367326
-player login, id = 1339028429
-player login, id = 1494091295
-player login, id = 1495815264
-player login, id = 1497539233
-player login, id = 1339028430
-player login, id = 1492367327
-player login, id = 1494091296
-player login, id = 1495815265
-player login, id = 1497539234
-player login, id = 1495815266
-player login, id = 1339028431
-player login, id = 1494091297
-player login, id = 1492367328
-player login, id = 1497539235
-player login, id = 1495815267
-player login, id = 1339028432
-player login, id = 1494091298
-player login, id = 1492367329
-player login, id = 1497539236
-player login, id = 1495815268
-player login, id = 1339028433
-player login, id = 1494091299
-player login, id = 1492367330
-player login, id = 1497539237
-player login, id = 1339028434
-player login, id = 1494091300
-player login, id = 1495815269
-player login, id = 1497539238
-player login, id = 1492367331
-player login, id = 1339028435
-player login, id = 1494091301
-player login, id = 1495815270
-player login, id = 1497539239
-player login, id = 1492367332
-player login, id = 1494091302
-player login, id = 1339028436
-player login, id = 1495815271
-player login, id = 1497539240
-player login, id = 1492367333
-player login, id = 1494091303
-player login, id = 1495815272
-player login, id = 1339028437
-player login, id = 1497539241
-player login, id = 1492367334
-player login, id = 1495816576
-player login, id = 1339029741
-player login, id = 1494092607
-player login, id = 1497540545
-player login, id = 1492368638
-player login, id = 1494092608
-player login, id = 1339029742
-player login, id = 1495816577
-player login, id = 1
+epoll add new socket 4
+load db_server config, ip:192.168.80.3, port:5555
+client addr is 55617728 : 56039
+epoll add new socket 5
+debug: m_listenfd is 4
+epoll add new socket 6
+go next epoll
+Epoll event EPOLLIN fd = 6
+new message, fd is 6
+message enqueue, pos = 0, flag is 0
+start recv msg data head
+bug bug bug fd = 6, m_in = 134, m_out = 0, _length = 16
+recv 16 byte data
+msg decode head
+msg decode head end
+msg data body len is 118
+recv 118 byte data
+recv msg complete
+message enqueue, pos = 1, flag is 0
+start recv msg data head
+bug bug bug fd = 6, m_in = 134, m_out = 134, _length = 16
+Net::recvmsg errorid = -2
+, /home/blue/Code/TcpDemo/Net/Net.cpp:203
+go next epoll
+message dequeue, pos = 0, flag is 1
+msg type is 16
+player login, id = 172542746
+msg decode pb
+player name: dog, id: 172542746
+player posx: 0.000000, posz: 54.349998, speed 5
+ItemFactory createItem type is 1
+createItem end
+add item id = 1, count is 98
+ItemFactory createItem type is 1
+createItem end
+add item id = 2, count is 98
+ItemFactory createItem type is 2
+createItem end
+add item id = 3, count is 1
+ItemFactory createItem type is 2
+createItem end
+add item id = 4, count is 1
+inventory init end
+Epoll event EPOLLIN fd = 6
+new message, fd is 6
+message enqueue, pos = 2, flag is 0
+start recv msg data head
+bug bug bug fd = 6, m_in = 155, m_out = 134, _length = 16
+recv 16 byte data
+msg decode head
+msg decode head end
+msg data body len is 5
+recv 5 byte data
+recv msg complete
+message enqueue, pos = 3, flag is 0
+start recv msg data head
+bug bug bug fd = 6, m_in = 155, m_out = 155, _length = 16
+Net::recvmsg errorid = -2
+, /home/blue/Code/TcpDemo/Net/Net.cpp:203
+go next epoll
+message dequeue, pos = 2, flag is 1
+msg type is 3
+msg decode pb
+new op h = 0.000000, v = 1.000000
+passtime is 22135.000000
+speed is 5, old op h = 0.000000, v = 0.000000
+player posx = 0.000000, posz = 54.349998
+message enqueue, pos = 0, flag is 0
+test PlayerGetPlayerInfo
+new op h = 0.000000, v = 1.000000
+passtime is 0.000000
+speed is 5, old op h = 0.000000, v = 1.000000
+player posx = 0.000000, posz = 54.349998
+PlayerGetPlayerInfo end
+msg encode head
+USR_SYNC END, usrid is 172542746
+Epoll event EPOLLIN fd = 6
+new message, fd is 6
+message enqueue, pos = 4, flag is 0
+start recv msg data head
+bug bug bug fd = 6, m_in = 171, m_out = 155, _length = 16
+recv 16 byte data
+msg decode head
+msg decode head end
+msg data body len is 0
+recv 0 byte data
+recv msg complete
+message enqueue, pos = 5, flag is 0
+start recv msg data head
+bug bug bug fd = 6, m_in = 171, m_out = 171, _length = 16
+Net::recvmsg errorid = -2
+, /home/blue/Code/TcpDemo/Net/Net.cpp:203
+go next epoll
+message dequeue, pos = 4, flag is 1
+msg type is 3
+msg decode pb
+new op h = 0.000000, v = 0.000000
+passtime is 254.000000
+speed is 5, old op h = 0.000000, v = 1.000000
+player posx = 0.000000, posz = 55.619999
+message enqueue, pos = 1, flag is 0
+test PlayerGetPlayerInfo
+new op h = 0.000000, v = 0.000000
+passtime is 0.000000
+speed is 5, old op h = 0.000000, v = 0.000000
+player posx = 0.000000, posz = 55.619999
+PlayerGetPlayerInfo end
+msg encode head
+USR_SYNC END, usrid is 172542746
+message dequeue, pos = 0, flag is 1
+msg encode head
+send data to fd 6, len is 48
+send data success left should be 0: 0
+message dequeue, pos = 1, flag is 1
+msg encode head
+send data to fd 6, len is 43
+send data success left should be 0: 0
+Epoll event EPOLLIN fd = 6
+new message, fd is 6
+message enqueue, pos = 6, flag is 0
+start recv msg data head
+bug bug bug fd = 6, m_in = 192, m_out = 171, _length = 16
+recv 16 byte data
+msg decode head
+msg decode head end
+msg data body len is 5
+recv 5 byte data
+recv msg complete
+message enqueue, pos = 7, flag is 0
+start recv msg data head
+bug bug bug fd = 6, m_in = 192, m_out = 192, _length = 16
+Net::recvmsg errorid = -2
+, /home/blue/Code/TcpDemo/Net/Net.cpp:203
+go next epoll
+message dequeue, pos = 6, flag is 1
+msg type is 3
+msg decode pb
+new op h = 0.000000, v = 1.000000
+passtime is 8175.000000
+speed is 5, old op h = 0.000000, v = 0.000000
+player posx = 0.000000, posz = 55.619999
+message enqueue, pos = 2, flag is 0
+test PlayerGetPlayerInfo
+new op h = 0.000000, v = 1.000000
+passtime is 0.000000
+speed is 5, old op h = 0.000000, v = 1.000000
+player posx = 0.000000, posz = 55.619999
+PlayerGetPlayerInfo end
+msg encode head
+USR_SYNC END, usrid is 172542746
+Epoll event EPOLLIN fd = 6
+new message, fd is 6
+message enqueue, pos = 8, flag is 0
+start recv msg data head
+bug bug bug fd = 6, m_in = 208, m_out = 192, _length = 16
+recv 16 byte data
+msg decode head
+msg decode head end
+msg data body len is 0
+recv 0 byte data
+recv msg complete
+message enqueue, pos = 9, flag is 0
+start recv msg data head
+bug bug bug fd = 6, m_in = 208, m_out = 208, _length = 16
+Net::recvmsg errorid = -2
+, /home/blue/Code/TcpDemo/Net/Net.cpp:203
+go next epoll
+message dequeue, pos = 8, flag is 1
+msg type is 3
+msg decode pb
+new op h = 0.000000, v = 0.000000
+passtime is 101.000000
+speed is 5, old op h = 0.000000, v = 1.000000
+player posx = 0.000000, posz = 56.125000
+message enqueue, pos = 3, flag is 0
+test PlayerGetPlayerInfo
+new op h = 0.000000, v = 0.000000
+passtime is 0.000000
+speed is 5, old op h = 0.000000, v = 0.000000
+player posx = 0.000000, posz = 56.125000
+PlayerGetPlayerInfo end
+msg encode head
+USR_SYNC END, usrid is 172542746
+message dequeue, pos = 2, flag is 1
+msg encode head
+send data to fd 6, len is 48
+send data success left should be 0: 0
+message dequeue, pos = 3, flag is 1
+msg encode head
+send data to fd 6, len is 43
+send data success left should be 0: 0
+Epoll event EPOLLIN fd = 6
+new message, fd is 6
+message enqueue, pos = 10, flag is 0
+start recv msg data head
+bug bug bug fd = 6, m_in = 229, m_out = 208, _length = 16
+recv 16 byte data
+msg decode head
+msg decode head end
+msg data body len is 5
+recv 5 byte data
+recv msg complete
+message enqueue, pos = 11, flag is 0
+start recv msg data head
+bug bug bug fd = 6, m_in = 229, m_out = 229, _length = 16
+Net::recvmsg errorid = -2
+, /home/blue/Code/TcpDemo/Net/Net.cpp:203
+go next epoll
+message dequeue, pos = 10, flag is 1
+msg type is 3
+msg decode pb
+new op h = 0.000000, v = 1.000000
+passtime is 1883.000000
+speed is 5, old op h = 0.000000, v = 0.000000
+player posx = 0.000000, posz = 56.125000
+message enqueue, pos = 4, flag is 0
+test PlayerGetPlayerInfo
+new op h = 0.000000, v = 1.000000
+passtime is 0.000000
+speed is 5, old op h = 0.000000, v = 1.000000
+player posx = 0.000000, posz = 56.125000
+PlayerGetPlayerInfo end
+msg encode head
+USR_SYNC END, usrid is 172542746
+Epoll event EPOLLIN fd = 6
+new message, fd is 6
+message enqueue, pos = 12, flag is 0
+start recv msg data head
+bug bug bug fd = 6, m_in = 245, m_out = 229, _length = 16
+recv 16 byte data
+msg decode head
+msg decode head end
+msg data body len is 0
+recv 0 byte data
+recv msg complete
+message enqueue, pos = 13, flag is 0
+start recv msg data head
+bug bug bug fd = 6, m_in = 245, m_out = 245, _length = 16
+Net::recvmsg errorid = -2
+, /home/blue/Code/TcpDemo/Net/Net.cpp:203
+go next epoll
+message dequeue, pos = 12, flag is 1
+msg type is 3
+msg decode pb
+new op h = 0.000000, v = 0.000000
+passtime is 358.000000
+speed is 5, old op h = 0.000000, v = 1.000000
+player posx = 0.000000, posz = 57.915001
+message enqueue, pos = 5, flag is 0
+test PlayerGetPlayerInfo
+new op h = 0.000000, v = 0.000000
+passtime is 0.000000
+speed is 5, old op h = 0.000000, v = 0.000000
+player posx = 0.000000, posz = 57.915001
+PlayerGetPlayerInfo end
+msg encode head
+USR_SYNC END, usrid is 172542746
+message dequeue, pos = 4, flag is 1
+msg encode head
+send data to fd 6, len is 48
+send data success left should be 0: 0
+message dequeue, pos = 5, flag is 1
+msg encode head
+send data to fd 6, len is 43
+send data success left should be 0: 0
+Epoll event EPOLLIN fd = 6
+new message, fd is 6
+message enqueue, pos = 14, flag is 0
+start recv msg data head
+bug bug bug fd = 6, m_in = 266, m_out = 245, _length = 16
+recv 16 byte data
+msg decode head
+msg decode head end
+msg data body len is 5
+recv 5 byte data
+recv msg complete
+message enqueue, pos = 15, flag is 0
+start recv msg data head
+bug bug bug fd = 6, m_in = 266, m_out = 266, _length = 16
+Net::recvmsg errorid = -2
+, /home/blue/Code/TcpDemo/Net/Net.cpp:203
+go next epoll
+message dequeue, pos = 14, flag is 1
+msg type is 3
+msg decode pb
+new op h = 0.000000, v = 1.000000
+passtime is 5284.000000
+speed is 5, old op h = 0.000000, v = 0.000000
+player posx = 0.000000, posz = 57.915001
+message enqueue, pos = 6, flag is 0
+test PlayerGetPlayerInfo
+new op h = 0.000000, v = 1.000000
+passtime is 0.000000
+speed is 5, old op h = 0.000000, v = 1.000000
+player posx = 0.000000, posz = 57.915001
+PlayerGetPlayerInfo end
+msg encode head
+USR_SYNC END, usrid is 172542746
+message dequeue, pos = 6, flag is 1
+msg encode head
+send data to fd 6, len is 48
+send data success left should be 0: 0
+Epoll event EPOLLIN fd = 6
+new message, fd is 6
+message enqueue, pos = 16, flag is 0
+start recv msg data head
+bug bug bug fd = 6, m_in = 282, m_out = 266, _length = 16
+recv 16 byte data
+msg decode head
+msg decode head end
+msg data body len is 0
+recv 0 byte data
+recv msg complete
+message enqueue, pos = 17, flag is 0
+start recv msg data head
+bug bug bug fd = 6, m_in = 282, m_out = 282, _length = 16
+Net::recvmsg errorid = -2
+, /home/blue/Code/TcpDemo/Net/Net.cpp:203
+go next epoll
+message dequeue, pos = 16, flag is 1
+msg type is 3
+msg decode pb
+new op h = 0.000000, v = 0.000000
+passtime is 2137.000000
+speed is 5, old op h = 0.000000, v = 1.000000
+player posx = 0.000000, posz = 68.599998
+message enqueue, pos = 7, flag is 0
+test PlayerGetPlayerInfo
+new op h = 0.000000, v = 0.000000
+passtime is 0.000000
+speed is 5, old op h = 0.000000, v = 0.000000
+player posx = 0.000000, posz = 68.599998
+PlayerGetPlayerInfo end
+msg encode head
+USR_SYNC END, usrid is 172542746
+message dequeue, pos = 7, flag is 1
+msg encode head
+send data to fd 6, len is 43
+send data success left should be 0: 0
+Epoll event EPOLLIN fd = 6
+new message, fd is 6
+message enqueue, pos = 18, flag is 0
+start recv msg data head
+bug bug bug fd = 6, m_in = 303, m_out = 282, _length = 16
+recv 16 byte data
+msg decode head
+msg decode head end
+msg data body len is 5
+recv 5 byte data
+recv msg complete
+message enqueue, pos = 19, flag is 0
+start recv msg data head
+bug bug bug fd = 6, m_in = 303, m_out = 303, _length = 16
+Net::recvmsg errorid = -2
+, /home/blue/Code/TcpDemo/Net/Net.cpp:203
+go next epoll
+message dequeue, pos = 18, flag is 1
+msg type is 3
+msg decode pb
+new op h = 0.000000, v = 1.000000
+passtime is 18771.000000
+speed is 5, old op h = 0.000000, v = 0.000000
+player posx = 0.000000, posz = 68.599998
+message enqueue, pos = 8, flag is 0
+test PlayerGetPlayerInfo
+new op h = 0.000000, v = 1.000000
+passtime is 0.000000
+speed is 5, old op h = 0.000000, v = 1.000000
+player posx = 0.000000, posz = 68.599998
+PlayerGetPlayerInfo end
+msg encode head
+USR_SYNC END, usrid is 172542746
+message dequeue, pos = 8, flag is 1
+msg encode head
+send data to fd 6, len is 48
+send data success left should be 0: 0
+Epoll event EPOLLIN fd = 6
+new message, fd is 6
+message enqueue, pos = 20, flag is 0
+start recv msg data head
+bug bug bug fd = 6, m_in = 329, m_out = 303, _length = 16
+recv 16 byte data
+msg decode head
+msg decode head end
+msg data body len is 10
+recv 10 byte data
+recv msg complete
+message enqueue, pos = 21, flag is 0
+start recv msg data head
+bug bug bug fd = 6, m_in = 329, m_out = 329, _length = 16
+Net::recvmsg errorid = -2
+, /home/blue/Code/TcpDemo/Net/Net.cpp:203
+go next epoll
+message dequeue, pos = 20, flag is 1
+msg type is 3
+msg decode pb
+new op h = -1.000000, v = 1.000000
+passtime is 1421.000000
+speed is 5, old op h = 0.000000, v = 1.000000
+player posx = 0.000000, posz = 75.705002
+message enqueue, pos = 9, flag is 0
+test PlayerGetPlayerInfo
+new op h = -1.000000, v = 1.000000
+passtime is 0.000000
+speed is 5, old op h = -1.000000, v = 1.000000
+player posx = 0.000000, posz = 75.705002
+PlayerGetPlayerInfo end
+msg encode head
+USR_SYNC END, usrid is 172542746
+Epoll event EPOLLIN fd = 6
+new message, fd is 6
+message enqueue, pos = 22, flag is 0
+start recv msg data head
+bug bug bug fd = 6, m_in = 350, m_out = 329, _length = 16
+recv 16 byte data
+msg decode head
+msg decode head end
+msg data body len is 5
+recv 5 byte data
+recv msg complete
+message enqueue, pos = 23, flag is 0
+start recv msg data head
+bug bug bug fd = 6, m_in = 350, m_out = 350, _length = 16
+Net::recvmsg errorid = -2
+, /home/blue/Code/TcpDemo/Net/Net.cpp:203
+go next epoll
+message dequeue, pos = 22, flag is 1
+msg type is 3
+msg decode pb
+new op h = -1.000000, v = 0.000000
+passtime is 252.000000
+speed is 5, old op h = -1.000000, v = 1.000000
+player posx = -1.260000, posz = 76.965004
+message enqueue, pos = 10, flag is 0
+test PlayerGetPlayerInfo
+new op h = -1.000000, v = 0.000000
+passtime is 0.000000
+speed is 5, old op h = -1.000000, v = 0.000000
+player posx = -1.260000, posz = 76.965004
+PlayerGetPlayerInfo end
+msg encode head
+USR_SYNC END, usrid is 172542746
+message dequeue, pos = 9, flag is 1
+msg encode head
+send data to fd 6, len is 53
+send data success left should be 0: 0
+message dequeue, pos = 10, flag is 1
+msg encode head
+send data to fd 6, len is 53
+send data success left should be 0: 0
+Epoll event EPOLLIN fd = 6
+new message, fd is 6
+message enqueue, pos = 24, flag is 0
+start recv msg data head
+bug bug bug fd = 6, m_in = 366, m_out = 350, _length = 16
+recv 16 byte data
+msg decode head
+msg decode head end
+msg data body len is 0
+recv 0 byte data
+recv msg complete
+message enqueue, pos = 25, flag is 0
+start recv msg data head
+bug bug bug fd = 6, m_in = 366, m_out = 366, _length = 16
+Net::recvmsg errorid = -2
+, /home/blue/Code/TcpDemo/Net/Net.cpp:203
+go next epoll
+message dequeue, pos = 24, flag is 1
+msg type is 3
+msg decode pb
+new op h = 0.000000, v = 0.000000
+passtime is 662.000000
+speed is 5, old op h = -1.000000, v = 0.000000
+player posx = -4.570000, posz = 76.965004
+message enqueue, pos = 11, flag is 0
+test PlayerGetPlayerInfo
+new op h = 0.000000, v = 0.000000
+passtime is 0.000000
+speed is 5, old op h = 0.000000, v = 0.000000
+player posx = -4.570000, posz = 76.965004
+PlayerGetPlayerInfo end
+msg encode head
+USR_SYNC END, usrid is 172542746
+message dequeue, pos = 11, flag is 1
+msg encode head
+send data to fd 6, len is 48
+send data success left should be 0: 0
+Epoll event EPOLLIN fd = 6
+new message, fd is 6
+message enqueue, pos = 26, flag is 0
+start recv msg data head
+bug bug bug fd = 6, m_in = 387, m_out = 366, _length = 16
+recv 16 byte data
+msg decode head
+msg decode head end
+msg data body len is 5
+recv 5 byte data
+recv msg complete
+message enqueue, pos = 27, flag is 0
+start recv msg data head
+bug bug bug fd = 6, m_in = 387, m_out = 387, _length = 16
+Net::recvmsg errorid = -2
+, /home/blue/Code/TcpDemo/Net/Net.cpp:203
+go next epoll
+message dequeue, pos = 26, flag is 1
+msg type is 3
+msg decode pb
+new op h = 0.000000, v = 1.000000
+passtime is 30786.000000
+speed is 5, old op h = 0.000000, v = 0.000000
+player posx = -4.570000, posz = 76.965004
+message enqueue, pos = 12, flag is 0
+test PlayerGetPlayerInfo
+new op h = 0.000000, v = 1.000000
+passtime is 0.000000
+speed is 5, old op h = 0.000000, v = 1.000000
+player posx = -4.570000, posz = 76.965004
+PlayerGetPlayerInfo end
+msg encode head
+USR_SYNC END, usrid is 172542746
+message dequeue, pos = 12, flag is 1
+msg encode head
+send data to fd 6, len is 53
+send data success left should be 0: 0
+Epoll event EPOLLIN fd = 6
+new message, fd is 6
+message enqueue, pos = 28, flag is 0
+start recv msg data head
+bug bug bug fd = 6, m_in = 403, m_out = 387, _length = 16
+recv 16 byte data
+msg decode head
+msg decode head end
+msg data body len is 0
+recv 0 byte data
+recv msg complete
+message enqueue, pos = 29, flag is 0
+start recv msg data head
+bug bug bug fd = 6, m_in = 403, m_out = 403, _length = 16
+Net::recvmsg errorid = -2
+, /home/blue/Code/TcpDemo/Net/Net.cpp:203
+go next epoll
+message dequeue, pos = 28, flag is 1
+msg type is 3
+msg decode pb
+new op h = 0.000000, v = 0.000000
+passtime is 1019.000000
+speed is 5, old op h = 0.000000, v = 1.000000
+player posx = -4.570000, posz = 82.060005
+message enqueue, pos = 13, flag is 0
+test PlayerGetPlayerInfo
+new op h = 0.000000, v = 0.000000
+passtime is 0.000000
+speed is 5, old op h = 0.000000, v = 0.000000
+player posx = -4.570000, posz = 82.060005
+PlayerGetPlayerInfo end
+msg encode head
+USR_SYNC END, usrid is 172542746
+message dequeue, pos = 13, flag is 1
+msg encode head
+send data to fd 6, len is 48
+send data success left should be 0: 0
+Epoll event EPOLLIN fd = 6
+new message, fd is 6
+message enqueue, pos = 30, flag is 0
+start recv msg data head
+bug bug bug fd = 6, m_in = 419, m_out = 403, _length = 16
+recv 16 byte data
+msg decode head
+msg decode head end
+msg data body len is 0
+recv 0 byte data
+recv msg complete
+message enqueue, pos = 31, flag is 0
+start recv msg data head
+bug bug bug fd = 6, m_in = 419, m_out = 419, _length = 16
+Net::recvmsg errorid = -2
+, /home/blue/Code/TcpDemo/Net/Net.cpp:203
+go next epoll
+message dequeue, pos = 30, flag is 1
+msg type is 1
+player exit ! id = 172542746
+message enqueue, pos = 14, flag is 0
+test PlayerGetPlayerInfo
+new op h = 0.000000, v = 0.000000
+passtime is 71447.000000
+speed is 5, old op h = 0.000000, v = 0.000000
+player posx = -4.570000, posz = 82.060005
+PlayerGetPlayerInfo end
+msg encode head
+message enqueue, pos = 15, flag is 0
+usrid 172542746 exitmsg encode head
+message dequeue, pos = 14, flag is 1
+msg encode head
+send data to fd 5, len is 48
+send data success left should be 0: 0
+message dequeue, pos = 15, flag is 1
+msg encode head
+send data to fd 6, len is 16
+send d

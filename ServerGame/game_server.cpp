@@ -21,7 +21,9 @@ void game_server::run()
     for(;;) {
         msg = g_recv_queue.dequeue();
         if (msg == nullptr) {
-            usleep(50 * 1000);;
+            // TRACER_ERROR("game_server::run() sleep 50ms, g_recv_queue is empty\n");
+            // g_recv_queue.debug_info();
+            usleep(50 * 1000);
             continue;
         }
         TRACER_DEBUG("msg type is %d\n", msg->m_head.m_type);

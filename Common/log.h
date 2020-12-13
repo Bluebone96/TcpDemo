@@ -8,7 +8,7 @@
 // #define NONO_LOG
 
 #define LOG_ERROR
-// #define LOG_DEBUG
+#define LOG_DEBUG
 
 
 #define __POSITION__ __FILE__, __LINE__

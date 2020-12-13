@@ -41,6 +41,7 @@ int8_t db_server::run()
     message *msg = nullptr;
     for (;;) {
         if ((msg = g_recv_queue.dequeue()) == nullptr) {
+            
             usleep(100 * 1000);;
             continue;
         }

@@ -20,6 +20,10 @@ int main ()
     g_client_queue.init_queue(1024 * 16);
 
     gate_server server;
+    if (server.init_gate() < 0) {
+        TRACER_ERROR("gate_server init failed\n");
+        exit(1);
+    }
 
     Net net_client;
     Net net_server;

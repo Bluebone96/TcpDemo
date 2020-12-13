@@ -20,8 +20,9 @@ gate_server::~gate_server()
 
 int8_t gate_server::init_gate()
 {
-    m_broadcast = new Broadcast(this);
-    return 0;
+    m_broadcast = new Broadcast();
+
+    return m_broadcast->init(this);
 }
 
 int8_t gate_server::run_client()
@@ -30,6 +31,8 @@ int8_t gate_server::run_client()
     for (;;) {
         msg = g_client_queue.dequeue();
         if (msg == nullptr) {
+            // TRACER_ERROR("gate_server::run_client() sleep 50ms, g_client_queue is empty\n");
+            // g_client_queue.debug_info();
             usleep(50 * 1000);
             continue;
         }
@@ -79,7 +82,9 @@ int8_t gate_server::run_server()
     for (;;) {
         msg = g_server_queue.dequeue();
         if (msg == nullptr) {
-            usleep(50 * 1000);;
+            usleep(50 * 1000);
+            // TRACER_ERROR("gate_server::run_server() sleep 50ms, g_server_queue is empty\n");
+            // g_server_queue.debug_info();
             continue;
         }
 
@@ -105,12 +110,14 @@ int8_t gate_server::run_server()
                     }
                 }
                 m_usrfd.erase(msg->m_head.m_usrID);
+                TRACER_DEBUG("gate_server::run_server msg type is userexit.\n");
                 m_broadcast->runtask(msg->m_data, msg->m_head.m_len + MSG_HEAD_SIZE);
                 clear_up();
                 break;
             case USERSYNC:
-                m_broadcast->runtask(msg->m_data, msg->m_head.m_len + MSG_HEAD_SIZE);
-                clear_up();
+                TRACER_DEBUG("gate_server::run_server msg type is usrsync.\n");
+                // m_broadcast->runtask(msg->m_data, msg->m_head.m_len + MSG_HEAD_SIZE);
+                // clear_up();
                 break;
             case ITEMEVENT:
                 // item operation

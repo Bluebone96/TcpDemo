@@ -73,6 +73,7 @@ int8_t Net::product_msg()
     }
     TRACER_DEBUG("debug: m_listenfd is %d\n", m_listenfd);
     for (;;) {
+
         int32_t fn = m_epoll.Wait();
         for (int32_t i = 0; i < fn; ++i) {
             struct epoll_event* pEvent = m_epoll.GetEvent(i);

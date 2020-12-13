@@ -167,12 +167,15 @@ static void exit_all_robots(int signo)
 {   
     std::cout << "\n===============start exit all robots=========================" << std::endl;
     g_range.m_flag = false;
+    sleep(1);
     for (int i = g_range.m_start, j = g_range.m_end; i < j; ++i) {
         msgs[i].m_head.m_type = USEREXIT;
         msgs[i].m_head.m_len = 0;
         msgs->encode();
         robots[i]->tcp_send(msgs->m_data, MSG_HEAD_SIZE);
-        usleep(100 * 1000);
+    }
+    sleep(2);
+    for (int i = g_range.m_start, j= g_range.m_end; i < j; ++i) {
         delete robots[i];
     }
     std::cout << "\n===============all robots exit success=======================" << std::endl;
