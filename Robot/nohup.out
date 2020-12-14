@@ -1,0 +1,430 @@
+
+=========================test range[0, 100), 100 robots run start!=======================
+robot_0 connect login server success
+robot_1 connect login server success
+robot_2 connect login server success
+robot_3 connect login server success
+robot_4 connect login server success
+robot_5 connect login server success
+robot_6 connect login server success
+robot_7 connect login server success
+robot_8 connect login server success
+robot_9 connect login server success
+robot_10 connect login server success
+robot_11 connect login server success
+robot_12 connect login server success
+robot_13 connect login server success
+robot_14 connect login server success
+robot_15 connect login server success
+robot_16 connect login server success
+robot_17 connect login server success
+robot_18 connect login server success
+robot_19 connect login server success
+robot_20 connect login server success
+robot_21 connect login server success
+robot_22 connect login server success
+robot_23 connect login server success
+robot_24 connect login server success
+robot_25 connect login server success
+robot_26 connect login server success
+robot_27 connect login server success
+robot_28 connect login server success
+robot_29 connect login server success
+robot_30 connect login server success
+robot_31 connect login server success
+robot_32 connect login server success
+robot_33 connect login server success
+robot_34 connect login server success
+robot_35 connect login server success
+robot_36 connect login server success
+robot_37 connect login server success
+robot_38 connect login server success
+robot_39 connect login server success
+robot_40 connect login server success
+robot_41 connect login server success
+robot_42 connect login server success
+robot_43 connect login server success
+robot_44 connect login server success
+robot_45 connect login server success
+robot_46 connect login server success
+robot_47 connect login server success
+robot_48 connect login server success
+robot_49 connect login server success
+robot_50 connect login server success
+robot_51 connect login server success
+robot_52 connect login server success
+robot_53 connect login server success
+robot_54 connect login server success
+robot_55 connect login server success
+robot_56 connect login server success
+robot_57 connect login server success
+robot_58 connect login server success
+robot_59 connect login server success
+robot_60 connect login server success
+robot_61 connect login server success
+robot_62 connect login server success
+robot_63 connect login server success
+robot_64 connect login server success
+robot_65 connect login server success
+robot_66 connect login server success
+robot_67 connect login server success
+robot_68 connect login server success
+robot_69 connect login server success
+robot_70 connect login server success
+robot_71 connect login server success
+robot_72 connect login server success
+robot_73 connect login server success
+robot_74 connect login server success
+robot_75 connect login server success
+robot_76 connect login server success
+robot_77 connect login server success
+robot_78 connect login server success
+robot_79 connect login server success
+robot_80 connect login server success
+robot_81 connect login server success
+robot_82 connect login server success
+robot_83 connect login server success
+robot_84 connect login server success
+robot_85 connect login server success
+robot_86 connect login server success
+robot_87 connect login server success
+robot_88 connect login server success
+robot_89 connect login server success
+robot_90 connect login server success
+robot_91 connect login server success
+robot_92 connect login server success
+robot_93 connect login server success
+robot_94 connect login server success
+robot_95 connect login server success
+robot_96 connect login server success
+robot_97 connect login server success
+robot_98 connect login server success
+robot_99 connect login server success
+robot_0 login success
+robot_1 login success
+robot_2 login success
+robot_3 login success
+robot_4 login success
+robot_5 login success
+robot_6 login success
+robot_7 login success
+robot_8 login success
+robot_9 login success
+robot_10 login success
+robot_11 login success
+robot_12 login success
+robot_13 login success
+robot_14 login success
+robot_15 login success
+robot_16 login success
+robot_17 login success
+robot_18 login success
+robot_19 login success
+robot_20 login success
+robot_21 login success
+robot_22 login success
+robot_23 login success
+robot_24 login success
+robot_25 login success
+robot_26 login success
+robot_27 login success
+robot_28 login success
+robot_29 login success
+robot_30 login success
+robot_31 login success
+robot_32 login success
+robot_33 login success
+robot_34 login success
+robot_35 login success
+robot_36 login success
+robot_37 login success
+robot_38 login success
+robot_39 login success
+robot_40 login success
+robot_41 login success
+robot_42 login success
+robot_43 login success
+robot_44 login success
+robot_45 login success
+robot_46 login success
+robot_47 login success
+robot_48 login success
+robot_49 login success
+robot_50 login success
+robot_51 login success
+robot_52 login success
+robot_53 login success
+robot_54 login success
+robot_55 login success
+robot_56 login success
+robot_57 login success
+robot_58 login success
+robot_59 login success
+robot_60 login success
+robot_61 login success
+robot_62 login success
+robot_63 login success
+robot_64 login success
+robot_65 login success
+robot_66 login success
+robot_67 login success
+robot_68 login success
+robot_69 login success
+robot_70 login success
+robot_71 login success
+robot_72 login success
+robot_73 login success
+robot_74 login success
+robot_75 login success
+robot_76 login success
+robot_77 login success
+robot_78 login success
+robot_79 login success
+robot_80 login success
+robot_81 login success
+robot_82 login success
+robot_83 login success
+robot_84 login success
+robot_85 login success
+robot_86 login success
+robot_87 login success
+robot_88 login success
+robot_89 login success
+robot_90 login success
+robot_91 login success
+robot_92 login success
+robot_93 login success
+robot_94 login success
+robot_95 login success
+robot_96 login success
+robot_97 login success
+robot_98 login success
+robot_99 login success
+
+=============robots init complete======================
+
+=========================test range[400, 500), 100 robots run start!=======================
+robot_400 connect login server success
+robot_401 connect login server success
+robot_402 connect login server success
+robot_403 connect login server success
+robot_404 connect login server success
+robot_405 connect login server success
+robot_406 connect login server success
+robot_407 connect login server success
+robot_408 connect login server success
+robot_409 connect login server success
+robot_410 connect login server success
+robot_411 connect login server success
+robot_412 connect login server success
+robot_413 connect login server success
+robot_414 connect login server success
+robot_415 connect login server success
+robot_416 connect login server success
+robot_417 connect login server success
+robot_418 connect login server success
+robot_419 connect login server success
+robot_420 connect login server success
+robot_421 connect login server success
+robot_422 connect login server success
+robot_423 connect login server success
+robot_424 connect login server success
+robot_425 connect login server success
+robot_426 connect login server success
+robot_427 connect login server success
+robot_428 connect login server success
+robot_429 connect login server success
+robot_430 connect login server success
+robot_431 connect login server success
+robot_432 connect login server success
+robot_433 connect login server success
+robot_434 connect login server success
+robot_435 connect login server success
+robot_436 connect login server success
+robot_437 connect login server success
+robot_438 connect login server success
+robot_439 connect login server success
+robot_440 connect login server success
+robot_441 connect login server success
+robot_442 connect login server success
+robot_443 connect login server success
+robot_444 connect login server success
+robot_445 connect login server success
+robot_446 connect login server success
+robot_447 connect login server success
+robot_448 connect login server success
+robot_449 connect login server success
+robot_450 connect login server success
+robot_451 connect login server success
+robot_452 connect login server success
+robot_453 connect login server success
+robot_454 connect login server success
+robot_455 connect login server success
+robot_456 connect login server success
+robot_457 connect login server success
+robot_458 connect login server success
+robot_459 connect login server success
+robot_460 connect login server success
+robot_461 connect login server success
+robot_462 connect login server success
+robot_463 connect login server success
+robot_464 connect login server success
+robot_465 connect login server success
+robot_466 connect login server success
+robot_467 connect login server success
+robot_468 connect login server success
+robot_469 connect login server success
+robot_470 connect login server success
+robot_471 connect login server success
+robot_472 connect login server success
+robot_473 connect login server success
+robot_474 connect login server success
+robot_475 connect login server success
+robot_476 connect login server success
+robot_477 connect login server success
+robot_478 connect login server success
+robot_479 connect login server success
+robot_480 connect login server success
+robot_481 connect login server success
+robot_482 connect login server success
+robot_483 connect login server success
+robot_484 connect login server success
+robot_485 connect login server success
+robot_486 connect login server success
+robot_487 connect login server success
+robot_488 connect login server success
+robot_489 connect login server success
+robot_490 connect login server success
+robot_491 connect login server success
+robot_492 connect login server success
+robot_493 connect login server success
+robot_494 connect login server success
+robot_495 connect login server success
+robot_496 connect login server success
+robot_497 connect login server success
+robot_498 connect login server success
+robot_499 connect login server success
+robot_400 login success
+robot_401 login success
+robot_402 login success
+robot_403 login success
+robot_404 login success
+robot_405 login success
+robot_406 login success
+robot_407 login success
+robot_408 login success
+robot_409 login success
+robot_410 login success
+robot_411 login success
+robot_412 login success
+robot_413 login success
+robot_414 login success
+robot_415 login success
+robot_416 login success
+robot_417 login success
+robot_418 login success
+robot_419 login success
+robot_420 login success
+robot_421 login success
+robot_422 login success
+robot_423 login success
+robot_424 login success
+robot_425 login success
+robot_426 login success
+robot_427 login success
+robot_428 login success
+robot_429 login success
+robot_430 login success
+robot_431 login success
+robot_432 login success
+robot_433 login success
+robot_434 login success
+robot_435 login success
+robot_436 login success
+robot_437 login success
+robot_438 login success
+robot_439 login success
+robot_440 login success
+robot_441 login success
+robot_442 login success
+robot_443 login success
+robot_444 login success
+robot_445 login success
+robot_446 login success
+robot_447 login success
+robot_448 login success
+robot_449 login success
+robot_450 login success
+robot_451 login success
+robot_452 login success
+robot_453 login success
+robot_454 login success
+robot_455 login success
+robot_456 login success
+robot_457 login success
+robot_458 login success
+robot_459 login success
+robot_460 login success
+robot_461 login success
+robot_462 login success
+robot_463 login success
+robot_464 login success
+robot_465 login success
+robot_466 login success
+robot_467 login success
+robot_468 login success
+robot_469 login success
+robot_470 login success
+robot_471 login success
+robot_472 login success
+robot_473 login success
+robot_474 login success
+robot_475 login success
+robot_476 login success
+robot_477 login success
+robot_478 login success
+robot_479 login success
+robot_480 login success
+robot_481 login success
+robot_482 login success
+robot_483 login success
+robot_484 login success
+robot_485 login success
+robot_486 login success
+robot_487 login success
+robot_488 login success
+robot_489 login success
+robot_490 login success
+robot_491 login success
+robot_492 login success
+robot_493 login success
+robot_494 login success
+robot_495 login success
+robot_496 login success
+robot_497 login success
+robot_498 login success
+robot_499 login success
+
+=============robots init complete======================
+
+==================== 0 message send ===============
+
+===============start exit all robots=========================
+send thread joined
+
+===============send exit message=========================
+
+==================== 0 message send ===============
+
+===============start exit all robots=========================
+send thread joined
+
+===============send exit message=========================
+
+=============== free memory =========================
+
+===============all robots exit success=======================
+
+=============== free memory =========================
+
+===============all robots exit success=======================

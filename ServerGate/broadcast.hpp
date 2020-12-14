@@ -19,10 +19,12 @@ struct Task {
     bool isvalied;
     uint8_t *data;
     uint32_t len;
-    std::vector<client_info>::iterator start;
-    std::vector<client_info>::iterator end;
+    // std::vector<client_info>::iterator start;
+    // std::vector<client_info>::iterator end;
+    uint32_t start;
+    uint32_t end;
 
-    Task() : isvalied(false), data(nullptr), len(0) 
+    Task() : isvalied(false), data(nullptr), len(0), start(0), end(0)
     {
         TRACER_DEBUG("task ctor! isvalied = %d, data = %p\n", isvalied, (void*)data);
     }
@@ -50,10 +52,10 @@ public:
     bool runtask(uint8_t* _data, uint32_t _len);
 
 
-#define MAX_THREAD_COUNT 50
+#define MAX_THREAD_COUNT 16
 private:
     bool iscomplete();
-    void Foo(Task& _task);
+    // void Foo(Task& _task);
     bool alive;
 
     std::vector<Task> m_tasks;
@@ -73,7 +75,9 @@ Broadcast::~Broadcast()
 {
     alive = false;
     for (auto& t : m_threads) {
-        t.join();
+        if (t.joinable()) {
+            t.join();
+        }
     }
 }
 
@@ -82,20 +86,20 @@ int8_t Broadcast::init(gate_server* _gate)
     pgate = _gate;
 
     TRACER("bBroadcast ctor start!\n");
-    auto func = [this](Task& _task) {
+    auto func = [this](Task* _task) {
         static uint8_t  t = 0;
         uint8_t id = t++;
         TRACER("hello thread! id = %d\n", id);
         TRACER_DEBUG("thread id = %d, task isvalied = %d, data = %p\n", id, _task.isvalied, (void*)_task.data);
         while (alive) {
-            if (_task.isvalied) {
-                for (auto i = _task.start, j = _task.end; i != j; ++i) {
-                    if (tcp_socket::tcp_send(i->fd, _task.data, _task.len)) {
-                        pgate->m_errorfd.add(*i);
-                        TRACER("errorfd add fd = %d\n", i->fd);
+            if (_task->isvalied) {
+                for (auto i = _task->start, j = _task->end; i != j; ++i) {
+                    if (tcp_socket::tcp_send((pgate->m_clientsfd)[i].fd, _task->data, _task->len)) {
+                        pgate->m_errorfd.add((pgate->m_clientsfd)[i]);
+                        TRACER("errorfd add fd = %d\n", (pgate->m_clientsfd)[i].fd);
                     }
                 }
-                _task.isvalied = false;
+                _task->isvalied = false;
                 TRACER_DEBUG("==================broadcast func debug=========================\n");
             }
             usleep(10 * 1000);
@@ -110,7 +114,7 @@ int8_t Broadcast::init(gate_server* _gate)
             // m_threads.emplace_back(std::thread(func, std::ref(m_tasks[i])));
         }
         for (auto& x : m_tasks) {
-            m_threads.emplace_back(std::thread(func, std::ref(x)));
+            m_threads.emplace_back(std::thread(func, &x));
         }
     } catch (std::exception& e) {
         TRACER_ERROR("broadcast init failed what: %s\n", e.what());
@@ -143,7 +147,7 @@ bool Broadcast::runtask(uint8_t* _data, uint32_t _len)
     // }
 
     uint32_t size = pgate->m_clientsfd.size();
-    uint32_t tc = std::min((size / 0x0A), (MAX_THREAD_COUNT - 1u)); // 每个线程最少负责广播10个, 最后一个线程负责剩余的 
+    uint32_t tc = std::min((size / 0x0A), (MAX_THREAD_COUNT - 1u)); // 每个线程最少负责广播10个, 最后一个线程负责剩余的
     if (tc == 0) {
         TRACER_DEBUG("tc == 0 signal thread start\n");
         std::vector<uint32_t> errorfd;
@@ -167,7 +171,7 @@ bool Broadcast::runtask(uint8_t* _data, uint32_t _len)
             TRACER("clients = %d, tc == %d multi-thread start, call num = %d\n", size, tc, count);
         }
         uint8_t scale = size / tc;
-        auto start = pgate->m_clientsfd.begin();
+        auto start = 0;
         for (uint i = 0; i < tc; ++i) {
             m_tasks[i].data = _data;
             m_tasks[i].len = _len;
@@ -180,12 +184,12 @@ bool Broadcast::runtask(uint8_t* _data, uint32_t _len)
             m_tasks[tc].data = _data;
             m_tasks[tc].len = _len;
             m_tasks[tc].start = start + scale * tc;
-            m_tasks[tc].end = pgate->m_clientsfd.end();
+            m_tasks[tc].end = size;
             m_tasks[tc].isvalied = true;
         }
 
         while (!iscomplete()) {
-            usleep(10 * 1000);
+            usleep(20 * 1000);
         }
         if (!(count & 0xff)) {
             TRACER("clients = %d, tc == %d multi-thread end, call num = %d\n", size, tc, count);
@@ -201,25 +205,25 @@ bool Broadcast::runtask(uint8_t* _data, uint32_t _len)
 }
 
 
-void Broadcast::Foo(Task& _task)
-{
-    static uint8_t  t = 1;
-    uint8_t id = t++;
-    TRACER("hello thread! id = %d\n", id);
+// void Broadcast::Foo(Task& _task)
+// {
+//     static uint8_t  t = 1;
+//     uint8_t id = t++;
+//     TRACER("hello thread! id = %d\n", id);
 
-    while (alive) {
-        if (_task.isvalied) {
-            for (auto i = _task.start, j = _task.end; i != j; ++i) {
-                if (tcp_socket::tcp_send(i->fd, _task.data, _task.len)) {
-                    pgate->m_errorfd.add(*i);
-                }
-            }
-            _task.isvalied = false;
-        }
-        usleep(5 * 1000);
-    }
+//     while (alive) {
+//         if (_task.isvalied) {
+//             for (auto i = _task.start, j = _task.end; i != j; ++i) {
+//                 if (tcp_socket::tcp_send(i->fd, _task.data, _task.len)) {
+//                     pgate->m_errorfd.add(*i);
+//                 }
+//             }
+//             _task.isvalied = false;
+//         }
+//         usleep(5 * 1000);
+//     }
 
-    TRACER("by thread! id = %d\n", id);
-}
+//     TRACER("by thread! id = %d\n", id);
+// }
 
 #endif
