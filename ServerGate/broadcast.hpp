@@ -143,7 +143,7 @@ bool Broadcast::runtask(uint8_t* _data, uint32_t _len)
     // }
 
     uint32_t size = pgate->m_clientsfd.size();
-    uint32_t tc = std::min((size / 0x0A), (MAX_THREAD_COUNT - 1u)); // 每个线程最少负责广播16个, 最后一个线程负责剩余的 
+    uint32_t tc = std::min((size / 0x0A), (MAX_THREAD_COUNT - 1u)); // 每个线程最少负责广播10个, 最后一个线程负责剩余的 
     if (tc == 0) {
         TRACER_DEBUG("tc == 0 signal thread start\n");
         std::vector<uint32_t> errorfd;

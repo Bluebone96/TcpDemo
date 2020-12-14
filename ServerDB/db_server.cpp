@@ -126,10 +126,11 @@ int8_t db_server::get_player_allitems_from_sql(uint32_t _usrid)
     char cmd[100];
     snprintf(cmd, 100, "SELECT * FROM ITEM where usrid = %d", _usrid);
     
+
     m_sql.GetBySQL(vitems, cmd);
     if (vitems.size() == 0) {
         TRACER_ERROR("no items info for player id =  %d", _usrid);
-        return -1;
+        // return -1; 不返回错误， insert 一个空的map
     }
 
     auto mitems = new std::map<uint32_t, ITEM>();
@@ -138,7 +139,7 @@ int8_t db_server::get_player_allitems_from_sql(uint32_t _usrid)
         mitems->insert(std::make_pair(x.itemid, std::move(x)));
     }
 
-    m_itemdb.insert(std::make_pair(_usrid, mitems));
+    m_itemdb.insert(std::make_pair(_usrid, mitems)); // 没物品时是空的
 
     return 0;
 }

@@ -153,11 +153,15 @@ int8_t game_server::usr_update_status(message *_msg)
 {
     uint32_t usrid = _msg->m_head.m_usrID;
 
-    Proto::Unity::Operation op;
-    _msg->decode_pb(op);
+    // Proto::Unity::Operation op;
+    // _msg->decode_pb(op);
+
     TRACER_DEBUG("just for Debug !! %s:%d\n", __POSITION__);
 
-    m_players[usrid]->update_status(op);
+    // m_players[usrid]->update_status(op);
+
+    m_players[usrid]->update_status(_msg);
+
 
     TRACER_DEBUG("just for Debug !! %s:%d\n", __POSITION__);
 

@@ -4,7 +4,7 @@
 #include <exception>
 #include <iostream>
 
-msg_head::msg_head() : m_len(0), m_type(0), m_errID(0), m_usrID(0)
+msg_head::msg_head() : m_len(0), m_type(0), m_errID(0), m_usrID(0), m_tick(0)
 {
 
 }
@@ -14,7 +14,7 @@ msg_head::~msg_head()
 
 }
 
-uint8_t msg_head::decode(uint8_t *_data, uint32_t _len) 
+uint8_t msg_head::decode(uint8_t *_data, uint32_t _len)
 {
     if (_len < MSG_HEAD_SIZE) { return -1; }
 
@@ -22,6 +22,7 @@ uint8_t msg_head::decode(uint8_t *_data, uint32_t _len)
     m_len = ntoh_32(*(uint32_t*)(_data + 4));
     m_usrID = ntoh_32(*(uint32_t*)(_data + 8));
     m_errID = ntoh_32(*(uint32_t*)(_data + 12));
+    m_tick = ntoh_64(*(uint64_t*)(_data + 16));
     
     return 0;
 }
@@ -34,6 +35,7 @@ uint8_t msg_head::encode(uint8_t *_data, uint32_t _len)
     *(uint32_t*)(_data + 4) = hton_32(m_len);
     *(uint32_t*)(_data + 8) = hton_32(m_usrID);
     *(uint32_t*)(_data + 12) = hton_32(m_errID);
+    *(uint64_t*)(_data + 16) = hton_64(m_tick);
 
     return 0;
 }
@@ -64,7 +66,7 @@ uint8_t message::encode()
 
 uint8_t message::decode_pb(google::protobuf::Message& _pb)
 {
-    m_head.decode(m_data, MSG_BUF_SIZE);
+    // m_head.decode(m_data, MSG_BUF_SIZE); 没必要, 目前都是预先decode
 
     TRACER_DEBUG("msg decode pb\n");
     _pb.ParseFromArray(m_pdata, m_head.m_len);

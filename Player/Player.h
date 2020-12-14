@@ -10,11 +10,11 @@
 
 #include "../Common/basetype.h"
 #include "../Common/log.h"
+#include "../Net/message.h"
 
 #define MYSQLPP_SSQLS_NO_STATICS
 
 #include "../SQL/tomysql.h"
-
 
 #include "Inventory.h"
 
@@ -55,7 +55,9 @@ public:
     const Proto::Unity::PlayerInfo* GetPlayerInfo();
     
 
-    int update_status(Proto::Unity::Operation& op);
+    // int update_status(Proto::Unity::Operation& op);
+
+    int update_status(message* msg);
 
     int update_Inventory(Proto::Unity::ItemEvent& pb);
 
@@ -86,6 +88,8 @@ private:
     struct  timeval  m_offline; // 5秒 无响应下线
 
     struct  timeval  m_lastTimeUp;
+
+    uint64_t m_lastTick;
 
     Inventory m_inventory;
 

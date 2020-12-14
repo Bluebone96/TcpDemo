@@ -7,11 +7,12 @@
 
 
 struct msg_head {
-#define MSG_HEAD_SIZE 16
+#define MSG_HEAD_SIZE 24
     uint32_t m_len; // 仅仅表示消息体长度，消息头长度固定的
     uint32_t m_type;
     uint32_t m_errID;
     uint32_t m_usrID;
+    uint64_t m_tick;
 
     msg_head();
     ~msg_head();

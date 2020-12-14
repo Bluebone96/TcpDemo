@@ -69,7 +69,7 @@ static int robots_init()
     for (int i = g_range.m_start; i < g_range.m_end; ++i) {
         if (robots[i]->tcp_connect("192.168.80.3", 2222) < 0) {
             exit(1);
-        } 
+        }
         std::cout << "robot_" << i  << " connect login server success\n";
         msgs[i].m_head.m_type = LOGIN_REQUEST;
         msgs[i].m_head.m_errID = 0;
@@ -182,7 +182,7 @@ static void exit_all_robots(int signo)
         robots[i]->tcp_send(msgs[i].m_data, MSG_HEAD_SIZE);
         usleep(50 * 1000);
     }
-
+    sleep(60);
     std::cout << "\n=============== free memory =========================" << std::endl;
 
     for (int i = g_range.m_start, j= g_range.m_end; i < j; ++i) {

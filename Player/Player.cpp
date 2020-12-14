@@ -1,10 +1,10 @@
 #include <cstdlib>
 #include <vector>
+#include <time.h>
 
 #include "Player.h"
 #include "../Proto/PlayerInfo.pb.h"
 #include "../Net/message.h"
-
 
 
 extern msg_queue g_send_queue;
@@ -27,36 +27,73 @@ int Player::InitPlayer(Proto::Unity::PlayerAllFuckInfo& _allinfo)
 
     m_name = m_fuckAllPb.baseinfo().name();
     m_id = m_fuckAllPb.baseinfo().id();
-
     m_protoInfo = m_fuckAllPb.mutable_baseinfo();
 
     TRACER_DEBUG("player name: %s, id: %d\n", m_name.c_str(), m_id);
     TRACER_DEBUG("player posx: %f, posz: %f, speed %d\n", m_protoInfo->posx(), m_protoInfo->posz(), m_protoInfo->speed());
 
     m_inventory.InitInventory(m_fuckAllPb.mutable_baginfo(), this);
-    
+    m_lastTick = 0; // clock(); // 无所谓，第一次登录
     return 0;
 }
 
 
-int Player::update_status(Proto::Unity::Operation& op)
+// int Player::update_status(Proto::Unity::Operation& op)
+// {
+//     struct timeval  curTime;
+//     m_opNew = op;
+//     TRACER_DEBUG("new op h = %f, v = %f\n", m_opNew.h(), m_opNew.v());
+
+//     // gettimeofday(&curTime, nullptr);
+    
+//     if (curTime.tv_sec - m_offline.tv_sec > 5) {
+//         // TODO 离线
+//     }
+
+//     m_offline = curTime;
+
+
+//     float passtime = (curTime.tv_sec  - m_lastTimeUp.tv_sec) * 1000 + (curTime.tv_usec - m_lastTimeUp.tv_usec) / 1000;
+
+//     TRACER_DEBUG("passtime is %f\n", passtime);
+//     // PlayerStatus nextStatus = m_pStatus[(m_pos + 1) % MAXSTATUS];
+
+//     // nextStatus = m_pStatus[m_pos];
+//     TRACER_DEBUG("speed is %d, old op h = %f, v = %f\n", m_protoInfo->speed(), m_protoInfo->op().h(), m_protoInfo->op().v());
+
+//     m_protoInfo->set_posx(m_protoInfo->posx() + (passtime * m_protoInfo->speed() * m_protoInfo->op().h()) / 1000);
+//     m_protoInfo->set_posz(m_protoInfo->posz() + (passtime * m_protoInfo->speed() * m_protoInfo->op().v()) / 1000);
+//     m_protoInfo->mutable_op()->operator=(m_opNew);
+    
+//     // 只显示一个玩家
+//     if (m_id == 172542746u) { 
+//         TRACER("player %s: posx = %f, posz = %f\n", m_name.c_str(), m_protoInfo->posx(), m_protoInfo->posz());
+//     }
+//     m_lastTimeUp = curTime;
+//     return 0;
+// }
+
+
+int Player::update_status(message* _msg)
 {
-    struct timeval  curTime;
-    m_opNew = op;
+    _msg->decode_pb(m_opNew);
+
+    // struct timeval  curTime;
     TRACER_DEBUG("new op h = %f, v = %f\n", m_opNew.h(), m_opNew.v());
 
-    gettimeofday(&curTime, nullptr);
+    // gettimeofday(&curTime, nullptr);
     
-    if (curTime.tv_sec - m_offline.tv_sec > 5) {
-        // TODO 离线
-    }
+    // if (curTime.tv_sec - m_offline.tv_sec > 5) {
+    //     // TODO 离线
+    // }
 
-    m_offline = curTime;
+    // m_offline = curTime;
 
+    // CLOCKS_PER_SEC 以C# 中 的 DataTime.Now.Ticks 来计算。
+    ulong passtime = (_msg->m_head.m_tick - m_lastTick) / 10000;
 
-    float passtime = (curTime.tv_sec  - m_lastTimeUp.tv_sec) * 1000 + (curTime.tv_usec - m_lastTimeUp.tv_usec) / 1000;
+    // float passtime = (curTime.tv_sec  - m_lastTimeUp.tv_sec) * 1000 + (curTime.tv_usec - m_lastTimeUp.tv_usec) / 1000;
 
-    TRACER_DEBUG("passtime is %f\n", passtime);
     // PlayerStatus nextStatus = m_pStatus[(m_pos + 1) % MAXSTATUS];
 
     // nextStatus = m_pStatus[m_pos];
@@ -68,12 +105,13 @@ int Player::update_status(Proto::Unity::Operation& op)
     
     // 只显示一个玩家
     if (m_id == 172542746u) { 
+        TRACER("passtime is %lu ms\n", passtime);
         TRACER("player %s: posx = %f, posz = %f\n", m_name.c_str(), m_protoInfo->posx(), m_protoInfo->posz());
     }
-    m_lastTimeUp = curTime;
+    // m_lastTimeUp = curTime;
+    m_lastTick = _msg->m_head.m_tick;
     return 0;
 }
-
 
 // int Player::setPlayerInfo()
 // {
