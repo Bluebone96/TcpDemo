@@ -11,7 +11,7 @@
 
 
 extern msg_queue g_send_queue;
-extern std::map<uint32_t, uint32_t> g_connet_server;
+extern std::unordered_map<uint32_t, uint32_t> g_connet_server;
 
 
 Inventory::Inventory()
@@ -21,7 +21,9 @@ Inventory::Inventory()
 
 Inventory::~Inventory()
 {
-    
+    for (auto iter = m_mItems.begin(), end = m_mItems.end(); iter != end; ++iter) {
+        delete iter->second;
+    }
 }
 
 int Inventory::InitInventory(Proto::Unity::PlayerBag* _bag, Player* _player)
@@ -174,7 +176,6 @@ int Inventory::saveItem(BaseItem* _item)
     TRACER_DEBUG("just for Debug !! %s:%d\n", __POSITION__);
 
     item2pb(_item, m_itempb);
-
 
     TRACER_DEBUG("save item to dbserver\n");
     TRACER_DEBUG("itemid = %d, type = %d, count = %d\n", m_itempb.m_itemid(), m_itempb.m_type(), m_itempb.m_count());

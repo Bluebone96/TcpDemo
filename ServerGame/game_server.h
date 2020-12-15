@@ -1,14 +1,15 @@
 #ifndef _GAME_SERVER_H_
 #define _GAME_SERVER_H_
 
-#include <map>
+#include <unordered_map>
+#include <memory>
 
 #include "../Player/Player.h"
 #include "../Net/message.h"
 
 extern msg_queue g_recv_queue;
 extern msg_queue g_send_queue;
-extern std::map<uint32_t, uint32_t> g_connet_server;
+extern std::unordered_map<uint32_t, uint32_t> g_connet_server;
 
 class game_server {
 public:
@@ -32,7 +33,7 @@ private:
     int8_t usr_chat(message *msg);
 
 
-    std::map<uint32_t, Player*> m_players;
+    std::unordered_map<uint32_t, std::shared_ptr<Player>> m_players;
 };
 
 #endif

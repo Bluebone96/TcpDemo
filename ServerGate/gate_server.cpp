@@ -58,7 +58,7 @@ int8_t gate_server::run_client()
             case ITEMEVENT:
                 // item operation
                 if (tcp_socket::tcp_send(g_connet_server[GAME_SERVER], msg->m_data, msg->m_head.m_len + MSG_HEAD_SIZE) < 0) {
-                    TRACER_ERROR("send itemevent msg to game_server %d fd %d failed\n", g_connet_server[GAME_SERVER], msg->m_head.m_usrID);
+                    TRACER_ERROR("send msg to game_server %d fd %d failed\n", g_connet_server[GAME_SERVER], msg->m_head.m_usrID);
                 }
                 break;
             default:

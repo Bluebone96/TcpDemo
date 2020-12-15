@@ -1,11 +1,15 @@
 #ifndef _DB_SERVER_H_
 #define _DB_SERVER_H_
 
+#include <memory>
+#include <unordered_map>
+
 #include "../Net/message.h"
 #include "../Proto/PlayerInfo.pb.h"
 
 #define MYSQLPP_SSQLS_NO_STATICS
 #include "../SQL/tomysql.h"
+
 
 extern msg_queue g_recv_queue;
 extern msg_queue g_send_queue;
@@ -57,11 +61,9 @@ private:
     ITEM m_itemsql;
     PLAYER m_playersql;
 
-    std::map<uint32_t, PASS*> m_passdb;
-    std::map<uint32_t, std::map<uint32_t, ITEM>*> m_itemdb;
-    std::map<uint32_t, PLAYER*> m_playerdb;
-
-    // std::map<uint32_t, Proto::Unity::PlayerAllFuckInfo*> m_allplayer_info;
+    std::unordered_map<uint32_t, std::shared_ptr<PASS>> m_passdb;
+    std::unordered_map<uint32_t, std::shared_ptr<std::unordered_map<uint32_t, ITEM>>> m_itemdb;
+    std::unordered_map<uint32_t, std::shared_ptr<PLAYER>> m_playerdb;
 
 };
 

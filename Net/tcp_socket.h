@@ -22,7 +22,7 @@ public:
 
     tcp_socket& operator=(const tcp_socket&) = delete;
 
-    int8_t tcp_init_buf(uint32_t _bufsz = (1024 * 16));
+    int32_t tcp_init_buf(uint32_t _bufsz = (1024 * 1024));
 
     // 创建一个socket 3种方式， connect listen accept
     int32_t tcp_connect(const char* hostname, int16_t port);
@@ -42,14 +42,17 @@ public:
     int32_t getfd() { return m_socketfd; }
     
 private:
-    int32_t recv_by_len(uint8_t *_usrbuf, uint32_t _len);
-
     // 成功总是返回 SOCKET_ERROR_EAGAIN（将内核缓冲区的数据读干净），出错返回错误码
     int32_t recv_full();
+    int32_t recv_by_len(uint8_t *_usrbuf, uint32_t _len);
     
+    int32_t tcp_setsockopt();
+
+private:
     int32_t m_socketfd;
     struct sockaddr_in m_sockaddr;
 
+private:
     // 环形缓冲区
     // volatile uint32_t m_in; // todo 不确定是否有效，或采用原子操作
     // volatile uint32_t m_out;

@@ -60,7 +60,8 @@ public:
     msg_queue();
     ~msg_queue();
 
-    int8_t init_queue(uint32_t _s);
+    // return 成功返回实际的队列大小，出错返回-1
+    int32_t init_queue(uint32_t _s);
 
     message* enqueue();
     message* dequeue();

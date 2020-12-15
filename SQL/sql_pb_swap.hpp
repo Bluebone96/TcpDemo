@@ -1,12 +1,27 @@
 #ifndef _SQL_BP_SWAP_
 #define _SQL_BP_SWAP_
+#include <memory>
 
 #include "tomysql.h"
 #include "../Proto/PlayerInfo.pb.h"
 
 
-
 int sql2pb(const ITEM* _itemsql, Proto::Unity::ItemInfo* _itempb)
+{
+    _itempb->set_m_usrid(_itemsql->usrid);
+    _itempb->set_m_itemid(_itemsql->itemid);
+    _itempb->set_m_type(_itemsql->type);
+    _itempb->set_m_count(_itemsql->count);
+    _itempb->set_m_name(_itemsql->name);
+    _itempb->set_m_hp(_itemsql->hp);
+    _itempb->set_m_atk(_itemsql->atk);
+    _itempb->set_m_def(_itemsql->def);
+    _itempb->set_m_price(_itemsql->price);
+
+    return 0;
+}
+
+int sql2pb(const std::shared_ptr<ITEM>& _itemsql, Proto::Unity::ItemInfo* _itempb)
 {
     _itempb->set_m_usrid(_itemsql->usrid);
     _itempb->set_m_itemid(_itemsql->itemid);
@@ -38,6 +53,23 @@ int pb2sql(const Proto::Unity::ItemInfo* _itempb, ITEM* _itemsql)
 }
 
 int sql2pb(const PLAYER* _playersql, Proto::Unity::PlayerInfo* _playerpb)
+{
+    _playerpb->set_id(_playersql->id);
+    _playerpb->set_name(_playersql->name);
+    
+    _playerpb->set_speed(_playersql->speed);
+    _playerpb->set_posx(_playersql->posx);
+    _playerpb->set_posz(_playersql->posz);
+
+    _playerpb->set_hp(_playersql->hp);
+    _playerpb->set_mp(_playersql->mp);
+    _playerpb->set_atk(_playersql->atk);
+    _playerpb->set_def(_playersql->def);
+
+    return 0;
+}
+
+int sql2pb(const std::shared_ptr<PLAYER>& _playersql, Proto::Unity::PlayerInfo* _playerpb)
 {
     _playerpb->set_id(_playersql->id);
     _playerpb->set_name(_playersql->name);

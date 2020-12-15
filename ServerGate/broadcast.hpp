@@ -2,7 +2,7 @@
 
 #include <functional>
 #include <stdint.h>
-#include <map>
+#include <unordered_map>
 #include <vector>
 #include <mutex>
 #include <functional>
@@ -14,6 +14,8 @@
 #include "../Common/log.h"
 
 
+#define MAX_THREAD_COUNT 0x10
+#define PER_THREAD_NUM 0x10
 
 struct Task {
     bool isvalied;
@@ -51,16 +53,17 @@ public:
     int8_t init(gate_server* _pg);
     bool runtask(uint8_t* _data, uint32_t _len);
 
-
-#define MAX_THREAD_COUNT 16
 private:
     bool iscomplete();
     // void Foo(Task& _task);
+
+private:
     bool alive;
 
     std::vector<Task> m_tasks;
     std::vector<std::thread> m_threads;
-    
+
+private:
     gate_server* pgate;
 };
 
@@ -90,7 +93,7 @@ int8_t Broadcast::init(gate_server* _gate)
         static uint8_t  t = 0;
         uint8_t id = t++;
         TRACER("hello thread! id = %d\n", id);
-        TRACER_DEBUG("thread id = %d, task isvalied = %d, data = %p\n", id, _task.isvalied, (void*)_task.data);
+        TRACER_DEBUG("thread id = %d, task isvalied = %d, data = %p\n", id, _task->isvalied, (void*)_task->data);
         while (alive) {
             if (_task->isvalied) {
                 for (auto i = _task->start, j = _task->end; i != j; ++i) {
@@ -147,7 +150,7 @@ bool Broadcast::runtask(uint8_t* _data, uint32_t _len)
     // }
 
     uint32_t size = pgate->m_clientsfd.size();
-    uint32_t tc = std::min((size / 0x0A), (MAX_THREAD_COUNT - 1u)); // 每个线程最少负责广播10个, 最后一个线程负责剩余的
+    uint32_t tc = std::min((size / PER_THREAD_NUM), (MAX_THREAD_COUNT - 1u)); // 每个线程最少负责广播10个, 最后一个线程负责剩余的
     if (tc == 0) {
         TRACER_DEBUG("tc == 0 signal thread start\n");
         std::vector<uint32_t> errorfd;
@@ -196,9 +199,7 @@ bool Broadcast::runtask(uint8_t* _data, uint32_t _len)
             TRACER("clients = %d, tc == %d multi-thread end, call num = %d\n", size, tc, count);
         }
     }
-    // if (!(count & 0xf)) {
-    //     TRACER("broadcast::runtask end! num = %d\n", count);
-    // }
+
     ++count;
 
     TRACER_DEBUG("Broadcast::runtask end, data len = %d\n", _len);

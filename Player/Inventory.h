@@ -1,7 +1,7 @@
 #ifndef _INVENTORY_H_
 #define _INVENTORY_H_
 
-#include <map>
+#include <unordered_map>
 #include <set>
 
 #include "../Proto/PlayerInfo.pb.h"
@@ -67,7 +67,7 @@ private:
     Player* m_player;
     uint32_t m_playerId;
 
-    std::map<uint, BaseItem*> m_mItems;
+    std::unordered_map<uint, BaseItem*> m_mItems;
 
     Bag m_baseBag;
     Bag m_equipBag;
@@ -78,7 +78,7 @@ private:
     ITEM m_itemsql;
     Proto::Unity::ItemInfo m_itempb;
 
-    Proto::Unity::PlayerBag* m_playerBagPb;
+    Proto::Unity::PlayerBag* m_playerBagPb;  // 指向  player 的 fuckallinfo 中的 baginfo
 
     char m_bagkey[30];
 };

@@ -114,8 +114,7 @@ int8_t db_server::get_player_from_sql(uint32_t _usrid)
     }
     
     TRACER_DEBUG("player name: %s, id: %d\nposx: %f, posz: %f, speed: %d\n", player[0].name.c_str(), player[0].id, player[0].posx, player[0].posz, player[0].speed);
-    m_playerdb.insert(std::make_pair(_usrid, new PLAYER(player[0])));
-    
+    m_playerdb.insert(std::make_pair(_usrid, std::make_shared<PLAYER>(player[0])));
 
     return 0;
 }
@@ -133,7 +132,7 @@ int8_t db_server::get_player_allitems_from_sql(uint32_t _usrid)
         // return -1; 不返回错误， insert 一个空的map
     }
 
-    auto mitems = new std::map<uint32_t, ITEM>();
+    auto mitems = std::make_shared<std::unordered_map<uint32_t, ITEM>>();
     for (auto&x : vitems) {
         // If I moved the ith element out, then ith slot goes into an undefined but valid state, 未定义但有效
         mitems->insert(std::make_pair(x.itemid, std::move(x)));
@@ -165,7 +164,7 @@ int8_t db_server::get_pass(message *_msg)
         }
         TRACER_DEBUG("usrid is %d, pass is %d\n", pass[0].id, pass[0].pass);
 
-        auto ret = m_passdb.insert(std::make_pair(usrid, new PASS(pass[0])));
+        auto ret = m_passdb.insert(std::make_pair(usrid, std::make_shared<PASS>(pass[0])));
         if (!ret.second) {
             TRACER_ERROR("------BUG BUG BUG-----\n%s:%d\n", __POSITION__);
         }

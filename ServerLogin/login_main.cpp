@@ -6,14 +6,14 @@
 #include "../Net/message.h"
 #include "../Proto/PlayerInfo.pb.h"
 #include <thread>
-// #include <mutex>
+#include <unordered_map>
 
 msg_queue g_recv_queue;
 msg_queue g_send_queue;
 
-std::map<uint32_t, uint32_t> g_connet_server;
+std::unordered_map<uint32_t, uint32_t> g_connet_server;
 
-std::map<int32_t, Proto::Unity::ServerInfo> g_serverinfo;
+std::unordered_map<int32_t, Proto::Unity::ServerInfo> g_serverinfo;
 
 
 int main()

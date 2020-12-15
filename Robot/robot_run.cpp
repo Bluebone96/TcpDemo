@@ -83,9 +83,9 @@ static int robots_init()
     sleep(3);
 
     for (int i = g_range.m_start; i < g_range.m_end; ++i) {
-        while (robots[i]->tcp_recv(msgs[i].m_data, MSG_HEAD_SIZE) < MSG_HEAD_SIZE) {
-               std::cout << "\nrobot_" << i << " login failed, try again" << std::endl;
-                usleep(10 * 1000);
+        while (robots[i]->tcp_recv(msgs[i].m_data, MSG_HEAD_SIZE) != MSG_HEAD_SIZE) {
+            std::cout << "\nrobot_" << i << " login failed, try again" << std::endl;
+            usleep(50 * 1000);
         }
 
         msgs[i].decode();
@@ -155,7 +155,7 @@ static void test_recvmsg()
         for (int i = g_range.m_start; i < g_range.m_end && g_range.m_flag; ++i) {
             read(robots_fd[i], g_buff_null, 4096);
         }
-        usleep(50 * 1000);
+        usleep(10 * 1000);
     }
 }
 
@@ -182,9 +182,9 @@ static void exit_all_robots(int signo)
         msgs[i].m_head.m_len = 0;
         msgs[i].encode();
         robots[i]->tcp_send(msgs[i].m_data, MSG_HEAD_SIZE);
-        usleep(50 * 1000);
+        usleep(10 * 1000);
     }
-    sleep(120);
+    sleep(10);
     std::cout << "\n=============== free memory =========================" << std::endl;
 
     for (int i = g_range.m_start, j= g_range.m_end; i < j; ++i) {
@@ -218,20 +218,21 @@ int main(int argc, char** argv)
 
     std::cout << "\n=============robots init complete======================" << std::endl;
 
-    test_sendmsg();
+    sleep(5);
+
 
     g_thread.emplace_back(std::thread(test_sendmsg));
     g_thread.emplace_back(std::thread(test_recvmsg));
 
 
 
-    // if (g_thread[0].joinable()) {
-    //     g_thread[0].join();
-    // } 
-    // if (g_thread[1].joinable()) 
-    // {
-    //     g_thread[1].join();
-    // }
+    if (g_thread[0].joinable()) {
+        g_thread[0].join();
+    } 
+    if (g_thread[1].joinable()) 
+    {
+        g_thread[1].join();
+    }
 
     std::cout << "\n=============all message send======================" << std::endl;
 }

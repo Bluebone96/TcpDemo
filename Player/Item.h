@@ -3,7 +3,7 @@
 
 
 #include <string>
-#include <map>
+#include <unordered_map>
 
 #include "../Common/Singleton.h"
 #include "../Proto/PlayerInfo.pb.h"
@@ -40,7 +40,7 @@ enum class ItemAttributeType {
 //     int getAttribute(ItemAttributeType _key);
 //     ItemAttribute& operator=(const ItemAttribute&);
 // private:
-//     std::map<ItemAttributeType, int> m_mpValue;
+//     std::unordered_map<ItemAttributeType, int> m_mpValue;
 // };
 
 
@@ -113,7 +113,7 @@ public:
     static int uniqueID;
 private:
 
-    std::map<ItemAttributeType, int> m_attribute;
+    std::unordered_map<ItemAttributeType, int> m_attribute;
 };
 
 
@@ -141,7 +141,7 @@ public:
     BaseItem* getBak(int) const override;
 
 private:
-    std::map<ItemAttributeType, int> m_attribute;
+    std::unordered_map<ItemAttributeType, int> m_attribute;
 };
 
 class ItemFactory {

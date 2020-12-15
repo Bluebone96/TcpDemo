@@ -22,11 +22,11 @@ int32_t Epoll::Init(int32_t size)
     bzero(&m_event, sizeof(m_event));
 
     // EPOLLRDHUP 新增对于断开连接的判断，不用再去读socket判断
-    m_event.events = EPOLL_EVENTS::EPOLLIN | EPOLL_EVENTS::EPOLLRDHUP | EPOLL_EVENTS::EPOLLET;
+    m_event.events = EPOLL_EVENTS::EPOLLIN | EPOLL_EVENTS::EPOLLRDHUP /*| EPOLL_EVENTS::EPOLLET*/;
     m_event.data.ptr = nullptr;
     m_event.data.fd = -1;
 
-    m_pevents = (struct epoll_event*)malloc(size * sizeof(epoll_event));
+    m_pevents = new epoll_event[size];
     if (nullptr == m_pevents) {
         TRACER_ERROR("EpollInit failed! : %s:%d", __FILE__, __LINE__);
         return -1;

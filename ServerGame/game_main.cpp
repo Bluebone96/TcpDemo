@@ -1,5 +1,5 @@
 #include <thread>
-#include <map>
+#include <unordered_map>
 
 #include "game_server.h"
 #include "../Net/Net.h"
@@ -11,11 +11,11 @@
 msg_queue g_recv_queue;
 msg_queue g_send_queue;
 
-std::map<uint32_t, uint32_t> g_connet_server;
+std::unordered_map<uint32_t, uint32_t> g_connet_server;
 
 int main ()
 {
-    g_recv_queue.init_queue(1024 * 32);
+    g_recv_queue.init_queue(1024 * 64);
     g_send_queue.init_queue(1024 * 16);
 
     game_server server;
@@ -35,7 +35,7 @@ int main ()
         exit(1);
     }
 
-    if (load_config("db_server", cfg)) {
+    if (load_config("db_server", cfg) < 0) {
         TRACER_ERROR("load game_server config failed");
         exit(1);
     }

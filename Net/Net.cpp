@@ -11,7 +11,7 @@ Net::~Net()
 
 }
 
-int8_t Net::net_init(msg_queue* _recvq, msg_queue* _sendq)
+int32_t Net::net_init(msg_queue* _recvq, msg_queue* _sendq)
 {
     TRACER("init network start\n");
 
@@ -27,7 +27,7 @@ int8_t Net::net_init(msg_queue* _recvq, msg_queue* _sendq)
     return 0;
 }
 
-int8_t Net::net_listen(const char* _ip, uint32_t _port)
+int32_t Net::net_listen(const char* _ip, uint32_t _port)
 {
     TRACER("init network start\n");
     int32_t fd = m_listen_socket.tcp_listen(_ip, _port);
@@ -48,7 +48,7 @@ int8_t Net::net_listen(const char* _ip, uint32_t _port)
     return 0;
 }
 
-int8_t Net::net_connect(const char* _ip, uint32_t _port)
+int32_t Net::net_connect(const char* _ip, uint32_t _port)
 {
     auto socket = std::make_shared<tcp_socket>();
     int32_t fd = socket->tcp_connect(_ip, _port);
@@ -65,7 +65,7 @@ int8_t Net::net_connect(const char* _ip, uint32_t _port)
     return fd;
 }
 
-int8_t Net::product_msg()
+int32_t Net::product_msg()
 {
     if (g_recv_queue == nullptr) {
         TRACER_ERROR("g_recv_queue is nullptr\n");
@@ -88,7 +88,7 @@ int8_t Net::product_msg()
                 }
                 socket->tcp_init_buf();
 
-                auto re = m_connections.insert(std::make_pair(newclient, socket));
+                auto re = m_connections.insert(std::make_pair(newclient, std::move(socket)));
                 if (re.second == false) {
                     TRACER_ERROR("insert failed\n");
                 }
@@ -106,12 +106,8 @@ int8_t Net::product_msg()
                         TRACER_ERROR("Epoll event EPOLLIN | EPOLLRDHUP fd = %d\n", fd);
                         m_connections.erase(fd);
                         continue;
-                    case EPOLLHUP:
-                        TRACER_ERROR("Epoll event epollhup fd = %d\n", fd);
-                        continue;
-                    case EPOLLERR:
-                        TRACER_ERROR("Epoll event epollerr fd= %d, delete ptr\n", fd);
-                        m_connections.erase(fd);
+                    case 0x2019:
+                        TRACER_ERROR("Epoll unknowen events =  0x2019(8217), fd = %d, go next epoll\n", fd);
                         continue;
                     default:
                         TRACER_ERROR("Epoll unknowen events %d, fd = %d, delete ptr\n", event, fd);
@@ -121,7 +117,6 @@ int8_t Net::product_msg()
 
                 TRACER_DEBUG("new message, fd is %d\n", fd);
                 auto& socket = m_connections[fd];
-                int ret = 0;
                 message *msg = nullptr;
 
                 while ((msg = g_recv_queue->enqueue()) == nullptr)
@@ -132,12 +127,13 @@ int8_t Net::product_msg()
                     usleep(50 * 1000);
                 }
 
+                int ret = 0;
                 do  {
                     TRACER_DEBUG("net::product ---- check the g_recv_queue\n");
                     g_recv_queue->debug_info();
                     
                     ret = recvmsg(socket, *msg);
-                    if (ret < 0) {
+                    if (ret <= 0) {
                         // 读取失败将 msg->m_flag  设置为 invalied
                         // 如果不是 eagain 则 erase fd
                         msg->m_flag = msg_flags::INVALID;
@@ -159,14 +155,13 @@ int8_t Net::product_msg()
                 // }
             }
             TRACER_DEBUG("go next epoll\n");
-            usleep(10 * 1000);
         }
         
     }
 }
 
 
-int8_t Net::consume_msg()
+int32_t Net::consume_msg()
 {
     if (g_recv_queue == nullptr) {
         TRACER_ERROR("g_recv_queue is nullptr\n");
@@ -196,32 +191,34 @@ int8_t Net::consume_msg()
 }
 
 
-int8_t Net::recvmsg(std::shared_ptr<tcp_socket>& _socket, message& _msg)
+int32_t Net::recvmsg(std::shared_ptr<tcp_socket>& _socket, message& _msg)
 {
     TRACER_DEBUG("start recv msg data head\n");
-    int ret = 0;
-    ret = _socket->tcp_recv(_msg.m_data, MSG_HEAD_SIZE);
-    
-    if (ret < 0) {
-        TRACER_DEBUG("Net::recvmsg errorid = %d\n, %s:%d\n", ret, __POSITION__);
-        return ret;
+    int ret1 = _socket->tcp_recv(_msg.m_data, MSG_HEAD_SIZE);
+    // 等于 0 是 无数据， 所以不用 TRACER_ERROR
+    if (ret1 <= 0) {
+        TRACER_DEBUG("Net::recvmsg errorid = %d\n, %s:%d\n", ret1, __POSITION__);
+        return ret1;
     }
 
     _msg.decode();
     TRACER_DEBUG("msg data body len is %d\n", _msg.m_head.m_len);
-    ret = _socket->tcp_recv(_msg.m_data + MSG_HEAD_SIZE, _msg.m_head.m_len);
-    if (ret < 0 ) {
-        TRACER_DEBUG("Net::recvmsg errorid = %d\n %s:%d\n", ret, __POSITION__);
-        return -1;
+    int ret2 = 0;
+    if (_msg.m_head.m_len > 0) {
+        ret2 = _socket->tcp_recv(_msg.m_data + MSG_HEAD_SIZE, _msg.m_head.m_len);
+        if (ret2 <= 0 ) {
+            TRACER_DEBUG("Net::recvmsg errorid = %d\n %s:%d\n", ret2, __POSITION__);
+            return -1;
+        }
     }
 
     _msg.m_from = _socket->getfd();
 
-    TRACER_DEBUG("recv msg complete\n");
-    return 0;
+    TRACER_DEBUG("recv msg complete ret1(%d) + ret2(%d) = %d\n",ret1, ret2, ret1 + ret2);
+    return ret1 + ret2;
 }
 
-int8_t Net::sendmsg(std::shared_ptr<tcp_socket>& _socket, message& _msg)
+int32_t Net::sendmsg(std::shared_ptr<tcp_socket>& _socket, message& _msg)
 {
     _msg.encode();
     return _socket->tcp_send(_msg.m_data, _msg.m_head.m_len + MSG_HEAD_SIZE);

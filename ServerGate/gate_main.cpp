@@ -1,5 +1,5 @@
 #include <thread>
-#include <map>
+#include <unordered_map>
 
 
 #include "gate_server.h"
@@ -11,13 +11,13 @@
 msg_queue g_server_queue;
 msg_queue g_client_queue;
 
-std::map<uint32_t, uint32_t> g_connet_server;
+std::unordered_map<uint32_t, uint32_t> g_connet_server;
 
 
 int main ()
 {
-    g_server_queue.init_queue(1024 * 32);
-    g_client_queue.init_queue(1024 * 32);
+    g_server_queue.init_queue(1024 * 64);
+    g_client_queue.init_queue(1024 * 64);
 
     gate_server server;
     if (server.init_gate() < 0) {

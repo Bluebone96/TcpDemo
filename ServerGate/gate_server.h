@@ -2,7 +2,7 @@
 #define _GATE_SERVER_H_
 
 #include <stdint.h>
-#include <map>
+#include <unordered_map>
 #include <vector>
 #include <mutex>
 #include <functional>
@@ -12,7 +12,7 @@
 extern msg_queue g_server_queue;
 extern msg_queue g_client_queue;
 
-extern std::map<uint32_t, uint32_t> g_connet_server;
+extern std::unordered_map<uint32_t, uint32_t> g_connet_server;
 
 class Broadcast;
 
@@ -48,11 +48,11 @@ public:
     
 private:
     // 暂未使用
-    // std::map<uint32_t, uint32_t> m_usrkey; // 验证令牌  
-    // std::map<uint32_t, uint32_t> m_usrserver; // usr所属的game服务器
+    // std::unordered_map<uint32_t, uint32_t> m_usrkey; // 验证令牌  
+    // std::unordered_map<uint32_t, uint32_t> m_usrserver; // usr所属的game服务器
 
     // todo 客户端断开后如何进行有效清除 , 方案一 直接 erase, 方案二 将 fd 设置为 -1，每次发送前判断
-    std::map<uint32_t, int32_t> m_usrfd;   
+    std::unordered_map<uint32_t, int32_t> m_usrfd;   
     
 private:
     void erasefd(uint32_t _usrid);

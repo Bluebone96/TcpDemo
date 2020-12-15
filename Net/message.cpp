@@ -118,7 +118,7 @@ msg_queue::~msg_queue()
     delete[] m_pmsg;
 }
 
-int8_t msg_queue::init_queue(uint32_t _s)
+int32_t msg_queue::init_queue(uint32_t _s)
 {
     m_size = roundup_pow_of_two(_s);
     try
@@ -129,7 +129,7 @@ int8_t msg_queue::init_queue(uint32_t _s)
         return -1;
     }
 
-    return 0;
+    return m_size;
 }
 
 

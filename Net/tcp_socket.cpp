@@ -31,19 +31,35 @@ static inline uint32_t roundup_pow_of_two(uint32_t _s)
 
 
 
-inline static int32_t setnonblock(int32_t fd) 
+int32_t tcp_socket::tcp_setsockopt()
 {
+    // 如果在发送数据的时，希望不经历由系统缓冲区到socket缓冲区的拷贝而影响程序的性能：
+    // int nZero = 0;
+    // if (setsockopt(m_socketfd, SOL_SOCKET, SO_SNDBUF, &nZero, sizeof(nZero)) < 0) {
+    //     TRACER_ERROR("tcp_setsockopt  SO_SENDBUF falied, fd = %d\n", m_socketfd);
+    // }
+    // 如果在发送数据的时，希望不经历由系统缓冲区到socket缓冲区的拷贝而影响程序的性能：
+    int nZero = 0;
+    if (setsockopt(m_socketfd, SOL_SOCKET, SO_RCVBUF, &nZero, sizeof(nZero)) < 0) {
+        TRACER_ERROR("tcp_setsockopt  SO_RCVBUF falied, fd = %d\n", m_socketfd);
+    }
+
+    int flag = 1;
+    if (setsockopt(m_socketfd, IPPROTO_TCP, TCP_NODELAY, &flag, sizeof(flag)) < 0) {
+        TRACER_ERROR("tcp_setsockopt TCP_NODELAY falied. fd = %d\n", m_socketfd);
+    }
+
     int mode = 1;  // 1 非阻塞， 0 阻塞
-    if (ioctl(fd, FIONBIO, &mode)) {
+    if (ioctl(m_socketfd, FIONBIO, &mode)) {
         int flag;
-        if (((flag = fcntl(fd, F_GETFL, 0)) < 0) && (fcntl(fd, F_SETFL, flag | O_NONBLOCK) < 0)) {
-            TRACER_ERROR("set sock nonblock faild\n");
-        //     close(fd); // 析构管理
+        if (((flag = fcntl(m_socketfd, F_GETFL, 0)) < 0) && (fcntl(m_socketfd, F_SETFL, flag | O_NONBLOCK) < 0)) {
+            TRACER_ERROR("set sock nonblock faild, fd = %d\n", m_socketfd);
             return -1;
         }
     }
     return 0;
 }
+
 
 tcp_socket::tcp_socket() 
     : m_socketfd(-1), m_in(0), m_out(0), m_size(0), m_buffer(nullptr)
@@ -59,7 +75,7 @@ tcp_socket::~tcp_socket()
 }
 
 
-int8_t tcp_socket::tcp_init_buf(uint32_t _bufsz)
+int32_t tcp_socket::tcp_init_buf(uint32_t _bufsz)
 {
     m_size = roundup_pow_of_two(_bufsz);
     try
@@ -70,7 +86,7 @@ int8_t tcp_socket::tcp_init_buf(uint32_t _bufsz)
         return -1;
     }
 
-    return 0;
+    return m_size;
 }
 
 
@@ -104,10 +120,17 @@ int32_t tcp_socket::tcp_connect(const char* hostname, int16_t port)
     if (getsockname(clientfd, (sockaddr*)&m_sockaddr, &len) < 0) {
         TRACER_ERROR("getsockname failed\n");
     }
+
+
     TRACER_DEBUG("client addr is %d : %d\n", m_sockaddr.sin_addr.s_addr, (int)(m_sockaddr.sin_port));
-    setnonblock(clientfd);
-    
+
     m_socketfd = clientfd;
+    
+    if (tcp_setsockopt() < 0) {
+        TRACER_ERROR("tcp_setsockopt falied\n");
+        return -1;
+    }
+    
     return clientfd;
 }
 
@@ -149,11 +172,13 @@ int32_t tcp_socket::tcp_listen(const char* hostname, int16_t port)
         return -1;
     }
 
-    if (setnonblock(listenfd)) {
+    m_socketfd = listenfd;
+
+    if (tcp_setsockopt() < 0) {
+        TRACER_ERROR("tcp_setsockopt falied\n");
         return -1;
     }
 
-    m_socketfd = listenfd;
     return listenfd;
 }
 
@@ -168,14 +193,13 @@ int32_t tcp_socket::tcp_accept(int32_t _listenfd)
         return -1;
     }
 
-    if (setnonblock(acceptfd)) {
+    m_socketfd = acceptfd;
+
+    if (tcp_setsockopt() < 0) {
+        TRACER_ERROR("tcp_setsockopt falied\n");
         return -1;
     }
 
-    int on = 1;
-    setsockopt(acceptfd, IPPROTO_TCP, TCP_NODELAY, (const void*)&on, sizeof(on));
-
-    m_socketfd = acceptfd;
     return acceptfd;
 }
 
@@ -197,6 +221,7 @@ int32_t tcp_socket::tcp_recv(uint8_t *_usrbuf, uint32_t _length)
     }
     // 将 while 改为 2次if, 如果还是小于则说明展时没有数据可读
     if (m_in - m_out < _length) {
+        TRACER_DEBUG("m_in = %d, m_out = %d, len = %d", m_in, m_out, _length);
         return SOCKET_EAGAIN;
     }
 
@@ -280,7 +305,7 @@ int32_t tcp_socket::tcp_send(uint32_t _fd, const uint8_t *_usrbuf, uint32_t _len
                 continue;
             } else if (errno == EAGAIN) {
                 //对端写缓冲区满了
-                usleep(1000);
+                usleep(15 * 1000);
                 continue;
             } else {
                 TRACERERRNO("tcp_socket::tcp_send failed! %s:%d\n", __FILE__, __LINE__); // 可能是客户端直接断开连接

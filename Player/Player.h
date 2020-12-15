@@ -80,7 +80,7 @@ private:
     
     Proto::Unity::PlayerAllFuckInfo m_fuckAllPb;
 
-    Proto::Unity::PlayerInfo* m_protoInfo;
+    Proto::Unity::PlayerInfo* m_protoInfo; // 指向 m_fuckallpb 的 baseinfo
 
     Proto::Unity::Operation m_opNew;
 
@@ -92,7 +92,6 @@ private:
     uint64_t m_lastTick;
 
     Inventory m_inventory;
-
 };
 
 
