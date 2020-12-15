@@ -191,6 +191,7 @@ bool Broadcast::runtask(uint8_t* _data, uint32_t _len)
         while (!iscomplete()) {
             usleep(20 * 1000);
         }
+        
         if (!(count & 0xff)) {
             TRACER("clients = %d, tc == %d multi-thread end, call num = %d\n", size, tc, count);
         }

@@ -137,8 +137,8 @@ static void test_sendmsg()
                     std::cout << "send msg  failed" << std::endl;
                 }
                 // 减少线程开销，把读放进来
-                read(robots_fd[i], g_buff_null, 4096);
-                usleep(50 * 1000);
+                // read(robots_fd[i], g_buff_null, 4096);
+                usleep(10 * 1000);
             }
             if (!(i & 0x7f)) {
                 printf("\n==================== %d message send ===============\n", i);
@@ -169,11 +169,11 @@ static void exit_all_robots(int signo)
         g_thread[0].join();
         std::cout << "send thread joined" << std::endl;
     } 
-    // if (g_thread[1].joinable()) 
-    // {
-    //     g_thread[1].join();
-    //     std::cout << "recv thread joined" << std::endl;
-    // }
+    if (g_thread[1].joinable()) 
+    {
+        g_thread[1].join();
+        std::cout << "recv thread joined" << std::endl;
+    }
 
 
     std::cout << "\n===============send exit message=========================" << std::endl;
@@ -218,14 +218,16 @@ int main(int argc, char** argv)
 
     std::cout << "\n=============robots init complete======================" << std::endl;
 
+    test_sendmsg();
+
     g_thread.emplace_back(std::thread(test_sendmsg));
-    // g_thread.emplace_back(std::thread(test_recvmsg));
+    g_thread.emplace_back(std::thread(test_recvmsg));
 
 
 
-    if (g_thread[0].joinable()) {
-        g_thread[0].join();
-    } 
+    // if (g_thread[0].joinable()) {
+    //     g_thread[0].join();
+    // } 
     // if (g_thread[1].joinable()) 
     // {
     //     g_thread[1].join();

@@ -108,7 +108,7 @@ int8_t Net::product_msg()
                         continue;
                     case EPOLLHUP:
                         TRACER_ERROR("Epoll event epollhup fd = %d\n", fd);
-                        break;
+                        continue;
                     case EPOLLERR:
                         TRACER_ERROR("Epoll event epollerr fd= %d, delete ptr\n", fd);
                         m_connections.erase(fd);
@@ -141,7 +141,7 @@ int8_t Net::product_msg()
                         // 读取失败将 msg->m_flag  设置为 invalied
                         // 如果不是 eagain 则 erase fd
                         msg->m_flag = msg_flags::INVALID;
-                        if (ret != SOCKET_ERROR_EAGAIN) {
+                        if (ret != SOCKET_EAGAIN) {
                             TRACER_ERROR("socket recv msg failed errorid: %d\n", ret);
                             m_connections.erase(fd);
                         }

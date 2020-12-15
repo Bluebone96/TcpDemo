@@ -76,7 +76,7 @@ int8_t login_server::login_request(message* _msg)
 {
     m_au.ParseFromArray(_msg->m_pdata, _msg->m_head.m_len);
     
-    TRACER("usrname is %s, pass is %s, fd is %d\n", m_au.name().c_str(), m_au.password().c_str(), _msg->m_from);
+    TRACER_DEBUG("usrname is %s, pass is %s, fd is %d\n", m_au.name().c_str(), m_au.password().c_str(), _msg->m_from);
     unsigned int id = BKDRHash(m_au.name());
     unsigned int pass = BKDRHash(m_au.password());
 
@@ -181,7 +181,7 @@ int8_t login_server::login_success(message* _msg)
 
     uint32_t usrid = _msg->m_head.m_usrID;
 
-    TRACER("usrid %d login success fd is %d\n", usrid, m_usrfd[usrid]);
+    TRACER_DEBUG("usrid %d login success fd is %d\n", usrid, m_usrfd[usrid]);
 
     if (_msg->m_head.m_errID) {
         TRACER_ERROR("usrid %d login failed fd is %d\n", usrid, m_usrfd[usrid]);

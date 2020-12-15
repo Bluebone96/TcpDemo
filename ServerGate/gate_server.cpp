@@ -42,12 +42,12 @@ int8_t gate_server::run_client()
         TRACER_DEBUG("msg type is %d\n", msg->m_head.m_type);
         switch (msg->m_head.m_type) {
             case USERLOGIN:
-                TRACER("gate_server::run_client -- new player login usrid is %d, fd is %d\n", msg->m_head.m_usrID, msg->m_from);
+                TRACER_DEBUG("gate_server::run_client -- new player login usrid is %d, fd is %d\n", msg->m_head.m_usrID, msg->m_from);
                 m_usrfd[msg->m_head.m_usrID] = msg->m_from;    // 第一次登录
                 m_clientsfd.emplace_back(client_info(msg->m_head.m_usrID, msg->m_from));
                 break;
             case USEREXIT:
-                TRACER("gate_server::run_client -- client exit usrid = %d\n", msg->m_head.m_usrID);
+                TRACER_DEBUG("gate_server::run_client -- client exit usrid = %d\n", msg->m_head.m_usrID);
                 erasefd(msg->m_head.m_usrID);
 
             case USERUP:

@@ -63,7 +63,7 @@ void game_server::run()
 int8_t game_server::usr_login(message *_msg)
 {
     uint32_t usrid = _msg->m_head.m_usrID;
-    TRACER("player login, id = %d\n", usrid);
+    TRACER_DEBUG("player login, id = %d\n", usrid);
     
     Player *p = new Player;
 
@@ -87,7 +87,7 @@ int8_t game_server::usr_exit(message *_msg)
     auto iter = m_players.find(usrid);
     if (iter != m_players.end()) {
 
-        TRACER("player exit ! id = %d\n", usrid);
+        TRACER_DEBUG("player exit ! id = %d\n", usrid);
 
         message *msg = nullptr;
 
@@ -121,7 +121,7 @@ int8_t game_server::usr_exit(message *_msg)
             usleep(50 * 1000);
         }
 
-        TRACER("usrid %d exit", usrid);
+        TRACER_DEBUG("usrid %d exit", usrid);
         msg->m_head.m_type = USEREXIT;
         msg->m_head.m_usrID = usrid;
         msg->m_head.m_len = 0;
@@ -210,7 +210,7 @@ int8_t game_server::usr_update_item(message *_msg)
     }
 
 
-    TRACER("item op success, send msg to usrid %d\n", usrid);
+    TRACER_DEBUG("item op success, send msg to usrid %d\n", usrid);
     tcp_socket::tcp_send(_msg->m_from, _msg->m_data, _msg->m_head.m_len + MSG_HEAD_SIZE);
 
     return -1;

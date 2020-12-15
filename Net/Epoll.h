@@ -7,15 +7,18 @@
 #include <stdlib.h>
 #include "../Common/log.h"
 
-#define MAXEPOLLEVENTS 1024
+// 最多监听fd数目
+#define MAXEPOLLEVENTS 4096
 
 class Epoll {
 public:
     Epoll();
     ~Epoll();
     int32_t Init(int32_t n = MAXEPOLLEVENTS);
-    int32_t Wait(int32_t time = 10);
+    // 一直等待
+    int32_t Wait(int32_t time = -1);
     int32_t Add(int32_t);
+    int32_t Del(int32_t);
 
     epoll_event* GetEvent(int32_t);
 private:

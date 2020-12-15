@@ -190,15 +190,14 @@ int32_t tcp_socket::tcp_recv(uint8_t *_usrbuf, uint32_t _length)
 
     int ret = 0;
     if (m_in - m_out < _length) {
-        if ((ret = recv_full()) < 0) {
+        if ((ret = recv_full()) != SOCKET_EAGAIN) {
+            TRACER_DEBUG("bug bug bug fd = %d, m_in = %d, m_out = %d, _length = %d\n", m_socketfd, m_in, m_out, _length);
             return ret;
         }
-        TRACER_DEBUG("bug bug bug fd = %d, m_in = %d, m_out = %d, _length = %d\n", m_socketfd, m_in, m_out, _length);
     }
-
     // 将 while 改为 2次if, 如果还是小于则说明展时没有数据可读
     if (m_in - m_out < _length) {
-        return SOCKET_ERROR_EAGAIN;
+        return SOCKET_EAGAIN;
     }
 
     uint32_t len = MIN(_length, m_size -(m_out & (m_size - 1)));
@@ -223,16 +222,14 @@ int32_t tcp_socket::recv_by_len(uint8_t *_usrbuf, uint32_t _len)
             if (errno == EINTR) {
                 continue;
             } else if (errno == EAGAIN) {
-                // return SOCKET_ERROR_EAGAIN; // 非阻塞永远返回的都是这个
-                break;
+                // break;
+                return SOCKET_EAGAIN; 
             }
             return SOCKET_ERROR_UNKNOWN;
         } else if (cnt == 0) {
-                TRACERERRNO("tcpsocket::tcp_recv read failed. fd = %d.\n %s:%d", 
-                            m_socketfd, __POSITION__);
+                TRACERERRNO("tcpsocket::tcp_recv read failed. fd = %d.\n", m_socketfd);
                 return SOCKET_ERROR_CLOSE;
         }
-
         m_in += cnt;
         left -= cnt;
         _usrbuf += cnt;
@@ -248,6 +245,7 @@ int32_t tcp_socket::recv_full()
     uint32_t length = m_size - m_in + m_out;
     if (length == 0) {
         // should not be here
+        // 读取 0 个字节，会立刻返回 0， 代码中会判定为到达文件尾部，或socket关闭
         TRACER_ERROR("bug buff is full!!\n");
         return SOCKET_ERROR_BUFF_FULL;
     }
@@ -260,8 +258,6 @@ int32_t tcp_socket::recv_full()
     } else {
         return ret;
     }
-
-    return 0;
 }
 
 int32_t tcp_socket::tcp_send(const uint8_t *_usrbuf, uint32_t _len)
@@ -281,6 +277,10 @@ int32_t tcp_socket::tcp_send(uint32_t _fd, const uint8_t *_usrbuf, uint32_t _len
     while (nleft > 0) {
         if ((nw = write(_fd, pbuf, nleft)) <= 0) {
             if (EINTR == errno || EAGAIN == errno) {
+                continue;
+            } else if (errno == EAGAIN) {
+                //对端写缓冲区满了
+                usleep(1000);
                 continue;
             } else {
                 TRACERERRNO("tcp_socket::tcp_send failed! %s:%d\n", __FILE__, __LINE__); // 可能是客户端直接断开连接

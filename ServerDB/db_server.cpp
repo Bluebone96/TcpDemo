@@ -443,7 +443,7 @@ int8_t db_server::set_all(message* _msg)
 
     uint32_t usrid = _msg->m_head.m_usrID;
     
-    TRACER("usrid %d save allinfo\n", usrid);
+    TRACER_DEBUG("usrid %d save allinfo\n", usrid);
 
     _msg->decode_pb(player_all_info);
 

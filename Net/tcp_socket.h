@@ -7,9 +7,9 @@
 // #include "kbuffer.hpp"
 #include "message.h"
 
+#define SOCKET_EAGAIN  0 // 无数据可读，非阻塞下不是错误
 #define SOCKET_ERROR_CLOSE -1
-#define SOCKET_ERROR_EAGAIN  -2
-#define SOCKET_ERROR_BUFF_FULL -3
+#define SOCKET_ERROR_BUFF_FULL -2
 
 #define SOCKET_ERROR_UNKNOWN -10
 
@@ -43,6 +43,8 @@ public:
     
 private:
     int32_t recv_by_len(uint8_t *_usrbuf, uint32_t _len);
+
+    // 成功总是返回 SOCKET_ERROR_EAGAIN（将内核缓冲区的数据读干净），出错返回错误码
     int32_t recv_full();
     
     int32_t m_socketfd;
