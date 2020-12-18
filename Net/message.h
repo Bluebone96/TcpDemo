@@ -58,13 +58,13 @@ struct message {
 class msg_queue {
 public:
     msg_queue();
-    ~msg_queue();
+    virtual ~msg_queue();
 
     // return 成功返回实际的队列大小，出错返回-1
     int32_t init_queue(uint32_t _s);
 
     message* enqueue();
-    message* dequeue();
+    virtual message* dequeue();
     
     // for debug
     void debug_info();

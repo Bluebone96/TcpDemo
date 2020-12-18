@@ -79,7 +79,7 @@ public:
     template<typename T>
     void GetBySQL(T& t, const char* _cmd)
     {   
-        std::cout << "try get by sql cmd is " << _cmd << std::endl;
+        // std::cout << "try get by sql cmd is " << _cmd << std::endl;
         
         m_query << _cmd;
         m_query.storein(t);

@@ -33,17 +33,18 @@ static inline uint32_t roundup_pow_of_two(uint32_t _s)
 
 int32_t tcp_socket::tcp_setsockopt()
 {
-    // 如果在发送数据的时，希望不经历由系统缓冲区到socket缓冲区的拷贝而影响程序的性能：
+    // 如果在发送数据的时，希望不经历由系统缓冲区到socket缓冲区的拷贝而影响程序的性能(UDP 直接发送)：
+    // sendbuf 设置为0，fd为非阻塞，需等待发送全部成功，目前不能做到性能优化：
     // int nZero = 0;
     // if (setsockopt(m_socketfd, SOL_SOCKET, SO_SNDBUF, &nZero, sizeof(nZero)) < 0) {
     //     TRACER_ERROR("tcp_setsockopt  SO_SENDBUF falied, fd = %d\n", m_socketfd);
     // }
-    // 如果在发送数据的时，希望不经历由系统缓冲区到socket缓冲区的拷贝而影响程序的性能：
-    int nZero = 0;
-    if (setsockopt(m_socketfd, SOL_SOCKET, SO_RCVBUF, &nZero, sizeof(nZero)) < 0) {
-        TRACER_ERROR("tcp_setsockopt  SO_RCVBUF falied, fd = %d\n", m_socketfd);
-    }
-
+    // 是tcp的滑动窗口协议，还是需要的
+    // int nZero = 0;
+    // if (setsockopt(m_socketfd, SOL_SOCKET, SO_RCVBUF, &nZero, sizeof(nZero)) < 0) {
+    //     TRACER_ERROR("tcp_setsockopt  SO_RCVBUF falied, fd = %d\n", m_socketfd);
+    // }
+    // 内核缓冲区一有数据就发送。
     int flag = 1;
     if (setsockopt(m_socketfd, IPPROTO_TCP, TCP_NODELAY, &flag, sizeof(flag)) < 0) {
         TRACER_ERROR("tcp_setsockopt TCP_NODELAY falied. fd = %d\n", m_socketfd);
@@ -189,7 +190,8 @@ int32_t tcp_socket::tcp_accept(int32_t _listenfd)
     int32_t acceptfd = accept(_listenfd, (struct sockaddr*)&m_sockaddr, &len);
     
     if (acceptfd <= 0) {
-        TRACERERRNO("accept client failed.");
+        // 由于改为非阻塞，并且epoll ET 模式， 会多次accept, 错误日志改为debug等级
+        TRACER_DEBUG("accept client failed.");
         return -1;
     }
 
@@ -206,22 +208,24 @@ int32_t tcp_socket::tcp_accept(int32_t _listenfd)
 
 int32_t tcp_socket::tcp_recv(uint8_t *_usrbuf, uint32_t _length)
 {
-
-    // if (_length > 1024) {
-    //     TRACER_ERROR("fd = %d, bug bug bug m_in = %d, m_out = %d, _length = %d\n", m_socketfd, m_in, m_out, _length);
-    //     sleep(50);
-    // }
-
     int ret = 0;
-    if (m_in - m_out < _length) {
-        if ((ret = recv_full()) != SOCKET_EAGAIN) {
-            TRACER_DEBUG("bug bug bug fd = %d, m_in = %d, m_out = %d, _length = %d\n", m_socketfd, m_in, m_out, _length);
-            return ret;
+    if (uint32_t(m_in - m_out) < _length) {
+        ret = recv_full();
+        switch (ret) {
+            case SOCKET_EAGAIN:
+                // 正常接收完内核全部的数据
+                break;
+            case SOCKET_ERROR_BUFF_FULL:
+                // 缓冲区满了
+                break;
+            default:
+                TRACER_ERROR("bug bug bug fd = %d, m_in = %d, m_out = %d, _length = %d\n", m_socketfd, m_in, m_out, _length);
+                return ret;
         }
     }
     // 将 while 改为 2次if, 如果还是小于则说明展时没有数据可读
     if (m_in - m_out < _length) {
-        TRACER_DEBUG("m_in = %d, m_out = %d, len = %d", m_in, m_out, _length);
+        TRACER_DEBUG("m_in = %d, m_out = %d, len = %d\n", m_in, m_out, _length);
         return SOCKET_EAGAIN;
     }
 
@@ -269,9 +273,9 @@ int32_t tcp_socket::recv_full()
 {
     uint32_t length = m_size - m_in + m_out;
     if (length == 0) {
-        // should not be here
+        // should not be here。 该函数总是在缓冲区数据不够时才会调用，不应该缓冲区满
         // 读取 0 个字节，会立刻返回 0， 代码中会判定为到达文件尾部，或socket关闭
-        TRACER_ERROR("bug buff is full!!\n");
+        TRACER_ERROR("DEBUG buff is full!! m_in = %d, m_out = %d\n", m_in, m_out);
         return SOCKET_ERROR_BUFF_FULL;
     }
     uint32_t left = MIN(length, m_size - (m_in & (m_size - 1)));
@@ -304,8 +308,8 @@ int32_t tcp_socket::tcp_send(uint32_t _fd, const uint8_t *_usrbuf, uint32_t _len
             if (EINTR == errno || EAGAIN == errno) {
                 continue;
             } else if (errno == EAGAIN) {
-                //对端写缓冲区满了
-                usleep(15 * 1000);
+                //设置了O_NODELAY
+                usleep(20 * 1000);
                 continue;
             } else {
                 TRACERERRNO("tcp_socket::tcp_send failed! %s:%d\n", __FILE__, __LINE__); // 可能是客户端直接断开连接

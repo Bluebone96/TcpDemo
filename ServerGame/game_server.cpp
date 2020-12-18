@@ -93,8 +93,7 @@ int8_t game_server::usr_exit(message *_msg)
 
         while ((msg = g_send_queue.enqueue()) == nullptr)
         {
-            // 队列满了, 因为 dequeue 后 需要占有内存进行计算，有一定数据失效时间， 所以 enqueue 始终快于 dequeue
-            TRACER_ERROR("sleep 50ms, g_recv_queue is full, usrid is %d\n", usrid);
+            TRACER_ERROR("sleep 50ms, g_send_queue is full, usrid is %d\n", usrid);
             g_send_queue.debug_info();
             usleep(50 * 1000);
         }
@@ -115,8 +114,7 @@ int8_t game_server::usr_exit(message *_msg)
         // 通知客户端，有玩家下线
         while ((msg = g_send_queue.enqueue()) == nullptr)
         {
-            // 队列满了, 因为 dequeue 后 需要占有内存进行计算，有一定数据失效时间， 所以 enqueue 始终快于 dequeue
-            TRACER_ERROR("sleep 50ms, g_recv_queue is full, usrid is %d\n", usrid);
+            TRACER_ERROR("sleep 50ms, g_send_queue is full, usrid is %d\n", usrid);
             g_send_queue.debug_info();
             usleep(50 * 1000);
         }
@@ -176,8 +174,7 @@ int8_t game_server::usr_sync(uint32_t _usrid, uint32_t _fd)
 
     while ((msg = g_send_queue.enqueue()) == nullptr)
     {
-        // 队列满了, 因为 dequeue 后 需要占有内存进行计算，有一定数据失效时间， 所以 enqueue 始终快于 dequeue
-        TRACER_ERROR("sleep 50ms, g_recv_queue is full, usrid is %d\n", _usrid);
+        TRACER_ERROR("sleep 50ms, g_send_queue is full, usrid is %d\n", _usrid);
         g_send_queue.debug_info();
         usleep(50 * 1000);
     }

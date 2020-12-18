@@ -21,8 +21,8 @@ public:
     int32_t product_msg();
     int32_t consume_msg();
     
-    static int32_t recvmsg(std::shared_ptr<tcp_socket>&, message&);
-    static int32_t sendmsg(std::shared_ptr<tcp_socket>&, message&);
+    static int32_t recvmsg(std::shared_ptr<tcp_socket>&, message*);
+    static int32_t sendmsg(std::shared_ptr<tcp_socket>&, message*);
 
     int32_t net_listen(const char* _ip, uint32_t _port);
     int32_t net_connect(const char* _ip, uint32_t _port);

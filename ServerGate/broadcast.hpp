@@ -14,8 +14,8 @@
 #include "../Common/log.h"
 
 
-#define MAX_THREAD_COUNT 0x10
-#define PER_THREAD_NUM 0x10
+#define MAX_THREAD_COUNT 0x20
+#define PER_THREAD_NUM 0xA
 
 struct Task {
     bool isvalied;
@@ -31,18 +31,6 @@ struct Task {
         TRACER_DEBUG("task ctor! isvalied = %d, data = %p\n", isvalied, (void*)data);
     }
 };
-
-
-
-
-
-// class my_thread {
-
-// private:
-//     std::thread m_t;
-// };
-
-
 
 
 class Broadcast {
@@ -195,9 +183,9 @@ bool Broadcast::runtask(uint8_t* _data, uint32_t _len)
             usleep(20 * 1000);
         }
         
-        if (!(count & 0xff)) {
-            TRACER("clients = %d, tc == %d multi-thread end, call num = %d\n", size, tc, count);
-        }
+        // if (!(count & 0xf)) {
+        //     TRACER("clients = %d, tc == %d multi-thread end, call num = %d\n", size, tc, count);
+        // }
     }
 
     ++count;

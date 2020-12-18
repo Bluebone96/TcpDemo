@@ -184,8 +184,7 @@ int Inventory::saveItem(BaseItem* _item)
     
     while ((msg = g_send_queue.enqueue()) == nullptr)
     {
-        // 队列满了, 因为 dequeue 后 需要占有内存进行计算，有一定数据失效时间， 所以 enqueue 始终快于 dequeue
-        TRACER_ERROR("sleep 50ms, g_recv_queue is full, usrid is %d\n", m_playerId);
+        TRACER_ERROR("sleep 50ms, g_send_queue is full, usrid is %d\n", m_playerId);
         g_send_queue.debug_info();
         usleep(50 * 1000);
     }

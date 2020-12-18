@@ -128,7 +128,7 @@ int8_t db_server::get_player_allitems_from_sql(uint32_t _usrid)
 
     m_sql.GetBySQL(vitems, cmd);
     if (vitems.size() == 0) {
-        TRACER_ERROR("no items info for player id =  %d", _usrid);
+        TRACER_ERROR("no items info for player id =  %d\n", _usrid);
         // return -1; 不返回错误， insert 一个空的map
     }
 
@@ -215,8 +215,8 @@ int8_t db_server::get_item(message *_msg)
 
     while ((msg = g_send_queue.enqueue()) == nullptr)
     {
-        // 队列满了, 因为 dequeue 后 需要占有内存进行计算，有一定数据失效时间， 所以 enqueue 始终快于 dequeue
-        TRACER_ERROR("sleep 50ms, g_recv_queue is full, usrid is %d\n", usrid);
+        // 队列满了, 因为 net 发给网关时，网关处理比较慢内核recv缓冲区爆掉了，send时会sleep
+        TRACER_ERROR("sleep 50ms, g_send_queue is full, usrid is %d\n", usrid);
         g_send_queue.debug_info();
         usleep(50 * 1000);
     }
@@ -313,8 +313,7 @@ int8_t db_server::get_player(message *_msg)
 
     while ((msg = g_send_queue.enqueue()) == nullptr)
     {
-        // 队列满了, 因为 dequeue 后 需要占有内存进行计算，有一定数据失效时间， 所以 enqueue 始终快于 dequeue
-        TRACER_ERROR("sleep 50ms, g_recv_queue is full, usrid is %d\n", usrid);
+        TRACER_ERROR("sleep 50ms, g_send_queue is full, usrid is %d\n", usrid);
         g_send_queue.debug_info();
         usleep(50 * 1000);
     }
@@ -417,8 +416,7 @@ int8_t db_server::get_all(message *_msg)
 
     while ((msg = g_send_queue.enqueue()) == nullptr)
     {
-        // 队列满了, 因为 dequeue 后 需要占有内存进行计算，有一定数据失效时间， 所以 enqueue 始终快于 dequeue
-        TRACER_ERROR("sleep 50ms, g_recv_queue is full, usrid is %d\n", usrid);
+        TRACER_ERROR("sleep 50ms, g_send_queue is full, usrid is %d\n", usrid);
         g_send_queue.debug_info();
         usleep(50 * 1000);
     }

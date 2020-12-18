@@ -31,7 +31,7 @@ public:
 
     int32_t tcp_accept(int32_t _listenfd);
 
-
+    // 返回只有2种情况，1 错误码， 2 等于_len， 缓冲区内大小小于 _len时返回 SOCKET_EAGAIN，大于等于时才拷贝内存
     int32_t tcp_recv(uint8_t *_usrbuf, uint32_t _len);
 
     int32_t tcp_send(const uint8_t *_usrbuf, uint32_t _len);

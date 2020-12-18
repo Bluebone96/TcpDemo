@@ -58,7 +58,7 @@ int8_t gate_server::run_client()
             case ITEMEVENT:
                 // item operation
                 if (tcp_socket::tcp_send(g_connet_server[GAME_SERVER], msg->m_data, msg->m_head.m_len + MSG_HEAD_SIZE) < 0) {
-                    TRACER_ERROR("send msg to game_server %d fd %d failed\n", g_connet_server[GAME_SERVER], msg->m_head.m_usrID);
+                    TRACER_ERROR("send msg to game_server fd =%d, usrid = %d failed\n", g_connet_server[GAME_SERVER], msg->m_head.m_usrID);
                 }
                 break;
             default:
@@ -73,7 +73,7 @@ int8_t gate_server::run_client()
 
 int8_t gate_server::run_server()
 {
-
+    // int num = 0;
     message *msg = nullptr;
     for (;;) {
         msg = g_server_queue.dequeue();
@@ -83,8 +83,12 @@ int8_t gate_server::run_server()
             // g_server_queue.debug_info();
             continue;
         }
+        // if (!(num & 0xf)) {
+        //     TRACER("gate_server::run_server, num = %d msgtype = %d\n", num, msg->m_head.m_type);
+        // }
         TRACER_DEBUG("gate_server::run_server ---- check the g_server_queue\n");
         g_server_queue.debug_info();
+
         switch (msg->m_head.m_type) {
             case SERVER_INFO:
                 {
@@ -121,7 +125,7 @@ int8_t gate_server::run_server()
                 TRACER_ERROR("msgtype not define yet, type：%d\n", msg->m_head.m_type);
                 break;
         }
-
+        // ++num;
         msg->m_flag = msg_flags::INACTIVE;
     }
 }
@@ -144,7 +148,7 @@ void gate_server::clear_up()
 {
      // todo 优化
     if (m_errorfd.size() > 0) {
-        TRACER("start erase %d bad file descriptor\n", m_errorfd.size());
+        TRACER_ERROR("start erase %d bad file descriptor\n", m_errorfd.size());
         for (int i = 0, j = m_errorfd.size(); i < j; ++i) {
             m_usrfd.erase(m_errorfd[i].usrid);
         }
@@ -180,7 +184,7 @@ void gate_server::clear_up()
         // }
 
         m_errorfd.clear();
-        TRACER("end erase bad file descriptor\n");
+        TRACER_ERROR("end erase bad file descriptor\n");
     }
 }
 
